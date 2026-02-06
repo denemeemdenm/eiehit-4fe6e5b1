@@ -1,0 +1,156 @@
+import { Link } from 'react-router-dom';
+import { motion } from 'framer-motion';
+import { ArrowRight, Shield, Eye, Lock, Cpu } from 'lucide-react';
+import GlassCard from '@/components/GlassCard';
+import ScrollReveal from '@/components/ScrollReveal';
+import { practiceAreas } from '@/lib/practiceAreas';
+import logo from '@/assets/logo.png';
+
+const trustSignals = [
+  { icon: Shield, title: 'Güvenilir Süreç', desc: 'Her adımda şeffaf ve ölçülebilir hukuki süreç yönetimi.' },
+  { icon: Eye, title: 'Netlik ve Açıklık', desc: 'Karmaşık hukuki meselelerin sade ve anlaşılır aktarımı.' },
+  { icon: Lock, title: 'Gizlilik', desc: 'Müvekkil bilgilerinin korunması en temel önceliğimizdir.' },
+  { icon: Cpu, title: 'Teknoloji Okuryazarlığı', desc: 'Dijital çağın hukuki gereksinimlerine hakimiyet.' },
+];
+
+const featuredAreas = practiceAreas.slice(0, 6);
+
+export default function Home() {
+  return (
+    <main className="relative z-10">
+      {/* Hero */}
+      <section className="min-h-screen flex items-center justify-center content-padding pt-24">
+        <div className="max-w-4xl mx-auto text-center space-y-8">
+          <motion.div
+            initial={{ opacity: 0, scale: 0.8 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 1, ease: [0.25, 0.46, 0.45, 0.94] }}
+          >
+            <img src={logo} alt="HiT Logo" className="w-24 h-24 mx-auto mb-8 drop-shadow-lg" />
+          </motion.div>
+
+          <motion.h1
+            className="text-5xl sm:text-7xl lg:text-8xl font-bold tracking-tight gradient-text-gray leading-[1.1]"
+            initial={{ opacity: 0, y: 40 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 1, delay: 0.2, ease: [0.25, 0.46, 0.45, 0.94] }}
+          >
+            Hukuk × İnovasyon × Teknoloji
+          </motion.h1>
+
+          <motion.p
+            className="text-lg sm:text-xl text-muted-foreground max-w-2xl mx-auto leading-relaxed"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.5 }}
+          >
+            Değişen dünyanın hukuki gereksinimlerine, bilgi birikimi ve teknoloji okuryazarlığıyla yanıt veren profesyonel danışmanlık.
+          </motion.p>
+
+          <motion.div
+            className="flex flex-col sm:flex-row items-center justify-center gap-4"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.7 }}
+          >
+            <Link
+              to="/iletisim"
+              className="glass-panel px-8 py-3.5 font-semibold text-sm inline-flex items-center gap-2 hover:scale-105 active:scale-95 transition-transform duration-300 bg-primary/10"
+            >
+              İletişim <ArrowRight size={16} />
+            </Link>
+            <Link
+              to="/calisma-alanlari"
+              className="glass-panel px-8 py-3.5 font-semibold text-sm inline-flex items-center gap-2 hover:scale-105 active:scale-95 transition-transform duration-300"
+            >
+              Çalışma Alanları
+            </Link>
+          </motion.div>
+        </div>
+      </section>
+
+      {/* Trust Signals */}
+      <section className="section-spacing content-padding">
+        <div className="max-w-6xl mx-auto">
+          <ScrollReveal>
+            <h2 className="text-3xl sm:text-4xl font-bold text-center mb-16 gradient-text-gray">
+              Profesyonel Yaklaşım
+            </h2>
+          </ScrollReveal>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+            {trustSignals.map((item, i) => (
+              <ScrollReveal key={item.title} delay={i * 0.1}>
+                <GlassCard className="p-8 h-full">
+                  <item.icon className="w-8 h-8 text-primary mb-4" />
+                  <h3 className="font-semibold text-base mb-2">{item.title}</h3>
+                  <p className="text-sm text-muted-foreground leading-relaxed">{item.desc}</p>
+                </GlassCard>
+              </ScrollReveal>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Featured Practice Areas */}
+      <section className="section-spacing content-padding">
+        <div className="max-w-6xl mx-auto">
+          <ScrollReveal>
+            <h2 className="text-3xl sm:text-4xl font-bold text-center mb-4 gradient-text-gray">
+              Çalışma Alanları
+            </h2>
+            <p className="text-center text-muted-foreground mb-16 max-w-xl mx-auto">
+              25 farklı hukuk dalında profesyonel danışmanlık hizmeti sunulmaktadır.
+            </p>
+          </ScrollReveal>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+            {featuredAreas.map((area, i) => (
+              <ScrollReveal key={area.id} delay={i * 0.08}>
+                <Link to={`/calisma-alanlari#${area.id}`}>
+                  <GlassCard className="p-8 h-full">
+                    <area.icon className="w-7 h-7 text-primary mb-4" />
+                    <h3 className="font-semibold text-base mb-2">{area.title}</h3>
+                    <p className="text-sm text-muted-foreground leading-relaxed">{area.description}</p>
+                  </GlassCard>
+                </Link>
+              </ScrollReveal>
+            ))}
+          </div>
+          <ScrollReveal delay={0.3}>
+            <div className="text-center mt-12">
+              <Link
+                to="/calisma-alanlari"
+                className="glass-panel inline-flex items-center gap-2 px-8 py-3 text-sm font-semibold hover:scale-105 active:scale-95 transition-transform duration-300"
+              >
+                Tüm Alanları Görüntüle <ArrowRight size={16} />
+              </Link>
+            </div>
+          </ScrollReveal>
+        </div>
+      </section>
+
+      {/* HiT Signature */}
+      <section className="section-spacing content-padding">
+        <div className="max-w-4xl mx-auto">
+          <ScrollReveal>
+            <GlassCard className="p-12 sm:p-16 text-center">
+              <div className="flex items-center justify-center gap-3 mb-6">
+                <span className="text-2xl font-black gradient-text-cyan">H</span>
+                <span className="text-2xl font-black text-muted-foreground">×</span>
+                <span className="text-2xl font-black gradient-text-red">i</span>
+                <span className="text-2xl font-black text-muted-foreground">×</span>
+                <span className="text-2xl font-black" style={{ color: 'hsl(var(--accent))' }}>T</span>
+              </div>
+              <h2 className="text-2xl sm:text-3xl font-bold mb-4 gradient-text-gray">
+                Hukuk, İnovasyon ve Teknolojiyi Birleştiren Vizyon
+              </h2>
+              <p className="text-muted-foreground leading-relaxed max-w-2xl mx-auto">
+                Geleneksel hukuk anlayışını dijital çağın gereksinimleriyle harmanlayan, 
+                yenilikçi ve teknoloji odaklı bir yaklaşımla hukuki çözümler üretilmektedir.
+              </p>
+            </GlassCard>
+          </ScrollReveal>
+        </div>
+      </section>
+    </main>
+  );
+}
