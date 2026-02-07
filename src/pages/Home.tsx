@@ -5,7 +5,6 @@ import { ArrowRight, Shield, Eye, Lock, Cpu } from 'lucide-react';
 import GlassCard from '@/components/GlassCard';
 import ImageCard from '@/components/ImageCard';
 import ScrollReveal from '@/components/ScrollReveal';
-import StaggerText from '@/components/StaggerText';
 import { practiceAreas } from '@/lib/practiceAreas';
 import logo from '@/assets/logo.png';
 import nameWhite from '@/assets/name-white.png';
@@ -24,6 +23,8 @@ import areaCorporate from '@/assets/cards/area-corporate.jpg';
 import areaTrade from '@/assets/cards/area-trade.jpg';
 import areaEmployment from '@/assets/cards/area-employment.jpg';
 import areaEnforcement from '@/assets/cards/area-enforcement.jpg';
+
+// Data
 const trustSignals = [{
   icon: Shield,
   title: 'Güvenilir Süreç',
@@ -54,6 +55,7 @@ const areaImages: Record<string, string> = {
   'icra-iflas': areaEnforcement
 };
 const featuredAreas = practiceAreas.slice(0, 6);
+
 export default function Home() {
   const [isDark, setIsDark] = useState(document.documentElement.classList.contains('dark'));
   useEffect(() => {
@@ -120,11 +122,15 @@ export default function Home() {
             <img src={isDark ? nameWhite : nameBlack} alt="Ekin İsa EROĞLU" className="h-10 sm:h-14 md:h-16 w-auto object-contain" />
           </motion.div>
 
-          <h1 className="text-3xl sm:text-5xl lg:text-6xl font-bold tracking-tight gradient-text-brand leading-[1.1]">
-            <StaggerText text="Hukuk × İnovasyon × Teknoloji" delay={0.6} stagger={0.025} charDuration={0.6} />
+          <h1 className="text-3xl sm:text-5xl lg:text-6xl font-bold tracking-tight leading-[1.1]">
+            <span className="gradient-text-cyan-word">Hukuk</span>
+            <span className="text-foreground/40 dark:text-gray-400"> × </span>
+            <span className="gradient-text-orange-word">İnovasyon</span>
+            <span className="text-foreground/40 dark:text-gray-400"> × </span>
+            <span className="gradient-text-yellow-word">Teknoloji</span>
           </h1>
 
-          <motion.p className="text-lg sm:text-xl md:text-2xl max-w-2xl mx-auto leading-relaxed gradient-text-brand" style={{
+          <motion.p className="text-lg sm:text-xl md:text-2xl max-w-2xl mx-auto leading-relaxed gradient-text-gold" style={{
           fontFamily: "'Georgia', 'Times New Roman', serif"
         }} initial={{
           opacity: 0,
@@ -227,8 +233,13 @@ export default function Home() {
         <div className="max-w-4xl mx-auto">
           <ScrollReveal>
             <GlassCard className="p-12 sm:p-16 text-center">
-              
-              <h2 className="text-2xl sm:text-3xl font-bold mb-4 gradient-text-gray">HUKUK x İNOVASYON x  TEKNOLOJİ</h2>
+              <h2 className="text-2xl sm:text-3xl font-bold mb-4">
+                <span className="gradient-text-cyan-word">HUKUK</span>
+                <span className="text-foreground/40 dark:text-gray-400"> × </span>
+                <span className="gradient-text-orange-word">İNOVASYON</span>
+                <span className="text-foreground/40 dark:text-gray-400"> × </span>
+                <span className="gradient-text-yellow-word">TEKNOLOJİ</span>
+              </h2>
               <p className="text-muted-foreground leading-relaxed max-w-2xl mx-auto">
                 Geleneksel hukuk anlayışını dijital çağın gereksinimleriyle harmanlayan, 
                 yenilikçi ve teknoloji odaklı bir yaklaşımla hukuki çözümler üretilmektedir.
