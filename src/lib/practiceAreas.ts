@@ -11,7 +11,7 @@ export interface PracticeArea {
 export const practiceAreas: PracticeArea[] = [
   { id: 'aile-hukuku', title: 'Aile Hukuku', icon: Users, description: 'Boşanma, velayet, nafaka ve aile içi hukuki uyuşmazlıklar.', category: 'Temel' },
   { id: 'borclar-hukuku', title: 'Borçlar Hukuku', icon: HandshakeIcon, description: 'Borç ilişkileri, sözleşmeler, haksız fiiller ve sebepsiz zenginleşme davaları.', category: 'Temel' },
-  { id: 'birlesme-devralma', title: 'Birleşmeler ve Devralmalar, Şirketler Hukuku', icon: Briefcase, description: 'Şirket birleşmeleri, devralmaları ve kurumsal yeniden yapılanma süreçleri.', category: 'Şirket' },
+  { id: 'bilisim-hukuku', title: 'Bilişim Hukuku', icon: Cpu, description: 'Siber suçlar, dijital sözleşmeler, e-ticaret hukuku ve internet düzenlemeleri.', category: 'Teknoloji' },
   { id: 'ticaret-hukuku', title: 'Ticaret Hukuku', icon: Building2, description: 'Ticari sözleşmeler, ticari işletme ve ticari uyuşmazlıkların çözümü.', category: 'Temel' },
   { id: 'is-hukuku', title: 'İş Hukuku', icon: Users, description: 'İşçi-işveren ilişkileri, iş sözleşmeleri ve işçi hakları.', category: 'Temel' },
   { id: 'icra-iflas', title: 'İcra ve İflas Hukuku', icon: Landmark, description: 'Alacak takibi, icra işlemleri ve iflas süreçlerinin yönetimi.', category: 'Temel' },
