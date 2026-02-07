@@ -26,8 +26,7 @@ export default function Navbar({ theme, toggleTheme }: NavbarProps) {
     <header className="fixed top-4 left-1/2 -translate-x-1/2 z-50 w-[calc(100%-2rem)] max-w-4xl">
       <nav className="glass-nav rounded-2xl px-4 py-2.5 flex items-center justify-between">
         {/* Logo + Name */}
-        <Link to="/" className="flex items-center gap-2.5 shrink-0">
-          <img src={logo} alt="Logo" className="w-8 h-auto object-contain" />
+        <Link to="/" className="shrink-0">
         </Link>
 
 
