@@ -22,9 +22,6 @@ export default function Footer() {
                 </p>
               </div>
             </div>
-            <p className="text-sm gradient-text-gold" style={{ fontFamily: "'Georgia', 'Times New Roman', serif" }}>
-              "Ay-Yıldız'ın Işığında; Atatürk'ün Yolunda…"
-            </p>
           </div>
 
           {/* Links */}
