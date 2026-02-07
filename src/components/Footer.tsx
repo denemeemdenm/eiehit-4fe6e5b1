@@ -13,21 +13,10 @@ export default function Footer() {
               <img src={logo} alt="Logo" className="w-10 h-auto object-contain" />
               <div>
                 <p className="font-bold text-sm">Av. Ekin İsa EROĞLU</p>
-                <p className="text-xs" style={{
-                  background: 'linear-gradient(135deg, #c9a227 0%, #f4d03f 40%, #d4a017 70%, #c9a227 100%)',
-                  WebkitBackgroundClip: 'text',
-                  WebkitTextFillColor: 'transparent',
-                  backgroundClip: 'text'
-                }}>Hukuk × İnovasyon × Teknoloji</p>
+                <p className="text-xs gradient-text-brand">Hukuk × İnovasyon × Teknoloji</p>
               </div>
             </div>
-            <p className="text-sm text-muted-foreground" style={{
-              fontFamily: "'Georgia', 'Times New Roman', serif",
-              background: 'linear-gradient(135deg, #c9a227 0%, #f4d03f 40%, #d4a017 70%, #c9a227 100%)',
-              WebkitBackgroundClip: 'text',
-              WebkitTextFillColor: 'transparent',
-              backgroundClip: 'text'
-            }}>
+            <p className="text-sm gradient-text-brand" style={{ fontFamily: "'Georgia', 'Times New Roman', serif" }}>
               "Ay-Yıldız'ın Işığında; Atatürk'ün Yolunda…"
             </p>
           </div>

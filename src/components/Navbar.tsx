@@ -37,27 +37,40 @@ export default function Navbar({ theme, toggleTheme }: NavbarProps) {
 
         {/* Desktop Nav */}
         <div className="hidden md:flex items-center gap-1">
-          {navItems.map(item => (
-            <Link
-              key={item.path}
-              to={item.path}
-              className={`relative px-3 py-1.5 text-sm font-medium rounded-lg transition-colors duration-300 ${
-                location.pathname === item.path
-                  ? 'text-primary'
-                  : 'text-muted-foreground hover:text-foreground'
-              }`}
-            >
-              {location.pathname === item.path && (
-                <motion.div
-                  layoutId="nav-indicator"
-                  className="absolute inset-0 rounded-lg"
-                  style={{ background: 'hsla(var(--glass-bg))' }}
-                  transition={{ type: 'spring', stiffness: 300, damping: 30 }}
-                />
-              )}
-              <span className="relative z-10">{item.label}</span>
-            </Link>
-          ))}
+          {navItems.map(item => {
+            const isActive = location.pathname === item.path;
+            return (
+              <Link
+                key={item.path}
+                to={item.path}
+                className={`relative px-3 py-1.5 text-sm font-medium rounded-lg transition-all duration-300 group ${
+                  isActive
+                    ? 'text-primary'
+                    : 'text-muted-foreground hover:text-foreground'
+                }`}
+              >
+                {isActive && (
+                  <motion.div
+                    layoutId="nav-indicator"
+                    className="absolute inset-0 rounded-lg border border-primary/20"
+                    style={{ background: 'hsl(var(--primary) / 0.08)' }}
+                    transition={{ type: 'spring', stiffness: 380, damping: 28 }}
+                  />
+                )}
+                <motion.span
+                  className="relative z-10 inline-block"
+                  whileHover={{ scale: 1.06 }}
+                  whileTap={{ scale: 0.94 }}
+                  transition={{ type: 'spring', stiffness: 400, damping: 20 }}
+                >
+                  {item.label}
+                </motion.span>
+                {!isActive && (
+                  <span className="absolute bottom-0 left-1/2 -translate-x-1/2 w-0 h-[2px] rounded-full bg-primary/60 transition-all duration-300 group-hover:w-3/4" />
+                )}
+              </Link>
+            );
+          })}
         </div>
 
         {/* Theme toggle + mobile menu */}
@@ -76,7 +89,7 @@ export default function Navbar({ theme, toggleTheme }: NavbarProps) {
                   exit={{ y: 20, opacity: 0, rotate: 90 }}
                   transition={{ duration: 0.3, ease: [0.25, 0.46, 0.45, 0.94] }}
                 >
-                  <Moon size={16} className="text-indigo-400" />
+                  <Moon size={16} className="text-muted-foreground" />
                 </motion.div>
               ) : (
                 <motion.div
@@ -86,7 +99,7 @@ export default function Navbar({ theme, toggleTheme }: NavbarProps) {
                   exit={{ y: 20, opacity: 0, rotate: 90 }}
                   transition={{ duration: 0.3, ease: [0.25, 0.46, 0.45, 0.94] }}
                 >
-                  <Sun size={16} className="text-amber-400" />
+                  <Sun size={16} className="text-accent" />
                 </motion.div>
               )}
             </AnimatePresence>
@@ -111,19 +124,25 @@ export default function Navbar({ theme, toggleTheme }: NavbarProps) {
             exit={{ opacity: 0, y: -10 }}
             className="glass-nav rounded-2xl mt-2 p-4 md:hidden"
           >
-            {navItems.map(item => (
-              <Link
+            {navItems.map((item, i) => (
+              <motion.div
                 key={item.path}
-                to={item.path}
-                onClick={() => setMobileOpen(false)}
-                className={`block px-4 py-3 rounded-xl text-sm font-medium transition-colors ${
-                  location.pathname === item.path
-                    ? 'text-primary bg-primary/10'
-                    : 'text-muted-foreground hover:text-foreground'
-                }`}
+                initial={{ opacity: 0, x: -16 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ delay: i * 0.06, duration: 0.3 }}
               >
-                {item.label}
-              </Link>
+                <Link
+                  to={item.path}
+                  onClick={() => setMobileOpen(false)}
+                  className={`block px-4 py-3 rounded-xl text-sm font-medium transition-all duration-300 ${
+                    location.pathname === item.path
+                      ? 'text-primary bg-primary/10'
+                      : 'text-muted-foreground hover:text-foreground hover:bg-primary/5'
+                  }`}
+                >
+                  {item.label}
+                </Link>
+              </motion.div>
             ))}
           </motion.div>
         )}
