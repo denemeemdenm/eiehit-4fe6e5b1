@@ -33,7 +33,7 @@
     --border: 0 0% 85%;
     --input: 0 0% 85%;
     --ring: 192 100% 50%;
-    --radius: 20px;
+    --radius: 16px;
 
     /* Glass tokens */
     --glass-bg: 0 0% 100% / 0.65;
@@ -146,6 +146,18 @@
     -webkit-backdrop-filter: blur(var(--glass-blur)) saturate(var(--glass-saturation));
     border: 1px solid hsla(var(--glass-border));
     border-radius: var(--radius);
+  }
+
+  .glass-card {
+    background: hsla(var(--glass-bg));
+    backdrop-filter: blur(var(--glass-blur)) saturate(var(--glass-saturation));
+    -webkit-backdrop-filter: blur(var(--glass-blur)) saturate(var(--glass-saturation));
+    border: 1px solid hsla(0 0% 100% / 0.12);
+    border-radius: var(--radius);
+  }
+
+  .dark .glass-card {
+    border-color: hsla(0 0% 100% / 0.08);
   }
 
   .glass-nav {

@@ -1,5 +1,5 @@
 import { useRef, useState, useCallback } from 'react';
-import { motion, useMotionValue, useSpring } from 'framer-motion';
+import { motion, useSpring, useMotionValue } from 'framer-motion';
 
 interface GlassCardProps {
   children: React.ReactNode;
@@ -33,7 +33,6 @@ export default function GlassCard({ children, className = '', onClick, tiltInten
       rotateX.set(-(percentY - 0.5) * tiltIntensity * 2);
       scale.set(1.04);
       setSpecularPos({ x: percentX * 100, y: percentY * 100 });
-      // Animate border gradient angle based on mouse position
       borderAngle.set(Math.atan2(percentY - 0.5, percentX - 0.5) * (180 / Math.PI) + 180);
     });
   }, [tiltIntensity, rotateX, rotateY, scale, borderAngle]);
@@ -52,7 +51,7 @@ export default function GlassCard({ children, className = '', onClick, tiltInten
   return (
     <motion.div
       ref={cardRef}
-      className={`glass-card-wrapper relative overflow-hidden cursor-pointer group ${className}`}
+      className={`glass-card relative overflow-hidden cursor-pointer group ${className}`}
       style={{
         rotateX,
         rotateY,
@@ -61,10 +60,6 @@ export default function GlassCard({ children, className = '', onClick, tiltInten
         transformStyle: 'preserve-3d',
         boxShadow: isHovered ? 'var(--shadow-hover)' : 'var(--shadow-rest)',
         willChange: 'transform',
-        borderRadius: 'var(--radius)',
-        background: 'hsla(var(--glass-bg))',
-        backdropFilter: 'blur(var(--glass-blur)) saturate(var(--glass-saturation))',
-        WebkitBackdropFilter: 'blur(var(--glass-blur)) saturate(var(--glass-saturation))',
       }}
       onMouseMove={handleMouseMove}
       onMouseLeave={handleMouseLeave}
@@ -72,45 +67,25 @@ export default function GlassCard({ children, className = '', onClick, tiltInten
       onClick={onClick}
       whileTap={{ scale: 0.96, transition: { type: 'spring', stiffness: 400, damping: 15 } }}
     >
-      {/* Animated border gradient — white/grey light only */}
-      <motion.div
-        className="absolute inset-0 pointer-events-none z-20 rounded-[var(--radius)]"
-        style={{
-          opacity: isHovered ? 1 : 0,
-          transition: 'opacity 0.4s ease',
-          background: `conic-gradient(from ${isHovered ? borderAngle.get() : 135}deg, rgba(255,255,255,0.45) 0%, transparent 15%, transparent 35%, rgba(255,255,255,0.2) 50%, transparent 65%, transparent 85%, rgba(255,255,255,0.45) 100%)`,
-          mask: 'linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0)',
-          maskComposite: 'exclude',
-          WebkitMaskComposite: 'xor',
-          padding: '1px',
-          borderRadius: 'inherit',
-        }}
-      />
+      {/* Animated border gradient on hover */}
+      {isHovered && (
+        <div
+          className="absolute inset-0 pointer-events-none z-20 rounded-[inherit]"
+          style={{
+            background: `conic-gradient(from ${borderAngle.get()}deg, rgba(255,255,255,0.5) 0%, transparent 15%, transparent 35%, rgba(255,255,255,0.25) 50%, transparent 65%, transparent 85%, rgba(255,255,255,0.5) 100%)`,
+            mask: 'linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0)',
+            maskComposite: 'exclude',
+            WebkitMaskComposite: 'xor',
+            padding: '1px',
+          }}
+        />
+      )}
 
-      {/* Specular highlight — stronger sweep */}
+      {/* Specular highlight */}
       <div
         className="absolute inset-0 pointer-events-none z-10 opacity-0 group-hover:opacity-100 transition-opacity duration-300"
         style={{
-          background: `radial-gradient(ellipse 250px 180px at ${specularPos.x}% ${specularPos.y}%, rgba(255,255,255,0.4), transparent 70%)`,
-        }}
-      />
-
-      {/* Secondary diffuse glow */}
-      <div
-        className="absolute inset-0 pointer-events-none z-10 opacity-0 group-hover:opacity-100 transition-opacity duration-500"
-        style={{
-          background: `radial-gradient(circle 400px at ${specularPos.x}% ${specularPos.y}%, rgba(255,255,255,0.08), transparent 80%)`,
-        }}
-      />
-
-      {/* Static rim highlight */}
-      <div
-        className="absolute inset-0 pointer-events-none z-10 rounded-[var(--radius)]"
-        style={{
-          opacity: isHovered ? 0 : 1,
-          transition: 'opacity 0.4s ease',
-          border: '1px solid hsla(var(--glass-border))',
-          borderRadius: 'inherit',
+          background: `radial-gradient(ellipse 250px 180px at ${specularPos.x}% ${specularPos.y}%, rgba(255,255,255,0.35), transparent 70%)`,
         }}
       />
 
