@@ -12,7 +12,7 @@ export default function Footer() {
             <div className="flex items-center gap-3">
               <img src={logo} alt="Logo" className="w-10 h-auto object-contain" />
               <div>
-                <p className="font-bold text-sm">Av. Ekin İsa EROĞLU</p>
+                <p className="font-bold text-sm" style={{ fontFamily: "'EKiN Pro Max Diyakritik', sans-serif" }}>Av. Ekin İsa EROĞLU</p>
                 <p className="text-xs">
                   <span className="gradient-text-cyan-word">Hukuk</span>
                   <span className="text-foreground/40 dark:text-gray-400"> × </span>
