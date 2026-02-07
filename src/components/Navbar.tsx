@@ -28,11 +28,6 @@ export default function Navbar({ theme, toggleTheme }: NavbarProps) {
         {/* Logo + Name */}
         <Link to="/" className="flex items-center gap-2.5 shrink-0">
           <img src={logo} alt="Logo" className="w-8 h-auto object-contain" />
-          <img
-            src={theme === 'dark' ? nameWhite : nameBlack}
-            alt="Ekin İsa EROĞLU"
-            className="h-4 sm:h-[18px] w-auto object-contain hidden sm:block"
-          />
         </Link>
 
 
