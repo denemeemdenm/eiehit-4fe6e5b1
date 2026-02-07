@@ -35,9 +35,9 @@ export default function NeuralBackground() {
     isDarkRef.current = document.documentElement.classList.contains('dark');
 
     const mobile = window.innerWidth < 768;
-    const particleCount = mobile ? 50 : 120;
-    const connectionDist = mobile ? 120 : 160;
-    const cursorRadius = 220;
+    const particleCount = mobile ? 30 : 70;
+    const connectionDist = mobile ? 100 : 130;
+    const cursorRadius = 180;
 
     function resizeCanvas() {
       canvas.width = window.innerWidth;
@@ -50,8 +50,8 @@ export default function NeuralBackground() {
         particlesRef.current.push({
           x: Math.random() * canvas.width,
           y: Math.random() * canvas.height,
-          vx: (Math.random() - 0.5) * 0.6,
-          vy: (Math.random() - 0.5) * 0.6,
+          vx: (Math.random() - 0.5) * 0.3,
+          vy: (Math.random() - 0.5) * 0.3,
           color: COLORS[Math.floor(Math.random() * COLORS.length)],
           opacity: Math.random() * 0.5 + 0.4,
           baseOpacity: Math.random() * 0.5 + 0.4,
@@ -65,8 +65,8 @@ export default function NeuralBackground() {
       const mouse = mouseRef.current;
       particlesRef.current.forEach(p => {
         // Organic drift with subtle sine wave
-        p.x += p.vx + Math.sin(time * 0.0005 + p.pulsePhase) * 0.08;
-        p.y += p.vy + Math.cos(time * 0.0004 + p.pulsePhase) * 0.08;
+        p.x += p.vx + Math.sin(time * 0.0003 + p.pulsePhase) * 0.04;
+        p.y += p.vy + Math.cos(time * 0.00025 + p.pulsePhase) * 0.04;
 
         if (p.x < 0 || p.x > canvas.width) p.vx *= -1;
         if (p.y < 0 || p.y > canvas.height) p.vy *= -1;
@@ -79,7 +79,7 @@ export default function NeuralBackground() {
           const dy = mouse.y - p.y;
           const dist = Math.sqrt(dx * dx + dy * dy);
           if (dist < cursorRadius && dist > 0) {
-            const force = (1 - dist / cursorRadius) * 0.035;
+            const force = (1 - dist / cursorRadius) * 0.02;
             p.vx += (dx / dist) * force;
             p.vy += (dy / dist) * force;
           }
@@ -90,14 +90,14 @@ export default function NeuralBackground() {
 
         // Keep minimum drift
         const speed = Math.sqrt(p.vx * p.vx + p.vy * p.vy);
-        if (speed < 0.18) {
+        if (speed < 0.1) {
           const angle = Math.atan2(p.vy, p.vx);
-          p.vx = Math.cos(angle) * 0.18;
-          p.vy = Math.sin(angle) * 0.18;
+          p.vx = Math.cos(angle) * 0.1;
+          p.vy = Math.sin(angle) * 0.1;
         }
 
         // Pulse opacity
-        p.opacity = p.baseOpacity + Math.sin(time * 0.002 + p.pulsePhase) * 0.15;
+        p.opacity = p.baseOpacity + Math.sin(time * 0.001 + p.pulsePhase) * 0.08;
       });
     }
 

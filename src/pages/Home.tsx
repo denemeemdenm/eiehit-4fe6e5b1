@@ -42,26 +42,26 @@ export default function Home() {
             className="flex justify-center"
           >
             <div className="relative">
-              <img
+              <motion.img
                 src={logo}
                 alt="HiT Logo"
                 className="h-24 sm:h-28 w-auto mx-auto mb-8 object-contain relative z-10"
-              />
-              {/* Animated gold glow behind logo */}
-              <motion.div
-                className="absolute inset-0 -m-4 mb-4 rounded-full z-0"
-                style={{
-                  background: 'radial-gradient(circle, rgba(255,204,0,0.2) 0%, rgba(255,180,0,0.06) 50%, transparent 70%)',
-                  filter: 'blur(20px)',
-                }}
                 animate={{
-                  scale: [1, 1.15, 1],
-                  opacity: [0.5, 0.8, 0.5],
+                  rotateY: [0, 360],
                 }}
                 transition={{
-                  duration: 4,
+                  duration: 12,
                   repeat: Infinity,
-                  ease: 'easeInOut',
+                  ease: 'linear',
+                }}
+                style={{ transformStyle: 'preserve-3d' }}
+              />
+              {/* Subtle gold glow behind logo */}
+              <div
+                className="absolute inset-0 -m-4 mb-4 rounded-full z-0"
+                style={{
+                  background: 'radial-gradient(circle, rgba(255,204,0,0.12) 0%, rgba(255,180,0,0.04) 50%, transparent 70%)',
+                  filter: 'blur(20px)',
                 }}
               />
             </div>
