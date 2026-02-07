@@ -2,7 +2,41 @@
 @tailwind components;
 @tailwind utilities;
 
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap');
+@font-face {
+  font-family: 'EKiN Pro Display';
+  src: url('/fonts/EKiN-Pro-Display-Thin.otf') format('opentype');
+  font-weight: 100;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'EKiN Pro Display';
+  src: url('/fonts/EKiN-Pro-Display-Light.otf') format('opentype');
+  font-weight: 300;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'EKiN Pro Display';
+  src: url('/fonts/EKiN-Pro-Display-Regular.otf') format('opentype');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'EKiN Pro Display';
+  src: url('/fonts/EKiN-Pro-Display-Bold.otf') format('opentype');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'EKiN Pro Display';
+  src: url('/fonts/EKiN-Pro-Display-Black.otf') format('opentype');
+  font-weight: 900;
+  font-style: normal;
+  font-display: swap;
+}
 
 @layer base {
   :root {
@@ -125,14 +159,14 @@
   }
   body {
     @apply bg-background text-foreground;
-    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Segoe UI', sans-serif;
+    font-family: 'EKiN Pro Display', -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Segoe UI', sans-serif;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     overflow-x: hidden;
     line-height: 1.7;
   }
   h1, h2, h3, h4, h5, h6 {
-    font-family: 'Plus Jakarta Sans', 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    font-family: 'EKiN Pro Display', -apple-system, BlinkMacSystemFont, sans-serif;
     line-height: 1.35;
     letter-spacing: -0.01em;
   }
