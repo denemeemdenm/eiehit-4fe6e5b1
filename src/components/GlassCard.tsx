@@ -14,9 +14,10 @@ export default function GlassCard({ children, className = '', onClick, tiltInten
   const [isHovered, setIsHovered] = useState(false);
   const rafRef = useRef<number>(0);
 
-  const rotateX = useSpring(0, { stiffness: 260, damping: 20 });
-  const rotateY = useSpring(0, { stiffness: 260, damping: 20 });
-  const scale = useSpring(1, { stiffness: 260, damping: 20 });
+  const rotateX = useSpring(0, { stiffness: 300, damping: 25 });
+  const rotateY = useSpring(0, { stiffness: 300, damping: 25 });
+  const scale = useSpring(1, { stiffness: 300, damping: 25 });
+  const translateZ = useSpring(0, { stiffness: 300, damping: 25 });
   const borderAngle = useMotionValue(135);
 
   const handleMouseMove = useCallback((e: React.MouseEvent) => {
@@ -31,18 +32,20 @@ export default function GlassCard({ children, className = '', onClick, tiltInten
       const percentY = y / rect.height;
       rotateY.set((percentX - 0.5) * tiltIntensity * 2);
       rotateX.set(-(percentY - 0.5) * tiltIntensity * 2);
-      scale.set(1.04);
+      scale.set(1.03);
+      translateZ.set(10);
       setSpecularPos({ x: percentX * 100, y: percentY * 100 });
       borderAngle.set(Math.atan2(percentY - 0.5, percentX - 0.5) * (180 / Math.PI) + 180);
     });
-  }, [tiltIntensity, rotateX, rotateY, scale, borderAngle]);
+  }, [tiltIntensity, rotateX, rotateY, scale, translateZ, borderAngle]);
 
   const handleMouseLeave = useCallback(() => {
     rotateX.set(0);
     rotateY.set(0);
     scale.set(1);
+    translateZ.set(0);
     setIsHovered(false);
-  }, [rotateX, rotateY, scale]);
+  }, [rotateX, rotateY, scale, translateZ]);
 
   const handleMouseEnter = useCallback(() => {
     setIsHovered(true);
@@ -56,10 +59,14 @@ export default function GlassCard({ children, className = '', onClick, tiltInten
         rotateX,
         rotateY,
         scale,
+        z: translateZ,
         perspective: 800,
         transformStyle: 'preserve-3d',
-        boxShadow: isHovered ? 'var(--shadow-hover)' : 'var(--shadow-rest)',
+        boxShadow: isHovered
+          ? '0 25px 60px hsla(0,0%,0%,0.4), 0 0 0 1px hsla(0,0%,100%,0.08)'
+          : 'var(--shadow-rest)',
         willChange: 'transform',
+        transition: 'box-shadow 0.5s cubic-bezier(0.16,1,0.3,1)',
       }}
       onMouseMove={handleMouseMove}
       onMouseLeave={handleMouseLeave}
@@ -67,12 +74,12 @@ export default function GlassCard({ children, className = '', onClick, tiltInten
       onClick={onClick}
       whileTap={{ scale: 0.96, transition: { type: 'spring', stiffness: 400, damping: 15 } }}
     >
-      {/* Enhanced border glow on hover */}
+      {/* Enhanced border glow on hover — tvOS 26 style */}
       {isHovered && (
         <div
           className="absolute inset-0 pointer-events-none z-20 rounded-[inherit]"
           style={{
-            background: `radial-gradient(ellipse 300px 200px at ${specularPos.x}% ${specularPos.y}%, hsla(0 0% 100% / 0.25), transparent 70%)`,
+            background: `radial-gradient(ellipse 400px 300px at ${specularPos.x}% ${specularPos.y}%, hsla(0 0% 100% / 0.3), transparent 70%)`,
             mask: 'linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0)',
             maskComposite: 'exclude',
             WebkitMaskComposite: 'xor',
@@ -81,11 +88,11 @@ export default function GlassCard({ children, className = '', onClick, tiltInten
         />
       )}
 
-      {/* Specular highlight */}
+      {/* Specular highlight — larger, softer */}
       <div
-        className="absolute inset-0 pointer-events-none z-10 opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+        className="absolute inset-0 pointer-events-none z-10 opacity-0 group-hover:opacity-100 transition-opacity duration-500"
         style={{
-          background: `radial-gradient(ellipse 250px 180px at ${specularPos.x}% ${specularPos.y}%, rgba(255,255,255,0.35), transparent 70%)`,
+          background: `radial-gradient(ellipse 300px 220px at ${specularPos.x}% ${specularPos.y}%, rgba(255,255,255,0.25), transparent 70%)`,
         }}
       />
 

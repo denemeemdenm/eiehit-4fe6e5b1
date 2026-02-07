@@ -18,7 +18,7 @@ import trustTech from '@/assets/cards/trust-tech.jpg';
 
 // Practice area images
 import areaFamily from '@/assets/cards/area-family.jpg';
-import areaBanking from '@/assets/cards/area-banking.jpg';
+import areaObligations from '@/assets/cards/area-obligations.jpg';
 import areaCorporate from '@/assets/cards/area-corporate.jpg';
 import areaTrade from '@/assets/cards/area-trade.jpg';
 import areaEmployment from '@/assets/cards/area-employment.jpg';
@@ -48,9 +48,9 @@ const trustSignals = [{
 
 const areaImages: Record<string, string> = {
   'aile-hukuku': areaFamily,
-  'bankacilik': areaBanking,
+  'borclar-hukuku': areaObligations,
   'birlesme-devralma': areaCorporate,
-  'ticaret-borclar': areaTrade,
+  'ticaret-hukuku': areaTrade,
   'is-hukuku': areaEmployment,
   'icra-iflas': areaEnforcement
 };
@@ -81,6 +81,21 @@ export default function Home() {
 
   return (
     <main className="relative z-10">
+      {/* ═══ PROGRESSIVE BLUR SCROLL OVERLAY ═══ */}
+      <div className="fixed top-0 left-0 right-0 z-40 pointer-events-none h-28"
+        style={{
+          backdropFilter: 'blur(12px)',
+          WebkitBackdropFilter: 'blur(12px)',
+          mask: 'linear-gradient(to bottom, black 0%, black 30%, transparent 100%)',
+          WebkitMask: 'linear-gradient(to bottom, black 0%, black 30%, transparent 100%)',
+        }}
+      />
+      <div className="fixed top-0 left-0 right-0 z-[39] pointer-events-none h-28"
+        style={{
+          background: 'linear-gradient(to bottom, hsl(var(--background)) 0%, hsl(var(--background) / 0.6) 40%, transparent 100%)',
+        }}
+      />
+
       {/* ═══ HERO ═══ */}
       <section id="hero" className="min-h-screen flex items-center justify-center content-padding pt-24">
         <div className="max-w-4xl mx-auto text-center space-y-8">
@@ -127,7 +142,6 @@ export default function Home() {
                 <img src={logo} alt="Logo" className="w-16 h-auto shrink-0 object-contain" />
                 <div>
                   <h3 className="text-2xl font-bold mb-1">Av. Ekin İsa EROĞLU</h3>
-                  <p className="text-sm text-muted-foreground">Adana Barosu / Türkiye Barolar Birliği</p>
                 </div>
               </div>
               <div className="space-y-4 text-muted-foreground leading-relaxed">

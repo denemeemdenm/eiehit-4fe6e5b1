@@ -10,9 +10,9 @@ export interface PracticeArea {
 
 export const practiceAreas: PracticeArea[] = [
   { id: 'aile-hukuku', title: 'Aile Hukuku', icon: Users, description: 'Boşanma, velayet, nafaka ve aile içi hukuki uyuşmazlıklar.', category: 'Temel' },
-  { id: 'bankacilik', title: 'Bankacılık, Finans ve Finansal Hizmetler', icon: Building2, description: 'Bankacılık düzenlemeleri, finansal uyuşmazlıklar ve finansal hizmetler hukuku.', category: 'Finans' },
+  { id: 'borclar-hukuku', title: 'Borçlar Hukuku', icon: HandshakeIcon, description: 'Borç ilişkileri, sözleşmeler, haksız fiiller ve sebepsiz zenginleşme davaları.', category: 'Temel' },
   { id: 'birlesme-devralma', title: 'Birleşmeler ve Devralmalar, Şirketler Hukuku', icon: Briefcase, description: 'Şirket birleşmeleri, devralmaları ve kurumsal yeniden yapılanma süreçleri.', category: 'Şirket' },
-  { id: 'ticaret-borclar', title: 'Ticaret ve Borçlar Hukuku', icon: HandshakeIcon, description: 'Ticari sözleşmeler, borç ilişkileri ve ticari uyuşmazlıkların çözümü.', category: 'Temel' },
+  { id: 'ticaret-hukuku', title: 'Ticaret Hukuku', icon: Building2, description: 'Ticari sözleşmeler, ticari işletme ve ticari uyuşmazlıkların çözümü.', category: 'Temel' },
   { id: 'is-hukuku', title: 'İş Hukuku', icon: Users, description: 'İşçi-işveren ilişkileri, iş sözleşmeleri ve işçi hakları.', category: 'Temel' },
   { id: 'icra-iflas', title: 'İcra ve İflas Hukuku', icon: Landmark, description: 'Alacak takibi, icra işlemleri ve iflas süreçlerinin yönetimi.', category: 'Temel' },
   { id: 'uyusmazlik-cozumu', title: 'Uyuşmazlık Çözümü ve Dava Takibi', icon: Gavel, description: 'Arabuluculuk, tahkim ve dava süreçlerinin etkin yönetimi.', category: 'Temel' },
