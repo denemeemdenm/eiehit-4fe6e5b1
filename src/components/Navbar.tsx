@@ -74,22 +74,21 @@ export default function Navbar({ theme, toggleTheme }: NavbarProps) {
                   key={item.id}
                   onClick={() => scrollTo(item.id)}
                   className={`relative px-3 py-1.5 text-[13px] font-medium rounded-lg transition-colors duration-200 whitespace-nowrap ${
-                    isActive ? 'text-accent' : 'text-muted-foreground hover:text-foreground'
+                    isActive ? 'text-foreground' : 'text-muted-foreground hover:text-foreground'
                   }`}
                 >
-                  {isActive && (
-                    <motion.div
-                      layoutId="nav-underline"
-                      className="absolute -bottom-1 left-1/2 h-[2.5px] rounded-full"
-                      style={{
-                        width: '60%',
-                        x: '-50%',
-                        background: 'linear-gradient(90deg, transparent, hsl(var(--accent)), transparent)',
-                        boxShadow: '0 0 12px 3px hsl(var(--accent) / 0.5), 0 0 24px 6px hsl(var(--accent) / 0.2)',
-                      }}
-                      transition={{ type: 'spring', stiffness: 380, damping: 28 }}
-                    />
-                  )}
+                  <motion.div
+                    className="absolute bottom-0 left-[20%] right-[20%] h-[2px] rounded-full"
+                    style={{
+                      background: 'hsl(var(--accent))',
+                    }}
+                    initial={false}
+                    animate={{
+                      opacity: isActive ? 1 : 0,
+                      scaleX: isActive ? 1 : 0,
+                    }}
+                    transition={{ type: 'spring', stiffness: 400, damping: 30 }}
+                  />
                   <span className="relative z-10">{item.label}</span>
                 </button>
               );
@@ -181,12 +180,11 @@ export default function Navbar({ theme, toggleTheme }: NavbarProps) {
                     {isActive && (
                       <motion.div
                         layoutId="nav-underline-mobile"
-                        className="absolute left-4 right-4 -bottom-0.5 h-[2px] rounded-full"
+                        className="absolute left-4 right-4 bottom-0 h-[2px] rounded-full"
                         style={{
-                          background: 'linear-gradient(90deg, hsl(var(--accent)), hsl(var(--accent) / 0.3))',
-                          boxShadow: '0 0 8px 2px hsl(var(--accent) / 0.4)',
+                          background: 'hsl(var(--accent))',
                         }}
-                        transition={{ type: 'spring', stiffness: 380, damping: 28 }}
+                        transition={{ type: 'spring', stiffness: 400, damping: 30 }}
                       />
                     )}
                     {item.label}
