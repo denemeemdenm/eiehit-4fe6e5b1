@@ -40,8 +40,8 @@ export default function NeuralBackground() {
     isDarkRef.current = document.documentElement.classList.contains('dark');
 
     const mobile = window.innerWidth < 768;
-    const particleCount = mobile ? 35 : 75;
-    const connectionDist = mobile ? 120 : 150;
+    const particleCount = mobile ? 50 : 110;
+    const connectionDist = mobile ? 140 : 170;
     const cursorRadius = 220;
 
     function resizeCanvas() {
@@ -146,7 +146,7 @@ export default function NeuralBackground() {
       ctx.clearRect(0, 0, canvas.width, canvas.height);
 
       particlesRef.current.forEach(p => {
-        const alpha = Math.max(0, Math.min(1, p.opacity)) * (isDark ? 0.7 : 0.5);
+        const alpha = Math.max(0, Math.min(1, p.opacity)) * (isDark ? 0.85 : 0.6);
         ctx.globalAlpha = alpha;
         ctx.fillStyle = p.color;
         ctx.beginPath();
@@ -171,7 +171,7 @@ export default function NeuralBackground() {
           const dist = Math.sqrt(dx * dx + dy * dy);
 
           if (dist < connectionDist) {
-            const alpha = (1 - dist / connectionDist) * (isDark ? 0.15 : 0.08);
+            const alpha = (1 - dist / connectionDist) * (isDark ? 0.25 : 0.14);
             const grad = ctx.createLinearGradient(p1.x, p1.y, p2.x, p2.y);
             grad.addColorStop(0, p1.color + Math.floor(alpha * 255).toString(16).padStart(2, '0'));
             grad.addColorStop(1, p2.color + Math.floor(alpha * 255).toString(16).padStart(2, '0'));
@@ -204,7 +204,7 @@ export default function NeuralBackground() {
             const dist = Math.sqrt(dx * dx + dy * dy);
 
             if (dist < connectionDist) {
-              const alpha = (1 - dist / connectionDist) * (isDark ? 0.3 : 0.15);
+              const alpha = (1 - dist / connectionDist) * (isDark ? 0.45 : 0.25);
               const grad = ctx.createLinearGradient(p1.x, p1.y, p2.x, p2.y);
               grad.addColorStop(0, p1.color + Math.floor(alpha * 255).toString(16).padStart(2, '0'));
               grad.addColorStop(1, p2.color + Math.floor(alpha * 255).toString(16).padStart(2, '0'));
@@ -301,7 +301,7 @@ export default function NeuralBackground() {
     <canvas
       ref={canvasRef}
       className="fixed inset-0 pointer-events-none z-0"
-      style={{ opacity: 0.6 }}
+      style={{ opacity: 0.7 }}
     />
   );
 }
