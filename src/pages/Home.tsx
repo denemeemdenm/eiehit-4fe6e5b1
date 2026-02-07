@@ -3,6 +3,7 @@ import { motion } from 'framer-motion';
 import { ArrowRight, Shield, Eye, Lock, Cpu } from 'lucide-react';
 import GlassCard from '@/components/GlassCard';
 import ScrollReveal from '@/components/ScrollReveal';
+import StaggerText from '@/components/StaggerText';
 import { practiceAreas } from '@/lib/practiceAreas';
 import logo from '@/assets/logo.png';
 
@@ -22,27 +23,22 @@ export default function Home() {
       <section className="min-h-screen flex items-center justify-center content-padding pt-24">
         <div className="max-w-4xl mx-auto text-center space-y-8">
           <motion.div
-            initial={{ opacity: 0, scale: 0.8 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 1, ease: [0.25, 0.46, 0.45, 0.94] }}
+            initial={{ opacity: 0, scale: 0.8, filter: 'blur(20px)' }}
+            animate={{ opacity: 1, scale: 1, filter: 'blur(0px)' }}
+            transition={{ duration: 1.2, ease: [0.25, 0.46, 0.45, 0.94] }}
           >
             <img src={logo} alt="HiT Logo" className="w-24 h-24 mx-auto mb-8 drop-shadow-lg" />
           </motion.div>
 
-          <motion.h1
-            className="text-5xl sm:text-7xl lg:text-8xl font-bold tracking-tight gradient-text-gray leading-[1.1]"
-            initial={{ opacity: 0, y: 40 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 1, delay: 0.2, ease: [0.25, 0.46, 0.45, 0.94] }}
-          >
-            Hukuk × İnovasyon × Teknoloji
-          </motion.h1>
+          <h1 className="text-5xl sm:text-7xl lg:text-8xl font-bold tracking-tight gradient-text-gray leading-[1.1]">
+            <StaggerText text="Hukuk × İnovasyon × Teknoloji" delay={0.3} stagger={0.025} charDuration={0.6} />
+          </h1>
 
           <motion.p
             className="text-lg sm:text-xl text-muted-foreground max-w-2xl mx-auto leading-relaxed"
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.5 }}
+            initial={{ opacity: 0, y: 30, filter: 'blur(10px)' }}
+            animate={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
+            transition={{ duration: 1, delay: 1.2, ease: [0.25, 0.46, 0.45, 0.94] }}
           >
             Değişen dünyanın hukuki gereksinimlerine, bilgi birikimi ve teknoloji okuryazarlığıyla yanıt veren profesyonel danışmanlık.
           </motion.p>
@@ -51,7 +47,7 @@ export default function Home() {
             className="flex flex-col sm:flex-row items-center justify-center gap-4"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.7 }}
+            transition={{ duration: 0.8, delay: 1.6 }}
           >
             <Link
               to="/iletisim"
