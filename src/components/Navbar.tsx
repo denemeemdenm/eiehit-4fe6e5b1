@@ -91,47 +91,48 @@ export default function Navbar({ theme, toggleTheme }: NavbarProps) {
           </div>
         </div>
 
-        {/* Theme toggle + mobile menu */}
-        <div className="flex items-center gap-2">
-          <button
-            onClick={toggleTheme}
-            className="w-9 h-9 rounded-xl glass-panel flex items-center justify-center transition-transform duration-300 hover:scale-110 active:scale-95 overflow-hidden"
-            aria-label="Tema değiştir"
-          >
-            <AnimatePresence mode="wait" initial={false}>
-              {theme === 'light' ? (
-                <motion.div
-                  key="moon"
-                  initial={{ y: -20, opacity: 0, rotate: -90 }}
-                  animate={{ y: 0, opacity: 1, rotate: 0 }}
-                  exit={{ y: 20, opacity: 0, rotate: 90 }}
-                  transition={{ duration: 0.3, ease: [0.25, 0.46, 0.45, 0.94] }}
-                >
-                  <Moon size={16} className="text-muted-foreground" />
-                </motion.div>
-              ) : (
-                <motion.div
-                  key="sun"
-                  initial={{ y: -20, opacity: 0, rotate: -90 }}
-                  animate={{ y: 0, opacity: 1, rotate: 0 }}
-                  exit={{ y: 20, opacity: 0, rotate: 90 }}
-                  transition={{ duration: 0.3, ease: [0.25, 0.46, 0.45, 0.94] }}
-                >
-                  <Sun size={16} className="text-accent" />
-                </motion.div>
-              )}
-            </AnimatePresence>
-          </button>
-
+        {/* Mobile menu button */}
+        <div className="flex items-center md:hidden">
           <button
             onClick={() => setMobileOpen(!mobileOpen)}
-            className="md:hidden w-9 h-9 rounded-xl glass-panel flex items-center justify-center"
+            className="w-9 h-9 rounded-xl glass-panel flex items-center justify-center"
             aria-label="Menü"
           >
             {mobileOpen ? <X size={16} /> : <Menu size={16} />}
           </button>
         </div>
       </nav>
+
+      {/* Theme toggle - separate floating button */}
+      <button
+        onClick={toggleTheme}
+        className="fixed top-5 right-4 z-50 w-10 h-10 rounded-xl glass-panel flex items-center justify-center transition-transform duration-300 hover:scale-110 active:scale-95 overflow-hidden"
+        aria-label="Tema değiştir"
+      >
+        <AnimatePresence mode="wait" initial={false}>
+          {theme === 'light' ? (
+            <motion.div
+              key="moon"
+              initial={{ y: -20, opacity: 0, rotate: -90 }}
+              animate={{ y: 0, opacity: 1, rotate: 0 }}
+              exit={{ y: 20, opacity: 0, rotate: 90 }}
+              transition={{ duration: 0.3, ease: [0.25, 0.46, 0.45, 0.94] }}
+            >
+              <Moon size={16} className="text-muted-foreground" />
+            </motion.div>
+          ) : (
+            <motion.div
+              key="sun"
+              initial={{ y: -20, opacity: 0, rotate: -90 }}
+              animate={{ y: 0, opacity: 1, rotate: 0 }}
+              exit={{ y: 20, opacity: 0, rotate: 90 }}
+              transition={{ duration: 0.3, ease: [0.25, 0.46, 0.45, 0.94] }}
+            >
+              <Sun size={16} className="text-accent" />
+            </motion.div>
+          )}
+        </AnimatePresence>
+      </button>
 
       {/* Mobile Menu */}
       <AnimatePresence>
