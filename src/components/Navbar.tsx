@@ -1,10 +1,8 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { Moon, Sun, Menu, X } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import logo from '@/assets/logo.png';
-import nameWhite from '@/assets/name-white.png';
-import nameBlack from '@/assets/name-black.png';
 
 interface NavbarProps {
   theme: 'light' | 'dark';
@@ -24,129 +22,127 @@ export default function Navbar({ theme, toggleTheme }: NavbarProps) {
 
   return (
     <header className="fixed top-4 left-1/2 -translate-x-1/2 z-50 w-[calc(100%-2rem)] max-w-5xl">
-      <div className="flex items-center gap-3">
-        <nav className="glass-nav rounded-[20px] px-4 py-2.5 flex items-center gap-4 flex-1">
+      <div className="flex items-center gap-2">
+        {/* Main navbar */}
+        <nav className="glass-nav rounded-[20px] px-3 py-2 flex items-center gap-2 flex-1 min-w-0">
           {/* Logo */}
-          <Link to="/" className="shrink-0">
-            <img src={logo} alt="Logo" className="w-8 h-auto object-contain" />
+          <Link to="/" className="shrink-0 flex items-center">
+            <img src={logo} alt="Logo" className="w-7 h-7 object-contain" />
           </Link>
 
-          {/* Desktop Nav */}
-          <div className="hidden md:flex items-center gap-1">
+          {/* Desktop links */}
+          <div className="hidden md:flex items-center gap-0.5 flex-1 justify-center">
             {navItems.map(item => {
               const isActive = location.pathname === item.path;
               return (
                 <Link
                   key={item.path}
                   to={item.path}
-                  className={`relative px-3 py-1.5 text-sm font-medium rounded-lg transition-all duration-300 group ${
-                    isActive
-                      ? 'text-accent'
-                      : 'text-muted-foreground hover:text-foreground'
+                  className={`relative px-3 py-1.5 text-[13px] font-medium rounded-lg transition-colors duration-200 ${
+                    isActive ? 'text-accent' : 'text-muted-foreground hover:text-foreground'
                   }`}
                 >
                   {isActive && (
                     <motion.div
-                      layoutId="nav-indicator"
+                      layoutId="nav-underline"
                       className="absolute bottom-0 left-1/2 -translate-x-1/2 h-[2px] w-3/4 rounded-full bg-accent"
-                      transition={{ type: 'spring', stiffness: 380, damping: 28 }}
+                      transition={{ type: 'spring', stiffness: 400, damping: 30 }}
                     />
                   )}
                   <motion.span
-                    className="relative z-10 inline-block"
-                    whileHover={{ scale: 1.06 }}
-                    whileTap={{ scale: 0.94 }}
+                    className="relative z-10"
+                    whileHover={{ scale: 1.05 }}
+                    whileTap={{ scale: 0.95 }}
                     transition={{ type: 'spring', stiffness: 400, damping: 20 }}
                   >
                     {item.label}
                   </motion.span>
-                  {!isActive && (
-                    <span className="absolute bottom-0 left-1/2 -translate-x-1/2 w-0 h-[2px] rounded-full bg-accent/60 transition-all duration-300 group-hover:w-3/4" />
-                  )}
                 </Link>
               );
             })}
+
+            {/* Divider */}
+            <span className="w-px h-4 bg-border/50 mx-1" />
+
             {/* HiT Brand */}
-            <div className="relative px-3 py-1.5 text-sm font-bold rounded-lg" style={{ fontFamily: "'EKiN Pro Max Diyakritik', sans-serif" }}>
-              <motion.span
-                className="relative z-10 inline-flex items-center gap-0.5"
-                whileHover={{ scale: 1.06 }}
-                whileTap={{ scale: 0.94 }}
-                transition={{ type: 'spring', stiffness: 400, damping: 20 }}
-              >
-                <span className="gradient-text-cyan-word">Hukuk</span>
-                <span className="text-foreground/40 dark:text-gray-400">×</span>
-                <span className="gradient-text-orange-word">İnovasyon</span>
-                <span className="text-foreground/40 dark:text-gray-400">×</span>
-                <span className="gradient-text-yellow-word">Teknoloji</span>
-              </motion.span>
-            </div>
+            <motion.span
+              className="inline-flex items-center gap-0.5 text-[13px] font-bold px-2"
+              style={{ fontFamily: "'EKiN Pro Max Diyakritik', sans-serif" }}
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+              transition={{ type: 'spring', stiffness: 400, damping: 20 }}
+            >
+              <span className="gradient-text-cyan-word">Hukuk</span>
+              <span className="text-muted-foreground/50">×</span>
+              <span className="gradient-text-orange-word">İnovasyon</span>
+              <span className="text-muted-foreground/50">×</span>
+              <span className="gradient-text-yellow-word">Teknoloji</span>
+            </motion.span>
           </div>
 
-          {/* Mobile menu button */}
-          <div className="flex items-center md:hidden">
-            <button
-              onClick={() => setMobileOpen(!mobileOpen)}
-              className="w-9 h-9 rounded-xl glass-panel flex items-center justify-center"
-              aria-label="Menü"
-            >
-              {mobileOpen ? <X size={16} /> : <Menu size={16} />}
-            </button>
-          </div>
+          {/* Mobile hamburger */}
+          <button
+            onClick={() => setMobileOpen(!mobileOpen)}
+            className="md:hidden ml-auto w-8 h-8 rounded-lg flex items-center justify-center text-muted-foreground hover:text-foreground transition-colors"
+            aria-label="Menü"
+          >
+            {mobileOpen ? <X size={16} /> : <Menu size={16} />}
+          </button>
         </nav>
 
-        {/* Theme toggle - separate button beside navbar */}
+        {/* Theme toggle */}
         <button
           onClick={toggleTheme}
-          className="shrink-0 w-10 h-10 rounded-[14px] glass-panel flex items-center justify-center transition-transform duration-300 hover:scale-110 active:scale-95 overflow-hidden"
+          className="shrink-0 w-9 h-9 rounded-[12px] glass-panel flex items-center justify-center transition-transform duration-200 hover:scale-110 active:scale-95 overflow-hidden"
           aria-label="Tema değiştir"
         >
           <AnimatePresence mode="wait" initial={false}>
             {theme === 'light' ? (
               <motion.div
                 key="moon"
-                initial={{ y: -20, opacity: 0, rotate: -90 }}
+                initial={{ y: -16, opacity: 0, rotate: -90 }}
                 animate={{ y: 0, opacity: 1, rotate: 0 }}
-                exit={{ y: 20, opacity: 0, rotate: 90 }}
-                transition={{ duration: 0.3, ease: [0.25, 0.46, 0.45, 0.94] }}
+                exit={{ y: 16, opacity: 0, rotate: 90 }}
+                transition={{ duration: 0.25 }}
               >
-                <Moon size={16} className="text-muted-foreground" />
+                <Moon size={14} className="text-muted-foreground" />
               </motion.div>
             ) : (
               <motion.div
                 key="sun"
-                initial={{ y: -20, opacity: 0, rotate: -90 }}
+                initial={{ y: -16, opacity: 0, rotate: -90 }}
                 animate={{ y: 0, opacity: 1, rotate: 0 }}
-                exit={{ y: 20, opacity: 0, rotate: 90 }}
-                transition={{ duration: 0.3, ease: [0.25, 0.46, 0.45, 0.94] }}
+                exit={{ y: 16, opacity: 0, rotate: 90 }}
+                transition={{ duration: 0.25 }}
               >
-                <Sun size={16} className="text-accent" />
+                <Sun size={14} className="text-accent" />
               </motion.div>
             )}
           </AnimatePresence>
         </button>
       </div>
 
-      {/* Mobile Menu */}
+      {/* Mobile menu */}
       <AnimatePresence>
         {mobileOpen && (
           <motion.div
-            initial={{ opacity: 0, y: -10 }}
+            initial={{ opacity: 0, y: -8 }}
             animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -10 }}
-            className="glass-nav rounded-[20px] mt-2 p-4 md:hidden"
+            exit={{ opacity: 0, y: -8 }}
+            transition={{ duration: 0.2 }}
+            className="glass-nav rounded-[16px] mt-2 p-3 md:hidden"
           >
             {navItems.map((item, i) => (
               <motion.div
                 key={item.path}
-                initial={{ opacity: 0, x: -16 }}
+                initial={{ opacity: 0, x: -12 }}
                 animate={{ opacity: 1, x: 0 }}
-                transition={{ delay: i * 0.06, duration: 0.3 }}
+                transition={{ delay: i * 0.04, duration: 0.2 }}
               >
                 <Link
                   to={item.path}
                   onClick={() => setMobileOpen(false)}
-                  className={`block px-4 py-3 rounded-xl text-sm font-medium transition-all duration-300 ${
+                  className={`block px-4 py-2.5 rounded-xl text-sm font-medium transition-colors duration-200 ${
                     location.pathname === item.path
                       ? 'text-accent bg-accent/10'
                       : 'text-muted-foreground hover:text-foreground hover:bg-accent/5'
