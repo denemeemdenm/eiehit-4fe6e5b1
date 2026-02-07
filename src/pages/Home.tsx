@@ -47,12 +47,10 @@ export default function Home() {
                 alt="HiT Logo"
                 className="h-32 sm:h-40 w-auto mx-auto mb-8 object-contain relative z-10"
                 animate={{
-                  x: [0, 6, -4, 5, 0],
-                  y: [0, -5, 4, -3, 0],
-                  rotate: [0, 1.5, -1, 0.8, 0],
+                  y: [0, -6, 0],
                 }}
                 transition={{
-                  duration: 8,
+                  duration: 4,
                   repeat: Infinity,
                   ease: 'easeInOut',
                 }}
