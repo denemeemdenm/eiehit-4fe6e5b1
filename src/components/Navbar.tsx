@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Moon, Sun, Menu, X } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import logo from '@/assets/logo.png';
@@ -18,6 +18,34 @@ const navItems = [
 export default function Navbar({ theme, toggleTheme }: NavbarProps) {
   const [mobileOpen, setMobileOpen] = useState(false);
   const [activeSection, setActiveSection] = useState('hero');
+
+  // Intersection Observer for scroll-based active section detection
+  useEffect(() => {
+    const sectionIds = navItems.map(item => item.id);
+    const observers: IntersectionObserver[] = [];
+
+    sectionIds.forEach(id => {
+      const el = document.getElementById(id);
+      if (!el) return;
+
+      const observer = new IntersectionObserver(
+        ([entry]) => {
+          if (entry.isIntersecting) {
+            setActiveSection(id);
+          }
+        },
+        {
+          rootMargin: '-40% 0px -55% 0px',
+          threshold: 0,
+        }
+      );
+
+      observer.observe(el);
+      observers.push(observer);
+    });
+
+    return () => observers.forEach(o => o.disconnect());
+  }, []);
 
   const scrollTo = (id: string) => {
     setActiveSection(id);
@@ -52,8 +80,14 @@ export default function Navbar({ theme, toggleTheme }: NavbarProps) {
                   {isActive && (
                     <motion.div
                       layoutId="nav-underline"
-                      className="absolute bottom-0 left-1/2 -translate-x-1/2 h-[2px] w-3/4 rounded-full bg-accent"
-                      transition={{ type: 'spring', stiffness: 400, damping: 30 }}
+                      className="absolute -bottom-1 left-1/2 h-[2.5px] rounded-full"
+                      style={{
+                        width: '60%',
+                        x: '-50%',
+                        background: 'linear-gradient(90deg, transparent, hsl(var(--accent)), transparent)',
+                        boxShadow: '0 0 12px 3px hsl(var(--accent) / 0.5), 0 0 24px 6px hsl(var(--accent) / 0.2)',
+                      }}
+                      transition={{ type: 'spring', stiffness: 380, damping: 28 }}
                     />
                   )}
                   <span className="relative z-10">{item.label}</span>
@@ -127,25 +161,39 @@ export default function Navbar({ theme, toggleTheme }: NavbarProps) {
             transition={{ duration: 0.2 }}
             className="glass-nav rounded-[16px] mt-2 p-3 md:hidden"
           >
-            {navItems.map((item, i) => (
-              <motion.div
-                key={item.id}
-                initial={{ opacity: 0, x: -12 }}
-                animate={{ opacity: 1, x: 0 }}
-                transition={{ delay: i * 0.04, duration: 0.2 }}
-              >
-                <button
-                  onClick={() => scrollTo(item.id)}
-                  className={`block w-full text-left px-4 py-2.5 rounded-xl text-sm font-medium transition-colors duration-200 ${
-                    activeSection === item.id
-                      ? 'text-accent bg-accent/10'
-                      : 'text-muted-foreground hover:text-foreground hover:bg-accent/5'
-                  }`}
+            {navItems.map((item, i) => {
+              const isActive = activeSection === item.id;
+              return (
+                <motion.div
+                  key={item.id}
+                  initial={{ opacity: 0, x: -12 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  transition={{ delay: i * 0.04, duration: 0.2 }}
                 >
-                  {item.label}
-                </button>
-              </motion.div>
-            ))}
+                  <button
+                    onClick={() => scrollTo(item.id)}
+                    className={`relative block w-full text-left px-4 py-2.5 rounded-xl text-sm font-medium transition-colors duration-200 ${
+                      isActive
+                        ? 'text-accent bg-accent/10'
+                        : 'text-muted-foreground hover:text-foreground hover:bg-accent/5'
+                    }`}
+                  >
+                    {isActive && (
+                      <motion.div
+                        layoutId="nav-underline-mobile"
+                        className="absolute left-4 right-4 -bottom-0.5 h-[2px] rounded-full"
+                        style={{
+                          background: 'linear-gradient(90deg, hsl(var(--accent)), hsl(var(--accent) / 0.3))',
+                          boxShadow: '0 0 8px 2px hsl(var(--accent) / 0.4)',
+                        }}
+                        transition={{ type: 'spring', stiffness: 380, damping: 28 }}
+                      />
+                    )}
+                    {item.label}
+                  </button>
+                </motion.div>
+              );
+            })}
           </motion.div>
         )}
       </AnimatePresence>

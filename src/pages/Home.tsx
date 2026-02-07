@@ -82,17 +82,17 @@ export default function Home() {
   return (
     <main className="relative z-10">
       {/* ═══ PROGRESSIVE BLUR SCROLL OVERLAY ═══ */}
-      <div className="fixed top-0 left-0 right-0 z-40 pointer-events-none h-28"
+      <div className="fixed top-0 left-0 right-0 z-40 pointer-events-none h-36"
         style={{
-          backdropFilter: 'blur(12px)',
-          WebkitBackdropFilter: 'blur(12px)',
-          mask: 'linear-gradient(to bottom, black 0%, black 30%, transparent 100%)',
-          WebkitMask: 'linear-gradient(to bottom, black 0%, black 30%, transparent 100%)',
+          backdropFilter: 'blur(20px)',
+          WebkitBackdropFilter: 'blur(20px)',
+          mask: 'linear-gradient(to bottom, black 0%, black 40%, transparent 100%)',
+          WebkitMask: 'linear-gradient(to bottom, black 0%, black 40%, transparent 100%)',
         }}
       />
-      <div className="fixed top-0 left-0 right-0 z-[39] pointer-events-none h-28"
+      <div className="fixed top-0 left-0 right-0 z-[39] pointer-events-none h-36"
         style={{
-          background: 'linear-gradient(to bottom, hsl(var(--background)) 0%, hsl(var(--background) / 0.6) 40%, transparent 100%)',
+          background: 'linear-gradient(to bottom, hsl(var(--background)) 0%, hsl(var(--background) / 0.8) 35%, hsl(var(--background) / 0.4) 60%, transparent 100%)',
         }}
       />
 
