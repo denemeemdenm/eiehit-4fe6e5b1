@@ -1,8 +1,10 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { Moon, Sun, Menu, X } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import logo from '@/assets/logo.png';
+import nameWhite from '@/assets/name-white.png';
+import nameBlack from '@/assets/name-black.png';
 
 interface NavbarProps {
   theme: 'light' | 'dark';
@@ -23,12 +25,14 @@ export default function Navbar({ theme, toggleTheme }: NavbarProps) {
   return (
     <header className="fixed top-4 left-1/2 -translate-x-1/2 z-50 w-[calc(100%-2rem)] max-w-4xl">
       <nav className="glass-nav rounded-2xl px-4 py-2.5 flex items-center justify-between">
-        {/* Logo */}
-        <Link to="/" className="flex items-center gap-2 shrink-0">
+        {/* Logo + Name */}
+        <Link to="/" className="flex items-center gap-2.5 shrink-0">
           <img src={logo} alt="Logo" className="w-8 h-8 object-contain" />
-          <span className="text-sm font-bold tracking-tight hidden sm:block">
-            Ekin İsa EROĞLU
-          </span>
+          <img
+            src={theme === 'dark' ? nameWhite : nameBlack}
+            alt="Ekin İsa EROĞLU"
+            className="h-4 sm:h-[18px] w-auto object-contain hidden sm:block"
+          />
         </Link>
 
         {/* Desktop Nav */}
@@ -60,10 +64,32 @@ export default function Navbar({ theme, toggleTheme }: NavbarProps) {
         <div className="flex items-center gap-2">
           <button
             onClick={toggleTheme}
-            className="w-9 h-9 rounded-xl glass-panel flex items-center justify-center transition-transform duration-300 hover:scale-110 active:scale-95"
+            className="w-9 h-9 rounded-xl glass-panel flex items-center justify-center transition-transform duration-300 hover:scale-110 active:scale-95 overflow-hidden"
             aria-label="Tema değiştir"
           >
-            {theme === 'light' ? <Moon size={16} /> : <Sun size={16} />}
+            <AnimatePresence mode="wait" initial={false}>
+              {theme === 'light' ? (
+                <motion.div
+                  key="moon"
+                  initial={{ y: -20, opacity: 0, rotate: -90 }}
+                  animate={{ y: 0, opacity: 1, rotate: 0 }}
+                  exit={{ y: 20, opacity: 0, rotate: 90 }}
+                  transition={{ duration: 0.3, ease: [0.25, 0.46, 0.45, 0.94] }}
+                >
+                  <Moon size={16} className="text-indigo-400" />
+                </motion.div>
+              ) : (
+                <motion.div
+                  key="sun"
+                  initial={{ y: -20, opacity: 0, rotate: -90 }}
+                  animate={{ y: 0, opacity: 1, rotate: 0 }}
+                  exit={{ y: 20, opacity: 0, rotate: 90 }}
+                  transition={{ duration: 0.3, ease: [0.25, 0.46, 0.45, 0.94] }}
+                >
+                  <Sun size={16} className="text-amber-400" />
+                </motion.div>
+              )}
+            </AnimatePresence>
           </button>
 
           <button

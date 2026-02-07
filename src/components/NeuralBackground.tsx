@@ -8,28 +8,11 @@ interface Particle {
   color: string;
   opacity: number;
   baseOpacity: number;
+  size: number;
+  pulsePhase: number;
 }
 
-const NEURAL_CONFIG = {
-  particleCount: 100,
-  particleSize: 2,
-  connectionDistance: 150,
-  connectionOpacity: 0.3,
-  colors: ['#00CCFF', '#FF4B00', '#FFCC00'],
-  animationDamping: 0.98,
-  cursorAttractionRadius: 200,
-};
-
-// Mobile-optimized config
-const MOBILE_CONFIG = {
-  particleCount: 45,
-  connectionDistance: 120,
-  cursorAttractionRadius: 150,
-};
-
-function isMobile() {
-  return window.innerWidth < 768;
-}
+const COLORS = ['#00CCFF', '#FF4B00', '#FFCC00'];
 
 export default function NeuralBackground() {
   const canvasRef = useRef<HTMLCanvasElement>(null);
@@ -37,6 +20,7 @@ export default function NeuralBackground() {
   const particlesRef = useRef<Particle[]>([]);
   const animRef = useRef<number>(0);
   const isDarkRef = useRef(false);
+  const timeRef = useRef(0);
 
   useEffect(() => {
     const canvas = canvasRef.current;
@@ -50,12 +34,10 @@ export default function NeuralBackground() {
     observer.observe(document.documentElement, { attributes: true, attributeFilter: ['class'] });
     isDarkRef.current = document.documentElement.classList.contains('dark');
 
-    const mobile = isMobile();
-    const config = {
-      particleCount: mobile ? MOBILE_CONFIG.particleCount : NEURAL_CONFIG.particleCount,
-      connectionDistance: mobile ? MOBILE_CONFIG.connectionDistance : NEURAL_CONFIG.connectionDistance,
-      cursorAttractionRadius: mobile ? MOBILE_CONFIG.cursorAttractionRadius : NEURAL_CONFIG.cursorAttractionRadius,
-    };
+    const mobile = window.innerWidth < 768;
+    const particleCount = mobile ? 50 : 120;
+    const connectionDist = mobile ? 120 : 160;
+    const cursorRadius = 220;
 
     function resizeCanvas() {
       canvas.width = window.innerWidth;
@@ -64,58 +46,58 @@ export default function NeuralBackground() {
 
     function createParticles() {
       particlesRef.current = [];
-      for (let i = 0; i < config.particleCount; i++) {
+      for (let i = 0; i < particleCount; i++) {
         particlesRef.current.push({
           x: Math.random() * canvas.width,
           y: Math.random() * canvas.height,
-          vx: (Math.random() - 0.5) * 0.5,
-          vy: (Math.random() - 0.5) * 0.5,
-          color: NEURAL_CONFIG.colors[Math.floor(Math.random() * NEURAL_CONFIG.colors.length)],
-          opacity: Math.random() * 0.6 + 0.4,
-          baseOpacity: Math.random() * 0.6 + 0.4,
+          vx: (Math.random() - 0.5) * 0.6,
+          vy: (Math.random() - 0.5) * 0.6,
+          color: COLORS[Math.floor(Math.random() * COLORS.length)],
+          opacity: Math.random() * 0.5 + 0.4,
+          baseOpacity: Math.random() * 0.5 + 0.4,
+          size: Math.random() * 1.5 + 1.2,
+          pulsePhase: Math.random() * Math.PI * 2,
         });
       }
     }
 
-    function updateParticles() {
+    function updateParticles(time: number) {
       const mouse = mouseRef.current;
       particlesRef.current.forEach(p => {
-        // Self-movement: gentle drift always active
-        p.x += p.vx;
-        p.y += p.vy;
+        // Organic drift with subtle sine wave
+        p.x += p.vx + Math.sin(time * 0.0005 + p.pulsePhase) * 0.08;
+        p.y += p.vy + Math.cos(time * 0.0004 + p.pulsePhase) * 0.08;
 
-        // Bounce at edges
         if (p.x < 0 || p.x > canvas.width) p.vx *= -1;
         if (p.y < 0 || p.y > canvas.height) p.vy *= -1;
         p.x = Math.max(0, Math.min(canvas.width, p.x));
         p.y = Math.max(0, Math.min(canvas.height, p.y));
 
-        // Mouse attraction (only when cursor is on screen)
+        // Cursor attraction
         if (mouse.x > 0 && mouse.y > 0) {
           const dx = mouse.x - p.x;
           const dy = mouse.y - p.y;
-          const distance = Math.sqrt(dx * dx + dy * dy);
-
-          if (distance < config.cursorAttractionRadius && distance > 0) {
-            const force = (1 - distance / config.cursorAttractionRadius) * 0.03;
-            p.vx += (dx / distance) * force;
-            p.vy += (dy / distance) * force;
+          const dist = Math.sqrt(dx * dx + dy * dy);
+          if (dist < cursorRadius && dist > 0) {
+            const force = (1 - dist / cursorRadius) * 0.035;
+            p.vx += (dx / dist) * force;
+            p.vy += (dy / dist) * force;
           }
         }
 
-        // Damping — but keep a minimum velocity so they always drift
-        p.vx *= NEURAL_CONFIG.animationDamping;
-        p.vy *= NEURAL_CONFIG.animationDamping;
+        p.vx *= 0.98;
+        p.vy *= 0.98;
 
-        // Ensure minimum movement speed
+        // Keep minimum drift
         const speed = Math.sqrt(p.vx * p.vx + p.vy * p.vy);
-        if (speed < 0.15) {
+        if (speed < 0.18) {
           const angle = Math.atan2(p.vy, p.vx);
-          p.vx = Math.cos(angle) * 0.15;
-          p.vy = Math.sin(angle) * 0.15;
+          p.vx = Math.cos(angle) * 0.18;
+          p.vy = Math.sin(angle) * 0.18;
         }
 
-        p.opacity = p.baseOpacity;
+        // Pulse opacity
+        p.opacity = p.baseOpacity + Math.sin(time * 0.002 + p.pulsePhase) * 0.15;
       });
     }
 
@@ -124,30 +106,38 @@ export default function NeuralBackground() {
       ctx.clearRect(0, 0, canvas.width, canvas.height);
 
       particlesRef.current.forEach(p => {
-        const alphaHex = Math.floor(p.opacity * (isDark ? 150 : 100)).toString(16).padStart(2, '0');
-        ctx.fillStyle = p.color + alphaHex;
+        const alpha = Math.max(0, Math.min(1, p.opacity)) * (isDark ? 0.7 : 0.5);
+        ctx.globalAlpha = alpha;
+        ctx.fillStyle = p.color;
         ctx.beginPath();
-        ctx.arc(p.x, p.y, NEURAL_CONFIG.particleSize, 0, Math.PI * 2);
+        ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
         ctx.fill();
       });
+      ctx.globalAlpha = 1;
     }
 
-    function drawConnections() {
+    function drawConnections(time: number) {
       const particles = particlesRef.current;
       const mouse = mouseRef.current;
+      const isDark = isDarkRef.current;
 
-      ctx.lineWidth = 1;
+      // Inter-particle connections with color blending
       for (let i = 0; i < particles.length; i++) {
         for (let j = i + 1; j < particles.length; j++) {
           const p1 = particles[i];
           const p2 = particles[j];
           const dx = p1.x - p2.x;
           const dy = p1.y - p2.y;
-          const distance = Math.sqrt(dx * dx + dy * dy);
+          const dist = Math.sqrt(dx * dx + dy * dy);
 
-          if (distance < config.connectionDistance) {
-            const opacity = (1 - distance / config.connectionDistance) * NEURAL_CONFIG.connectionOpacity;
-            ctx.strokeStyle = `rgba(100, 200, 255, ${opacity})`;
+          if (dist < connectionDist) {
+            const alpha = (1 - dist / connectionDist) * (isDark ? 0.25 : 0.15);
+            // Gradient line between two particle colors
+            const grad = ctx.createLinearGradient(p1.x, p1.y, p2.x, p2.y);
+            grad.addColorStop(0, p1.color + Math.floor(alpha * 255).toString(16).padStart(2, '0'));
+            grad.addColorStop(1, p2.color + Math.floor(alpha * 255).toString(16).padStart(2, '0'));
+            ctx.strokeStyle = grad;
+            ctx.lineWidth = 0.8;
             ctx.beginPath();
             ctx.moveTo(p1.x, p1.y);
             ctx.lineTo(p2.x, p2.y);
@@ -156,16 +146,16 @@ export default function NeuralBackground() {
         }
       }
 
-      // Connections to cursor
+      // Cursor connections — warm orange
       if (mouse.x > 0 && mouse.y > 0) {
         particles.forEach(p => {
           const dx = mouse.x - p.x;
           const dy = mouse.y - p.y;
-          const distance = Math.sqrt(dx * dx + dy * dy);
-
-          if (distance < config.cursorAttractionRadius) {
-            const opacity = (1 - distance / config.cursorAttractionRadius) * NEURAL_CONFIG.connectionOpacity * 0.6;
-            ctx.strokeStyle = `rgba(255, 75, 0, ${opacity})`;
+          const dist = Math.sqrt(dx * dx + dy * dy);
+          if (dist < cursorRadius) {
+            const alpha = (1 - dist / cursorRadius) * 0.2;
+            ctx.strokeStyle = `rgba(255, 75, 0, ${alpha})`;
+            ctx.lineWidth = 0.6;
             ctx.beginPath();
             ctx.moveTo(p.x, p.y);
             ctx.lineTo(mouse.x, mouse.y);
@@ -178,48 +168,43 @@ export default function NeuralBackground() {
     function drawCursorGlow() {
       const mouse = mouseRef.current;
       if (mouse.x < 0) return;
-      const gradient = ctx.createRadialGradient(mouse.x, mouse.y, 0, mouse.x, mouse.y, 100);
-      gradient.addColorStop(0, 'rgba(255, 75, 0, 0.1)');
-      gradient.addColorStop(1, 'rgba(255, 75, 0, 0)');
-      ctx.fillStyle = gradient;
+      const g = ctx.createRadialGradient(mouse.x, mouse.y, 0, mouse.x, mouse.y, 90);
+      g.addColorStop(0, 'rgba(255, 75, 0, 0.08)');
+      g.addColorStop(1, 'rgba(255, 75, 0, 0)');
+      ctx.fillStyle = g;
       ctx.beginPath();
-      ctx.arc(mouse.x, mouse.y, 100, 0, Math.PI * 2);
+      ctx.arc(mouse.x, mouse.y, 90, 0, Math.PI * 2);
       ctx.fill();
     }
 
-    function animate() {
-      updateParticles();
+    function animate(time: number) {
+      timeRef.current = time;
+      updateParticles(time);
       drawParticles();
-      drawConnections();
+      drawConnections(time);
       drawCursorGlow();
       animRef.current = requestAnimationFrame(animate);
     }
 
     resizeCanvas();
     createParticles();
-    animate();
+    animRef.current = requestAnimationFrame(animate);
 
     const handleResize = () => resizeCanvas();
-    const handleMouse = (e: MouseEvent) => {
-      mouseRef.current = { x: e.clientX, y: e.clientY };
-    };
-    const handleTouchMove = (e: TouchEvent) => {
-      mouseRef.current = { x: e.touches[0].clientX, y: e.touches[0].clientY };
-    };
-    const handleTouchEnd = () => {
-      mouseRef.current = { x: -1000, y: -1000 };
-    };
+    const handleMouse = (e: MouseEvent) => { mouseRef.current = { x: e.clientX, y: e.clientY }; };
+    const handleTouch = (e: TouchEvent) => { mouseRef.current = { x: e.touches[0].clientX, y: e.touches[0].clientY }; };
+    const handleTouchEnd = () => { mouseRef.current = { x: -1000, y: -1000 }; };
 
     window.addEventListener('resize', handleResize);
     window.addEventListener('mousemove', handleMouse);
-    window.addEventListener('touchmove', handleTouchMove, { passive: true });
+    window.addEventListener('touchmove', handleTouch, { passive: true });
     window.addEventListener('touchend', handleTouchEnd);
 
     return () => {
       cancelAnimationFrame(animRef.current);
       window.removeEventListener('resize', handleResize);
       window.removeEventListener('mousemove', handleMouse);
-      window.removeEventListener('touchmove', handleTouchMove);
+      window.removeEventListener('touchmove', handleTouch);
       window.removeEventListener('touchend', handleTouchEnd);
       observer.disconnect();
     };
@@ -229,7 +214,7 @@ export default function NeuralBackground() {
     <canvas
       ref={canvasRef}
       className="fixed inset-0 pointer-events-none z-0"
-      style={{ opacity: 0.6 }}
+      style={{ opacity: 0.65 }}
     />
   );
 }
