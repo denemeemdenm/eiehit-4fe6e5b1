@@ -31,9 +31,9 @@ export default function Footer() {
           <div className="space-y-3">
             <h4 className="font-semibold text-sm">Sayfalar</h4>
             <nav className="flex flex-col gap-2">
-              <Link to="/hakkimda" className="text-sm text-muted-foreground hover:text-foreground transition-colors">Hakkımda</Link>
-              <Link to="/calisma-alanlari" className="text-sm text-muted-foreground hover:text-foreground transition-colors">Çalışma Alanları</Link>
-              <Link to="/iletisim" className="text-sm text-muted-foreground hover:text-foreground transition-colors">İletişim</Link>
+              <button onClick={() => document.getElementById('about')?.scrollIntoView({ behavior: 'smooth' })} className="text-sm text-muted-foreground hover:text-foreground transition-colors text-left">Hakkımda</button>
+              <button onClick={() => document.getElementById('practice')?.scrollIntoView({ behavior: 'smooth' })} className="text-sm text-muted-foreground hover:text-foreground transition-colors text-left">Çalışma Alanları</button>
+              <button onClick={() => document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' })} className="text-sm text-muted-foreground hover:text-foreground transition-colors text-left">İletişim</button>
               <Link to="/kvkk" className="text-sm text-muted-foreground hover:text-foreground transition-colors">KVKK / Gizlilik</Link>
             </nav>
           </div>
@@ -60,9 +60,6 @@ export default function Footer() {
 
         {/* Legal */}
         <div className="mt-12 pt-8 border-t border-border/30 space-y-3">
-          <p className="text-xs text-muted-foreground text-center">
-            Adana Barosu / Türkiye Barolar Birliği üyesi
-          </p>
           <p className="text-xs text-muted-foreground/70 text-center max-w-2xl mx-auto">
             Bu web sitesinde yer alan bilgiler yalnızca bilgilendirme amacıyla sunulmakta olup hukuki danışmanlık niteliği taşımamaktadır.
             Avukat-müvekkil ilişkisi ancak yazılı sözleşme ile kurulur. Sonuç taahhüdü verilmemektedir.

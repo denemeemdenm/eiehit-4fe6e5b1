@@ -23,7 +23,6 @@ export default function NeuralBackground() {
   const trailRef = useRef<GoldTrail[]>([]);
   const animRef = useRef<number>(0);
   const isDarkRef = useRef(false);
-  const timeRef = useRef(0);
   const prevMouseRef = useRef({ x: -1000, y: -1000 });
 
   useEffect(() => {
@@ -41,7 +40,7 @@ export default function NeuralBackground() {
     const mobile = window.innerWidth < 768;
     const particleCount = mobile ? 40 : 90;
     const connectionDist = mobile ? 110 : 140;
-    const cursorRadius = 180;
+    const cursorRadius = 200;
 
     function resizeCanvas() {
       canvas.width = window.innerWidth;
@@ -67,56 +66,44 @@ export default function NeuralBackground() {
 
     function updateParticles(time: number) {
       const mouse = mouseRef.current;
-      const trail = trailRef.current;
       particlesRef.current.forEach(p => {
-        // Organic drift with subtle sine wave
+        // Organic drift
         p.x += p.vx + Math.sin(time * 0.0003 + p.pulsePhase) * 0.04;
         p.y += p.vy + Math.cos(time * 0.00025 + p.pulsePhase) * 0.04;
 
+        // Bounce off edges
         if (p.x < 0 || p.x > canvas.width) p.vx *= -1;
         if (p.y < 0 || p.y > canvas.height) p.vy *= -1;
         p.x = Math.max(0, Math.min(canvas.width, p.x));
         p.y = Math.max(0, Math.min(canvas.height, p.y));
 
-        // Attract toward cursor trail points (not just cursor position)
-        if (trail.length > 0) {
-          // Find nearest trail point
-          let nearestDist = Infinity;
-          let nearestDx = 0;
-          let nearestDy = 0;
-          for (const t of trail) {
-            const dx = t.x - p.x;
-            const dy = t.y - p.y;
-            const dist = Math.sqrt(dx * dx + dy * dy);
-            if (dist < nearestDist) {
-              nearestDist = dist;
-              nearestDx = dx;
-              nearestDy = dy;
-            }
-          }
-          if (nearestDist < cursorRadius && nearestDist > 20) {
-            const force = (1 - nearestDist / cursorRadius) * 0.012;
-            p.vx += (nearestDx / nearestDist) * force;
-            p.vy += (nearestDy / nearestDist) * force;
-          } else if (nearestDist <= 20 && nearestDist > 0) {
-            // Gentle repel when too close to trail to avoid piling up
-            const repel = (1 - nearestDist / 20) * 0.04;
-            p.vx -= (nearestDx / nearestDist) * repel;
-            p.vy -= (nearestDy / nearestDist) * repel;
+        // Cursor attraction — particles gently move toward cursor
+        if (mouse.x > 0 && mouse.y > 0) {
+          const dx = mouse.x - p.x;
+          const dy = mouse.y - p.y;
+          const dist = Math.sqrt(dx * dx + dy * dy);
+          if (dist < cursorRadius && dist > 30) {
+            const force = (1 - dist / cursorRadius) * 0.015;
+            p.vx += (dx / dist) * force;
+            p.vy += (dy / dist) * force;
+          } else if (dist <= 30 && dist > 0) {
+            // Soft repel at very close range to avoid pile-up on cursor
+            const repel = (1 - dist / 30) * 0.03;
+            p.vx -= (dx / dist) * repel;
+            p.vy -= (dy / dist) * repel;
           }
         }
 
+        // Damping
         p.vx *= 0.985;
         p.vy *= 0.985;
 
-        // Clamp max speed
+        // Clamp speed
         const speed = Math.sqrt(p.vx * p.vx + p.vy * p.vy);
         if (speed > 1.0) {
           p.vx = (p.vx / speed) * 1.0;
           p.vy = (p.vy / speed) * 1.0;
         }
-
-        // Keep minimum drift
         if (speed < 0.08) {
           const angle = Math.atan2(p.vy, p.vx);
           p.vx = Math.cos(angle) * 0.08;
@@ -143,51 +130,58 @@ export default function NeuralBackground() {
       ctx.globalAlpha = 1;
     }
 
-    function drawConnections(time: number) {
+    function drawConnections() {
       const particles = particlesRef.current;
       const mouse = mouseRef.current;
       const isDark = isDarkRef.current;
 
-      // Inter-particle connections with color blending
-      for (let i = 0; i < particles.length; i++) {
-        for (let j = i + 1; j < particles.length; j++) {
-          const p1 = particles[i];
-          const p2 = particles[j];
-          const dx = p1.x - p2.x;
-          const dy = p1.y - p2.y;
-          const dist = Math.sqrt(dx * dx + dy * dy);
-
-          if (dist < connectionDist) {
-            const alpha = (1 - dist / connectionDist) * (isDark ? 0.25 : 0.15);
-            // Gradient line between two particle colors
-            const grad = ctx.createLinearGradient(p1.x, p1.y, p2.x, p2.y);
-            grad.addColorStop(0, p1.color + Math.floor(alpha * 255).toString(16).padStart(2, '0'));
-            grad.addColorStop(1, p2.color + Math.floor(alpha * 255).toString(16).padStart(2, '0'));
-            ctx.strokeStyle = grad;
-            ctx.lineWidth = 0.8;
-            ctx.beginPath();
-            ctx.moveTo(p1.x, p1.y);
-            ctx.lineTo(p2.x, p2.y);
-            ctx.stroke();
-          }
-        }
-      }
-
-      // Cursor connections — warm orange
+      // Only draw connections between particles that are NEAR THE CURSOR
+      // This creates the "neural network forms at cursor" effect
       if (mouse.x > 0 && mouse.y > 0) {
+        const nearCursor: Particle[] = [];
         particles.forEach(p => {
           const dx = mouse.x - p.x;
           const dy = mouse.y - p.y;
           const dist = Math.sqrt(dx * dx + dy * dy);
-          if (dist < cursorRadius) {
-            const alpha = (1 - dist / cursorRadius) * 0.2;
-            ctx.strokeStyle = `rgba(255, 75, 0, ${alpha})`;
-            ctx.lineWidth = 0.6;
-            ctx.beginPath();
-            ctx.moveTo(p.x, p.y);
-            ctx.lineTo(mouse.x, mouse.y);
-            ctx.stroke();
+          if (dist < cursorRadius) nearCursor.push(p);
+        });
+
+        // Connect particles near cursor to each other
+        for (let i = 0; i < nearCursor.length; i++) {
+          for (let j = i + 1; j < nearCursor.length; j++) {
+            const p1 = nearCursor[i];
+            const p2 = nearCursor[j];
+            const dx = p1.x - p2.x;
+            const dy = p1.y - p2.y;
+            const dist = Math.sqrt(dx * dx + dy * dy);
+
+            if (dist < connectionDist) {
+              const alpha = (1 - dist / connectionDist) * (isDark ? 0.35 : 0.2);
+              const grad = ctx.createLinearGradient(p1.x, p1.y, p2.x, p2.y);
+              grad.addColorStop(0, p1.color + Math.floor(alpha * 255).toString(16).padStart(2, '0'));
+              grad.addColorStop(1, p2.color + Math.floor(alpha * 255).toString(16).padStart(2, '0'));
+              ctx.strokeStyle = grad;
+              ctx.lineWidth = 0.8;
+              ctx.beginPath();
+              ctx.moveTo(p1.x, p1.y);
+              ctx.lineTo(p2.x, p2.y);
+              ctx.stroke();
+            }
           }
+        }
+
+        // Connect particles to cursor
+        nearCursor.forEach(p => {
+          const dx = mouse.x - p.x;
+          const dy = mouse.y - p.y;
+          const dist = Math.sqrt(dx * dx + dy * dy);
+          const alpha = (1 - dist / cursorRadius) * 0.15;
+          ctx.strokeStyle = `rgba(255, 75, 0, ${alpha})`;
+          ctx.lineWidth = 0.5;
+          ctx.beginPath();
+          ctx.moveTo(p.x, p.y);
+          ctx.lineTo(mouse.x, mouse.y);
+          ctx.stroke();
         });
       }
     }
@@ -195,7 +189,6 @@ export default function NeuralBackground() {
     function updateGoldTrail() {
       const mouse = mouseRef.current;
       const prev = prevMouseRef.current;
-      // Only add trail when mouse is moving
       if (mouse.x > 0 && (Math.abs(mouse.x - prev.x) > 1 || Math.abs(mouse.y - prev.y) > 1)) {
         trailRef.current.push({
           x: mouse.x + (Math.random() - 0.5) * 8,
@@ -205,7 +198,6 @@ export default function NeuralBackground() {
         });
       }
       prevMouseRef.current = { ...mouse };
-      // Fade out trail
       trailRef.current = trailRef.current.filter(t => {
         t.alpha -= 0.015;
         t.size *= 0.97;
@@ -225,7 +217,6 @@ export default function NeuralBackground() {
         ctx.fill();
       });
 
-      // Gold cursor glow
       const mouse = mouseRef.current;
       if (mouse.x > 0) {
         const g = ctx.createRadialGradient(mouse.x, mouse.y, 0, mouse.x, mouse.y, 60);
@@ -240,11 +231,10 @@ export default function NeuralBackground() {
     }
 
     function animate(time: number) {
-      timeRef.current = time;
       updateParticles(time);
       updateGoldTrail();
       drawParticles();
-      drawConnections(time);
+      drawConnections();
       drawGoldTrail();
       animRef.current = requestAnimationFrame(animate);
     }

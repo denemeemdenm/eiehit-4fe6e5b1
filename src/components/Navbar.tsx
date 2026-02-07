@@ -1,5 +1,4 @@
 import { useState } from 'react';
-import { Link, useLocation } from 'react-router-dom';
 import { Moon, Sun, Menu, X } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import logo from '@/assets/logo.png';
@@ -10,35 +9,43 @@ interface NavbarProps {
 }
 
 const navItems = [
-  { label: 'Ana Sayfa', path: '/' },
-  { label: 'Hakkımda', path: '/hakkimda' },
-  { label: 'Çalışma Alanları', path: '/calisma-alanlari' },
-  { label: 'İletişim', path: '/iletisim' },
+  { label: 'Ana Sayfa', id: 'hero' },
+  { label: 'Hakkımda', id: 'about' },
+  { label: 'Çalışma Alanları', id: 'practice' },
+  { label: 'İletişim', id: 'contact' },
 ];
 
 export default function Navbar({ theme, toggleTheme }: NavbarProps) {
-  const location = useLocation();
   const [mobileOpen, setMobileOpen] = useState(false);
+  const [activeSection, setActiveSection] = useState('hero');
+
+  const scrollTo = (id: string) => {
+    setActiveSection(id);
+    const el = document.getElementById(id);
+    if (el) {
+      el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+    setMobileOpen(false);
+  };
 
   return (
-    <header className="fixed top-4 left-1/2 -translate-x-1/2 z-50 max-w-[calc(100%-2rem)]">
+    <header className="fixed top-4 left-1/2 -translate-x-1/2 z-50">
       <div className="flex items-center gap-2">
-        {/* Main navbar */}
-        <nav className="glass-nav rounded-[20px] px-3 py-2 flex items-center gap-2 overflow-hidden">
+        <nav className="glass-nav rounded-[20px] px-4 py-2.5 flex items-center gap-3">
           {/* Logo */}
-          <Link to="/" className="shrink-0 flex items-center">
+          <button onClick={() => scrollTo('hero')} className="shrink-0 flex items-center">
             <img src={logo} alt="Logo" className="w-7 h-7 object-contain" />
-          </Link>
+          </button>
 
           {/* Desktop links */}
-          <div className="hidden md:flex items-center gap-0.5 whitespace-nowrap">
+          <div className="hidden md:flex items-center">
             {navItems.map(item => {
-              const isActive = location.pathname === item.path;
+              const isActive = activeSection === item.id;
               return (
-                <Link
-                  key={item.path}
-                  to={item.path}
-                  className={`relative px-3 py-1.5 text-[13px] font-medium rounded-lg transition-colors duration-200 ${
+                <button
+                  key={item.id}
+                  onClick={() => scrollTo(item.id)}
+                  className={`relative px-3 py-1.5 text-[13px] font-medium rounded-lg transition-colors duration-200 whitespace-nowrap ${
                     isActive ? 'text-accent' : 'text-muted-foreground hover:text-foreground'
                   }`}
                 >
@@ -49,41 +56,29 @@ export default function Navbar({ theme, toggleTheme }: NavbarProps) {
                       transition={{ type: 'spring', stiffness: 400, damping: 30 }}
                     />
                   )}
-                  <motion.span
-                    className="relative z-10"
-                    whileHover={{ scale: 1.05 }}
-                    whileTap={{ scale: 0.95 }}
-                    transition={{ type: 'spring', stiffness: 400, damping: 20 }}
-                  >
-                    {item.label}
-                  </motion.span>
-                </Link>
+                  <span className="relative z-10">{item.label}</span>
+                </button>
               );
             })}
 
-            {/* Divider */}
-            <span className="w-px h-4 bg-border/50 mx-1" />
+            <span className="w-px h-4 bg-border/50 mx-2 shrink-0" />
 
-            {/* HiT Brand */}
-            <motion.span
-              className="inline-flex items-center gap-0.5 text-[13px] font-bold px-2"
+            <span
+              className="inline-flex items-center gap-0.5 text-[13px] font-bold whitespace-nowrap"
               style={{ fontFamily: "'EKiN Pro Max Diyakritik', sans-serif" }}
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-              transition={{ type: 'spring', stiffness: 400, damping: 20 }}
             >
               <span className="gradient-text-cyan-word">Hukuk</span>
               <span className="text-muted-foreground/50">×</span>
               <span className="gradient-text-orange-word">İnovasyon</span>
               <span className="text-muted-foreground/50">×</span>
               <span className="gradient-text-yellow-word">Teknoloji</span>
-            </motion.span>
+            </span>
           </div>
 
           {/* Mobile hamburger */}
           <button
             onClick={() => setMobileOpen(!mobileOpen)}
-            className="md:hidden ml-auto w-8 h-8 rounded-lg flex items-center justify-center text-muted-foreground hover:text-foreground transition-colors"
+            className="md:hidden w-8 h-8 rounded-lg flex items-center justify-center text-muted-foreground hover:text-foreground transition-colors"
             aria-label="Menü"
           >
             {mobileOpen ? <X size={16} /> : <Menu size={16} />}
@@ -134,22 +129,21 @@ export default function Navbar({ theme, toggleTheme }: NavbarProps) {
           >
             {navItems.map((item, i) => (
               <motion.div
-                key={item.path}
+                key={item.id}
                 initial={{ opacity: 0, x: -12 }}
                 animate={{ opacity: 1, x: 0 }}
                 transition={{ delay: i * 0.04, duration: 0.2 }}
               >
-                <Link
-                  to={item.path}
-                  onClick={() => setMobileOpen(false)}
-                  className={`block px-4 py-2.5 rounded-xl text-sm font-medium transition-colors duration-200 ${
-                    location.pathname === item.path
+                <button
+                  onClick={() => scrollTo(item.id)}
+                  className={`block w-full text-left px-4 py-2.5 rounded-xl text-sm font-medium transition-colors duration-200 ${
+                    activeSection === item.id
                       ? 'text-accent bg-accent/10'
                       : 'text-muted-foreground hover:text-foreground hover:bg-accent/5'
                   }`}
                 >
                   {item.label}
-                </Link>
+                </button>
               </motion.div>
             ))}
           </motion.div>
