@@ -1,3 +1,4 @@
+import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { ArrowRight, Shield, Eye, Lock, Cpu } from 'lucide-react';
@@ -6,6 +7,8 @@ import ScrollReveal from '@/components/ScrollReveal';
 import StaggerText from '@/components/StaggerText';
 import { practiceAreas } from '@/lib/practiceAreas';
 import logo from '@/assets/logo.png';
+import nameWhite from '@/assets/name-white.png';
+import nameBlack from '@/assets/name-black.png';
 
 const trustSignals = [
   { icon: Shield, title: 'Güvenilir Süreç', desc: 'Her adımda şeffaf ve ölçülebilir hukuki süreç yönetimi.' },
@@ -17,6 +20,16 @@ const trustSignals = [
 const featuredAreas = practiceAreas.slice(0, 6);
 
 export default function Home() {
+  const [isDark, setIsDark] = useState(document.documentElement.classList.contains('dark'));
+
+  useEffect(() => {
+    const observer = new MutationObserver(() => {
+      setIsDark(document.documentElement.classList.contains('dark'));
+    });
+    observer.observe(document.documentElement, { attributes: true, attributeFilter: ['class'] });
+    return () => observer.disconnect();
+  }, []);
+
   return (
     <main className="relative z-10">
       {/* Hero */}
@@ -26,19 +39,37 @@ export default function Home() {
             initial={{ opacity: 0, scale: 0.8, filter: 'blur(20px)' }}
             animate={{ opacity: 1, scale: 1, filter: 'blur(0px)' }}
             transition={{ duration: 1.2, ease: [0.25, 0.46, 0.45, 0.94] }}
+            className="flex justify-center"
           >
-            <img src={logo} alt="HiT Logo" className="w-24 h-24 mx-auto mb-8 drop-shadow-lg" />
+            <img
+              src={logo}
+              alt="HiT Logo"
+              className="h-24 sm:h-28 w-auto mx-auto mb-8 drop-shadow-lg object-contain"
+            />
           </motion.div>
 
-          <h1 className="text-5xl sm:text-7xl lg:text-8xl font-bold tracking-tight gradient-text-gray leading-[1.1]">
-            <StaggerText text="Hukuk × İnovasyon × Teknoloji" delay={0.3} stagger={0.025} charDuration={0.6} />
+          <motion.div
+            initial={{ opacity: 0, y: 30, filter: 'blur(10px)' }}
+            animate={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
+            transition={{ duration: 1, delay: 0.4, ease: [0.25, 0.46, 0.45, 0.94] }}
+            className="flex justify-center"
+          >
+            <img
+              src={isDark ? nameWhite : nameBlack}
+              alt="Ekin İsa EROĞLU"
+              className="h-10 sm:h-14 md:h-16 w-auto object-contain"
+            />
+          </motion.div>
+
+          <h1 className="text-3xl sm:text-5xl lg:text-6xl font-bold tracking-tight gradient-text-gray leading-[1.1]">
+            <StaggerText text="Hukuk × İnovasyon × Teknoloji" delay={0.6} stagger={0.025} charDuration={0.6} />
           </h1>
 
           <motion.p
-            className="text-lg sm:text-xl text-muted-foreground max-w-2xl mx-auto leading-relaxed"
+            className="text-base sm:text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto leading-relaxed"
             initial={{ opacity: 0, y: 30, filter: 'blur(10px)' }}
             animate={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
-            transition={{ duration: 1, delay: 1.2, ease: [0.25, 0.46, 0.45, 0.94] }}
+            transition={{ duration: 1, delay: 1.4, ease: [0.25, 0.46, 0.45, 0.94] }}
           >
             Değişen dünyanın hukuki gereksinimlerine, bilgi birikimi ve teknoloji okuryazarlığıyla yanıt veren profesyonel danışmanlık.
           </motion.p>
@@ -47,7 +78,7 @@ export default function Home() {
             className="flex flex-col sm:flex-row items-center justify-center gap-4"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 1.6 }}
+            transition={{ duration: 0.8, delay: 1.8 }}
           >
             <Link
               to="/iletisim"
