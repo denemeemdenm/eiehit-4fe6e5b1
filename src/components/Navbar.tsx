@@ -23,109 +23,109 @@ export default function Navbar({ theme, toggleTheme }: NavbarProps) {
   const [mobileOpen, setMobileOpen] = useState(false);
 
   return (
-    <header className="fixed top-4 left-1/2 -translate-x-1/2 z-50 w-[calc(100%-2rem)] max-w-4xl">
-      <nav className="glass-nav rounded-[20px] px-4 py-2.5 flex items-center justify-between">
-        {/* Logo */}
-        <Link to="/" className="shrink-0">
-          <img src={logo} alt="Logo" className="w-8 h-auto object-contain" />
-        </Link>
+    <header className="fixed top-4 left-1/2 -translate-x-1/2 z-50 w-[calc(100%-2rem)] max-w-5xl">
+      <div className="flex items-center gap-3">
+        <nav className="glass-nav rounded-[20px] px-4 py-2.5 flex items-center justify-between flex-1">
+          {/* Logo */}
+          <Link to="/" className="shrink-0">
+            <img src={logo} alt="Logo" className="w-8 h-auto object-contain" />
+          </Link>
 
-        {/* Desktop Nav */}
-        <div className="hidden md:flex items-center gap-1">
-          {navItems.map(item => {
-            const isActive = location.pathname === item.path;
-            return (
-              <Link
-                key={item.path}
-                to={item.path}
-                className={`relative px-3 py-1.5 text-sm font-medium rounded-lg transition-all duration-300 group ${
-                  isActive
-                    ? 'text-accent'
-                    : 'text-muted-foreground hover:text-foreground'
-                }`}
-              >
-                {isActive && (
-                  <motion.div
-                    layoutId="nav-indicator"
-                    className="absolute inset-0 rounded-lg border border-accent/20"
-                    style={{ background: 'hsl(var(--accent) / 0.08)' }}
-                    transition={{ type: 'spring', stiffness: 380, damping: 28 }}
-                  />
-                )}
-                <motion.span
-                  className="relative z-10 inline-block"
-                  whileHover={{ scale: 1.06 }}
-                  whileTap={{ scale: 0.94 }}
-                  transition={{ type: 'spring', stiffness: 400, damping: 20 }}
+          {/* Desktop Nav */}
+          <div className="hidden md:flex items-center gap-1">
+            {navItems.map(item => {
+              const isActive = location.pathname === item.path;
+              return (
+                <Link
+                  key={item.path}
+                  to={item.path}
+                  className={`relative px-3 py-1.5 text-sm font-medium rounded-lg transition-all duration-300 group ${
+                    isActive
+                      ? 'text-accent'
+                      : 'text-muted-foreground hover:text-foreground'
+                  }`}
                 >
-                  {item.label}
-                </motion.span>
-                {!isActive && (
-                  <span className="absolute bottom-0 left-1/2 -translate-x-1/2 w-0 h-[2px] rounded-full bg-accent/60 transition-all duration-300 group-hover:w-3/4" />
-                )}
-              </Link>
-            );
-          })}
-          {/* HiT Brand */}
-          <div className="relative px-3 py-1.5 text-sm font-bold rounded-lg" style={{ fontFamily: "'EKiN Pro Max Diyakritik', sans-serif" }}>
-            <motion.span
-              className="relative z-10 inline-flex items-center gap-0.5"
-              whileHover={{ scale: 1.06 }}
-              whileTap={{ scale: 0.94 }}
-              transition={{ type: 'spring', stiffness: 400, damping: 20 }}
-            >
-              <span className="gradient-text-cyan-word">Hukuk</span>
-              <span className="text-foreground/40 dark:text-gray-400">×</span>
-              <span className="gradient-text-orange-word">İnovasyon</span>
-              <span className="text-foreground/40 dark:text-gray-400">×</span>
-              <span className="gradient-text-yellow-word">Teknoloji</span>
-            </motion.span>
+                  {isActive && (
+                    <motion.div
+                      layoutId="nav-indicator"
+                      className="absolute bottom-0 left-1/2 -translate-x-1/2 h-[2px] w-3/4 rounded-full bg-accent"
+                      transition={{ type: 'spring', stiffness: 380, damping: 28 }}
+                    />
+                  )}
+                  <motion.span
+                    className="relative z-10 inline-block"
+                    whileHover={{ scale: 1.06 }}
+                    whileTap={{ scale: 0.94 }}
+                    transition={{ type: 'spring', stiffness: 400, damping: 20 }}
+                  >
+                    {item.label}
+                  </motion.span>
+                  {!isActive && (
+                    <span className="absolute bottom-0 left-1/2 -translate-x-1/2 w-0 h-[2px] rounded-full bg-accent/60 transition-all duration-300 group-hover:w-3/4" />
+                  )}
+                </Link>
+              );
+            })}
+            {/* HiT Brand */}
+            <div className="relative px-3 py-1.5 text-sm font-bold rounded-lg" style={{ fontFamily: "'EKiN Pro Max Diyakritik', sans-serif" }}>
+              <motion.span
+                className="relative z-10 inline-flex items-center gap-0.5"
+                whileHover={{ scale: 1.06 }}
+                whileTap={{ scale: 0.94 }}
+                transition={{ type: 'spring', stiffness: 400, damping: 20 }}
+              >
+                <span className="gradient-text-cyan-word">Hukuk</span>
+                <span className="text-foreground/40 dark:text-gray-400">×</span>
+                <span className="gradient-text-orange-word">İnovasyon</span>
+                <span className="text-foreground/40 dark:text-gray-400">×</span>
+                <span className="gradient-text-yellow-word">Teknoloji</span>
+              </motion.span>
+            </div>
           </div>
-        </div>
 
-        {/* Mobile menu button */}
-        <div className="flex items-center md:hidden">
-          <button
-            onClick={() => setMobileOpen(!mobileOpen)}
-            className="w-9 h-9 rounded-xl glass-panel flex items-center justify-center"
-            aria-label="Menü"
-          >
-            {mobileOpen ? <X size={16} /> : <Menu size={16} />}
-          </button>
-        </div>
-      </nav>
+          {/* Mobile menu button */}
+          <div className="flex items-center md:hidden">
+            <button
+              onClick={() => setMobileOpen(!mobileOpen)}
+              className="w-9 h-9 rounded-xl glass-panel flex items-center justify-center"
+              aria-label="Menü"
+            >
+              {mobileOpen ? <X size={16} /> : <Menu size={16} />}
+            </button>
+          </div>
+        </nav>
 
-      {/* Theme toggle - separate floating button */}
-      <button
-        onClick={toggleTheme}
-        className="fixed top-[18px] z-50 w-10 h-10 rounded-[14px] glass-panel flex items-center justify-center transition-transform duration-300 hover:scale-110 active:scale-95 overflow-hidden"
-        style={{ right: 'max(1rem, calc((100vw - 56rem) / 2 - 3.5rem))' }}
-        aria-label="Tema değiştir"
-      >
-        <AnimatePresence mode="wait" initial={false}>
-          {theme === 'light' ? (
-            <motion.div
-              key="moon"
-              initial={{ y: -20, opacity: 0, rotate: -90 }}
-              animate={{ y: 0, opacity: 1, rotate: 0 }}
-              exit={{ y: 20, opacity: 0, rotate: 90 }}
-              transition={{ duration: 0.3, ease: [0.25, 0.46, 0.45, 0.94] }}
-            >
-              <Moon size={16} className="text-muted-foreground" />
-            </motion.div>
-          ) : (
-            <motion.div
-              key="sun"
-              initial={{ y: -20, opacity: 0, rotate: -90 }}
-              animate={{ y: 0, opacity: 1, rotate: 0 }}
-              exit={{ y: 20, opacity: 0, rotate: 90 }}
-              transition={{ duration: 0.3, ease: [0.25, 0.46, 0.45, 0.94] }}
-            >
-              <Sun size={16} className="text-accent" />
-            </motion.div>
-          )}
-        </AnimatePresence>
-      </button>
+        {/* Theme toggle - separate button beside navbar */}
+        <button
+          onClick={toggleTheme}
+          className="shrink-0 w-10 h-10 rounded-[14px] glass-panel flex items-center justify-center transition-transform duration-300 hover:scale-110 active:scale-95 overflow-hidden"
+          aria-label="Tema değiştir"
+        >
+          <AnimatePresence mode="wait" initial={false}>
+            {theme === 'light' ? (
+              <motion.div
+                key="moon"
+                initial={{ y: -20, opacity: 0, rotate: -90 }}
+                animate={{ y: 0, opacity: 1, rotate: 0 }}
+                exit={{ y: 20, opacity: 0, rotate: 90 }}
+                transition={{ duration: 0.3, ease: [0.25, 0.46, 0.45, 0.94] }}
+              >
+                <Moon size={16} className="text-muted-foreground" />
+              </motion.div>
+            ) : (
+              <motion.div
+                key="sun"
+                initial={{ y: -20, opacity: 0, rotate: -90 }}
+                animate={{ y: 0, opacity: 1, rotate: 0 }}
+                exit={{ y: 20, opacity: 0, rotate: 90 }}
+                transition={{ duration: 0.3, ease: [0.25, 0.46, 0.45, 0.94] }}
+              >
+                <Sun size={16} className="text-accent" />
+              </motion.div>
+            )}
+          </AnimatePresence>
+        </button>
+      </div>
 
       {/* Mobile Menu */}
       <AnimatePresence>
