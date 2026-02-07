@@ -120,16 +120,12 @@ export default function Home() {
             <img src={isDark ? nameWhite : nameBlack} alt="Ekin İsa EROĞLU" className="h-10 sm:h-14 md:h-16 w-auto object-contain" />
           </motion.div>
 
-          <h1 className="text-3xl sm:text-5xl lg:text-6xl font-bold tracking-tight gradient-text-gray leading-[1.1]">
+          <h1 className="text-3xl sm:text-5xl lg:text-6xl font-bold tracking-tight gradient-text-brand leading-[1.1]">
             <StaggerText text="Hukuk × İnovasyon × Teknoloji" delay={0.6} stagger={0.025} charDuration={0.6} />
           </h1>
 
-          <motion.p className="text-lg sm:text-xl md:text-2xl max-w-2xl mx-auto leading-relaxed" style={{
-          fontFamily: "'Georgia', 'Times New Roman', serif",
-          background: 'linear-gradient(135deg, #c9a227 0%, #f4d03f 40%, #d4a017 70%, #c9a227 100%)',
-          WebkitBackgroundClip: 'text',
-          WebkitTextFillColor: 'transparent',
-          backgroundClip: 'text'
+          <motion.p className="text-lg sm:text-xl md:text-2xl max-w-2xl mx-auto leading-relaxed gradient-text-brand" style={{
+          fontFamily: "'Georgia', 'Times New Roman', serif"
         }} initial={{
           opacity: 0,
           y: 30,
@@ -186,7 +182,7 @@ export default function Home() {
       <section className="section-spacing content-padding">
         <div className="max-w-6xl mx-auto">
           <ScrollReveal>
-            <h2 className="text-3xl sm:text-4xl font-bold text-center mb-16 gradient-text-gray">
+            <h2 className="text-3xl sm:text-4xl font-bold text-center mb-16 gradient-text-brand-heading">
               Profesyonel Yaklaşım
             </h2>
           </ScrollReveal>
@@ -202,7 +198,7 @@ export default function Home() {
       <section className="section-spacing content-padding">
         <div className="max-w-6xl mx-auto">
           <ScrollReveal>
-            <h2 className="text-3xl sm:text-4xl font-bold text-center mb-4 gradient-text-gray">
+            <h2 className="text-3xl sm:text-4xl font-bold text-center mb-4 gradient-text-brand-heading">
               Çalışma Alanları
             </h2>
             <p className="text-center text-muted-foreground mb-16 max-w-xl mx-auto">

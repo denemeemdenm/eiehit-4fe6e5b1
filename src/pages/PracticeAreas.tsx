@@ -19,7 +19,7 @@ export default function PracticeAreas() {
     <main className="relative z-10 pt-28 content-padding min-h-screen">
       <div className="max-w-6xl mx-auto">
         <ScrollReveal>
-          <h1 className="text-4xl sm:text-6xl font-bold mb-4 gradient-text-gray">Çalışma Alanları</h1>
+          <h1 className="text-4xl sm:text-6xl font-bold mb-4 gradient-text-brand-heading">Çalışma Alanları</h1>
           <p className="text-muted-foreground mb-10 max-w-xl">
             25 farklı hukuk dalında profesyonel danışmanlık hizmeti.
           </p>

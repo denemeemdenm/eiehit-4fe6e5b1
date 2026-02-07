@@ -2,41 +2,7 @@
 @tailwind components;
 @tailwind utilities;
 
-@font-face {
-  font-family: 'EKiN Pro Display';
-  src: url('/fonts/EKiN-Pro-Display-Thin.otf') format('opentype');
-  font-weight: 100;
-  font-style: normal;
-  font-display: swap;
-}
-@font-face {
-  font-family: 'EKiN Pro Display';
-  src: url('/fonts/EKiN-Pro-Display-Light.otf') format('opentype');
-  font-weight: 300;
-  font-style: normal;
-  font-display: swap;
-}
-@font-face {
-  font-family: 'EKiN Pro Display';
-  src: url('/fonts/EKiN-Pro-Display-Regular.otf') format('opentype');
-  font-weight: 400;
-  font-style: normal;
-  font-display: swap;
-}
-@font-face {
-  font-family: 'EKiN Pro Display';
-  src: url('/fonts/EKiN-Pro-Display-Bold.otf') format('opentype');
-  font-weight: 700;
-  font-style: normal;
-  font-display: swap;
-}
-@font-face {
-  font-family: 'EKiN Pro Display';
-  src: url('/fonts/EKiN-Pro-Display-Black.otf') format('opentype');
-  font-weight: 900;
-  font-style: normal;
-  font-display: swap;
-}
+/* EKiN Pro Display font-face declarations removed — using Plus Jakarta Sans from Google Fonts */
 
 @layer base {
   :root {
@@ -160,16 +126,16 @@
   }
   body {
     @apply bg-background text-foreground;
-    font-family: 'Google Sans Flex', 'EKiN Pro Display', -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Segoe UI', sans-serif;
+    font-family: 'Google Sans Flex', 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Segoe UI', sans-serif;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     overflow-x: hidden;
     line-height: 1.7;
   }
   h1, h2, h3, h4, h5, h6 {
-    font-family: 'EKiN Pro Display', -apple-system, BlinkMacSystemFont, sans-serif;
+    font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
     line-height: 1.35;
-    letter-spacing: -0.01em;
+    letter-spacing: -0.02em;
   }
   a, button, [role="button"], input[type="submit"], input[type="button"] {
     cursor: url('/cursor.svg') 0 0, url('/cursor.png') 0 0, pointer;
@@ -286,6 +252,20 @@
 
   .gradient-text-red {
     background: linear-gradient(135deg, hsl(18 100% 50%), hsl(0 80% 35%));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .gradient-text-brand {
+    background: linear-gradient(135deg, #64FFFF 0%, #FF4B00 50%, #FFCC00 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .gradient-text-brand-heading {
+    background: linear-gradient(135deg, #64FFFF 0%, #64FFFF 30%, #FF4B00 60%, #FFCC00 100%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
