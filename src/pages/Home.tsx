@@ -124,7 +124,7 @@ export default function Home() {
             <StaggerText text="Hukuk × İnovasyon × Teknoloji" delay={0.6} stagger={0.025} charDuration={0.6} />
           </h1>
 
-          <motion.p className="text-lg sm:text-xl md:text-2xl italic max-w-2xl mx-auto leading-relaxed" style={{
+          <motion.p className="text-lg sm:text-xl md:text-2xl max-w-2xl mx-auto leading-relaxed" style={{
           fontFamily: "'Georgia', 'Times New Roman', serif",
           background: 'linear-gradient(135deg, #c9a227 0%, #f4d03f 40%, #d4a017 70%, #c9a227 100%)',
           WebkitBackgroundClip: 'text',

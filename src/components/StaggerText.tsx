@@ -26,7 +26,9 @@ export default function StaggerText({
     }
   }}>
       {words.map((word, wi) => <span key={wi} className="inline-block whitespace-nowrap">
-          {word.split('').map((char, ci) => {})}
+          {word.split('').map((char, ci) => (
+            <motion.span key={ci} className="inline-block" variants={{ hidden: { opacity: 0, y: 20 }, visible: { opacity: 1, y: 0, transition: { duration: charDuration } } }}>{char}</motion.span>
+          ))}
           {wi < words.length - 1 && <span className="inline-block">&nbsp;</span>}
         </span>)}
     </motion.span>;
