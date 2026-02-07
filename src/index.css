@@ -2,7 +2,15 @@
 @tailwind components;
 @tailwind utilities;
 
-/* EKiN Pro Display font-face declarations removed — using Plus Jakarta Sans from Google Fonts */
+/* EKiN Pro Max Diyakritik font */
+@font-face {
+  font-family: 'EKiN Pro Max Diyakritik';
+  src: url('/fonts/EKiN-Pro-Max-Diyakritik.otf') format('opentype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
 
 @layer base {
   :root {
