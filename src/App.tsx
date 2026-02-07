@@ -7,9 +7,6 @@ import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import NeuralBackground from "@/components/NeuralBackground";
 import Home from "@/pages/Home";
-import About from "@/pages/About";
-import PracticeAreas from "@/pages/PracticeAreas";
-import Contact from "@/pages/Contact";
 import Privacy from "@/pages/Privacy";
 import HMGS from "@/pages/HMGS";
 import NotFound from "@/pages/NotFound";
@@ -26,12 +23,9 @@ const AppContent = () => {
       <div className="flex-1">
         <Routes>
           <Route path="/" element={<Home />} />
-          <Route path="/hakkimda" element={<About />} />
-          <Route path="/calisma-alanlari" element={<PracticeAreas />} />
-          <Route path="/iletisim" element={<Contact />} />
           <Route path="/kvkk" element={<Privacy />} />
           <Route path="/hmgs" element={<HMGS />} />
-          <Route path="*" element={<NotFound />} />
+          <Route path="*" element={<Home />} />
         </Routes>
       </div>
       <Footer />
