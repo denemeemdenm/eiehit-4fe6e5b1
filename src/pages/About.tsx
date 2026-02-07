@@ -15,7 +15,7 @@ export default function About() {
             <div className="flex items-start gap-6 mb-8">
               <img src={logo} alt="Logo" className="w-16 h-auto shrink-0 object-contain" />
               <div>
-                <h2 className="text-2xl font-bold mb-1">Av. Ekin İsa EROĞLU</h2>
+                <h2 className="text-2xl font-bold mb-1" style={{ fontFamily: "'EKiN Pro Max Diyakritik', sans-serif" }}>Av. Ekin İsa EROĞLU</h2>
                 <p className="text-sm text-muted-foreground">Adana Barosu / Türkiye Barolar Birliği</p>
               </div>
             </div>

@@ -62,7 +62,7 @@ export default function Footer() {
             Avukat-müvekkil ilişkisi ancak yazılı sözleşme ile kurulur. Sonuç taahhüdü verilmemektedir.
           </p>
           <p className="text-xs text-muted-foreground/50 text-center">
-            © {new Date().getFullYear()} Av. Ekin İsa EROĞLU. Tüm hakları saklıdır.
+            © {new Date().getFullYear()} <span style={{ fontFamily: "'EKiN Pro Max Diyakritik', sans-serif" }}>Av. Ekin İsa EROĞLU</span>. Tüm hakları saklıdır.
           </p>
         </div>
       </div>

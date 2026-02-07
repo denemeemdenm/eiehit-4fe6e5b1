@@ -141,7 +141,7 @@ export default function Home() {
               <div className="flex items-start gap-6 mb-8">
                 <img src={logo} alt="Logo" className="w-16 h-auto shrink-0 object-contain" />
                 <div>
-                  <h3 className="text-2xl font-bold mb-1">Av. Ekin İsa EROĞLU</h3>
+                  <h3 className="text-2xl font-bold mb-1" style={{ fontFamily: "'EKiN Pro Max Diyakritik', sans-serif" }}>Av. Ekin İsa EROĞLU</h3>
                 </div>
               </div>
               <div className="space-y-4 text-muted-foreground leading-relaxed">
