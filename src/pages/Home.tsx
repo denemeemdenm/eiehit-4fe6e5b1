@@ -19,7 +19,7 @@ import trustTech from '@/assets/cards/trust-tech.jpg';
 // Practice area images
 import areaFamily from '@/assets/cards/area-family.jpg';
 import areaObligations from '@/assets/cards/area-obligations.jpg';
-import areaCorporate from '@/assets/cards/area-corporate.jpg';
+import areaItLaw from '@/assets/cards/area-it-law.jpg';
 import areaTrade from '@/assets/cards/area-trade.jpg';
 import areaEmployment from '@/assets/cards/area-employment.jpg';
 import areaEnforcement from '@/assets/cards/area-enforcement.jpg';
@@ -49,7 +49,7 @@ const trustSignals = [{
 const areaImages: Record<string, string> = {
   'aile-hukuku': areaFamily,
   'borclar-hukuku': areaObligations,
-  'birlesme-devralma': areaCorporate,
+  'bilisim-hukuku': areaItLaw,
   'ticaret-hukuku': areaTrade,
   'is-hukuku': areaEmployment,
   'icra-iflas': areaEnforcement
