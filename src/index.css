@@ -264,6 +264,34 @@
     background-clip: text;
   }
 
+  .gradient-text-gold {
+    background: linear-gradient(135deg, #c9a227 0%, #f4d03f 40%, #d4a017 70%, #c9a227 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .gradient-text-cyan-word {
+    background: linear-gradient(135deg, #64FFFF, #00c8d4);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .gradient-text-orange-word {
+    background: linear-gradient(135deg, #FF4B00, #e03500);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .gradient-text-yellow-word {
+    background: linear-gradient(135deg, #FFCC00, #e6b800);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
   .gradient-text-brand-heading {
     background: linear-gradient(135deg, #64FFFF 0%, #64FFFF 30%, #FF4B00 60%, #FFCC00 100%);
     -webkit-background-clip: text;
