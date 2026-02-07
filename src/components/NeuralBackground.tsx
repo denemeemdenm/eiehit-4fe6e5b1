@@ -77,23 +77,52 @@ export default function NeuralBackground() {
         p.x = Math.max(0, Math.min(canvas.width, p.x));
         p.y = Math.max(0, Math.min(canvas.height, p.y));
 
-        // Cursor attraction
+        // Cursor interaction: gentle attraction far away, repulsion when too close
         if (mouse.x > 0 && mouse.y > 0) {
           const dx = mouse.x - p.x;
           const dy = mouse.y - p.y;
           const dist = Math.sqrt(dx * dx + dy * dy);
           if (dist < cursorRadius && dist > 0) {
-            const force = (1 - dist / cursorRadius) * 0.02;
-            p.vx += (dx / dist) * force;
-            p.vy += (dy / dist) * force;
+            const repelZone = 60;
+            if (dist < repelZone) {
+              // Repel particles that get too close to prevent clustering
+              const repelForce = (1 - dist / repelZone) * 0.08;
+              p.vx -= (dx / dist) * repelForce;
+              p.vy -= (dy / dist) * repelForce;
+            } else {
+              // Very gentle attraction beyond repel zone
+              const force = (1 - dist / cursorRadius) * 0.005;
+              p.vx += (dx / dist) * force;
+              p.vy += (dy / dist) * force;
+            }
           }
         }
+
+        // Inter-particle repulsion to prevent clustering
+        particlesRef.current.forEach(other => {
+          if (other === p) return;
+          const dx = p.x - other.x;
+          const dy = p.y - other.y;
+          const dist = Math.sqrt(dx * dx + dy * dy);
+          if (dist < 30 && dist > 0) {
+            const repel = (1 - dist / 30) * 0.03;
+            p.vx += (dx / dist) * repel;
+            p.vy += (dy / dist) * repel;
+          }
+        });
 
         p.vx *= 0.98;
         p.vy *= 0.98;
 
-        // Keep minimum drift
+        // Clamp max speed to prevent bursts
         const speed = Math.sqrt(p.vx * p.vx + p.vy * p.vy);
+        const maxSpeed = 1.2;
+        if (speed > maxSpeed) {
+          p.vx = (p.vx / speed) * maxSpeed;
+          p.vy = (p.vy / speed) * maxSpeed;
+        }
+
+        // Keep minimum drift
         if (speed < 0.1) {
           const angle = Math.atan2(p.vy, p.vx);
           p.vx = Math.cos(angle) * 0.1;
