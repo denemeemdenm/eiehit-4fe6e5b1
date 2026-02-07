@@ -28,14 +28,21 @@ export default function Navbar({ theme, toggleTheme }: NavbarProps) {
         {/* Logo + Name */}
         <Link to="/" className="flex items-center gap-2.5 shrink-0">
           <img src={logo} alt="Logo" className="w-8 h-auto object-contain" />
-          <div className="hidden sm:flex items-center gap-0.5 text-xs font-bold tracking-tight">
-            <span className="gradient-text-cyan-word">Hukuk</span>
-            <span className="text-foreground/40 dark:text-gray-400"> × </span>
-            <span className="gradient-text-orange-word">İnovasyon</span>
-            <span className="text-foreground/40 dark:text-gray-400"> × </span>
-            <span className="gradient-text-yellow-word">Teknoloji</span>
-          </div>
+          <img
+            src={theme === 'dark' ? nameWhite : nameBlack}
+            alt="Ekin İsa EROĞLU"
+            className="h-4 sm:h-[18px] w-auto object-contain hidden sm:block"
+          />
         </Link>
+
+        {/* Brand tagline */}
+        <div className="hidden md:flex items-center gap-1 text-sm font-bold tracking-tight" style={{ fontFamily: "'EKiN Pro Max Diyakritik', sans-serif" }}>
+          <span className="gradient-text-cyan-word">Hukuk</span>
+          <span className="text-foreground/40 dark:text-gray-400">×</span>
+          <span className="gradient-text-orange-word">İnovasyon</span>
+          <span className="text-foreground/40 dark:text-gray-400">×</span>
+          <span className="gradient-text-yellow-word">Teknoloji</span>
+        </div>
 
         {/* Desktop Nav */}
         <div className="hidden md:flex items-center gap-1">

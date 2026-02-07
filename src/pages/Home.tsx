@@ -228,7 +228,7 @@ export default function Home() {
         <div className="max-w-4xl mx-auto">
           <ScrollReveal>
             <GlassCard className="p-12 sm:p-16 text-center">
-              <h2 className="text-2xl sm:text-3xl font-bold mb-4">
+              <h2 className="text-2xl sm:text-3xl font-bold mb-4" style={{ fontFamily: "'EKiN Pro Max Diyakritik', sans-serif" }}>
                 <span className="gradient-text-cyan-word">HUKUK</span>
                 <span className="text-foreground/40 dark:text-gray-400"> × </span>
                 <span className="gradient-text-orange-word">İNOVASYON</span>
