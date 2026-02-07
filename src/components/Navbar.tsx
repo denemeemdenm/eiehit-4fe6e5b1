@@ -24,9 +24,10 @@ export default function Navbar({ theme, toggleTheme }: NavbarProps) {
 
   return (
     <header className="fixed top-4 left-1/2 -translate-x-1/2 z-50 w-[calc(100%-2rem)] max-w-4xl">
-      <nav className="glass-nav rounded-2xl px-4 py-2.5 flex items-center justify-between">
-        {/* Logo + Name */}
+      <nav className="glass-nav rounded-[20px] px-4 py-2.5 flex items-center justify-between">
+        {/* Logo */}
         <Link to="/" className="shrink-0">
+          <img src={logo} alt="Logo" className="w-8 h-auto object-contain" />
         </Link>
 
 
@@ -100,7 +101,8 @@ export default function Navbar({ theme, toggleTheme }: NavbarProps) {
       {/* Theme toggle - separate floating button */}
       <button
         onClick={toggleTheme}
-        className="fixed top-5 right-4 z-50 w-10 h-10 rounded-xl glass-panel flex items-center justify-center transition-transform duration-300 hover:scale-110 active:scale-95 overflow-hidden"
+        className="fixed top-[18px] z-50 w-10 h-10 rounded-[14px] glass-panel flex items-center justify-center transition-transform duration-300 hover:scale-110 active:scale-95 overflow-hidden"
+        style={{ right: 'max(1rem, calc((100vw - 56rem) / 2 - 3.5rem))' }}
         aria-label="Tema değiştir"
       >
         <AnimatePresence mode="wait" initial={false}>
@@ -135,7 +137,7 @@ export default function Navbar({ theme, toggleTheme }: NavbarProps) {
             initial={{ opacity: 0, y: -10 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -10 }}
-            className="glass-nav rounded-2xl mt-2 p-4 md:hidden"
+            className="glass-nav rounded-[20px] mt-2 p-4 md:hidden"
           >
             {navItems.map((item, i) => (
               <motion.div
