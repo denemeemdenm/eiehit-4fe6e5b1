@@ -40,7 +40,7 @@
 
 @layer base {
   :root {
-    --background: 0 0% 95%;
+    --background: 0 0% 96%;
     --foreground: 240 6% 10%;
 
     --card: 0 0% 100%;
@@ -156,10 +156,11 @@
 @layer base {
   * {
     @apply border-border;
+    cursor: url('/cursor.svg') 0 0, url('/cursor.png') 0 0, auto;
   }
   body {
     @apply bg-background text-foreground;
-    font-family: 'EKiN Pro Display', -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Segoe UI', sans-serif;
+    font-family: 'Google Sans Flex', 'EKiN Pro Display', -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Segoe UI', sans-serif;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     overflow-x: hidden;
@@ -169,6 +170,9 @@
     font-family: 'EKiN Pro Display', -apple-system, BlinkMacSystemFont, sans-serif;
     line-height: 1.35;
     letter-spacing: -0.01em;
+  }
+  a, button, [role="button"], input[type="submit"], input[type="button"] {
+    cursor: url('/cursor.svg') 0 0, url('/cursor.png') 0 0, pointer;
   }
   ::selection {
     background: hsl(192 100% 50% / 0.3);
@@ -290,7 +294,56 @@
   .section-spacing {
     padding-top: clamp(80px, 15vh, 200px);
     padding-bottom: clamp(80px, 15vh, 200px);
+  /* Apple-style scroll edge fade */
+  .scroll-edge-fade {
+    mask-image: linear-gradient(
+      to bottom,
+      transparent 0%,
+      black 60px,
+      black calc(100% - 60px),
+      transparent 100%
+    );
+    -webkit-mask-image: linear-gradient(
+      to bottom,
+      transparent 0%,
+      black 60px,
+      black calc(100% - 60px),
+      transparent 100%
+    );
   }
+
+  /* Scroll edge effect for the main content area */
+  .scroll-edge-top::before,
+  .scroll-edge-bottom::after {
+    content: '';
+    position: fixed;
+    left: 0;
+    right: 0;
+    height: 80px;
+    pointer-events: none;
+    z-index: 50;
+  }
+  .scroll-edge-top::before {
+    top: 0;
+    background: linear-gradient(
+      to bottom,
+      hsl(var(--background)) 0%,
+      hsl(var(--background) / 0.8) 30%,
+      hsl(var(--background) / 0.4) 60%,
+      transparent 100%
+    );
+  }
+  .scroll-edge-bottom::after {
+    bottom: 0;
+    background: linear-gradient(
+      to top,
+      hsl(var(--background)) 0%,
+      hsl(var(--background) / 0.8) 30%,
+      hsl(var(--background) / 0.4) 60%,
+      transparent 100%
+    );
+  }
+}
 
   .content-padding {
     padding-left: clamp(16px, 5vw, 80px);
