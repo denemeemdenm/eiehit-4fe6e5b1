@@ -252,14 +252,14 @@
   }
 
   .gradient-text-cyan {
-    background: linear-gradient(135deg, #64FFFF, #3ad4d4);
+    background: linear-gradient(135deg, #64FFFF, #00d4e0);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
   }
 
   .gradient-text-red {
-    background: linear-gradient(135deg, #FF4B00, #cc3c00);
+    background: linear-gradient(135deg, #FF4B00, #e03500);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
@@ -267,6 +267,8 @@
 
   .gradient-text-brand {
     background: linear-gradient(135deg, #64FFFF 0%, #FF4B00 50%, #FFCC00 100%);
+    background-size: 200% 200%;
+    animation: gradient-shift 8s ease infinite;
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
@@ -280,7 +282,7 @@
   }
 
   .gradient-text-cyan-word {
-    background: linear-gradient(135deg, #64FFFF, #00c8d4);
+    background: linear-gradient(135deg, #64FFFF, #00d4e0);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
@@ -302,12 +304,15 @@
 
   .gradient-text-brand-heading {
     background: linear-gradient(135deg, #64FFFF 0%, #FF4B00 50%, #FFCC00 100%);
+    background-size: 200% 200%;
+    animation: gradient-shift 8s ease infinite;
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
     line-height: 1.4;
     padding-bottom: 0.1em;
   }
+
 
   .section-spacing {
     padding-top: clamp(80px, 15vh, 200px);
@@ -377,6 +382,12 @@
   .spring-ease {
     transition-timing-function: cubic-bezier(0.175, 0.885, 0.32, 1.275);
   }
+}
+
+@keyframes gradient-shift {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
 }
 
 /* Liquid crossfade theme transition */
