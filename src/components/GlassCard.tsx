@@ -67,12 +67,12 @@ export default function GlassCard({ children, className = '', onClick, tiltInten
       onClick={onClick}
       whileTap={{ scale: 0.96, transition: { type: 'spring', stiffness: 400, damping: 15 } }}
     >
-      {/* Animated border gradient on hover */}
+      {/* Enhanced border glow on hover */}
       {isHovered && (
         <div
           className="absolute inset-0 pointer-events-none z-20 rounded-[inherit]"
           style={{
-            background: `conic-gradient(from ${borderAngle.get()}deg, rgba(255,255,255,0.5) 0%, transparent 15%, transparent 35%, rgba(255,255,255,0.25) 50%, transparent 65%, transparent 85%, rgba(255,255,255,0.5) 100%)`,
+            background: `radial-gradient(ellipse 300px 200px at ${specularPos.x}% ${specularPos.y}%, hsla(0 0% 100% / 0.25), transparent 70%)`,
             mask: 'linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0)',
             maskComposite: 'exclude',
             WebkitMaskComposite: 'xor',

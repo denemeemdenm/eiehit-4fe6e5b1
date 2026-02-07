@@ -158,19 +158,78 @@
     background: hsla(var(--glass-bg));
     backdrop-filter: blur(var(--glass-blur)) saturate(var(--glass-saturation));
     -webkit-backdrop-filter: blur(var(--glass-blur)) saturate(var(--glass-saturation));
-    border: 1px solid hsla(0 0% 100% / 0.12);
+    border: 1px solid transparent;
     border-radius: var(--radius);
+    background-clip: padding-box;
+    position: relative;
   }
 
-  .dark .glass-card {
-    border-color: hsla(0 0% 100% / 0.08);
+  .glass-card::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    padding: 1px;
+    background: linear-gradient(
+      160deg,
+      hsla(0 0% 100% / 0.28) 0%,
+      hsla(0 0% 100% / 0.08) 40%,
+      hsla(0 0% 100% / 0.03) 60%,
+      hsla(0 0% 100% / 0.12) 100%
+    );
+    mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    mask-composite: exclude;
+    -webkit-mask-composite: xor;
+    pointer-events: none;
+    z-index: 1;
+  }
+
+  .dark .glass-card::before {
+    background: linear-gradient(
+      160deg,
+      hsla(0 0% 100% / 0.18) 0%,
+      hsla(0 0% 100% / 0.05) 40%,
+      hsla(0 0% 100% / 0.02) 60%,
+      hsla(0 0% 100% / 0.10) 100%
+    );
   }
 
   .glass-nav {
     background: hsla(var(--glass-bg));
     backdrop-filter: blur(60px) saturate(200%);
     -webkit-backdrop-filter: blur(60px) saturate(200%);
-    border: 1px solid hsla(var(--glass-border));
+    border: 1px solid transparent;
+    position: relative;
+  }
+
+  .glass-nav::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    padding: 1px;
+    background: linear-gradient(
+      160deg,
+      hsla(0 0% 100% / 0.30) 0%,
+      hsla(0 0% 100% / 0.08) 40%,
+      hsla(0 0% 100% / 0.03) 60%,
+      hsla(0 0% 100% / 0.15) 100%
+    );
+    mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    mask-composite: exclude;
+    -webkit-mask-composite: xor;
+    pointer-events: none;
+    z-index: 1;
+  }
+
+  .dark .glass-nav::before {
+    background: linear-gradient(
+      160deg,
+      hsla(0 0% 100% / 0.20) 0%,
+      hsla(0 0% 100% / 0.05) 40%,
+      hsla(0 0% 100% / 0.02) 60%,
+      hsla(0 0% 100% / 0.12) 100%
+    );
   }
 
   .gradient-text-gray {
