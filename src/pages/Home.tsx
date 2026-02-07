@@ -47,21 +47,31 @@ export default function Home() {
                 alt="HiT Logo"
                 className="h-24 sm:h-28 w-auto mx-auto mb-8 object-contain relative z-10"
                 animate={{
-                  rotateY: [0, 360],
+                  x: [0, 6, -4, 5, 0],
+                  y: [0, -5, 4, -3, 0],
+                  rotate: [0, 1.5, -1, 0.8, 0],
                 }}
                 transition={{
-                  duration: 12,
+                  duration: 8,
                   repeat: Infinity,
-                  ease: 'linear',
+                  ease: 'easeInOut',
                 }}
-                style={{ transformStyle: 'preserve-3d' }}
               />
-              {/* Subtle gold glow behind logo */}
-              <div
-                className="absolute inset-0 -m-4 mb-4 rounded-full z-0"
+              {/* Animated gold glow behind logo */}
+              <motion.div
+                className="absolute inset-0 -m-6 mb-2 rounded-full z-0"
                 style={{
-                  background: 'radial-gradient(circle, rgba(255,204,0,0.12) 0%, rgba(255,180,0,0.04) 50%, transparent 70%)',
-                  filter: 'blur(20px)',
+                  background: 'radial-gradient(circle, rgba(255,204,0,0.18) 0%, rgba(255,180,0,0.06) 50%, transparent 70%)',
+                  filter: 'blur(24px)',
+                }}
+                animate={{
+                  scale: [1, 1.1, 1],
+                  opacity: [0.6, 0.9, 0.6],
+                }}
+                transition={{
+                  duration: 5,
+                  repeat: Infinity,
+                  ease: 'easeInOut',
                 }}
               />
             </div>

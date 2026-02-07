@@ -14,13 +14,17 @@ interface Particle {
 
 const COLORS = ['#00CCFF', '#FF4B00', '#FFCC00'];
 
+interface GoldTrail { x: number; y: number; alpha: number; size: number; }
+
 export default function NeuralBackground() {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const mouseRef = useRef({ x: -1000, y: -1000 });
   const particlesRef = useRef<Particle[]>([]);
+  const trailRef = useRef<GoldTrail[]>([]);
   const animRef = useRef<number>(0);
   const isDarkRef = useRef(false);
   const timeRef = useRef(0);
+  const prevMouseRef = useRef({ x: -1000, y: -1000 });
 
   useEffect(() => {
     const canvas = canvasRef.current;
@@ -35,8 +39,8 @@ export default function NeuralBackground() {
     isDarkRef.current = document.documentElement.classList.contains('dark');
 
     const mobile = window.innerWidth < 768;
-    const particleCount = mobile ? 30 : 70;
-    const connectionDist = mobile ? 100 : 130;
+    const particleCount = mobile ? 40 : 90;
+    const connectionDist = mobile ? 110 : 140;
     const cursorRadius = 180;
 
     function resizeCanvas() {
@@ -165,24 +169,60 @@ export default function NeuralBackground() {
       }
     }
 
-    function drawCursorGlow() {
+    function updateGoldTrail() {
       const mouse = mouseRef.current;
-      if (mouse.x < 0) return;
-      const g = ctx.createRadialGradient(mouse.x, mouse.y, 0, mouse.x, mouse.y, 90);
-      g.addColorStop(0, 'rgba(255, 75, 0, 0.08)');
-      g.addColorStop(1, 'rgba(255, 75, 0, 0)');
-      ctx.fillStyle = g;
-      ctx.beginPath();
-      ctx.arc(mouse.x, mouse.y, 90, 0, Math.PI * 2);
-      ctx.fill();
+      const prev = prevMouseRef.current;
+      // Only add trail when mouse is moving
+      if (mouse.x > 0 && (Math.abs(mouse.x - prev.x) > 1 || Math.abs(mouse.y - prev.y) > 1)) {
+        trailRef.current.push({
+          x: mouse.x + (Math.random() - 0.5) * 8,
+          y: mouse.y + (Math.random() - 0.5) * 8,
+          alpha: 0.6,
+          size: Math.random() * 3 + 1.5,
+        });
+      }
+      prevMouseRef.current = { ...mouse };
+      // Fade out trail
+      trailRef.current = trailRef.current.filter(t => {
+        t.alpha -= 0.015;
+        t.size *= 0.97;
+        return t.alpha > 0;
+      });
+    }
+
+    function drawGoldTrail() {
+      trailRef.current.forEach(t => {
+        const g = ctx.createRadialGradient(t.x, t.y, 0, t.x, t.y, t.size * 3);
+        g.addColorStop(0, `rgba(255, 204, 0, ${t.alpha * 0.5})`);
+        g.addColorStop(0.5, `rgba(255, 180, 0, ${t.alpha * 0.2})`);
+        g.addColorStop(1, `rgba(255, 160, 0, 0)`);
+        ctx.fillStyle = g;
+        ctx.beginPath();
+        ctx.arc(t.x, t.y, t.size * 3, 0, Math.PI * 2);
+        ctx.fill();
+      });
+
+      // Gold cursor glow
+      const mouse = mouseRef.current;
+      if (mouse.x > 0) {
+        const g = ctx.createRadialGradient(mouse.x, mouse.y, 0, mouse.x, mouse.y, 60);
+        g.addColorStop(0, 'rgba(255, 204, 0, 0.1)');
+        g.addColorStop(0.5, 'rgba(255, 180, 0, 0.04)');
+        g.addColorStop(1, 'rgba(255, 160, 0, 0)');
+        ctx.fillStyle = g;
+        ctx.beginPath();
+        ctx.arc(mouse.x, mouse.y, 60, 0, Math.PI * 2);
+        ctx.fill();
+      }
     }
 
     function animate(time: number) {
       timeRef.current = time;
       updateParticles(time);
+      updateGoldTrail();
       drawParticles();
       drawConnections(time);
-      drawCursorGlow();
+      drawGoldTrail();
       animRef.current = requestAnimationFrame(animate);
     }
 
