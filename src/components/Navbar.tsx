@@ -21,17 +21,17 @@ export default function Navbar({ theme, toggleTheme }: NavbarProps) {
   const [mobileOpen, setMobileOpen] = useState(false);
 
   return (
-    <header className="fixed top-4 left-1/2 -translate-x-1/2 z-50">
+    <header className="fixed top-4 left-1/2 -translate-x-1/2 z-50 max-w-[calc(100%-2rem)]">
       <div className="flex items-center gap-2">
         {/* Main navbar */}
-        <nav className="glass-nav rounded-[20px] px-3 py-2 flex items-center gap-2">
+        <nav className="glass-nav rounded-[20px] px-3 py-2 flex items-center gap-2 overflow-hidden">
           {/* Logo */}
           <Link to="/" className="shrink-0 flex items-center">
             <img src={logo} alt="Logo" className="w-7 h-7 object-contain" />
           </Link>
 
           {/* Desktop links */}
-          <div className="hidden md:flex items-center gap-0.5">
+          <div className="hidden md:flex items-center gap-0.5 whitespace-nowrap">
             {navItems.map(item => {
               const isActive = location.pathname === item.path;
               return (
