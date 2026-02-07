@@ -35,14 +35,8 @@ export default function Navbar({ theme, toggleTheme }: NavbarProps) {
           />
         </Link>
 
-        {/* Brand tagline */}
-        <div className="hidden md:flex items-center gap-1 text-sm font-bold tracking-tight" style={{ fontFamily: "'EKiN Pro Max Diyakritik', sans-serif" }}>
-          <span className="gradient-text-cyan-word">Hukuk</span>
-          <span className="text-foreground/40 dark:text-gray-400">×</span>
-          <span className="gradient-text-orange-word">İnovasyon</span>
-          <span className="text-foreground/40 dark:text-gray-400">×</span>
-          <span className="gradient-text-yellow-word">Teknoloji</span>
-        </div>
+
+
 
         {/* Desktop Nav */}
         <div className="hidden md:flex items-center gap-1">
@@ -80,6 +74,21 @@ export default function Navbar({ theme, toggleTheme }: NavbarProps) {
               </Link>
             );
           })}
+          {/* HiT Brand */}
+          <div className="relative px-3 py-1.5 text-sm font-bold rounded-lg" style={{ fontFamily: "'EKiN Pro Max Diyakritik', sans-serif" }}>
+            <motion.span
+              className="relative z-10 inline-flex items-center gap-0.5"
+              whileHover={{ scale: 1.06 }}
+              whileTap={{ scale: 0.94 }}
+              transition={{ type: 'spring', stiffness: 400, damping: 20 }}
+            >
+              <span className="gradient-text-cyan-word">Hukuk</span>
+              <span className="text-foreground/40 dark:text-gray-400">×</span>
+              <span className="gradient-text-orange-word">İnovasyon</span>
+              <span className="text-foreground/40 dark:text-gray-400">×</span>
+              <span className="gradient-text-yellow-word">Teknoloji</span>
+            </motion.span>
+          </div>
         </div>
 
         {/* Theme toggle + mobile menu */}
