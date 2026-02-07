@@ -45,7 +45,7 @@ export default function Home() {
               <motion.img
                 src={logo}
                 alt="HiT Logo"
-                className="h-32 sm:h-40 w-auto mx-auto mb-8 object-contain relative z-10"
+                className="h-36 sm:h-44 w-auto mx-auto mb-8 object-contain relative z-10"
                 animate={{
                   y: [0, -6, 0],
                 }}

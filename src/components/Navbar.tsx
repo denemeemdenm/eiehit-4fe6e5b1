@@ -27,7 +27,7 @@ export default function Navbar({ theme, toggleTheme }: NavbarProps) {
       <nav className="glass-nav rounded-2xl px-4 py-2.5 flex items-center justify-between">
         {/* Logo + Name */}
         <Link to="/" className="flex items-center gap-2.5 shrink-0">
-          <img src={logo} alt="Logo" className="w-8 h-8 object-contain" />
+          <img src={logo} alt="Logo" className="w-8 h-auto object-contain" />
           <img
             src={theme === 'dark' ? nameWhite : nameBlack}
             alt="Ekin İsa EROĞLU"

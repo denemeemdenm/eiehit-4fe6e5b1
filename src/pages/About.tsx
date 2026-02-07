@@ -13,7 +13,7 @@ export default function About() {
         <ScrollReveal delay={0.1}>
           <GlassCard className="p-10 sm:p-14 mb-8">
             <div className="flex items-start gap-6 mb-8">
-              <img src={logo} alt="Logo" className="w-16 h-16 shrink-0" />
+              <img src={logo} alt="Logo" className="w-16 h-auto shrink-0 object-contain" />
               <div>
                 <h2 className="text-2xl font-bold mb-1">Av. Ekin İsa EROĞLU</h2>
                 <p className="text-sm text-muted-foreground">Adana Barosu / Türkiye Barolar Birliği</p>

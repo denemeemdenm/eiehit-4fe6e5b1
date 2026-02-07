@@ -10,7 +10,7 @@ export default function Footer() {
           {/* Brand */}
           <div className="space-y-4">
             <div className="flex items-center gap-3">
-              <img src={logo} alt="Logo" className="w-10 h-10" />
+              <img src={logo} alt="Logo" className="w-10 h-auto object-contain" />
               <div>
                 <p className="font-bold text-sm">Av. Ekin İsa EROĞLU</p>
                 <p className="text-xs text-muted-foreground">Hukuk × İnovasyon × Teknoloji</p>
