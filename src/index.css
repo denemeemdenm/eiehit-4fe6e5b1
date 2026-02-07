@@ -244,14 +244,14 @@
   }
 
   .gradient-text-cyan {
-    background: linear-gradient(135deg, hsl(192 100% 50%), hsl(210 100% 40%));
+    background: linear-gradient(135deg, #64FFFF, #3ad4d4);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
   }
 
   .gradient-text-red {
-    background: linear-gradient(135deg, hsl(18 100% 50%), hsl(0 80% 35%));
+    background: linear-gradient(135deg, #FF4B00, #cc3c00);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
@@ -293,10 +293,12 @@
   }
 
   .gradient-text-brand-heading {
-    background: linear-gradient(135deg, #64FFFF 0%, #64FFFF 30%, #FF4B00 60%, #FFCC00 100%);
+    background: linear-gradient(135deg, #64FFFF 0%, #FF4B00 50%, #FFCC00 100%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
+    line-height: 1.4;
+    padding-bottom: 0.1em;
   }
 
   .section-spacing {

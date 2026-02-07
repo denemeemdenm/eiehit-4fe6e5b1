@@ -122,13 +122,8 @@ export default function Home() {
             <img src={isDark ? nameWhite : nameBlack} alt="Ekin İsa EROĞLU" className="h-10 sm:h-14 md:h-16 w-auto object-contain" />
           </motion.div>
 
-          <h1 className="text-3xl sm:text-5xl lg:text-6xl font-bold tracking-tight leading-[1.1]">
-            <span className="gradient-text-cyan-word">Hukuk</span>
-            <span className="text-foreground/40 dark:text-gray-400"> × </span>
-            <span className="gradient-text-orange-word">İnovasyon</span>
-            <span className="text-foreground/40 dark:text-gray-400"> × </span>
-            <span className="gradient-text-yellow-word">Teknoloji</span>
-          </h1>
+
+
 
           <motion.p className="text-lg sm:text-xl md:text-2xl max-w-2xl mx-auto leading-relaxed gradient-text-gold" style={{
           fontFamily: "'Georgia', 'Times New Roman', serif"
