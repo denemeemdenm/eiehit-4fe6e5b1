@@ -93,10 +93,26 @@ export default function Home() {
           </h1>
 
           <motion.p
-            className="text-base sm:text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto leading-relaxed"
+            className="text-lg sm:text-xl md:text-2xl italic max-w-2xl mx-auto leading-relaxed"
+            style={{
+              fontFamily: "'Georgia', 'Times New Roman', serif",
+              background: 'linear-gradient(135deg, #c9a227 0%, #f4d03f 40%, #d4a017 70%, #c9a227 100%)',
+              WebkitBackgroundClip: 'text',
+              WebkitTextFillColor: 'transparent',
+              backgroundClip: 'text',
+            }}
             initial={{ opacity: 0, y: 30, filter: 'blur(10px)' }}
             animate={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
             transition={{ duration: 1, delay: 1.4, ease: [0.25, 0.46, 0.45, 0.94] }}
+          >
+            "Ay-Yıldız'ın Işığında; Atatürk'ün Yolunda…"
+          </motion.p>
+
+          <motion.p
+            className="text-base sm:text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto leading-relaxed"
+            initial={{ opacity: 0, y: 30, filter: 'blur(10px)' }}
+            animate={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
+            transition={{ duration: 1, delay: 1.8, ease: [0.25, 0.46, 0.45, 0.94] }}
           >
             Değişen dünyanın hukuki gereksinimlerine, bilgi birikimi ve teknoloji okuryazarlığıyla yanıt veren profesyonel danışmanlık.
           </motion.p>
