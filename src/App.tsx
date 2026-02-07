@@ -4,6 +4,8 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { useTheme } from "@/hooks/useTheme";
 import Navbar from "@/components/Navbar";
+import ThemeToggle from "@/components/ThemeToggle";
+import CursorTrail from "@/components/CursorTrail";
 import Footer from "@/components/Footer";
 import NeuralBackground from "@/components/NeuralBackground";
 import Home from "@/pages/Home";
@@ -18,8 +20,10 @@ const AppContent = () => {
 
   return (
     <div className="min-h-screen flex flex-col relative scroll-edge-top scroll-edge-bottom">
+      <CursorTrail />
       <NeuralBackground />
-      <Navbar theme={theme} toggleTheme={toggleTheme} />
+      <Navbar />
+      <ThemeToggle theme={theme} toggleTheme={toggleTheme} />
       <div className="flex-1">
         <Routes>
           <Route path="/" element={<Home />} />
