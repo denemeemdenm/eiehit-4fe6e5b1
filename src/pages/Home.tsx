@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { ArrowRight, Shield, Eye, Lock, Cpu } from 'lucide-react';
 import GlassCard from '@/components/GlassCard';
+import ImageCard from '@/components/ImageCard';
 import ScrollReveal from '@/components/ScrollReveal';
 import StaggerText from '@/components/StaggerText';
 import { practiceAreas } from '@/lib/practiceAreas';
@@ -10,12 +11,35 @@ import logo from '@/assets/logo.png';
 import nameWhite from '@/assets/name-white.png';
 import nameBlack from '@/assets/name-black.png';
 
+// Trust signal images
+import trustProcess from '@/assets/cards/trust-process.jpg';
+import trustClarity from '@/assets/cards/trust-clarity.jpg';
+import trustPrivacy from '@/assets/cards/trust-privacy.jpg';
+import trustTech from '@/assets/cards/trust-tech.jpg';
+
+// Practice area images
+import areaFamily from '@/assets/cards/area-family.jpg';
+import areaBanking from '@/assets/cards/area-banking.jpg';
+import areaCorporate from '@/assets/cards/area-corporate.jpg';
+import areaTrade from '@/assets/cards/area-trade.jpg';
+import areaEmployment from '@/assets/cards/area-employment.jpg';
+import areaEnforcement from '@/assets/cards/area-enforcement.jpg';
+
 const trustSignals = [
-  { icon: Shield, title: 'Güvenilir Süreç', desc: 'Her adımda şeffaf ve ölçülebilir hukuki süreç yönetimi.' },
-  { icon: Eye, title: 'Netlik ve Açıklık', desc: 'Karmaşık hukuki meselelerin sade ve anlaşılır aktarımı.' },
-  { icon: Lock, title: 'Gizlilik', desc: 'Müvekkil bilgilerinin korunması en temel önceliğimizdir.' },
-  { icon: Cpu, title: 'Teknoloji Okuryazarlığı', desc: 'Dijital çağın hukuki gereksinimlerine hakimiyet.' },
+  { icon: Shield, title: 'Güvenilir Süreç', desc: 'Her adımda şeffaf ve ölçülebilir hukuki süreç yönetimi.', image: trustProcess },
+  { icon: Eye, title: 'Netlik ve Açıklık', desc: 'Karmaşık hukuki meselelerin sade ve anlaşılır aktarımı.', image: trustClarity },
+  { icon: Lock, title: 'Gizlilik', desc: 'Müvekkil bilgilerinin korunması en temel önceliğimizdir.', image: trustPrivacy },
+  { icon: Cpu, title: 'Teknoloji Okuryazarlığı', desc: 'Dijital çağın hukuki gereksinimlerine hakimiyet.', image: trustTech },
 ];
+
+const areaImages: Record<string, string> = {
+  'aile-hukuku': areaFamily,
+  'bankacilik': areaBanking,
+  'birlesme-devralma': areaCorporate,
+  'ticaret-borclar': areaTrade,
+  'is-hukuku': areaEmployment,
+  'icra-iflas': areaEnforcement,
+};
 
 const featuredAreas = practiceAreas.slice(0, 6);
 
@@ -46,31 +70,17 @@ export default function Home() {
                 src={logo}
                 alt="HiT Logo"
                 className="h-36 sm:h-44 w-auto mx-auto mb-8 object-contain relative z-10"
-                animate={{
-                  y: [0, -6, 0],
-                }}
-                transition={{
-                  duration: 4,
-                  repeat: Infinity,
-                  ease: 'easeInOut',
-                }}
+                animate={{ y: [0, -6, 0] }}
+                transition={{ duration: 4, repeat: Infinity, ease: 'easeInOut' }}
               />
-              {/* Animated gold glow behind logo */}
               <motion.div
                 className="absolute inset-0 -m-6 mb-2 rounded-full z-0"
                 style={{
                   background: 'radial-gradient(circle, rgba(255,204,0,0.18) 0%, rgba(255,180,0,0.06) 50%, transparent 70%)',
                   filter: 'blur(24px)',
                 }}
-                animate={{
-                  scale: [1, 1.1, 1],
-                  opacity: [0.6, 0.9, 0.6],
-                }}
-                transition={{
-                  duration: 5,
-                  repeat: Infinity,
-                  ease: 'easeInOut',
-                }}
+                animate={{ scale: [1, 1.1, 1], opacity: [0.6, 0.9, 0.6] }}
+                transition={{ duration: 5, repeat: Infinity, ease: 'easeInOut' }}
               />
             </div>
           </motion.div>
@@ -150,11 +160,12 @@ export default function Home() {
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
             {trustSignals.map((item, i) => (
               <ScrollReveal key={item.title} delay={i * 0.1}>
-                <GlassCard className="p-8 h-full">
-                  <item.icon className="w-8 h-8 text-primary mb-4" />
-                  <h3 className="font-semibold text-base mb-2">{item.title}</h3>
-                  <p className="text-sm text-muted-foreground leading-relaxed">{item.desc}</p>
-                </GlassCard>
+                <ImageCard
+                  image={item.image}
+                  title={item.title}
+                  description={item.desc}
+                  className="h-full"
+                />
               </ScrollReveal>
             ))}
           </div>
@@ -176,11 +187,12 @@ export default function Home() {
             {featuredAreas.map((area, i) => (
               <ScrollReveal key={area.id} delay={i * 0.08}>
                 <Link to={`/calisma-alanlari#${area.id}`}>
-                  <GlassCard className="p-8 h-full">
-                    <area.icon className="w-7 h-7 text-primary mb-4" />
-                    <h3 className="font-semibold text-base mb-2">{area.title}</h3>
-                    <p className="text-sm text-muted-foreground leading-relaxed">{area.description}</p>
-                  </GlassCard>
+                  <ImageCard
+                    image={areaImages[area.id] || ''}
+                    title={area.title}
+                    description={area.description}
+                    className="h-full"
+                  />
                 </Link>
               </ScrollReveal>
             ))}
