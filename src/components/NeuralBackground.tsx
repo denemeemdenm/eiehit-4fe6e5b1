@@ -67,6 +67,7 @@ export default function NeuralBackground() {
 
     function updateParticles(time: number) {
       const mouse = mouseRef.current;
+      const trail = trailRef.current;
       particlesRef.current.forEach(p => {
         // Organic drift with subtle sine wave
         p.x += p.vx + Math.sin(time * 0.0003 + p.pulsePhase) * 0.04;
@@ -77,56 +78,49 @@ export default function NeuralBackground() {
         p.x = Math.max(0, Math.min(canvas.width, p.x));
         p.y = Math.max(0, Math.min(canvas.height, p.y));
 
-        // Cursor interaction: gentle attraction far away, repulsion when too close
-        if (mouse.x > 0 && mouse.y > 0) {
-          const dx = mouse.x - p.x;
-          const dy = mouse.y - p.y;
-          const dist = Math.sqrt(dx * dx + dy * dy);
-          if (dist < cursorRadius && dist > 0) {
-            const repelZone = 60;
-            if (dist < repelZone) {
-              // Repel particles that get too close to prevent clustering
-              const repelForce = (1 - dist / repelZone) * 0.08;
-              p.vx -= (dx / dist) * repelForce;
-              p.vy -= (dy / dist) * repelForce;
-            } else {
-              // Very gentle attraction beyond repel zone
-              const force = (1 - dist / cursorRadius) * 0.005;
-              p.vx += (dx / dist) * force;
-              p.vy += (dy / dist) * force;
+        // Attract toward cursor trail points (not just cursor position)
+        if (trail.length > 0) {
+          // Find nearest trail point
+          let nearestDist = Infinity;
+          let nearestDx = 0;
+          let nearestDy = 0;
+          for (const t of trail) {
+            const dx = t.x - p.x;
+            const dy = t.y - p.y;
+            const dist = Math.sqrt(dx * dx + dy * dy);
+            if (dist < nearestDist) {
+              nearestDist = dist;
+              nearestDx = dx;
+              nearestDy = dy;
             }
+          }
+          if (nearestDist < cursorRadius && nearestDist > 20) {
+            const force = (1 - nearestDist / cursorRadius) * 0.012;
+            p.vx += (nearestDx / nearestDist) * force;
+            p.vy += (nearestDy / nearestDist) * force;
+          } else if (nearestDist <= 20 && nearestDist > 0) {
+            // Gentle repel when too close to trail to avoid piling up
+            const repel = (1 - nearestDist / 20) * 0.04;
+            p.vx -= (nearestDx / nearestDist) * repel;
+            p.vy -= (nearestDy / nearestDist) * repel;
           }
         }
 
-        // Inter-particle repulsion to prevent clustering
-        particlesRef.current.forEach(other => {
-          if (other === p) return;
-          const dx = p.x - other.x;
-          const dy = p.y - other.y;
-          const dist = Math.sqrt(dx * dx + dy * dy);
-          if (dist < 30 && dist > 0) {
-            const repel = (1 - dist / 30) * 0.03;
-            p.vx += (dx / dist) * repel;
-            p.vy += (dy / dist) * repel;
-          }
-        });
+        p.vx *= 0.985;
+        p.vy *= 0.985;
 
-        p.vx *= 0.98;
-        p.vy *= 0.98;
-
-        // Clamp max speed to prevent bursts
+        // Clamp max speed
         const speed = Math.sqrt(p.vx * p.vx + p.vy * p.vy);
-        const maxSpeed = 1.2;
-        if (speed > maxSpeed) {
-          p.vx = (p.vx / speed) * maxSpeed;
-          p.vy = (p.vy / speed) * maxSpeed;
+        if (speed > 1.0) {
+          p.vx = (p.vx / speed) * 1.0;
+          p.vy = (p.vy / speed) * 1.0;
         }
 
         // Keep minimum drift
-        if (speed < 0.1) {
+        if (speed < 0.08) {
           const angle = Math.atan2(p.vy, p.vx);
-          p.vx = Math.cos(angle) * 0.1;
-          p.vy = Math.sin(angle) * 0.1;
+          p.vx = Math.cos(angle) * 0.08;
+          p.vy = Math.sin(angle) * 0.08;
         }
 
         // Pulse opacity
