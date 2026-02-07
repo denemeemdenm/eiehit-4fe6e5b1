@@ -30,9 +30,6 @@ export default function Navbar({ theme, toggleTheme }: NavbarProps) {
           <img src={logo} alt="Logo" className="w-8 h-auto object-contain" />
         </Link>
 
-
-
-
         {/* Desktop Nav */}
         <div className="hidden md:flex items-center gap-1">
           {navItems.map(item => {
@@ -43,15 +40,15 @@ export default function Navbar({ theme, toggleTheme }: NavbarProps) {
                 to={item.path}
                 className={`relative px-3 py-1.5 text-sm font-medium rounded-lg transition-all duration-300 group ${
                   isActive
-                    ? 'text-primary'
+                    ? 'text-accent'
                     : 'text-muted-foreground hover:text-foreground'
                 }`}
               >
                 {isActive && (
                   <motion.div
                     layoutId="nav-indicator"
-                    className="absolute inset-0 rounded-lg border border-primary/20"
-                    style={{ background: 'hsl(var(--primary) / 0.08)' }}
+                    className="absolute inset-0 rounded-lg border border-accent/20"
+                    style={{ background: 'hsl(var(--accent) / 0.08)' }}
                     transition={{ type: 'spring', stiffness: 380, damping: 28 }}
                   />
                 )}
@@ -64,7 +61,7 @@ export default function Navbar({ theme, toggleTheme }: NavbarProps) {
                   {item.label}
                 </motion.span>
                 {!isActive && (
-                  <span className="absolute bottom-0 left-1/2 -translate-x-1/2 w-0 h-[2px] rounded-full bg-primary/60 transition-all duration-300 group-hover:w-3/4" />
+                  <span className="absolute bottom-0 left-1/2 -translate-x-1/2 w-0 h-[2px] rounded-full bg-accent/60 transition-all duration-300 group-hover:w-3/4" />
                 )}
               </Link>
             );
@@ -151,8 +148,8 @@ export default function Navbar({ theme, toggleTheme }: NavbarProps) {
                   onClick={() => setMobileOpen(false)}
                   className={`block px-4 py-3 rounded-xl text-sm font-medium transition-all duration-300 ${
                     location.pathname === item.path
-                      ? 'text-primary bg-primary/10'
-                      : 'text-muted-foreground hover:text-foreground hover:bg-primary/5'
+                      ? 'text-accent bg-accent/10'
+                      : 'text-muted-foreground hover:text-foreground hover:bg-accent/5'
                   }`}
                 >
                   {item.label}
