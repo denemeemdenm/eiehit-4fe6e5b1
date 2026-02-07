@@ -1,9 +1,12 @@
 import { useState, useEffect } from 'react';
-import { Menu, X } from 'lucide-react';
+import { Moon, Sun, Menu, X } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import logo from '@/assets/logo.png';
 
-interface NavbarProps {}
+interface NavbarProps {
+  theme: 'light' | 'dark';
+  toggleTheme: () => void;
+}
 
 const navItems = [
   { label: 'Ana Sayfa', id: 'hero' },
@@ -12,7 +15,7 @@ const navItems = [
   { label: 'İletişim', id: 'contact' },
 ];
 
-export default function Navbar({}: NavbarProps) {
+export default function Navbar({ theme, toggleTheme }: NavbarProps) {
   const [mobileOpen, setMobileOpen] = useState(false);
   const [activeSection, setActiveSection] = useState('hero');
 
@@ -55,7 +58,8 @@ export default function Navbar({}: NavbarProps) {
 
   return (
     <header className="fixed top-4 left-1/2 -translate-x-1/2 z-50">
-      <nav className="glass-nav rounded-[20px] px-4 py-2.5 flex items-center gap-3">
+      <div className="flex items-center gap-2">
+        <nav className="glass-nav rounded-[20px] px-4 py-2.5 flex items-center gap-3">
           {/* Logo */}
           <button onClick={() => scrollTo('hero')} className="shrink-0 flex items-center">
             <img src={logo} alt="Logo" className="w-7 h-7 object-contain" />
@@ -112,7 +116,39 @@ export default function Navbar({}: NavbarProps) {
           >
             {mobileOpen ? <X size={16} /> : <Menu size={16} />}
           </button>
-      </nav>
+        </nav>
+
+        {/* Theme toggle */}
+        <button
+          onClick={toggleTheme}
+          className="shrink-0 w-9 h-9 rounded-[12px] glass-panel flex items-center justify-center transition-transform duration-200 hover:scale-110 active:scale-95 overflow-hidden"
+          aria-label="Tema değiştir"
+        >
+          <AnimatePresence mode="wait" initial={false}>
+            {theme === 'light' ? (
+              <motion.div
+                key="moon"
+                initial={{ y: -16, opacity: 0, rotate: -90 }}
+                animate={{ y: 0, opacity: 1, rotate: 0 }}
+                exit={{ y: 16, opacity: 0, rotate: 90 }}
+                transition={{ duration: 0.25 }}
+              >
+                <Moon size={14} className="text-muted-foreground" />
+              </motion.div>
+            ) : (
+              <motion.div
+                key="sun"
+                initial={{ y: -16, opacity: 0, rotate: -90 }}
+                animate={{ y: 0, opacity: 1, rotate: 0 }}
+                exit={{ y: 16, opacity: 0, rotate: 90 }}
+                transition={{ duration: 0.25 }}
+              >
+                <Sun size={14} className="text-accent" />
+              </motion.div>
+            )}
+          </AnimatePresence>
+        </button>
+      </div>
 
       {/* Mobile menu */}
       <AnimatePresence>
