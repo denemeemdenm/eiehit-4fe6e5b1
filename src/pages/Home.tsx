@@ -216,14 +216,22 @@ export default function Home() {
           <ScrollReveal>
             <GlassCard className="p-12 sm:p-16 text-center">
               <div className="flex items-center justify-center gap-3 mb-6">
-                <span className="text-2xl font-black gradient-text-cyan">H</span>
-                <span className="text-2xl font-black text-muted-foreground">×</span>
-                <span className="text-2xl font-black gradient-text-red">i</span>
-                <span className="text-2xl font-black text-muted-foreground">×</span>
-                <span className="text-2xl font-black" style={{ color: 'hsl(var(--accent))' }}>T</span>
+                <span className="text-2xl font-black" style={{ background: 'linear-gradient(135deg, #c9a227, #f4d03f)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' }}>H</span>
+                <span className="text-2xl font-black" style={{ background: 'linear-gradient(135deg, #c9a227, #f4d03f)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' }}>×</span>
+                <span className="text-2xl font-black" style={{ background: 'linear-gradient(135deg, #d4a017, #f4d03f)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' }}>i</span>
+                <span className="text-2xl font-black" style={{ background: 'linear-gradient(135deg, #c9a227, #f4d03f)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' }}>×</span>
+                <span className="text-2xl font-black" style={{ background: 'linear-gradient(135deg, #f4d03f, #c9a227)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' }}>T</span>
               </div>
-              <h2 className="text-2xl sm:text-3xl font-bold mb-4 gradient-text-gray">
-                Hukuk, İnovasyon ve Teknolojiyi Birleştiren Vizyon
+              <h2
+                className="text-2xl sm:text-3xl font-bold mb-4"
+                style={{
+                  background: 'linear-gradient(135deg, #c9a227 0%, #f4d03f 40%, #d4a017 70%, #c9a227 100%)',
+                  WebkitBackgroundClip: 'text',
+                  WebkitTextFillColor: 'transparent',
+                  backgroundClip: 'text',
+                }}
+              >
+                Hukuk × İnovasyon × Teknoloji
               </h2>
               <p className="text-muted-foreground leading-relaxed max-w-2xl mx-auto">
                 Geleneksel hukuk anlayışını dijital çağın gereksinimleriyle harmanlayan, 
