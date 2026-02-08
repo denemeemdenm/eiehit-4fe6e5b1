@@ -2,8 +2,6 @@ import { useState, useEffect } from 'react';
 import { Menu, X } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import logo from '@/assets/logo.png';
-import hitkurtDark from '@/assets/hitkurt-dark.png';
-import hitkurtLight from '@/assets/hitkurt-light.png';
 
 interface NavbarProps {
   theme: 'light' | 'dark';
@@ -97,11 +95,16 @@ export default function Navbar({ theme }: NavbarProps) {
 
             <span className="w-px h-4 bg-border/50 mx-2 shrink-0" />
 
-            <img
-              src={theme === 'dark' ? hitkurtLight : hitkurtDark}
-              alt="HiT"
-              className="h-5 w-auto object-contain"
-            />
+            <span
+              className="inline-flex items-center gap-0.5 text-[13px] font-bold whitespace-nowrap"
+              style={{ fontFamily: "'EKiN Pro Max Diyakritik', sans-serif" }}
+            >
+              <span className="gradient-text-cyan-word">Hukuk</span>
+              <span className="text-muted-foreground/50">×</span>
+              <span className="gradient-text-orange-word">İnovasyon</span>
+              <span className="text-muted-foreground/50">×</span>
+              <span className="gradient-text-yellow-word">Teknoloji</span>
+            </span>
           </div>
 
           {/* Mobile hamburger */}
