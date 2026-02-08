@@ -1,5 +1,5 @@
-import { useState, useEffect } from 'react';
-import { motion } from 'framer-motion';
+import { useState, useEffect, useRef } from 'react';
+import { motion, useScroll, useTransform } from 'framer-motion';
 import { ArrowRight, Shield, Eye, Lock, Cpu, Phone, Mail, MapPin, Copy } from 'lucide-react';
 import GlassCard from '@/components/GlassCard';
 import ImageCard from '@/components/ImageCard';
@@ -59,6 +59,9 @@ const featuredAreas = practiceAreas.slice(0, 6);
 export default function Home() {
   const [isDark, setIsDark] = useState(document.documentElement.classList.contains('dark'));
   const [formData, setFormData] = useState({ name: '', email: '', message: '' });
+  const mainRef = useRef<HTMLElement>(null);
+  const { scrollYProgress } = useScroll({ target: mainRef, offset: ['start start', 'end end'] });
+  const gradientPos = useTransform(scrollYProgress, [0, 1], ['0% 50%', '100% 50%']);
 
   useEffect(() => {
     const observer = new MutationObserver(() => {
@@ -80,7 +83,7 @@ export default function Home() {
   };
 
   return (
-    <main className="relative z-10">
+    <main ref={mainRef} className="relative z-10">
       {/* ═══ PROGRESSIVE BLUR SCROLL OVERLAY ═══ */}
       <div className="fixed top-0 left-0 right-0 z-40 pointer-events-none h-36"
         style={{
@@ -133,7 +136,7 @@ export default function Home() {
       <section id="about" className="section-spacing content-padding">
         <div className="max-w-4xl mx-auto">
           <ScrollReveal>
-            <h2 className="text-3xl sm:text-4xl font-bold mb-12 gradient-text-brand-heading">Hakkımda</h2>
+            <motion.h2 className="text-3xl sm:text-4xl font-bold mb-12" style={{ background: 'linear-gradient(135deg, #64FFFF 0%, #FF4B00 50%, #FFCC00 100%)', backgroundSize: '200% 200%', backgroundPosition: gradientPos, WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text', lineHeight: 1.4, paddingBottom: '0.1em' }}>Hakkımda</motion.h2>
           </ScrollReveal>
 
           <ScrollReveal delay={0.1}>
@@ -153,7 +156,7 @@ export default function Home() {
 
           <ScrollReveal delay={0.2}>
             <GlassCard className="p-10 sm:p-14">
-              <h3 className="text-xl font-bold mb-6 gradient-text-brand-heading">Yaklaşım ve Değerler</h3>
+              <motion.h3 className="text-xl font-bold mb-6" style={{ background: 'linear-gradient(135deg, #64FFFF 0%, #FF4B00 50%, #FFCC00 100%)', backgroundSize: '200% 200%', backgroundPosition: gradientPos, WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text', lineHeight: 1.4, paddingBottom: '0.1em' }}>Yaklaşım ve Değerler</motion.h3>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
                 {[
                   { title: 'Şeffaflık', desc: 'Her aşamada müvekkile açık ve net bilgilendirme.' },
@@ -176,9 +179,9 @@ export default function Home() {
       <section className="section-spacing content-padding">
         <div className="max-w-6xl mx-auto">
           <ScrollReveal>
-            <h2 className="text-3xl sm:text-4xl font-bold text-center mb-16 gradient-text-brand-heading">
+            <motion.h2 className="text-3xl sm:text-4xl font-bold text-center mb-16" style={{ background: 'linear-gradient(135deg, #64FFFF 0%, #FF4B00 50%, #FFCC00 100%)', backgroundSize: '200% 200%', backgroundPosition: gradientPos, WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text', lineHeight: 1.4, paddingBottom: '0.1em' }}>
               Profesyonel Yaklaşım
-            </h2>
+            </motion.h2>
           </ScrollReveal>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
             {trustSignals.map((item, i) => (
@@ -194,9 +197,9 @@ export default function Home() {
       <section id="practice" className="section-spacing content-padding">
         <div className="max-w-6xl mx-auto">
           <ScrollReveal>
-            <h2 className="text-3xl sm:text-4xl font-bold text-center mb-4 gradient-text-brand-heading">
+            <motion.h2 className="text-3xl sm:text-4xl font-bold text-center mb-4" style={{ background: 'linear-gradient(135deg, #64FFFF 0%, #FF4B00 50%, #FFCC00 100%)', backgroundSize: '200% 200%', backgroundPosition: gradientPos, WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text', lineHeight: 1.4, paddingBottom: '0.1em' }}>
               Çalışma Alanları
-            </h2>
+            </motion.h2>
             <p className="text-center text-muted-foreground mb-16 max-w-xl mx-auto">
               25 farklı hukuk dalında profesyonel danışmanlık hizmeti sunulmaktadır.
             </p>
@@ -215,7 +218,7 @@ export default function Home() {
       <section id="contact" className="section-spacing content-padding">
         <div className="max-w-4xl mx-auto">
           <ScrollReveal>
-            <h2 className="text-3xl sm:text-4xl font-bold mb-4 gradient-text-brand-heading">İletişim</h2>
+            <motion.h2 className="text-3xl sm:text-4xl font-bold mb-4" style={{ background: 'linear-gradient(135deg, #64FFFF 0%, #FF4B00 50%, #FFCC00 100%)', backgroundSize: '200% 200%', backgroundPosition: gradientPos, WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text', lineHeight: 1.4, paddingBottom: '0.1em' }}>İletişim</motion.h2>
             <p className="text-muted-foreground mb-12 max-w-xl">
               Hukuki danışmanlık veya bilgi talepleriniz için iletişime geçebilirsiniz.
             </p>

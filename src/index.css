@@ -252,14 +252,14 @@
   }
 
   .gradient-text-cyan {
-    background: linear-gradient(135deg, #64FFFF, #00d4e0);
+    background: linear-gradient(135deg, #64FFFF, #004D4D);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
   }
 
   .gradient-text-red {
-    background: linear-gradient(135deg, #FF4B00, #e03500);
+    background: linear-gradient(135deg, #FF4B00, #7A2400);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
@@ -268,7 +268,6 @@
   .gradient-text-brand {
     background: linear-gradient(135deg, #64FFFF 0%, #FF4B00 50%, #FFCC00 100%);
     background-size: 200% 200%;
-    animation: gradient-shift 8s ease infinite;
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
@@ -282,14 +281,14 @@
   }
 
   .gradient-text-cyan-word {
-    background: linear-gradient(135deg, #64FFFF, #00d4e0);
+    background: linear-gradient(135deg, #64FFFF, #004D4D);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
   }
 
   .gradient-text-orange-word {
-    background: linear-gradient(135deg, #FF4B00, #e03500);
+    background: linear-gradient(135deg, #FF4B00, #7A2400);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
@@ -305,7 +304,6 @@
   .gradient-text-brand-heading {
     background: linear-gradient(135deg, #64FFFF 0%, #FF4B00 50%, #FFCC00 100%);
     background-size: 200% 200%;
-    animation: gradient-shift 8s ease infinite;
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;

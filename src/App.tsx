@@ -6,6 +6,8 @@ import { useTheme } from "@/hooks/useTheme";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import NeuralBackground from "@/components/NeuralBackground";
+import ThemeToggle from "@/components/ThemeToggle";
+import CursorTrail from "@/components/CursorTrail";
 import Home from "@/pages/Home";
 import Privacy from "@/pages/Privacy";
 import HMGS from "@/pages/HMGS";
@@ -19,7 +21,8 @@ const AppContent = () => {
   return (
     <div className="min-h-screen flex flex-col relative scroll-edge-top scroll-edge-bottom">
       <NeuralBackground />
-      <Navbar theme={theme} toggleTheme={toggleTheme} />
+      <CursorTrail />
+      <Navbar theme={theme} />
       <div className="flex-1">
         <Routes>
           <Route path="/" element={<Home />} />
@@ -29,6 +32,7 @@ const AppContent = () => {
         </Routes>
       </div>
       <Footer />
+      <ThemeToggle theme={theme} toggleTheme={toggleTheme} />
     </div>
   );
 };
