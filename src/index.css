@@ -252,14 +252,14 @@
   }
 
   .gradient-text-cyan {
-    background: linear-gradient(135deg, #64FFFF, #004D4D);
+    background: linear-gradient(135deg, #64FFFF, #2AB5B5);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
   }
 
   .gradient-text-red {
-    background: linear-gradient(135deg, #FF4B00, #7A2400);
+    background: linear-gradient(135deg, #FF4B00, #CC3D00);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
@@ -281,14 +281,14 @@
   }
 
   .gradient-text-cyan-word {
-    background: linear-gradient(135deg, #64FFFF, #004D4D);
+    background: linear-gradient(135deg, #64FFFF, #2AB5B5);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
   }
 
   .gradient-text-orange-word {
-    background: linear-gradient(135deg, #FF4B00, #7A2400);
+    background: linear-gradient(135deg, #FF4B00, #CC3D00);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
