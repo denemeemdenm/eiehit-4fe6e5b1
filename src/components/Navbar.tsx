@@ -2,6 +2,8 @@ import { useState, useEffect } from 'react';
 import { Menu, X } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import logo from '@/assets/logo.png';
+import logoDark from '@/assets/logo-dark.png';
+import logoLight from '@/assets/logo-light.png';
 
 interface NavbarProps {
   theme: 'light' | 'dark';
@@ -18,7 +20,6 @@ export default function Navbar({ theme }: NavbarProps) {
   const [mobileOpen, setMobileOpen] = useState(false);
   const [activeSection, setActiveSection] = useState('hero');
 
-  // Intersection Observer for scroll-based active section detection
   useEffect(() => {
     const sectionIds = navItems.map(item => item.id);
     const observers: IntersectionObserver[] = [];
@@ -33,10 +34,7 @@ export default function Navbar({ theme }: NavbarProps) {
             setActiveSection(id);
           }
         },
-        {
-          rootMargin: '-40% 0px -55% 0px',
-          threshold: 0,
-        }
+        { rootMargin: '-40% 0px -55% 0px', threshold: 0 }
       );
 
       observer.observe(el);
@@ -58,59 +56,86 @@ export default function Navbar({ theme }: NavbarProps) {
   return (
     <header className="fixed top-4 left-1/2 -translate-x-1/2 z-50">
       <div className="flex items-center gap-2">
-        <nav className="glass-nav rounded-[20px] px-4 py-2.5 flex items-center gap-3">
+        <nav
+          className="rounded-[22px] px-2 py-1.5 flex items-center gap-2"
+          style={{
+            background: theme === 'dark'
+              ? 'rgba(255,255,255,0.08)'
+              : 'rgba(255,255,255,0.45)',
+            backdropFilter: 'blur(60px) saturate(200%)',
+            WebkitBackdropFilter: 'blur(60px) saturate(200%)',
+            border: `1px solid ${theme === 'dark' ? 'rgba(255,255,255,0.12)' : 'rgba(255,255,255,0.5)'}`,
+            boxShadow: theme === 'dark'
+              ? '0 8px 32px rgba(0,0,0,0.4), inset 0 1px 0 rgba(255,255,255,0.06)'
+              : '0 8px 32px rgba(0,0,0,0.08), inset 0 1px 0 rgba(255,255,255,0.7)',
+          }}
+        >
           {/* Logo */}
-          <button onClick={() => scrollTo('hero')} className="shrink-0 flex items-center">
+          <button onClick={() => scrollTo('hero')} className="shrink-0 flex items-center pl-2">
             <img src={logo} alt="Logo" className="w-7 h-7 object-contain" />
           </button>
 
           {/* Desktop links */}
-          <div className="hidden md:flex items-center">
+          <div className="hidden md:flex items-center relative">
             {navItems.map(item => {
               const isActive = activeSection === item.id;
               return (
                 <button
                   key={item.id}
                   onClick={() => scrollTo(item.id)}
-                  className={`relative px-3 py-1.5 text-[13px] font-medium rounded-lg transition-colors duration-200 whitespace-nowrap ${
-                    isActive ? 'text-foreground' : 'text-muted-foreground hover:text-foreground'
-                  }`}
+                  className="relative px-3.5 py-1.5 text-[13px] font-medium whitespace-nowrap z-10"
+                  style={{
+                    color: isActive
+                      ? (theme === 'dark' ? '#fff' : '#000')
+                      : (theme === 'dark' ? 'rgba(255,255,255,0.5)' : 'rgba(0,0,0,0.45)'),
+                    transition: 'color 0.3s ease',
+                  }}
                 >
-                  <motion.div
-                    className="absolute bottom-0 left-[20%] right-[20%] h-[2px] rounded-full"
-                    style={{
-                      background: 'hsl(var(--accent))',
-                    }}
-                    initial={false}
-                    animate={{
-                      opacity: isActive ? 1 : 0,
-                      scaleX: isActive ? 1 : 0,
-                    }}
-                    transition={{ type: 'spring', stiffness: 400, damping: 30 }}
-                  />
+                  {isActive && (
+                    <motion.div
+                      layoutId="nav-capsule"
+                      className="absolute inset-0 rounded-[14px]"
+                      style={{
+                        background: theme === 'dark'
+                          ? 'rgba(255,255,255,0.1)'
+                          : 'rgba(255,255,255,0.55)',
+                        backdropFilter: 'blur(20px)',
+                        WebkitBackdropFilter: 'blur(20px)',
+                        border: `1px solid ${theme === 'dark' ? 'rgba(255,255,255,0.15)' : 'rgba(255,255,255,0.7)'}`,
+                        boxShadow: theme === 'dark'
+                          ? '0 2px 12px rgba(0,0,0,0.3), inset 0 1px 0 rgba(255,255,255,0.08)'
+                          : '0 2px 12px rgba(0,0,0,0.06), inset 0 1px 0 rgba(255,255,255,0.8)',
+                      }}
+                      transition={{
+                        type: 'spring',
+                        stiffness: 350,
+                        damping: 30,
+                        mass: 0.8,
+                      }}
+                    />
+                  )}
                   <span className="relative z-10">{item.label}</span>
                 </button>
               );
             })}
 
-            <span className="w-px h-4 bg-border/50 mx-2 shrink-0" />
+            <span className="w-px h-4 mx-1.5 shrink-0" style={{ background: theme === 'dark' ? 'rgba(255,255,255,0.12)' : 'rgba(0,0,0,0.1)' }} />
 
-            <span
-              className="inline-flex items-center gap-0.5 text-[13px] font-bold whitespace-nowrap"
-              style={{ fontFamily: "'EKiN Pro Max Diyakritik', sans-serif" }}
-            >
-              <span className="gradient-text-cyan-word">Hukuk</span>
-              <span className="text-muted-foreground/50">×</span>
-              <span className="gradient-text-orange-word">İnovasyon</span>
-              <span className="text-muted-foreground/50">×</span>
-              <span className="gradient-text-yellow-word">Teknoloji</span>
-            </span>
+            {/* Theme-aware hitkurt logo */}
+            <div className="px-2 flex items-center">
+              <img
+                src={theme === 'dark' ? logoLight : logoDark}
+                alt="HiTKURT"
+                className="h-5 w-auto object-contain"
+              />
+            </div>
           </div>
 
           {/* Mobile hamburger */}
           <button
             onClick={() => setMobileOpen(!mobileOpen)}
-            className="md:hidden w-8 h-8 rounded-lg flex items-center justify-center text-muted-foreground hover:text-foreground transition-colors"
+            className="md:hidden w-8 h-8 rounded-lg flex items-center justify-center transition-colors"
+            style={{ color: theme === 'dark' ? 'rgba(255,255,255,0.6)' : 'rgba(0,0,0,0.5)' }}
             aria-label="Menü"
           >
             {mobileOpen ? <X size={16} /> : <Menu size={16} />}
@@ -122,11 +147,18 @@ export default function Navbar({ theme }: NavbarProps) {
       <AnimatePresence>
         {mobileOpen && (
           <motion.div
-            initial={{ opacity: 0, y: -8 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -8 }}
+            initial={{ opacity: 0, y: -8, scale: 0.95 }}
+            animate={{ opacity: 1, y: 0, scale: 1 }}
+            exit={{ opacity: 0, y: -8, scale: 0.95 }}
             transition={{ duration: 0.2 }}
-            className="glass-nav rounded-[16px] mt-2 p-3 md:hidden"
+            className="rounded-[16px] mt-2 p-2 md:hidden"
+            style={{
+              background: theme === 'dark' ? 'rgba(255,255,255,0.08)' : 'rgba(255,255,255,0.45)',
+              backdropFilter: 'blur(60px) saturate(200%)',
+              WebkitBackdropFilter: 'blur(60px) saturate(200%)',
+              border: `1px solid ${theme === 'dark' ? 'rgba(255,255,255,0.12)' : 'rgba(255,255,255,0.5)'}`,
+              boxShadow: theme === 'dark' ? '0 8px 32px rgba(0,0,0,0.4)' : '0 8px 32px rgba(0,0,0,0.08)',
+            }}
           >
             {navItems.map((item, i) => {
               const isActive = activeSection === item.id;
@@ -139,22 +171,16 @@ export default function Navbar({ theme }: NavbarProps) {
                 >
                   <button
                     onClick={() => scrollTo(item.id)}
-                    className={`relative block w-full text-left px-4 py-2.5 rounded-xl text-sm font-medium transition-colors duration-200 ${
-                      isActive
-                        ? 'text-accent bg-accent/10'
-                        : 'text-muted-foreground hover:text-foreground hover:bg-accent/5'
-                    }`}
+                    className="relative block w-full text-left px-4 py-2.5 rounded-xl text-sm font-medium transition-colors duration-200"
+                    style={{
+                      color: isActive
+                        ? (theme === 'dark' ? '#fff' : '#000')
+                        : (theme === 'dark' ? 'rgba(255,255,255,0.5)' : 'rgba(0,0,0,0.45)'),
+                      background: isActive
+                        ? (theme === 'dark' ? 'rgba(255,255,255,0.08)' : 'rgba(255,255,255,0.5)')
+                        : 'transparent',
+                    }}
                   >
-                    {isActive && (
-                      <motion.div
-                        layoutId="nav-underline-mobile"
-                        className="absolute left-4 right-4 bottom-0 h-[2px] rounded-full"
-                        style={{
-                          background: 'hsl(var(--accent))',
-                        }}
-                        transition={{ type: 'spring', stiffness: 400, damping: 30 }}
-                      />
-                    )}
                     {item.label}
                   </button>
                 </motion.div>

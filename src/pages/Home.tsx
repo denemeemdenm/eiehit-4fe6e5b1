@@ -25,43 +25,87 @@ import areaEmployment from '@/assets/cards/area-employment.jpg';
 import areaEnforcement from '@/assets/cards/area-enforcement.jpg';
 
 const trustSignals = [{
-  icon: Shield,
-  title: 'Güvenilir Süreç',
-  desc: 'Her adımda şeffaf ve ölçülebilir hukuki süreç yönetimi.',
-  image: trustProcess
+  icon: Shield, title: 'Güvenilir Süreç', desc: 'Her adımda şeffaf ve ölçülebilir hukuki süreç yönetimi.', image: trustProcess
 }, {
-  icon: Eye,
-  title: 'Netlik ve Açıklık',
-  desc: 'Karmaşık hukuki meselelerin sade ve anlaşılır aktarımı.',
-  image: trustClarity
+  icon: Eye, title: 'Netlik ve Açıklık', desc: 'Karmaşık hukuki meselelerin sade ve anlaşılır aktarımı.', image: trustClarity
 }, {
-  icon: Lock,
-  title: 'Gizlilik',
-  desc: 'Müvekkil bilgilerinin korunması en temel önceliğimizdir.',
-  image: trustPrivacy
+  icon: Lock, title: 'Gizlilik', desc: 'Müvekkil bilgilerinin korunması en temel önceliğimizdir.', image: trustPrivacy
 }, {
-  icon: Cpu,
-  title: 'Teknoloji Okuryazarlığı',
-  desc: 'Dijital çağın hukuki gereksinimlerine hakimiyet.',
-  image: trustTech
+  icon: Cpu, title: 'Teknoloji Okuryazarlığı', desc: 'Dijital çağın hukuki gereksinimlerine hakimiyet.', image: trustTech
 }];
 
 const areaImages: Record<string, string> = {
-  'aile-hukuku': areaFamily,
-  'borclar-hukuku': areaObligations,
-  'bilisim-hukuku': areaItLaw,
-  'ticaret-hukuku': areaTrade,
-  'is-hukuku': areaEmployment,
-  'icra-iflas': areaEnforcement
+  'aile-hukuku': areaFamily, 'borclar-hukuku': areaObligations, 'bilisim-hukuku': areaItLaw,
+  'ticaret-hukuku': areaTrade, 'is-hukuku': areaEmployment, 'icra-iflas': areaEnforcement
 };
 const featuredAreas = practiceAreas.slice(0, 6);
+
+// Scroll-based gradient: Red → Cyan
+function useScrollGradient() {
+  const mainRef = useRef<HTMLElement>(null);
+  const { scrollYProgress } = useScroll({ target: mainRef, offset: ['start start', 'end end'] });
+  
+  // Interpolate from red (#FF4B00 → #CC3D00) to cyan (#64FFFF → #2AB5B5)
+  const color1 = useTransform(scrollYProgress, [0, 1], ['#FF4B00', '#64FFFF']);
+  const color2 = useTransform(scrollYProgress, [0, 1], ['#CC3D00', '#2AB5B5']);
+  
+  return { mainRef, color1, color2 };
+}
+
+function ScrollGradientHeading({ children, className, color1, color2 }: {
+  children: React.ReactNode; className?: string;
+  color1: import('framer-motion').MotionValue<string>;
+  color2: import('framer-motion').MotionValue<string>;
+}) {
+  return (
+    <motion.h2
+      className={className}
+      style={{
+        background: useTransform(
+          [color1, color2],
+          ([c1, c2]) => `linear-gradient(135deg, ${c1}, ${c2})`
+        ),
+        WebkitBackgroundClip: 'text',
+        WebkitTextFillColor: 'transparent',
+        backgroundClip: 'text',
+        lineHeight: 1.4,
+        paddingBottom: '0.1em',
+      }}
+    >
+      {children}
+    </motion.h2>
+  );
+}
+
+function ScrollGradientH3({ children, className, color1, color2 }: {
+  children: React.ReactNode; className?: string;
+  color1: import('framer-motion').MotionValue<string>;
+  color2: import('framer-motion').MotionValue<string>;
+}) {
+  return (
+    <motion.h3
+      className={className}
+      style={{
+        background: useTransform(
+          [color1, color2],
+          ([c1, c2]) => `linear-gradient(135deg, ${c1}, ${c2})`
+        ),
+        WebkitBackgroundClip: 'text',
+        WebkitTextFillColor: 'transparent',
+        backgroundClip: 'text',
+        lineHeight: 1.4,
+        paddingBottom: '0.1em',
+      }}
+    >
+      {children}
+    </motion.h3>
+  );
+}
 
 export default function Home() {
   const [isDark, setIsDark] = useState(document.documentElement.classList.contains('dark'));
   const [formData, setFormData] = useState({ name: '', email: '', message: '' });
-  const mainRef = useRef<HTMLElement>(null);
-  const { scrollYProgress } = useScroll({ target: mainRef, offset: ['start start', 'end end'] });
-  const gradientPos = useTransform(scrollYProgress, [0, 1], ['0% 50%', '100% 50%']);
+  const { mainRef, color1, color2 } = useScrollGradient();
 
   useEffect(() => {
     const observer = new MutationObserver(() => {
@@ -84,18 +128,13 @@ export default function Home() {
 
   return (
     <main ref={mainRef} className="relative z-10">
-      {/* ═══ PROGRESSIVE BLUR SCROLL OVERLAY ═══ */}
-      <div className="fixed top-0 left-0 right-0 z-40 pointer-events-none h-36"
+      {/* ═══ TOP GLASS BLUR ═══ */}
+      <div className="fixed top-0 left-0 right-0 z-40 pointer-events-none h-28"
         style={{
-          backdropFilter: 'blur(20px)',
-          WebkitBackdropFilter: 'blur(20px)',
-          mask: 'linear-gradient(to bottom, black 0%, black 40%, transparent 100%)',
-          WebkitMask: 'linear-gradient(to bottom, black 0%, black 40%, transparent 100%)',
-        }}
-      />
-      <div className="fixed top-0 left-0 right-0 z-[39] pointer-events-none h-36"
-        style={{
-          background: 'linear-gradient(to bottom, hsl(var(--background)) 0%, hsl(var(--background) / 0.8) 35%, hsl(var(--background) / 0.4) 60%, transparent 100%)',
+          backdropFilter: 'blur(24px) saturate(180%)',
+          WebkitBackdropFilter: 'blur(24px) saturate(180%)',
+          mask: 'linear-gradient(to bottom, black 0%, black 30%, transparent 100%)',
+          WebkitMask: 'linear-gradient(to bottom, black 0%, black 30%, transparent 100%)',
         }}
       />
 
@@ -136,7 +175,7 @@ export default function Home() {
       <section id="about" className="section-spacing content-padding">
         <div className="max-w-4xl mx-auto">
           <ScrollReveal>
-            <motion.h2 className="text-3xl sm:text-4xl font-bold mb-12" style={{ background: 'linear-gradient(135deg, #64FFFF 0%, #FF4B00 50%, #FFCC00 100%)', backgroundSize: '200% 200%', backgroundPosition: gradientPos, WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text', lineHeight: 1.4, paddingBottom: '0.1em' }}>Hakkımda</motion.h2>
+            <ScrollGradientHeading className="text-3xl sm:text-4xl font-bold mb-12" color1={color1} color2={color2}>Hakkımda</ScrollGradientHeading>
           </ScrollReveal>
 
           <ScrollReveal delay={0.1}>
@@ -156,7 +195,7 @@ export default function Home() {
 
           <ScrollReveal delay={0.2}>
             <GlassCard className="p-10 sm:p-14">
-              <motion.h3 className="text-xl font-bold mb-6" style={{ background: 'linear-gradient(135deg, #64FFFF 0%, #FF4B00 50%, #FFCC00 100%)', backgroundSize: '200% 200%', backgroundPosition: gradientPos, WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text', lineHeight: 1.4, paddingBottom: '0.1em' }}>Yaklaşım ve Değerler</motion.h3>
+              <ScrollGradientH3 className="text-xl font-bold mb-6" color1={color1} color2={color2}>Yaklaşım ve Değerler</ScrollGradientH3>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
                 {[
                   { title: 'Şeffaflık', desc: 'Her aşamada müvekkile açık ve net bilgilendirme.' },
@@ -179,9 +218,9 @@ export default function Home() {
       <section className="section-spacing content-padding">
         <div className="max-w-6xl mx-auto">
           <ScrollReveal>
-            <motion.h2 className="text-3xl sm:text-4xl font-bold text-center mb-16" style={{ background: 'linear-gradient(135deg, #64FFFF 0%, #FF4B00 50%, #FFCC00 100%)', backgroundSize: '200% 200%', backgroundPosition: gradientPos, WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text', lineHeight: 1.4, paddingBottom: '0.1em' }}>
+            <ScrollGradientHeading className="text-3xl sm:text-4xl font-bold text-center mb-16" color1={color1} color2={color2}>
               Profesyonel Yaklaşım
-            </motion.h2>
+            </ScrollGradientHeading>
           </ScrollReveal>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
             {trustSignals.map((item, i) => (
@@ -197,9 +236,9 @@ export default function Home() {
       <section id="practice" className="section-spacing content-padding">
         <div className="max-w-6xl mx-auto">
           <ScrollReveal>
-            <motion.h2 className="text-3xl sm:text-4xl font-bold text-center mb-4" style={{ background: 'linear-gradient(135deg, #64FFFF 0%, #FF4B00 50%, #FFCC00 100%)', backgroundSize: '200% 200%', backgroundPosition: gradientPos, WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text', lineHeight: 1.4, paddingBottom: '0.1em' }}>
+            <ScrollGradientHeading className="text-3xl sm:text-4xl font-bold text-center mb-4" color1={color1} color2={color2}>
               Çalışma Alanları
-            </motion.h2>
+            </ScrollGradientHeading>
             <p className="text-center text-muted-foreground mb-16 max-w-xl mx-auto">
               25 farklı hukuk dalında profesyonel danışmanlık hizmeti sunulmaktadır.
             </p>
@@ -218,7 +257,7 @@ export default function Home() {
       <section id="contact" className="section-spacing content-padding">
         <div className="max-w-4xl mx-auto">
           <ScrollReveal>
-            <motion.h2 className="text-3xl sm:text-4xl font-bold mb-4" style={{ background: 'linear-gradient(135deg, #64FFFF 0%, #FF4B00 50%, #FFCC00 100%)', backgroundSize: '200% 200%', backgroundPosition: gradientPos, WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text', lineHeight: 1.4, paddingBottom: '0.1em' }}>İletişim</motion.h2>
+            <ScrollGradientHeading className="text-3xl sm:text-4xl font-bold mb-4" color1={color1} color2={color2}>İletişim</ScrollGradientHeading>
             <p className="text-muted-foreground mb-12 max-w-xl">
               Hukuki danışmanlık veya bilgi talepleriniz için iletişime geçebilirsiniz.
             </p>
@@ -283,9 +322,9 @@ export default function Home() {
             <GlassCard className="p-12 sm:p-16 text-center">
               <h2 className="text-2xl sm:text-3xl font-bold mb-4" style={{ fontFamily: "'EKiN Pro Max Diyakritik', sans-serif" }}>
                 <span className="gradient-text-cyan-word">HUKUK</span>
-                <span className="text-foreground/40 dark:text-gray-400"> × </span>
+                <span className="text-foreground/40"> × </span>
                 <span className="gradient-text-orange-word">İNOVASYON</span>
-                <span className="text-foreground/40 dark:text-gray-400"> × </span>
+                <span className="text-foreground/40"> × </span>
                 <span className="gradient-text-yellow-word">TEKNOLOJİ</span>
               </h2>
               <p className="text-muted-foreground leading-relaxed max-w-2xl mx-auto">

@@ -19,7 +19,7 @@ const AppContent = () => {
   const { theme, toggleTheme } = useTheme();
 
   return (
-    <div className="min-h-screen flex flex-col relative scroll-edge-top scroll-edge-bottom">
+    <div className="min-h-screen flex flex-col relative">
       <NeuralBackground />
       <CursorTrail />
       <Navbar theme={theme} />
