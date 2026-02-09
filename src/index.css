@@ -252,14 +252,14 @@
   }
 
   .gradient-text-cyan {
-    background: linear-gradient(135deg, #64FFFF, #004D4D);
+    background: linear-gradient(135deg, #64FFFF, #2AB5B5);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
   }
 
   .gradient-text-red {
-    background: linear-gradient(135deg, #FF4B00, #7A2400);
+    background: linear-gradient(135deg, #FF4B00, #CC3D00);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
@@ -281,14 +281,14 @@
   }
 
   .gradient-text-cyan-word {
-    background: linear-gradient(135deg, #64FFFF, #004D4D);
+    background: linear-gradient(135deg, #64FFFF, #2AB5B5);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
   }
 
   .gradient-text-orange-word {
-    background: linear-gradient(135deg, #FF4B00, #7A2400);
+    background: linear-gradient(135deg, #FF4B00, #CC3D00);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
@@ -299,16 +299,6 @@
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
-  }
-
-  .gradient-text-brand-heading {
-    background: linear-gradient(135deg, #64FFFF 0%, #FF4B00 50%, #FFCC00 100%);
-    background-size: 200% 200%;
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-    line-height: 1.4;
-    padding-bottom: 0.1em;
   }
 
 
@@ -335,37 +325,7 @@
     );
   }
 
-  /* Scroll edge effect for the main content area */
-  .scroll-edge-top::before,
-  .scroll-edge-bottom::after {
-    content: '';
-    position: fixed;
-    left: 0;
-    right: 0;
-    height: 80px;
-    pointer-events: none;
-    z-index: 50;
-  }
-  .scroll-edge-top::before {
-    top: 0;
-    background: linear-gradient(
-      to bottom,
-      hsl(var(--background)) 0%,
-      hsl(var(--background) / 0.8) 30%,
-      hsl(var(--background) / 0.4) 60%,
-      transparent 100%
-    );
-  }
-  .scroll-edge-bottom::after {
-    bottom: 0;
-    background: linear-gradient(
-      to top,
-      hsl(var(--background)) 0%,
-      hsl(var(--background) / 0.8) 30%,
-      hsl(var(--background) / 0.4) 60%,
-      transparent 100%
-    );
-  }
+  /* Scroll edge removed - handled in Home.tsx */
 
   .content-padding {
     padding-left: clamp(16px, 5vw, 80px);
