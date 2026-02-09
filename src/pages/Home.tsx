@@ -70,6 +70,8 @@ function ScrollGradientHeading({ children, className, color1, color2 }: {
         backgroundClip: 'text',
         lineHeight: 1.4,
         paddingBottom: '0.1em',
+        position: 'relative',
+        zIndex: 10,
       }}
     >
       {children}
@@ -95,6 +97,8 @@ function ScrollGradientH3({ children, className, color1, color2 }: {
         backgroundClip: 'text',
         lineHeight: 1.4,
         paddingBottom: '0.1em',
+        position: 'relative',
+        zIndex: 10,
       }}
     >
       {children}
@@ -129,7 +133,7 @@ export default function Home() {
   return (
     <main ref={mainRef} className="relative z-10">
       {/* ═══ TOP GLASS BLUR ═══ */}
-      <div className="fixed top-0 left-0 right-0 z-40 pointer-events-none h-28"
+      <div className="fixed top-0 left-0 right-0 z-30 pointer-events-none h-28"
         style={{
           backdropFilter: 'blur(24px) saturate(180%)',
           WebkitBackdropFilter: 'blur(24px) saturate(180%)',
