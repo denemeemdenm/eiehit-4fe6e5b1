@@ -57,14 +57,13 @@ export default function Navbar({ theme }: NavbarProps) {
     <header className="fixed top-4 left-1/2 -translate-x-1/2 z-50">
       <div className="flex items-center gap-2">
         <nav
-          className="rounded-[22px] px-2 py-1.5 flex items-center gap-2"
+          className="glass-nav rounded-[22px] px-2 py-1.5 flex items-center gap-2"
           style={{
             background: theme === 'dark'
               ? 'rgba(255,255,255,0.08)'
               : 'rgba(255,255,255,0.45)',
             backdropFilter: 'blur(60px) saturate(200%)',
             WebkitBackdropFilter: 'blur(60px) saturate(200%)',
-            border: `1px solid ${theme === 'dark' ? 'rgba(255,255,255,0.12)' : 'rgba(255,255,255,0.5)'}`,
             boxShadow: theme === 'dark'
               ? '0 8px 32px rgba(0,0,0,0.4), inset 0 1px 0 rgba(255,255,255,0.06)'
               : '0 8px 32px rgba(0,0,0,0.08), inset 0 1px 0 rgba(255,255,255,0.7)',
@@ -94,14 +93,13 @@ export default function Navbar({ theme }: NavbarProps) {
                   {isActive && (
                     <motion.div
                       layoutId="nav-capsule"
-                      className="absolute inset-0 rounded-[14px]"
+                      className="absolute inset-0 rounded-[14px] overflow-hidden"
                       style={{
                         background: theme === 'dark'
                           ? 'rgba(255,255,255,0.1)'
                           : 'rgba(255,255,255,0.55)',
                         backdropFilter: 'blur(20px)',
                         WebkitBackdropFilter: 'blur(20px)',
-                        border: `1px solid ${theme === 'dark' ? 'rgba(255,255,255,0.15)' : 'rgba(255,255,255,0.7)'}`,
                         boxShadow: theme === 'dark'
                           ? '0 2px 12px rgba(0,0,0,0.3), inset 0 1px 0 rgba(255,255,255,0.08)'
                           : '0 2px 12px rgba(0,0,0,0.06), inset 0 1px 0 rgba(255,255,255,0.8)',
@@ -112,7 +110,16 @@ export default function Navbar({ theme }: NavbarProps) {
                         damping: 30,
                         mass: 0.8,
                       }}
-                    />
+                    >
+                      {/* Liquid glass capsule border */}
+                      <div className="absolute inset-0 rounded-[inherit] pointer-events-none" style={{
+                        padding: '1px',
+                        background: `linear-gradient(180deg, ${theme === 'dark' ? 'rgba(255,255,255,0.18)' : 'rgba(255,255,255,0.7)'} 0%, ${theme === 'dark' ? 'rgba(255,255,255,0.04)' : 'rgba(255,255,255,0.2)'} 50%, ${theme === 'dark' ? 'rgba(255,255,255,0.10)' : 'rgba(255,255,255,0.4)'} 100%)`,
+                        mask: 'linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0)',
+                        maskComposite: 'exclude',
+                        WebkitMaskComposite: 'xor' as any,
+                      }} />
+                    </motion.div>
                   )}
                   <span className="relative z-10">{item.label}</span>
                 </button>
@@ -151,12 +158,11 @@ export default function Navbar({ theme }: NavbarProps) {
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: -8, scale: 0.95 }}
             transition={{ duration: 0.2 }}
-            className="rounded-[16px] mt-2 p-2 md:hidden"
+            className="glass-nav rounded-[16px] mt-2 p-2 md:hidden"
             style={{
               background: theme === 'dark' ? 'rgba(255,255,255,0.08)' : 'rgba(255,255,255,0.45)',
               backdropFilter: 'blur(60px) saturate(200%)',
               WebkitBackdropFilter: 'blur(60px) saturate(200%)',
-              border: `1px solid ${theme === 'dark' ? 'rgba(255,255,255,0.12)' : 'rgba(255,255,255,0.5)'}`,
               boxShadow: theme === 'dark' ? '0 8px 32px rgba(0,0,0,0.4)' : '0 8px 32px rgba(0,0,0,0.08)',
             }}
           >

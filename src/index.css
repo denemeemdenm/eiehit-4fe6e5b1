@@ -170,9 +170,8 @@
     background: hsla(var(--glass-bg));
     backdrop-filter: blur(var(--glass-blur)) saturate(var(--glass-saturation));
     -webkit-backdrop-filter: blur(var(--glass-blur)) saturate(var(--glass-saturation));
-    border: 1px solid transparent;
+    border: none;
     border-radius: var(--radius);
-    background-clip: padding-box;
     position: relative;
   }
 
@@ -183,11 +182,11 @@
     border-radius: inherit;
     padding: 1px;
     background: linear-gradient(
-      160deg,
-      hsla(0 0% 100% / 0.28) 0%,
-      hsla(0 0% 100% / 0.08) 40%,
-      hsla(0 0% 100% / 0.03) 60%,
-      hsla(0 0% 100% / 0.12) 100%
+      180deg,
+      hsla(0 0% 100% / 0.22) 0%,
+      hsla(0 0% 100% / 0.10) 30%,
+      hsla(0 0% 100% / 0.04) 60%,
+      hsla(0 0% 100% / 0.10) 100%
     );
     mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
     mask-composite: exclude;
@@ -198,11 +197,11 @@
 
   .dark .glass-card::before {
     background: linear-gradient(
-      160deg,
-      hsla(0 0% 100% / 0.18) 0%,
-      hsla(0 0% 100% / 0.05) 40%,
+      180deg,
+      hsla(0 0% 100% / 0.14) 0%,
+      hsla(0 0% 100% / 0.06) 30%,
       hsla(0 0% 100% / 0.02) 60%,
-      hsla(0 0% 100% / 0.10) 100%
+      hsla(0 0% 100% / 0.08) 100%
     );
   }
 
@@ -210,7 +209,7 @@
     background: hsla(var(--glass-bg));
     backdrop-filter: blur(60px) saturate(200%);
     -webkit-backdrop-filter: blur(60px) saturate(200%);
-    border: 1px solid transparent;
+    border: none;
     position: relative;
   }
 
@@ -221,11 +220,11 @@
     border-radius: inherit;
     padding: 1px;
     background: linear-gradient(
-      160deg,
-      hsla(0 0% 100% / 0.30) 0%,
-      hsla(0 0% 100% / 0.08) 40%,
-      hsla(0 0% 100% / 0.03) 60%,
-      hsla(0 0% 100% / 0.15) 100%
+      180deg,
+      hsla(0 0% 100% / 0.24) 0%,
+      hsla(0 0% 100% / 0.10) 30%,
+      hsla(0 0% 100% / 0.04) 60%,
+      hsla(0 0% 100% / 0.12) 100%
     );
     mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
     mask-composite: exclude;
@@ -236,11 +235,11 @@
 
   .dark .glass-nav::before {
     background: linear-gradient(
-      160deg,
-      hsla(0 0% 100% / 0.20) 0%,
-      hsla(0 0% 100% / 0.05) 40%,
+      180deg,
+      hsla(0 0% 100% / 0.16) 0%,
+      hsla(0 0% 100% / 0.06) 30%,
       hsla(0 0% 100% / 0.02) 60%,
-      hsla(0 0% 100% / 0.12) 100%
+      hsla(0 0% 100% / 0.10) 100%
     );
   }
 
