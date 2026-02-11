@@ -52,54 +52,30 @@ function useScrollGradient() {
   return { mainRef, color1, color2 };
 }
 
-function ScrollGradientHeading({ children, className, color1, color2 }: {
+function ScrollGradientHeading({ children, className, color1 }: {
   children: React.ReactNode; className?: string;
   color1: import('framer-motion').MotionValue<string>;
-  color2: import('framer-motion').MotionValue<string>;
+  color2?: import('framer-motion').MotionValue<string>;
 }) {
   return (
     <motion.h2
       className={className}
-      style={{
-        background: useTransform(
-          [color1, color2],
-          ([c1, c2]) => `linear-gradient(135deg, ${c1}, ${c2})`
-        ),
-        WebkitBackgroundClip: 'text',
-        WebkitTextFillColor: 'transparent',
-        backgroundClip: 'text',
-        lineHeight: 1.4,
-        paddingBottom: '0.1em',
-        position: 'relative',
-        zIndex: 10,
-      }}
+      style={{ color: color1, lineHeight: 1.4, paddingBottom: '0.1em' }}
     >
       {children}
     </motion.h2>
   );
 }
 
-function ScrollGradientH3({ children, className, color1, color2 }: {
+function ScrollGradientH3({ children, className, color1 }: {
   children: React.ReactNode; className?: string;
   color1: import('framer-motion').MotionValue<string>;
-  color2: import('framer-motion').MotionValue<string>;
+  color2?: import('framer-motion').MotionValue<string>;
 }) {
   return (
     <motion.h3
       className={className}
-      style={{
-        background: useTransform(
-          [color1, color2],
-          ([c1, c2]) => `linear-gradient(135deg, ${c1}, ${c2})`
-        ),
-        WebkitBackgroundClip: 'text',
-        WebkitTextFillColor: 'transparent',
-        backgroundClip: 'text',
-        lineHeight: 1.4,
-        paddingBottom: '0.1em',
-        position: 'relative',
-        zIndex: 10,
-      }}
+      style={{ color: color1, lineHeight: 1.4, paddingBottom: '0.1em' }}
     >
       {children}
     </motion.h3>
