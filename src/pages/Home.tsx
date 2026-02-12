@@ -4,6 +4,8 @@ import { ArrowRight, Shield, Eye, Lock, Cpu, Phone, Mail, MapPin, Copy } from 'l
 import GlassCard from '@/components/GlassCard';
 import ImageCard from '@/components/ImageCard';
 import ScrollReveal from '@/components/ScrollReveal';
+import StaggerHeading from '@/components/StaggerHeading';
+import ComingSoonModal from '@/components/ComingSoonModal';
 import { practiceAreas } from '@/lib/practiceAreas';
 import { toast } from 'sonner';
 import logo from '@/assets/logo.png';
@@ -40,14 +42,11 @@ const areaImages: Record<string, string> = {
 };
 const featuredAreas = practiceAreas.slice(0, 6);
 
-// Scroll-based color: sharp Red → Cyan step (no intermediate colors)
+// Scroll-based color: sharp Red → Cyan step
 function useScrollGradient() {
   const mainRef = useRef<HTMLElement>(null);
   const { scrollYProgress } = useScroll({ target: mainRef, offset: ['start start', 'end end'] });
-  
-  // Sharp step: Red until 45%, then snap to Cyan after 55%
   const color1 = useTransform(scrollYProgress, [0, 0.45, 0.55, 1], ['#FF4B00', '#FF4B00', '#64FFFF', '#64FFFF']);
-  
   return { mainRef, color1 };
 }
 
@@ -56,10 +55,7 @@ function ScrollGradientHeading({ children, className, color1 }: {
   color1: import('framer-motion').MotionValue<string>;
 }) {
   return (
-    <motion.h2
-      className={className}
-      style={{ color: color1, lineHeight: 1.4, paddingBottom: '0.1em' }}
-    >
+    <motion.h2 className={className} style={{ color: color1, lineHeight: 1.4, paddingBottom: '0.1em' }}>
       {children}
     </motion.h2>
   );
@@ -70,10 +66,7 @@ function ScrollGradientH3({ children, className, color1 }: {
   color1: import('framer-motion').MotionValue<string>;
 }) {
   return (
-    <motion.h3
-      className={className}
-      style={{ color: color1, lineHeight: 1.4, paddingBottom: '0.1em' }}
-    >
+    <motion.h3 className={className} style={{ color: color1, lineHeight: 1.4, paddingBottom: '0.1em' }}>
       {children}
     </motion.h3>
   );
@@ -82,6 +75,7 @@ function ScrollGradientH3({ children, className, color1 }: {
 export default function Home() {
   const [isDark, setIsDark] = useState(document.documentElement.classList.contains('dark'));
   const [formData, setFormData] = useState({ name: '', email: '', message: '' });
+  const [comingSoon, setComingSoon] = useState(false);
   const { mainRef, color1 } = useScrollGradient();
 
   useEffect(() => {
@@ -105,6 +99,8 @@ export default function Home() {
 
   return (
     <main ref={mainRef} className="relative z-10">
+      <ComingSoonModal isOpen={comingSoon} onClose={() => setComingSoon(false)} />
+
       {/* ═══ TOP GLASS BLUR ═══ */}
       <div className="fixed top-0 left-0 right-0 z-30 pointer-events-none h-28"
         style={{
@@ -152,7 +148,7 @@ export default function Home() {
       <section id="about" className="section-spacing content-padding">
         <div className="max-w-4xl mx-auto">
           <ScrollReveal>
-            <ScrollGradientHeading className="text-3xl sm:text-4xl font-bold mb-12" color1={color1}>Hakkımda</ScrollGradientHeading>
+            <StaggerHeading text="Hakkımda" as="h2" className="text-3xl sm:text-4xl font-bold mb-12" gradient="cyan" />
           </ScrollReveal>
 
           <ScrollReveal delay={0.1}>
@@ -195,9 +191,7 @@ export default function Home() {
       <section className="section-spacing content-padding">
         <div className="max-w-6xl mx-auto">
           <ScrollReveal>
-            <ScrollGradientHeading className="text-3xl sm:text-4xl font-bold text-center mb-16" color1={color1}>
-              Profesyonel Yaklaşım
-            </ScrollGradientHeading>
+            <StaggerHeading text="Profesyonel Yaklaşım" as="h2" className="text-3xl sm:text-4xl font-bold text-center mb-16" gradient="cyan" />
           </ScrollReveal>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
             {trustSignals.map((item, i) => (
@@ -213,9 +207,7 @@ export default function Home() {
       <section id="practice" className="section-spacing content-padding">
         <div className="max-w-6xl mx-auto">
           <ScrollReveal>
-            <ScrollGradientHeading className="text-3xl sm:text-4xl font-bold text-center mb-4" color1={color1}>
-              Çalışma Alanları
-            </ScrollGradientHeading>
+            <StaggerHeading text="Çalışma Alanları" as="h2" className="text-3xl sm:text-4xl font-bold text-center mb-4" gradient="red" />
             <p className="text-center text-muted-foreground mb-16 max-w-xl mx-auto">
               25 farklı hukuk dalında profesyonel danışmanlık hizmeti sunulmaktadır.
             </p>
@@ -234,7 +226,7 @@ export default function Home() {
       <section id="contact" className="section-spacing content-padding">
         <div className="max-w-4xl mx-auto">
           <ScrollReveal>
-            <ScrollGradientHeading className="text-3xl sm:text-4xl font-bold mb-4" color1={color1}>İletişim</ScrollGradientHeading>
+            <StaggerHeading text="İletişim" as="h2" className="text-3xl sm:text-4xl font-bold mb-4" gradient="cyan" />
             <p className="text-muted-foreground mb-12 max-w-xl">
               Hukuki danışmanlık veya bilgi talepleriniz için iletişime geçebilirsiniz.
             </p>
