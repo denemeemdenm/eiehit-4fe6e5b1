@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback, useRef } from 'react';
+import { useState, useEffect } from 'react';
 import { Menu, X } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import logo from '@/assets/logo.png';
@@ -16,30 +16,9 @@ const navItems = [
   { label: 'İletişim', id: 'contact' },
 ];
 
-function RippleEffect({ x, y }: { x: number; y: number }) {
-  return (
-    <motion.span
-      className="absolute rounded-full pointer-events-none"
-      style={{
-        left: x,
-        top: y,
-        width: 10,
-        height: 10,
-        marginLeft: -5,
-        marginTop: -5,
-        background: 'rgba(100, 255, 255, 0.2)',
-      }}
-      initial={{ scale: 0, opacity: 1 }}
-      animate={{ scale: 8, opacity: 0 }}
-      transition={{ duration: 0.5, ease: 'easeOut' }}
-    />
-  );
-}
-
 export default function Navbar({ theme }: NavbarProps) {
   const [mobileOpen, setMobileOpen] = useState(false);
   const [activeSection, setActiveSection] = useState('hero');
-  const [ripple, setRipple] = useState<{ x: number; y: number; id: number } | null>(null);
 
   useEffect(() => {
     const sectionIds = navItems.map(item => item.id);
@@ -65,12 +44,7 @@ export default function Navbar({ theme }: NavbarProps) {
     return () => observers.forEach(o => o.disconnect());
   }, []);
 
-  const scrollTo = (id: string, e?: React.MouseEvent) => {
-    // Ripple effect
-    if (e) {
-      const rect = e.currentTarget.getBoundingClientRect();
-      setRipple({ x: e.clientX - rect.left, y: e.clientY - rect.top, id: Date.now() });
-    }
+  const scrollTo = (id: string) => {
     setActiveSection(id);
     const el = document.getElementById(id);
     if (el) {
@@ -105,20 +79,16 @@ export default function Navbar({ theme }: NavbarProps) {
             {navItems.map(item => {
               const isActive = activeSection === item.id;
               return (
-                <motion.button
+                <button
                   key={item.id}
-                  onClick={(e) => scrollTo(item.id, e)}
-                  className="relative px-3.5 py-1.5 text-[13px] font-medium whitespace-nowrap z-10 overflow-hidden rounded-[14px]"
+                  onClick={() => scrollTo(item.id)}
+                  className="relative px-3.5 py-1.5 text-[13px] font-medium whitespace-nowrap z-10"
                   style={{
                     color: isActive
                       ? (theme === 'dark' ? '#fff' : '#000')
                       : (theme === 'dark' ? 'rgba(255,255,255,0.5)' : 'rgba(0,0,0,0.45)'),
+                    transition: 'color 0.3s ease',
                   }}
-                  whileHover={{
-                    backgroundColor: isActive ? 'transparent' : (theme === 'dark' ? 'rgba(255,255,255,0.08)' : 'rgba(0,0,0,0.04)'),
-                  }}
-                  whileTap={{ scale: 0.92 }}
-                  transition={{ duration: 0.15 }}
                 >
                   {isActive && (
                     <motion.div
@@ -131,8 +101,8 @@ export default function Navbar({ theme }: NavbarProps) {
                         backdropFilter: 'blur(20px)',
                         WebkitBackdropFilter: 'blur(20px)',
                         boxShadow: theme === 'dark'
-                          ? '0 0 15px rgba(100, 255, 255, 0.15), 0 2px 12px rgba(0,0,0,0.3), inset 0 1px 0 rgba(255,255,255,0.08)'
-                          : '0 0 15px rgba(100, 255, 255, 0.1), 0 2px 12px rgba(0,0,0,0.06), inset 0 1px 0 rgba(255,255,255,0.8)',
+                          ? '0 2px 12px rgba(0,0,0,0.3), inset 0 1px 0 rgba(255,255,255,0.08)'
+                          : '0 2px 12px rgba(0,0,0,0.06), inset 0 1px 0 rgba(255,255,255,0.8)',
                       }}
                       transition={{
                         type: 'spring',
@@ -141,10 +111,6 @@ export default function Navbar({ theme }: NavbarProps) {
                         mass: 0.8,
                       }}
                     >
-                      {/* Active gradient underline */}
-                      <div className="absolute bottom-0 left-2 right-2 h-[2px] rounded-full" style={{
-                        background: 'linear-gradient(90deg, #64FFFF, #00B4D8)',
-                      }} />
                       {/* Liquid glass capsule border */}
                       <div className="absolute inset-0 rounded-[inherit] pointer-events-none" style={{
                         padding: '1px',
@@ -155,14 +121,8 @@ export default function Navbar({ theme }: NavbarProps) {
                       }} />
                     </motion.div>
                   )}
-                  {/* Ripple */}
-                  <AnimatePresence>
-                    {ripple && (
-                      <RippleEffect key={ripple.id} x={ripple.x} y={ripple.y} />
-                    )}
-                  </AnimatePresence>
                   <span className="relative z-10">{item.label}</span>
-                </motion.button>
+                </button>
               );
             })}
 

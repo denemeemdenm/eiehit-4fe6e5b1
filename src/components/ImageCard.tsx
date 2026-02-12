@@ -1,6 +1,5 @@
 import { useRef, useState, useCallback } from 'react';
 import { motion, useSpring } from 'framer-motion';
-import { useIsMobile } from '@/hooks/use-mobile';
 
 interface ImageCardProps {
   image: string;
@@ -12,21 +11,20 @@ interface ImageCardProps {
   tiltIntensity?: number;
 }
 
-export default function ImageCard({ image, title, description, className = '', onClick, children, tiltIntensity = 15 }: ImageCardProps) {
+export default function ImageCard({ image, title, description, className = '', onClick, children, tiltIntensity = 5 }: ImageCardProps) {
   const cardRef = useRef<HTMLDivElement>(null);
   const [specularPos, setSpecularPos] = useState({ x: 50, y: 50 });
   const [isHovered, setIsHovered] = useState(false);
   const rafRef = useRef<number>(0);
-  const isMobile = useIsMobile();
 
-  const springConfig = { stiffness: 300, damping: 20, mass: 1 };
+  // tvOS 26-style physics: weighty, smooth, human-like
+  const springConfig = { stiffness: 120, damping: 26, mass: 1.4 };
   const rotateX = useSpring(0, springConfig);
   const rotateY = useSpring(0, springConfig);
   const scale = useSpring(1, springConfig);
   const translateZ = useSpring(0, springConfig);
 
   const handleMouseMove = useCallback((e: React.MouseEvent) => {
-    if (isMobile) return;
     const el = cardRef.current;
     if (!el) return;
     cancelAnimationFrame(rafRef.current);
@@ -36,13 +34,13 @@ export default function ImageCard({ image, title, description, className = '', o
       const y = e.clientY - rect.top;
       const percentX = x / rect.width;
       const percentY = y / rect.height;
-      rotateY.set((percentX - 0.5) * tiltIntensity);
-      rotateX.set(-(percentY - 0.5) * tiltIntensity);
-      scale.set(1.05);
-      translateZ.set(30);
+      rotateY.set((percentX - 0.5) * tiltIntensity * 2);
+      rotateX.set(-(percentY - 0.5) * tiltIntensity * 2);
+      scale.set(1.02);
+      translateZ.set(8);
       setSpecularPos({ x: percentX * 100, y: percentY * 100 });
     });
-  }, [isMobile, tiltIntensity, rotateX, rotateY, scale, translateZ]);
+  }, [tiltIntensity, rotateX, rotateY, scale, translateZ]);
 
   const handleMouseLeave = useCallback(() => {
     rotateX.set(0);
@@ -61,10 +59,10 @@ export default function ImageCard({ image, title, description, className = '', o
         rotateY,
         scale,
         z: translateZ,
-        perspective: 800,
+        perspective: 1200,
         transformStyle: 'preserve-3d',
         boxShadow: isHovered
-          ? '0 20px 60px rgba(100, 255, 255, 0.15), 0 0 0 1px hsla(0,0%,100%,0.06)'
+          ? '0 20px 50px hsla(0,0%,0%,0.35), 0 0 0 1px hsla(0,0%,100%,0.06)'
           : 'var(--shadow-rest)',
         willChange: 'transform',
         minHeight: '240px',
@@ -95,28 +93,36 @@ export default function ImageCard({ image, title, description, className = '', o
           WebkitMask: 'linear-gradient(to top, black 0%, black 20%, transparent 55%)',
         }}
       />
-
-      {/* Glare overlay — follows cursor */}
-      <div className="absolute inset-0 pointer-events-none z-[6]"
+      <div className="absolute inset-0 z-[3]"
         style={{
-          opacity: isHovered ? 1 : 0,
-          transition: 'opacity 0.5s ease',
-          background: `radial-gradient(ellipse 280px 200px at ${specularPos.x}% ${specularPos.y}%, rgba(255,255,255,0.15), transparent 70%)`,
+          backdropFilter: 'blur(4px)', WebkitBackdropFilter: 'blur(4px)',
+          mask: 'linear-gradient(to top, black 0%, transparent 40%)',
+          WebkitMask: 'linear-gradient(to top, black 0%, transparent 40%)',
         }}
       />
+
+      {/* Specular highlight — subtle, tvOS 26 */}
+      {isHovered && (
+        <div className="absolute inset-0 pointer-events-none z-[6] transition-opacity duration-500"
+          style={{
+            opacity: 0.5,
+            background: `radial-gradient(ellipse 280px 200px at ${specularPos.x}% ${specularPos.y}%, rgba(255,255,255,0.25), transparent 70%)`,
+          }}
+        />
+      )}
 
       {/* Edge highlight on hover */}
-      <div className="absolute inset-0 pointer-events-none z-[7] rounded-[inherit]"
-        style={{
-          opacity: isHovered ? 1 : 0,
-          transition: 'opacity 0.7s ease',
-          background: `radial-gradient(ellipse 400px 300px at ${specularPos.x}% ${specularPos.y}%, hsla(0 0% 100% / 0.16), transparent 70%)`,
-          mask: 'linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0)',
-          maskComposite: 'exclude',
-          WebkitMaskComposite: 'xor' as any,
-          padding: '1px',
-        }}
-      />
+      {isHovered && (
+        <div className="absolute inset-0 pointer-events-none z-[7] rounded-[inherit]"
+          style={{
+            background: `radial-gradient(ellipse 400px 300px at ${specularPos.x}% ${specularPos.y}%, hsla(0 0% 100% / 0.16), transparent 70%)`,
+            mask: 'linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0)',
+            maskComposite: 'exclude',
+            WebkitMaskComposite: 'xor',
+            padding: '1px',
+          }}
+        />
+      )}
 
       {/* Content */}
       <div className="absolute bottom-0 left-0 right-0 z-[5] p-6">
