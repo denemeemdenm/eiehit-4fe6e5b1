@@ -40,49 +40,24 @@ const areaImages: Record<string, string> = {
 };
 const featuredAreas = practiceAreas.slice(0, 6);
 
-// Scroll-based color: sharp Red → Cyan step (no intermediate colors)
-function useScrollGradient() {
-  const mainRef = useRef<HTMLElement>(null);
-  const { scrollYProgress } = useScroll({ target: mainRef, offset: ['start start', 'end end'] });
-  
-  // Sharp step: Red until 45%, then snap to Cyan after 55%
-  const color1 = useTransform(scrollYProgress, [0, 0.45, 0.55, 1], ['#FF4B00', '#FF4B00', '#64FFFF', '#64FFFF']);
-  
-  return { mainRef, color1 };
-}
-
-function ScrollGradientHeading({ children, className, color1 }: {
-  children: React.ReactNode; className?: string;
-  color1: import('framer-motion').MotionValue<string>;
+// Animated gradient heading — cycles through red/cyan with premium smooth animation
+function AnimatedGradientHeading({ children, className, as: Tag = 'h2' }: {
+  children: React.ReactNode;
+  className?: string;
+  as?: 'h2' | 'h3';
 }) {
   return (
-    <motion.h2
-      className={className}
-      style={{ color: color1, lineHeight: 1.4, paddingBottom: '0.1em' }}
+    <Tag
+      className={`animated-gradient-heading ${className || ''}`}
     >
       {children}
-    </motion.h2>
-  );
-}
-
-function ScrollGradientH3({ children, className, color1 }: {
-  children: React.ReactNode; className?: string;
-  color1: import('framer-motion').MotionValue<string>;
-}) {
-  return (
-    <motion.h3
-      className={className}
-      style={{ color: color1, lineHeight: 1.4, paddingBottom: '0.1em' }}
-    >
-      {children}
-    </motion.h3>
+    </Tag>
   );
 }
 
 export default function Home() {
   const [isDark, setIsDark] = useState(document.documentElement.classList.contains('dark'));
   const [formData, setFormData] = useState({ name: '', email: '', message: '' });
-  const { mainRef, color1 } = useScrollGradient();
 
   useEffect(() => {
     const observer = new MutationObserver(() => {
@@ -104,7 +79,7 @@ export default function Home() {
   };
 
   return (
-    <main ref={mainRef} className="relative z-10">
+    <main className="relative z-10">
       {/* ═══ TOP GLASS BLUR ═══ */}
       <div className="fixed top-0 left-0 right-0 z-30 pointer-events-none h-28"
         style={{
@@ -152,7 +127,7 @@ export default function Home() {
       <section id="about" className="section-spacing content-padding">
         <div className="max-w-4xl mx-auto">
           <ScrollReveal>
-            <ScrollGradientHeading className="text-3xl sm:text-4xl font-bold mb-12" color1={color1}>Hakkımda</ScrollGradientHeading>
+            <AnimatedGradientHeading className="text-3xl sm:text-4xl font-bold mb-12">Hakkımda</AnimatedGradientHeading>
           </ScrollReveal>
 
           <ScrollReveal delay={0.1}>
@@ -172,7 +147,7 @@ export default function Home() {
 
           <ScrollReveal delay={0.2}>
             <GlassCard className="p-10 sm:p-14">
-              <ScrollGradientH3 className="text-xl font-bold mb-6" color1={color1}>Yaklaşım ve Değerler</ScrollGradientH3>
+              <AnimatedGradientHeading as="h3" className="text-xl font-bold mb-6">Yaklaşım ve Değerler</AnimatedGradientHeading>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
                 {[
                   { title: 'Şeffaflık', desc: 'Her aşamada müvekkile açık ve net bilgilendirme.' },
@@ -195,9 +170,9 @@ export default function Home() {
       <section className="section-spacing content-padding">
         <div className="max-w-6xl mx-auto">
           <ScrollReveal>
-            <ScrollGradientHeading className="text-3xl sm:text-4xl font-bold text-center mb-16" color1={color1}>
+            <AnimatedGradientHeading className="text-3xl sm:text-4xl font-bold text-center mb-16">
               Profesyonel Yaklaşım
-            </ScrollGradientHeading>
+            </AnimatedGradientHeading>
           </ScrollReveal>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
             {trustSignals.map((item, i) => (
@@ -213,9 +188,9 @@ export default function Home() {
       <section id="practice" className="section-spacing content-padding">
         <div className="max-w-6xl mx-auto">
           <ScrollReveal>
-            <ScrollGradientHeading className="text-3xl sm:text-4xl font-bold text-center mb-4" color1={color1}>
+            <AnimatedGradientHeading className="text-3xl sm:text-4xl font-bold text-center mb-4">
               Çalışma Alanları
-            </ScrollGradientHeading>
+            </AnimatedGradientHeading>
             <p className="text-center text-muted-foreground mb-16 max-w-xl mx-auto">
               25 farklı hukuk dalında profesyonel danışmanlık hizmeti sunulmaktadır.
             </p>
@@ -234,7 +209,7 @@ export default function Home() {
       <section id="contact" className="section-spacing content-padding">
         <div className="max-w-4xl mx-auto">
           <ScrollReveal>
-            <ScrollGradientHeading className="text-3xl sm:text-4xl font-bold mb-4" color1={color1}>İletişim</ScrollGradientHeading>
+            <AnimatedGradientHeading className="text-3xl sm:text-4xl font-bold mb-4">İletişim</AnimatedGradientHeading>
             <p className="text-muted-foreground mb-12 max-w-xl">
               Hukuki danışmanlık veya bilgi talepleriniz için iletişime geçebilirsiniz.
             </p>

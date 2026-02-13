@@ -11,17 +11,17 @@ interface ImageCardProps {
   tiltIntensity?: number;
 }
 
-export default function ImageCard({ image, title, description, className = '', onClick, children, tiltIntensity = 5 }: ImageCardProps) {
+export default function ImageCard({ image, title, description, className = '', onClick, children, tiltIntensity = 6 }: ImageCardProps) {
   const cardRef = useRef<HTMLDivElement>(null);
   const [specularPos, setSpecularPos] = useState({ x: 50, y: 50 });
   const [isHovered, setIsHovered] = useState(false);
   const rafRef = useRef<number>(0);
 
-  // tvOS 26-style physics: weighty, smooth, human-like
-  const springConfig = { stiffness: 120, damping: 26, mass: 1.4 };
+  // tvOS 26: smooth, weighted spring physics
+  const springConfig = { stiffness: 180, damping: 22, mass: 1.0 };
   const rotateX = useSpring(0, springConfig);
   const rotateY = useSpring(0, springConfig);
-  const scale = useSpring(1, springConfig);
+  const scale = useSpring(1, { stiffness: 250, damping: 24, mass: 0.8 });
   const translateZ = useSpring(0, springConfig);
 
   const handleMouseMove = useCallback((e: React.MouseEvent) => {
@@ -30,14 +30,12 @@ export default function ImageCard({ image, title, description, className = '', o
     cancelAnimationFrame(rafRef.current);
     rafRef.current = requestAnimationFrame(() => {
       const rect = el.getBoundingClientRect();
-      const x = e.clientX - rect.left;
-      const y = e.clientY - rect.top;
-      const percentX = x / rect.width;
-      const percentY = y / rect.height;
+      const percentX = (e.clientX - rect.left) / rect.width;
+      const percentY = (e.clientY - rect.top) / rect.height;
       rotateY.set((percentX - 0.5) * tiltIntensity * 2);
       rotateX.set(-(percentY - 0.5) * tiltIntensity * 2);
-      scale.set(1.02);
-      translateZ.set(8);
+      scale.set(1.04);
+      translateZ.set(10);
       setSpecularPos({ x: percentX * 100, y: percentY * 100 });
     });
   }, [tiltIntensity, rotateX, rotateY, scale, translateZ]);
@@ -62,23 +60,23 @@ export default function ImageCard({ image, title, description, className = '', o
         perspective: 1200,
         transformStyle: 'preserve-3d',
         boxShadow: isHovered
-          ? '0 20px 50px hsla(0,0%,0%,0.35), 0 0 0 1px hsla(0,0%,100%,0.06)'
+          ? '0 20px 50px hsla(0,0%,0%,0.30), 0 0 0 0.5px hsla(0,0%,100%,0.06)'
           : 'var(--shadow-rest)',
         willChange: 'transform',
         minHeight: '240px',
-        transition: 'box-shadow 0.8s cubic-bezier(0.25,0.46,0.45,0.94)',
+        transition: 'box-shadow 0.6s cubic-bezier(0.25,0.46,0.45,0.94)',
       }}
       onMouseMove={handleMouseMove}
       onMouseLeave={handleMouseLeave}
       onMouseEnter={() => setIsHovered(true)}
       onClick={onClick}
-      whileTap={{ scale: 0.97, transition: { type: 'spring', stiffness: 300, damping: 25 } }}
+      whileTap={{ scale: 0.97, transition: { type: 'spring', stiffness: 400, damping: 25 } }}
     >
       {/* Background image */}
       <img
         src={image}
         alt={title}
-        className="absolute inset-0 w-full h-full object-cover transition-transform duration-1000 ease-out group-hover:scale-105"
+        className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-[1.04]"
         loading="lazy"
       />
 
@@ -93,36 +91,28 @@ export default function ImageCard({ image, title, description, className = '', o
           WebkitMask: 'linear-gradient(to top, black 0%, black 20%, transparent 55%)',
         }}
       />
-      <div className="absolute inset-0 z-[3]"
+
+      {/* Specular highlight — cursor-following tvOS glare */}
+      <div
+        className="absolute inset-0 pointer-events-none z-[6] transition-opacity duration-500"
         style={{
-          backdropFilter: 'blur(4px)', WebkitBackdropFilter: 'blur(4px)',
-          mask: 'linear-gradient(to top, black 0%, transparent 40%)',
-          WebkitMask: 'linear-gradient(to top, black 0%, transparent 40%)',
+          opacity: isHovered ? 0.45 : 0,
+          background: `radial-gradient(ellipse 300px 220px at ${specularPos.x}% ${specularPos.y}%, rgba(255,255,255,0.22), transparent 70%)`,
         }}
       />
 
-      {/* Specular highlight — subtle, tvOS 26 */}
-      {isHovered && (
-        <div className="absolute inset-0 pointer-events-none z-[6] transition-opacity duration-500"
-          style={{
-            opacity: 0.5,
-            background: `radial-gradient(ellipse 280px 200px at ${specularPos.x}% ${specularPos.y}%, rgba(255,255,255,0.25), transparent 70%)`,
-          }}
-        />
-      )}
-
-      {/* Edge highlight on hover */}
-      {isHovered && (
-        <div className="absolute inset-0 pointer-events-none z-[7] rounded-[inherit]"
-          style={{
-            background: `radial-gradient(ellipse 400px 300px at ${specularPos.x}% ${specularPos.y}%, hsla(0 0% 100% / 0.16), transparent 70%)`,
-            mask: 'linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0)',
-            maskComposite: 'exclude',
-            WebkitMaskComposite: 'xor',
-            padding: '1px',
-          }}
-        />
-      )}
+      {/* Hover rim light on border */}
+      <div
+        className="absolute inset-0 pointer-events-none z-[7] rounded-[inherit] transition-opacity duration-500"
+        style={{
+          opacity: isHovered ? 1 : 0,
+          background: `radial-gradient(ellipse 400px 300px at ${specularPos.x}% ${specularPos.y}%, hsla(0 0% 100% / 0.14), transparent 70%)`,
+          mask: 'linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0)',
+          maskComposite: 'exclude',
+          WebkitMaskComposite: 'xor',
+          padding: '0.5px',
+        }}
+      />
 
       {/* Content */}
       <div className="absolute bottom-0 left-0 right-0 z-[5] p-6">

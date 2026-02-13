@@ -8,19 +8,18 @@ interface GlassCardProps {
   tiltIntensity?: number;
 }
 
-export default function GlassCard({ children, className = '', onClick, tiltIntensity = 4 }: GlassCardProps) {
+export default function GlassCard({ children, className = '', onClick, tiltIntensity = 5 }: GlassCardProps) {
   const cardRef = useRef<HTMLDivElement>(null);
   const [specularPos, setSpecularPos] = useState({ x: 50, y: 50 });
   const [isHovered, setIsHovered] = useState(false);
   const rafRef = useRef<number>(0);
 
-  // tvOS 26-style physics: high damping, lower stiffness = smooth, weighty feel
-  const springConfig = { stiffness: 150, damping: 28, mass: 1.2 };
+  // tvOS 26: weighted, smooth, human-like spring physics
+  const springConfig = { stiffness: 180, damping: 22, mass: 1.0 };
   const rotateX = useSpring(0, springConfig);
   const rotateY = useSpring(0, springConfig);
-  const scale = useSpring(1, springConfig);
+  const scale = useSpring(1, { stiffness: 250, damping: 24, mass: 0.8 });
   const translateZ = useSpring(0, springConfig);
-  const borderAngle = useMotionValue(135);
 
   const handleMouseMove = useCallback((e: React.MouseEvent) => {
     const el = cardRef.current;
@@ -28,18 +27,15 @@ export default function GlassCard({ children, className = '', onClick, tiltInten
     cancelAnimationFrame(rafRef.current);
     rafRef.current = requestAnimationFrame(() => {
       const rect = el.getBoundingClientRect();
-      const x = e.clientX - rect.left;
-      const y = e.clientY - rect.top;
-      const percentX = x / rect.width;
-      const percentY = y / rect.height;
+      const percentX = (e.clientX - rect.left) / rect.width;
+      const percentY = (e.clientY - rect.top) / rect.height;
       rotateY.set((percentX - 0.5) * tiltIntensity * 2);
       rotateX.set(-(percentY - 0.5) * tiltIntensity * 2);
-      scale.set(1.015);
-      translateZ.set(6);
+      scale.set(1.035);
+      translateZ.set(8);
       setSpecularPos({ x: percentX * 100, y: percentY * 100 });
-      borderAngle.set(Math.atan2(percentY - 0.5, percentX - 0.5) * (180 / Math.PI) + 180);
     });
-  }, [tiltIntensity, rotateX, rotateY, scale, translateZ, borderAngle]);
+  }, [tiltIntensity, rotateX, rotateY, scale, translateZ]);
 
   const handleMouseLeave = useCallback(() => {
     rotateX.set(0);
@@ -48,10 +44,6 @@ export default function GlassCard({ children, className = '', onClick, tiltInten
     translateZ.set(0);
     setIsHovered(false);
   }, [rotateX, rotateY, scale, translateZ]);
-
-  const handleMouseEnter = useCallback(() => {
-    setIsHovered(true);
-  }, []);
 
   return (
     <motion.div
@@ -65,18 +57,18 @@ export default function GlassCard({ children, className = '', onClick, tiltInten
         perspective: 1200,
         transformStyle: 'preserve-3d',
         boxShadow: isHovered
-          ? '0 16px 40px hsla(0,0%,0%,0.25), 0 0 0 1px hsla(0,0%,100%,0.06), inset 0 1px 0 hsla(0,0%,100%,0.06)'
+          ? '0 16px 40px hsla(0,0%,0%,0.22), 0 0 0 0.5px hsla(0,0%,100%,0.06)'
           : 'var(--shadow-rest)',
         willChange: 'transform',
-        transition: 'box-shadow 0.8s cubic-bezier(0.25,0.46,0.45,0.94)',
+        transition: 'box-shadow 0.6s cubic-bezier(0.25,0.46,0.45,0.94)',
       }}
       onMouseMove={handleMouseMove}
       onMouseLeave={handleMouseLeave}
-      onMouseEnter={handleMouseEnter}
+      onMouseEnter={() => setIsHovered(true)}
       onClick={onClick}
-      whileTap={{ scale: 0.98, transition: { type: 'spring', stiffness: 300, damping: 25 } }}
+      whileTap={{ scale: 0.98, transition: { type: 'spring', stiffness: 400, damping: 25 } }}
     >
-      {/* Liquid glass backdrop blur for non-image cards */}
+      {/* Liquid glass backdrop blur */}
       <div
         className="absolute inset-0 pointer-events-none z-0 rounded-[inherit]"
         style={{
@@ -85,23 +77,23 @@ export default function GlassCard({ children, className = '', onClick, tiltInten
         }}
       />
 
-      {/* Border glow on hover */}
+      {/* Specular highlight — follows cursor */}
       <div
-        className="absolute inset-0 pointer-events-none z-20 rounded-[inherit] opacity-0 group-hover:opacity-100 transition-opacity duration-700"
+        className="absolute inset-0 pointer-events-none z-10 opacity-0 group-hover:opacity-100 transition-opacity duration-500"
         style={{
-          background: `radial-gradient(ellipse 350px 250px at ${specularPos.x}% ${specularPos.y}%, hsla(0 0% 100% / 0.18), transparent 70%)`,
-          mask: 'linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0)',
-          maskComposite: 'exclude',
-          WebkitMaskComposite: 'xor',
-          padding: '1px',
+          background: `radial-gradient(ellipse 280px 200px at ${specularPos.x}% ${specularPos.y}%, rgba(255,255,255,0.10), transparent 70%)`,
         }}
       />
 
-      {/* Specular highlight */}
+      {/* Border glow on hover — hairline rim light that follows cursor */}
       <div
-        className="absolute inset-0 pointer-events-none z-10 opacity-0 group-hover:opacity-100 transition-opacity duration-700"
+        className="absolute inset-0 pointer-events-none z-20 rounded-[inherit] opacity-0 group-hover:opacity-100 transition-opacity duration-500"
         style={{
-          background: `radial-gradient(ellipse 250px 180px at ${specularPos.x}% ${specularPos.y}%, rgba(255,255,255,0.12), transparent 70%)`,
+          background: `radial-gradient(ellipse 400px 300px at ${specularPos.x}% ${specularPos.y}%, hsla(0 0% 100% / 0.15), transparent 70%)`,
+          mask: 'linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0)',
+          maskComposite: 'exclude',
+          WebkitMaskComposite: 'xor',
+          padding: '0.5px',
         }}
       />
 
