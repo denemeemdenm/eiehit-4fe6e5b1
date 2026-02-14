@@ -40,16 +40,15 @@ const areaImages: Record<string, string> = {
 };
 const featuredAreas = practiceAreas.slice(0, 6);
 
-// Animated gradient heading — cycles through red/cyan with premium smooth animation
-function AnimatedGradientHeading({ children, className, as: Tag = 'h2' }: {
+// Animated gradient heading with serif font — alternates red/cyan
+function AnimatedGradientHeading({ children, className, color = 'red', as: Tag = 'h2' }: {
   children: React.ReactNode;
   className?: string;
+  color?: 'red' | 'cyan';
   as?: 'h2' | 'h3';
 }) {
   return (
-    <Tag
-      className={`animated-gradient-heading ${className || ''}`}
-    >
+    <Tag className={`${color === 'red' ? 'heading-gradient-red' : 'heading-gradient-cyan'} ${className || ''}`}>
       {children}
     </Tag>
   );
@@ -127,7 +126,7 @@ export default function Home() {
       <section id="about" className="section-spacing content-padding">
         <div className="max-w-4xl mx-auto">
           <ScrollReveal>
-            <AnimatedGradientHeading className="text-3xl sm:text-4xl font-bold mb-12">Hakkımda</AnimatedGradientHeading>
+            <AnimatedGradientHeading color="red" className="text-3xl sm:text-4xl font-bold mb-12">Hakkımda</AnimatedGradientHeading>
           </ScrollReveal>
 
           <ScrollReveal delay={0.1}>
@@ -147,7 +146,7 @@ export default function Home() {
 
           <ScrollReveal delay={0.2}>
             <GlassCard className="p-10 sm:p-14">
-              <AnimatedGradientHeading as="h3" className="text-xl font-bold mb-6">Yaklaşım ve Değerler</AnimatedGradientHeading>
+              <AnimatedGradientHeading as="h3" color="cyan" className="text-xl font-bold mb-6">Yaklaşım ve Değerler</AnimatedGradientHeading>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
                 {[
                   { title: 'Şeffaflık', desc: 'Her aşamada müvekkile açık ve net bilgilendirme.' },
@@ -170,7 +169,7 @@ export default function Home() {
       <section className="section-spacing content-padding">
         <div className="max-w-6xl mx-auto">
           <ScrollReveal>
-            <AnimatedGradientHeading className="text-3xl sm:text-4xl font-bold text-center mb-16">
+            <AnimatedGradientHeading color="cyan" className="text-3xl sm:text-4xl font-bold text-center mb-16">
               Profesyonel Yaklaşım
             </AnimatedGradientHeading>
           </ScrollReveal>
@@ -188,7 +187,7 @@ export default function Home() {
       <section id="practice" className="section-spacing content-padding">
         <div className="max-w-6xl mx-auto">
           <ScrollReveal>
-            <AnimatedGradientHeading className="text-3xl sm:text-4xl font-bold text-center mb-4">
+            <AnimatedGradientHeading color="red" className="text-3xl sm:text-4xl font-bold text-center mb-4">
               Çalışma Alanları
             </AnimatedGradientHeading>
             <p className="text-center text-muted-foreground mb-16 max-w-xl mx-auto">
@@ -209,7 +208,7 @@ export default function Home() {
       <section id="contact" className="section-spacing content-padding">
         <div className="max-w-4xl mx-auto">
           <ScrollReveal>
-            <AnimatedGradientHeading className="text-3xl sm:text-4xl font-bold mb-4">İletişim</AnimatedGradientHeading>
+            <AnimatedGradientHeading color="cyan" className="text-3xl sm:text-4xl font-bold mb-4">İletişim</AnimatedGradientHeading>
             <p className="text-muted-foreground mb-12 max-w-xl">
               Hukuki danışmanlık veya bilgi talepleriniz için iletişime geçebilirsiniz.
             </p>

@@ -374,20 +374,44 @@
   }
 }
 
-/* Animated heading — color cycles between red and cyan */
-@keyframes heading-color-cycle {
-  0%, 100% { color: #FF4B00; }
-  50% { color: #64FFFF; }
+/* Animated heading gradients — red and cyan variants */
+@keyframes gradient-shimmer-red {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
 }
 
-.animated-gradient-heading {
-  animation: heading-color-cycle 6s ease-in-out infinite;
+@keyframes gradient-shimmer-cyan {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+.heading-gradient-red {
+  background: linear-gradient(135deg, #FF4B00 0%, #D83A00 25%, #FF6B2B 50%, #FF4B00 75%, #D83A00 100%);
+  background-size: 300% 300%;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  animation: gradient-shimmer-red 4s ease-in-out infinite;
+  font-family: Georgia, 'Times New Roman', serif;
+}
+
+.heading-gradient-cyan {
+  background: linear-gradient(135deg, #64FFFF 0%, #3CDCDC 25%, #7FFFFF 50%, #64FFFF 75%, #3CDCDC 100%);
+  background-size: 300% 300%;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  animation: gradient-shimmer-cyan 4s ease-in-out infinite;
+  font-family: Georgia, 'Times New Roman', serif;
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .animated-gradient-heading {
+  .heading-gradient-red,
+  .heading-gradient-cyan {
     animation: none;
-    color: #64FFFF;
+    background-size: 100% 100%;
   }
 }
 

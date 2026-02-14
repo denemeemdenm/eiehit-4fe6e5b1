@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback } from 'react';
+import { useState, useEffect, useCallback, useRef } from 'react';
 import { Menu, X } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import logo from '@/assets/logo.png';
@@ -22,6 +22,7 @@ export default function Navbar({ theme }: NavbarProps) {
   const [activeSection, setActiveSection] = useState('hero');
   const [hitModalOpen, setHitModalOpen] = useState(false);
   const [clickedId, setClickedId] = useState<string | null>(null);
+  const hitButtonRef = useRef<HTMLButtonElement>(null);
 
   useEffect(() => {
     const sectionIds = navItems.map(item => item.id);
@@ -137,21 +138,25 @@ export default function Navbar({ theme }: NavbarProps) {
 
               <span className="w-px h-4 mx-1.5 shrink-0" style={{ background: isDark ? 'rgba(255,255,255,0.12)' : 'rgba(0,0,0,0.1)' }} />
 
-              {/* HiT logo — opens modal */}
-              <motion.button
-                onClick={() => setHitModalOpen(true)}
-                className="px-2 flex items-center rounded-xl"
-                whileHover={{ scale: 1.05, backgroundColor: isDark ? 'rgba(255,255,255,0.06)' : 'rgba(0,0,0,0.04)' }}
-                whileTap={{ scale: 0.94 }}
-                transition={{ type: 'spring', stiffness: 400, damping: 20 }}
-                aria-label="HiT — Çok Yakında"
-              >
-                <img
-                  src={isDark ? logoLight : logoDark}
-                  alt="HiTKURT"
-                  className="h-5 w-auto object-contain"
-                />
-              </motion.button>
+              {/* HiT logo — opens popover */}
+              <div className="relative">
+                <motion.button
+                  ref={hitButtonRef}
+                  onClick={() => setHitModalOpen(prev => !prev)}
+                  className="px-2 flex items-center rounded-xl"
+                  whileHover={{ scale: 1.05, backgroundColor: isDark ? 'rgba(255,255,255,0.06)' : 'rgba(0,0,0,0.04)' }}
+                  whileTap={{ scale: 0.94 }}
+                  transition={{ type: 'spring', stiffness: 400, damping: 20 }}
+                  aria-label="HiT — Çok Yakında"
+                >
+                  <img
+                    src={isDark ? logoLight : logoDark}
+                    alt="HiTKURT"
+                    className="h-5 w-auto object-contain"
+                  />
+                </motion.button>
+                <LiquidGlassModal isOpen={hitModalOpen} onClose={() => setHitModalOpen(false)} anchorRef={hitButtonRef} />
+              </div>
             </div>
 
             {/* Mobile hamburger */}
@@ -223,7 +228,6 @@ export default function Navbar({ theme }: NavbarProps) {
         </AnimatePresence>
       </header>
 
-      <LiquidGlassModal isOpen={hitModalOpen} onClose={() => setHitModalOpen(false)} />
     </>
   );
 }
