@@ -13,7 +13,7 @@ export default function Footer() {
               <img src={logo} alt="Logo" className="w-10 h-auto object-contain" />
               <div>
                 <p className="font-bold text-sm" style={{ fontFamily: "'EKiN Pro Max Diyakritik', sans-serif" }}>Av. Ekin İsa EROĞLU</p>
-                <p className="text-xs">
+                <p className="text-xs" style={{ fontFamily: "'EKiN Pro Max Diyakritik', sans-serif" }}>
                   <span className="gradient-text-cyan-word">Hukuk</span>
                   <span className="text-foreground/40 dark:text-gray-400"> × </span>
                   <span className="gradient-text-orange-word">İnovasyon</span>

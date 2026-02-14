@@ -178,31 +178,63 @@
   .glass-card::before {
     content: '';
     position: absolute;
-    inset: 0;
-    border-radius: inherit;
-    padding: 0.5px;
+    top: -1px;
+    left: 10%;
+    right: 10%;
+    height: 1.5px;
+    border-radius: 999px;
     background: linear-gradient(
-      180deg,
-      hsla(0 0% 100% / 0.28) 0%,
-      hsla(0 0% 100% / 0.06) 35%,
-      hsla(0 0% 100% / 0.02) 55%,
-      hsla(0 0% 100% / 0.08) 100%
+      90deg,
+      transparent 0%,
+      hsla(0 0% 100% / 0.35) 30%,
+      hsla(0 0% 100% / 0.5) 50%,
+      hsla(0 0% 100% / 0.35) 70%,
+      transparent 100%
     );
-    mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
-    mask-composite: exclude;
-    -webkit-mask-composite: xor;
     pointer-events: none;
     z-index: 1;
     transition: opacity 0.6s ease;
   }
 
+  .glass-card::after {
+    content: '';
+    position: absolute;
+    bottom: -1px;
+    left: 15%;
+    right: 15%;
+    height: 1px;
+    border-radius: 999px;
+    background: linear-gradient(
+      90deg,
+      transparent 0%,
+      hsla(0 0% 100% / 0.15) 30%,
+      hsla(0 0% 100% / 0.25) 50%,
+      hsla(0 0% 100% / 0.15) 70%,
+      transparent 100%
+    );
+    pointer-events: none;
+    z-index: 1;
+  }
+
   .dark .glass-card::before {
     background: linear-gradient(
-      180deg,
-      hsla(0 0% 100% / 0.16) 0%,
-      hsla(0 0% 100% / 0.04) 35%,
-      hsla(0 0% 100% / 0.01) 55%,
-      hsla(0 0% 100% / 0.06) 100%
+      90deg,
+      transparent 0%,
+      hsla(0 0% 100% / 0.22) 30%,
+      hsla(0 0% 100% / 0.35) 50%,
+      hsla(0 0% 100% / 0.22) 70%,
+      transparent 100%
+    );
+  }
+
+  .dark .glass-card::after {
+    background: linear-gradient(
+      90deg,
+      transparent 0%,
+      hsla(0 0% 100% / 0.08) 30%,
+      hsla(0 0% 100% / 0.15) 50%,
+      hsla(0 0% 100% / 0.08) 70%,
+      transparent 100%
     );
   }
 
@@ -342,45 +374,20 @@
   }
 }
 
-/* Animated gradient heading — red/cyan premium cycle */
-@keyframes heading-gradient-cycle {
-  0%, 100% {
-    background-position: 0% 50%;
-  }
-  25% {
-    background-position: 50% 0%;
-  }
-  50% {
-    background-position: 100% 50%;
-  }
-  75% {
-    background-position: 50% 100%;
-  }
+/* Animated heading — color cycles between red and cyan */
+@keyframes heading-color-cycle {
+  0%, 100% { color: #FF4B00; }
+  50% { color: #64FFFF; }
 }
 
 .animated-gradient-heading {
-  background: linear-gradient(
-    135deg,
-    #FF4B00 0%,
-    #D83A00 20%,
-    #FF4B00 35%,
-    #64FFFF 50%,
-    #3CDCDC 65%,
-    #64FFFF 80%,
-    #FF4B00 100%
-  );
-  background-size: 300% 300%;
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-  animation: heading-gradient-cycle 8s ease-in-out infinite;
+  animation: heading-color-cycle 6s ease-in-out infinite;
 }
 
 @media (prefers-reduced-motion: reduce) {
   .animated-gradient-heading {
     animation: none;
-    background: linear-gradient(135deg, #FF4B00, #64FFFF);
-    background-size: 100% 100%;
+    color: #64FFFF;
   }
 }
 
