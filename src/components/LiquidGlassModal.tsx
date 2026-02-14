@@ -52,8 +52,8 @@ export default function LiquidGlassModal({ isOpen, onClose }: LiquidGlassModalPr
           {/* Modal */}
           <motion.div
             ref={modalRef}
-            className="relative z-10 w-[340px] max-w-[90vw] overflow-hidden"
-            style={{ borderRadius: '24px' }}
+            className="relative z-10 w-[300px] max-w-[85vw] overflow-hidden"
+            style={{ borderRadius: '20px' }}
             initial={{ scale: 0.92, opacity: 0, filter: 'blur(12px)' }}
             animate={{ scale: 1, opacity: 1, filter: 'blur(0px)' }}
             exit={{ scale: 0.92, opacity: 0, filter: 'blur(12px)' }}
