@@ -352,38 +352,38 @@
 /* Animated heading gradients — red and cyan variants */
 @keyframes gradient-shimmer-red {
   0% { background-position: 0% 50%; }
-  50% { background-position: 100% 50%; }
-  100% { background-position: 0% 50%; }
+  100% { background-position: 100% 50%; }
 }
 
 @keyframes gradient-shimmer-cyan {
   0% { background-position: 0% 50%; }
-  50% { background-position: 100% 50%; }
-  100% { background-position: 0% 50%; }
+  100% { background-position: 100% 50%; }
 }
 
 .heading-gradient-red {
-  background: linear-gradient(135deg, #FF4B00 0%, #D83A00 25%, #FF6B2B 50%, #FF4B00 75%, #D83A00 100%);
-  background-size: 300% 300%;
+  background: linear-gradient(90deg, #FF4B00 0%, #FF6B2B 25%, #D83A00 50%, #FF4B00 75%, #FF6B2B 100%);
+  background-size: 400% 100%;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
-  animation: gradient-shimmer-red 4s ease-in-out infinite;
-  font-family: Georgia, 'Times New Roman', serif;
+  animation: gradient-shimmer-red 3s linear infinite;
+  font-family: 'Playfair Display', 'Cormorant Garamond', 'Bodoni Moda', Georgia, serif;
   text-transform: uppercase;
-  letter-spacing: 0.04em;
+  letter-spacing: 0.06em;
+  font-weight: 700;
 }
 
 .heading-gradient-cyan {
-  background: linear-gradient(135deg, #64FFFF 0%, #3CDCDC 25%, #7FFFFF 50%, #64FFFF 75%, #3CDCDC 100%);
-  background-size: 300% 300%;
+  background: linear-gradient(90deg, #64FFFF 0%, #7FFFFF 25%, #3CDCDC 50%, #64FFFF 75%, #7FFFFF 100%);
+  background-size: 400% 100%;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
-  animation: gradient-shimmer-cyan 4s ease-in-out infinite;
-  font-family: Georgia, 'Times New Roman', serif;
+  animation: gradient-shimmer-cyan 3s linear infinite;
+  font-family: 'Playfair Display', 'Cormorant Garamond', 'Bodoni Moda', Georgia, serif;
   text-transform: uppercase;
-  letter-spacing: 0.04em;
+  letter-spacing: 0.06em;
+  font-weight: 700;
 }
 
 @media (prefers-reduced-motion: reduce) {
