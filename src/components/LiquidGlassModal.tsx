@@ -39,8 +39,8 @@ export default function LiquidGlassModal({ isOpen, onClose, anchorRef }: LiquidG
       {isOpen && (
         <motion.div
           ref={popoverRef}
-          className="absolute top-full right-0 mt-2 z-[100] w-[260px]"
-          style={{ borderRadius: '16px' }}
+          className="absolute top-full right-0 mt-3 z-[100] w-[260px]"
+          style={{ borderRadius: '20px' }}
           initial={{ opacity: 0, y: -6, scale: 0.96, filter: 'blur(8px)' }}
           animate={{ opacity: 1, y: 0, scale: 1, filter: 'blur(0px)' }}
           exit={{ opacity: 0, y: -6, scale: 0.96, filter: 'blur(8px)' }}
@@ -50,8 +50,8 @@ export default function LiquidGlassModal({ isOpen, onClose, anchorRef }: LiquidG
           <div
             className="relative p-8 text-center overflow-hidden"
             style={{
-              borderRadius: '16px',
-              background: 'hsla(0 0% 100% / 0.12)',
+              borderRadius: '20px',
+              background: 'hsla(0 0% 20% / 0.35)',
               backdropFilter: 'blur(80px) saturate(200%)',
               WebkitBackdropFilter: 'blur(80px) saturate(200%)',
               boxShadow: '0 16px 48px rgba(0,0,0,0.3), 0 4px 12px rgba(0,0,0,0.2)',
@@ -84,15 +84,6 @@ export default function LiquidGlassModal({ isOpen, onClose, anchorRef }: LiquidG
               }}
             />
 
-            {/* Arrow/notch pointing up */}
-            <div className="absolute -top-[6px] right-6 w-3 h-3 rotate-45" style={{
-              background: 'hsla(0 0% 100% / 0.12)',
-              backdropFilter: 'blur(80px)',
-              WebkitBackdropFilter: 'blur(80px)',
-              borderTop: '0.5px solid hsla(0 0% 100% / 0.3)',
-              borderLeft: '0.5px solid hsla(0 0% 100% / 0.3)',
-            }} />
-
             {/* Content */}
             <motion.div
               className="relative z-10"
@@ -100,7 +91,6 @@ export default function LiquidGlassModal({ isOpen, onClose, anchorRef }: LiquidG
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.08, duration: 0.3 }}
             >
-              <div className="text-3xl mb-3">🚀</div>
               <h3
                 className="text-lg font-bold mb-1.5 text-white"
                 style={{ fontFamily: "'EKiN Pro Max Diyakritik', sans-serif" }}
