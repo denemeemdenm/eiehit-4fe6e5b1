@@ -349,41 +349,43 @@
   }
 }
 
-/* Animated heading gradients — red and cyan variants */
-@keyframes gradient-shimmer-red {
+/* Animated heading gradients — light↔dark pulse */
+@keyframes gradient-pulse-red {
   0% { background-position: 0% 50%; }
-  100% { background-position: 100% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
 }
 
-@keyframes gradient-shimmer-cyan {
+@keyframes gradient-pulse-cyan {
   0% { background-position: 0% 50%; }
-  100% { background-position: 100% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
 }
 
 .heading-gradient-red {
-  background: linear-gradient(90deg, #FF4B00 0%, #FF6B2B 25%, #D83A00 50%, #FF4B00 75%, #FF6B2B 100%);
-  background-size: 400% 100%;
+  background: linear-gradient(90deg, #FF4B00 0%, #FF8B5C 20%, #D83A00 40%, #FF4B00 60%, #FF8B5C 80%, #B82E00 100%);
+  background-size: 300% 100%;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
-  animation: gradient-shimmer-red 3s linear infinite;
-  font-family: 'Playfair Display', 'Cormorant Garamond', 'Bodoni Moda', Georgia, serif;
+  animation: gradient-pulse-red 4s ease-in-out infinite;
+  font-family: 'Cormorant Garamond', 'Playfair Display', Georgia, serif;
   text-transform: uppercase;
   letter-spacing: 0.06em;
-  font-weight: 700;
+  font-weight: 600;
 }
 
 .heading-gradient-cyan {
-  background: linear-gradient(90deg, #64FFFF 0%, #7FFFFF 25%, #3CDCDC 50%, #64FFFF 75%, #7FFFFF 100%);
-  background-size: 400% 100%;
+  background: linear-gradient(90deg, #64FFFF 0%, #A8FFFF 20%, #2ABFBF 40%, #64FFFF 60%, #A8FFFF 80%, #1A9999 100%);
+  background-size: 300% 100%;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
-  animation: gradient-shimmer-cyan 3s linear infinite;
-  font-family: 'Playfair Display', 'Cormorant Garamond', 'Bodoni Moda', Georgia, serif;
+  animation: gradient-pulse-cyan 4s ease-in-out infinite;
+  font-family: 'Cormorant Garamond', 'Playfair Display', Georgia, serif;
   text-transform: uppercase;
   letter-spacing: 0.06em;
-  font-weight: 700;
+  font-weight: 600;
 }
 
 @media (prefers-reduced-motion: reduce) {
