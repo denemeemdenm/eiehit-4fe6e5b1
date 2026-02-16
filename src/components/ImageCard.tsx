@@ -72,13 +72,24 @@ export default function ImageCard({ image, title, description, className = '', o
       onClick={onClick}
       whileTap={{ scale: 0.97, transition: { type: 'spring', stiffness: 400, damping: 25 } }}
     >
-      {/* Background image */}
-      <img
-        src={image}
-        alt={title}
-        className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-[1.04]"
-        loading="lazy"
-      />
+      {/* Background image or frosted glass fallback */}
+      {image ? (
+        <img
+          src={image}
+          alt={title}
+          className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-[1.04]"
+          loading="lazy"
+        />
+      ) : (
+        <div
+          className="absolute inset-0 w-full h-full"
+          style={{
+            background: 'hsla(var(--glass-bg))',
+            backdropFilter: 'blur(40px) saturate(180%)',
+            WebkitBackdropFilter: 'blur(40px) saturate(180%)',
+          }}
+        />
+      )}
 
       {/* Progressive blur overlay */}
       <div className="absolute inset-0 z-[2]"
