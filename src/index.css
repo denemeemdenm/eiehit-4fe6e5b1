@@ -175,66 +175,41 @@
     position: relative;
   }
 
+  /* Full-perimeter hairline glass edge — matches reference */
   .glass-card::before {
     content: '';
     position: absolute;
-    top: -1px;
-    left: 10%;
-    right: 10%;
-    height: 1.5px;
-    border-radius: 999px;
+    inset: 0;
+    border-radius: inherit;
+    padding: 1px;
     background: linear-gradient(
-      90deg,
-      transparent 0%,
-      hsla(0 0% 100% / 0.35) 30%,
-      hsla(0 0% 100% / 0.5) 50%,
-      hsla(0 0% 100% / 0.35) 70%,
-      transparent 100%
+      160deg,
+      hsla(0 0% 100% / 0.35) 0%,
+      hsla(0 0% 100% / 0.12) 30%,
+      hsla(0 0% 100% / 0.08) 50%,
+      hsla(0 0% 100% / 0.12) 70%,
+      hsla(0 0% 100% / 0.25) 100%
     );
+    mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    mask-composite: exclude;
+    -webkit-mask-composite: xor;
     pointer-events: none;
     z-index: 1;
-    transition: opacity 0.6s ease;
+    transition: opacity 0.5s ease;
   }
 
   .glass-card::after {
-    content: '';
-    position: absolute;
-    bottom: -1px;
-    left: 15%;
-    right: 15%;
-    height: 1px;
-    border-radius: 999px;
-    background: linear-gradient(
-      90deg,
-      transparent 0%,
-      hsla(0 0% 100% / 0.15) 30%,
-      hsla(0 0% 100% / 0.25) 50%,
-      hsla(0 0% 100% / 0.15) 70%,
-      transparent 100%
-    );
-    pointer-events: none;
-    z-index: 1;
+    display: none;
   }
 
   .dark .glass-card::before {
     background: linear-gradient(
-      90deg,
-      transparent 0%,
-      hsla(0 0% 100% / 0.22) 30%,
-      hsla(0 0% 100% / 0.35) 50%,
-      hsla(0 0% 100% / 0.22) 70%,
-      transparent 100%
-    );
-  }
-
-  .dark .glass-card::after {
-    background: linear-gradient(
-      90deg,
-      transparent 0%,
+      160deg,
+      hsla(0 0% 100% / 0.22) 0%,
       hsla(0 0% 100% / 0.08) 30%,
-      hsla(0 0% 100% / 0.15) 50%,
+      hsla(0 0% 100% / 0.05) 50%,
       hsla(0 0% 100% / 0.08) 70%,
-      transparent 100%
+      hsla(0 0% 100% / 0.18) 100%
     );
   }
 
@@ -395,6 +370,8 @@
   background-clip: text;
   animation: gradient-shimmer-red 4s ease-in-out infinite;
   font-family: Georgia, 'Times New Roman', serif;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
 }
 
 .heading-gradient-cyan {
@@ -405,6 +382,8 @@
   background-clip: text;
   animation: gradient-shimmer-cyan 4s ease-in-out infinite;
   font-family: Georgia, 'Times New Roman', serif;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
 }
 
 @media (prefers-reduced-motion: reduce) {
