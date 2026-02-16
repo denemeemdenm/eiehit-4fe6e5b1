@@ -74,34 +74,35 @@ export default function ImageCard({ image, title, description, className = '', o
     >
       {/* Background image or frosted glass fallback */}
       {image ? (
-        <img
-          src={image}
-          alt={title}
-          className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-[1.04]"
-          loading="lazy"
-        />
+        <>
+          <img
+            src={image}
+            alt={title}
+            className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-[1.04]"
+            loading="lazy"
+          />
+          {/* Progressive blur overlay — only for image cards */}
+          <div className="absolute inset-0 z-[2]"
+            style={{ background: 'linear-gradient(to top, rgba(0,0,0,0.85) 0%, rgba(0,0,0,0.5) 35%, rgba(0,0,0,0.15) 60%, rgba(0,0,0,0.03) 80%, transparent 100%)' }}
+          />
+          <div className="absolute inset-0 z-[3]"
+            style={{
+              backdropFilter: 'blur(8px)', WebkitBackdropFilter: 'blur(8px)',
+              mask: 'linear-gradient(to top, black 0%, black 20%, transparent 55%)',
+              WebkitMask: 'linear-gradient(to top, black 0%, black 20%, transparent 55%)',
+            }}
+          />
+        </>
       ) : (
         <div
-          className="absolute inset-0 w-full h-full"
+          className="absolute inset-0 w-full h-full rounded-[inherit]"
           style={{
-            background: 'hsla(0 0% 30% / 0.25)',
-            backdropFilter: 'blur(60px) saturate(180%)',
-            WebkitBackdropFilter: 'blur(60px) saturate(180%)',
+            background: 'hsla(220 15% 18% / 0.55)',
+            backdropFilter: 'blur(80px) saturate(200%)',
+            WebkitBackdropFilter: 'blur(80px) saturate(200%)',
           }}
         />
       )}
-
-      {/* Progressive blur overlay */}
-      <div className="absolute inset-0 z-[2]"
-        style={{ background: 'linear-gradient(to top, rgba(0,0,0,0.85) 0%, rgba(0,0,0,0.5) 35%, rgba(0,0,0,0.15) 60%, rgba(0,0,0,0.03) 80%, transparent 100%)' }}
-      />
-      <div className="absolute inset-0 z-[3]"
-        style={{
-          backdropFilter: 'blur(8px)', WebkitBackdropFilter: 'blur(8px)',
-          mask: 'linear-gradient(to top, black 0%, black 20%, transparent 55%)',
-          WebkitMask: 'linear-gradient(to top, black 0%, black 20%, transparent 55%)',
-        }}
-      />
 
       {/* Specular highlight — cursor-following tvOS glare */}
       <div
