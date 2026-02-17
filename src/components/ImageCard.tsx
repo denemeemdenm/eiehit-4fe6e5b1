@@ -97,9 +97,9 @@ export default function ImageCard({ image, title, description, className = '', o
         <div
           className="absolute inset-0 w-full h-full rounded-[inherit]"
           style={{
-            background: 'hsla(220 15% 18% / 0.55)',
-            backdropFilter: 'blur(80px) saturate(200%)',
-            WebkitBackdropFilter: 'blur(80px) saturate(200%)',
+            background: 'hsla(220 10% 15% / 0.65)',
+            backdropFilter: 'blur(60px) saturate(200%)',
+            WebkitBackdropFilter: 'blur(60px) saturate(200%)',
           }}
         />
       )}
