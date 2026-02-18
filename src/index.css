@@ -44,7 +44,7 @@
     --radius: 16px;
 
     /* Glass tokens */
-    --glass-bg: 0 0% 92% / 0.35;
+    --glass-bg: 0 0% 100% / 0.18;
     --glass-border: 0 0% 100% / 0.18;
     --glass-blur: 40px;
     --glass-saturation: 180%;
@@ -102,7 +102,7 @@
     --input: 240 4% 16%;
     --ring: 192 100% 50%;
 
-    --glass-bg: 0 0% 8% / 0.45;
+    --glass-bg: 0 0% 10% / 0.25;
     --glass-border: 0 0% 100% / 0.12;
     --glass-blur: 40px;
     --glass-saturation: 180%;
@@ -169,9 +169,7 @@
   }
 
   .glass-card {
-    background: hsla(var(--glass-bg));
-    backdrop-filter: blur(var(--glass-blur)) saturate(var(--glass-saturation));
-    -webkit-backdrop-filter: blur(var(--glass-blur)) saturate(var(--glass-saturation));
+    background: transparent;
     border: none;
     border-radius: var(--radius);
     position: relative;
