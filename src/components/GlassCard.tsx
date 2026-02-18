@@ -68,12 +68,12 @@ export default function GlassCard({ children, className = '', onClick, tiltInten
       onClick={onClick}
       whileTap={{ scale: 0.98, transition: { type: 'spring', stiffness: 400, damping: 25 } }}
     >
-      {/* Frosted glass — semi-transparent with blur so neural bg shows through blurred */}
+      {/* Frosted glass — neural bg visible but blurred through */}
       <div
         className="absolute inset-0 pointer-events-none z-0 rounded-[inherit]"
         style={{
-          backdropFilter: 'blur(40px) saturate(180%)',
-          WebkitBackdropFilter: 'blur(40px) saturate(180%)',
+          backdropFilter: 'blur(48px) saturate(190%)',
+          WebkitBackdropFilter: 'blur(48px) saturate(190%)',
           background: 'hsla(var(--glass-bg))',
         }}
       />
