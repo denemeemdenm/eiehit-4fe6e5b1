@@ -44,10 +44,10 @@
     --radius: 16px;
 
     /* Glass tokens */
-    --glass-bg: 0 0% 100% / 0.18;
-    --glass-border: 0 0% 100% / 0.18;
-    --glass-blur: 40px;
-    --glass-saturation: 180%;
+    --glass-bg: 0 0% 96% / 0.42;
+    --glass-border: 0 0% 100% / 0.22;
+    --glass-blur: 60px;
+    --glass-saturation: 200%;
     --surface: 0 0% 100% / 0.72;
 
     /* Shadows */
@@ -102,10 +102,10 @@
     --input: 240 4% 16%;
     --ring: 192 100% 50%;
 
-    --glass-bg: 0 0% 10% / 0.25;
-    --glass-border: 0 0% 100% / 0.12;
-    --glass-blur: 40px;
-    --glass-saturation: 180%;
+    --glass-bg: 0 0% 8% / 0.38;
+    --glass-border: 0 0% 100% / 0.14;
+    --glass-blur: 60px;
+    --glass-saturation: 200%;
     --surface: 240 4% 18% / 0.82;
 
     --shadow-rest: 0 2px 8px hsla(0,0%,0%,0.3), 0 1px 2px hsla(0,0%,0%,0.2);
@@ -349,30 +349,30 @@
   }
 }
 
-/* Animated heading gradients — smooth light↔dark color cycling */
-@keyframes gradient-cycle-red {
-  0%   { color: #FF8B5C; }
-  25%  { color: #FF4B00; }
-  50%  { color: #B82E00; }
-  75%  { color: #FF4B00; }
-  100% { color: #FF8B5C; }
+/* Animated heading gradients — dynamic gradient-position cycling */
+@keyframes gradient-shift-red {
+  0%   { background-position: 0% 50%; }
+  25%  { background-position: 100% 50%; }
+  50%  { background-position: 100% 0%; }
+  75%  { background-position: 0% 100%; }
+  100% { background-position: 0% 50%; }
 }
 
-@keyframes gradient-cycle-cyan {
-  0%   { color: #A8FFFF; }
-  25%  { color: #64FFFF; }
-  50%  { color: #1A9999; }
-  75%  { color: #64FFFF; }
-  100% { color: #A8FFFF; }
+@keyframes gradient-shift-cyan {
+  0%   { background-position: 0% 50%; }
+  25%  { background-position: 100% 50%; }
+  50%  { background-position: 100% 0%; }
+  75%  { background-position: 0% 100%; }
+  100% { background-position: 0% 50%; }
 }
 
 .heading-gradient-red {
-  -webkit-text-fill-color: unset;
-  background: none;
-  -webkit-background-clip: unset;
-  background-clip: unset;
-  color: #FF4B00;
-  animation: gradient-cycle-red 4s ease-in-out infinite;
+  background: linear-gradient(135deg, #FF8B5C 0%, #FF4B00 25%, #B82E00 50%, #FF4B00 75%, #FF8B5C 100%);
+  background-size: 300% 300%;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  animation: gradient-shift-red 5s ease-in-out infinite;
   font-family: 'DM Serif Display', 'Cormorant Garamond', Georgia, serif;
   text-transform: uppercase;
   letter-spacing: 0.06em;
@@ -380,12 +380,12 @@
 }
 
 .heading-gradient-cyan {
-  -webkit-text-fill-color: unset;
-  background: none;
-  -webkit-background-clip: unset;
-  background-clip: unset;
-  color: #64FFFF;
-  animation: gradient-cycle-cyan 4s ease-in-out infinite;
+  background: linear-gradient(135deg, #A8FFFF 0%, #64FFFF 25%, #1A9999 50%, #64FFFF 75%, #A8FFFF 100%);
+  background-size: 300% 300%;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  animation: gradient-shift-cyan 5s ease-in-out infinite;
   font-family: 'DM Serif Display', 'Cormorant Garamond', Georgia, serif;
   text-transform: uppercase;
   letter-spacing: 0.06em;

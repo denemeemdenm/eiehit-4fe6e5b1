@@ -32,8 +32,8 @@ export default function NeuralBackground() {
     isDarkRef.current = document.documentElement.classList.contains('dark');
 
     const mobile = window.innerWidth < 768;
-    const particleCount = mobile ? 50 : 110;
-    const connectionDist = mobile ? 140 : 170;
+    const particleCount = mobile ? 60 : 130;
+    const connectionDist = mobile ? 150 : 180;
     const cursorRadius = 220;
 
     function resizeCanvas() {
@@ -54,12 +54,12 @@ export default function NeuralBackground() {
         const y = Math.random() * canvas.height;
         particlesRef.current.push({
           x, y,
-          vx: (Math.random() - 0.5) * 0.4,
-          vy: (Math.random() - 0.5) * 0.4,
+          vx: (Math.random() - 0.5) * 0.35,
+          vy: (Math.random() - 0.5) * 0.35,
           color: COLORS[Math.floor(Math.random() * COLORS.length)],
-          opacity: Math.random() * 0.4 + 0.3,
-          baseOpacity: Math.random() * 0.4 + 0.3,
-          size: Math.random() * 1.5 + 1,
+          opacity: Math.random() * 0.5 + 0.35,
+          baseOpacity: Math.random() * 0.5 + 0.35,
+          size: Math.random() * 2 + 1.2,
           pulsePhase: Math.random() * Math.PI * 2,
           homeX: x, homeY: y,
         });
@@ -69,8 +69,8 @@ export default function NeuralBackground() {
     function updateParticles(time: number) {
       const mouse = mouseRef.current;
       particlesRef.current.forEach(p => {
-        p.x += p.vx + Math.sin(time * 0.0003 + p.pulsePhase) * 0.05;
-        p.y += p.vy + Math.cos(time * 0.00025 + p.pulsePhase) * 0.05;
+        p.x += p.vx + Math.sin(time * 0.0003 + p.pulsePhase) * 0.04;
+        p.y += p.vy + Math.cos(time * 0.00025 + p.pulsePhase) * 0.04;
 
         const homeDistX = p.homeX - p.x;
         const homeDistY = p.homeY - p.y;
@@ -113,13 +113,12 @@ export default function NeuralBackground() {
         p.vy *= 0.97;
         const speed = Math.sqrt(p.vx * p.vx + p.vy * p.vy);
         if (speed > 1.2) { p.vx = (p.vx / speed) * 1.2; p.vy = (p.vy / speed) * 1.2; }
-        p.opacity = p.baseOpacity + Math.sin(time * 0.001 + p.pulsePhase) * 0.08;
+        p.opacity = p.baseOpacity + Math.sin(time * 0.001 + p.pulsePhase) * 0.1;
       });
     }
 
     function drawParticles() {
       const isDark = isDarkRef.current;
-      // Scroll parallax offset
       const parallaxOffset = scrollYRef.current * 0.08;
 
       ctx.clearRect(0, 0, canvas.width, canvas.height);
@@ -127,7 +126,8 @@ export default function NeuralBackground() {
       ctx.translate(0, -parallaxOffset);
 
       particlesRef.current.forEach(p => {
-        const alpha = Math.max(0, Math.min(1, p.opacity)) * (isDark ? 0.85 : 0.6);
+        // More visible in light mode
+        const alpha = Math.max(0, Math.min(1, p.opacity)) * (isDark ? 0.9 : 0.8);
         ctx.globalAlpha = alpha;
         ctx.fillStyle = p.color;
         ctx.beginPath();
@@ -151,12 +151,13 @@ export default function NeuralBackground() {
           const dist = Math.sqrt(dx * dx + dy * dy);
 
           if (dist < connectionDist) {
-            const alpha = (1 - dist / connectionDist) * (isDark ? 0.25 : 0.14);
+            // Stronger connections in light mode for visibility
+            const alpha = (1 - dist / connectionDist) * (isDark ? 0.28 : 0.22);
             const grad = ctx.createLinearGradient(p1.x, p1.y, p2.x, p2.y);
             grad.addColorStop(0, p1.color + Math.floor(alpha * 255).toString(16).padStart(2, '0'));
             grad.addColorStop(1, p2.color + Math.floor(alpha * 255).toString(16).padStart(2, '0'));
             ctx.strokeStyle = grad;
-            ctx.lineWidth = 0.6;
+            ctx.lineWidth = isDark ? 0.7 : 0.8;
             ctx.beginPath();
             ctx.moveTo(p1.x, p1.y);
             ctx.lineTo(p2.x, p2.y);
@@ -183,12 +184,12 @@ export default function NeuralBackground() {
             const dist = Math.sqrt(dx * dx + dy * dy);
 
             if (dist < connectionDist) {
-              const alpha = (1 - dist / connectionDist) * (isDark ? 0.45 : 0.25);
+              const alpha = (1 - dist / connectionDist) * (isDark ? 0.5 : 0.35);
               const grad = ctx.createLinearGradient(p1.x, p1.y, p2.x, p2.y);
               grad.addColorStop(0, p1.color + Math.floor(alpha * 255).toString(16).padStart(2, '0'));
               grad.addColorStop(1, p2.color + Math.floor(alpha * 255).toString(16).padStart(2, '0'));
               ctx.strokeStyle = grad;
-              ctx.lineWidth = 1;
+              ctx.lineWidth = 1.2;
               ctx.beginPath();
               ctx.moveTo(p1.x, p1.y);
               ctx.lineTo(p2.x, p2.y);
@@ -285,7 +286,7 @@ export default function NeuralBackground() {
     <canvas
       ref={canvasRef}
       className="fixed inset-0 pointer-events-none z-0"
-      style={{ opacity: 0.7 }}
+      style={{ opacity: 0.85 }}
     />
   );
 }
