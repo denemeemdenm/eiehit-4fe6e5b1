@@ -1,4 +1,4 @@
-import { useRef, useState, useCallback } from 'react';
+import { useRef, useState, useCallback, useEffect } from 'react';
 import { motion, useSpring } from 'framer-motion';
 
 interface ImageCardProps {
@@ -15,14 +15,21 @@ export default function ImageCard({ image, title, description, className = '', o
   const cardRef = useRef<HTMLDivElement>(null);
   const [specularPos, setSpecularPos] = useState({ x: 50, y: 50 });
   const [isHovered, setIsHovered] = useState(false);
+  const [isDark, setIsDark] = useState(document.documentElement.classList.contains('dark'));
   const rafRef = useRef<number>(0);
 
-  // tvOS 26: smooth, weighted spring physics
-  const springConfig = { stiffness: 180, damping: 22, mass: 1.0 };
+  useEffect(() => {
+    const observer = new MutationObserver(() => {
+      setIsDark(document.documentElement.classList.contains('dark'));
+    });
+    observer.observe(document.documentElement, { attributes: true, attributeFilter: ['class'] });
+    return () => observer.disconnect();
+  }, []);
+
+  const springConfig = { stiffness: 260, damping: 26, mass: 0.9 };
   const rotateX = useSpring(0, springConfig);
   const rotateY = useSpring(0, springConfig);
-  const scale = useSpring(1, { stiffness: 250, damping: 24, mass: 0.8 });
-  const translateZ = useSpring(0, springConfig);
+  const scale = useSpring(1, { stiffness: 300, damping: 28, mass: 0.7 });
 
   const handleMouseMove = useCallback((e: React.MouseEvent) => {
     const el = cardRef.current;
@@ -34,19 +41,17 @@ export default function ImageCard({ image, title, description, className = '', o
       const percentY = (e.clientY - rect.top) / rect.height;
       rotateY.set((percentX - 0.5) * tiltIntensity * 2);
       rotateX.set(-(percentY - 0.5) * tiltIntensity * 2);
-      scale.set(1.04);
-      translateZ.set(10);
+      scale.set(1.03);
       setSpecularPos({ x: percentX * 100, y: percentY * 100 });
     });
-  }, [tiltIntensity, rotateX, rotateY, scale, translateZ]);
+  }, [tiltIntensity, rotateX, rotateY, scale]);
 
   const handleMouseLeave = useCallback(() => {
     rotateX.set(0);
     rotateY.set(0);
     scale.set(1);
-    translateZ.set(0);
     setIsHovered(false);
-  }, [rotateX, rotateY, scale, translateZ]);
+  }, [rotateX, rotateY, scale]);
 
   return (
     <motion.div
@@ -56,13 +61,11 @@ export default function ImageCard({ image, title, description, className = '', o
         rotateX,
         rotateY,
         scale,
-        z: translateZ,
         perspective: 1200,
         transformStyle: 'preserve-3d',
         boxShadow: isHovered
           ? '0 20px 50px hsla(0,0%,0%,0.30), 0 0 0 0.5px hsla(0,0%,100%,0.06)'
           : 'var(--shadow-rest)',
-        willChange: 'transform',
         minHeight: '240px',
         transition: 'box-shadow 0.6s cubic-bezier(0.25,0.46,0.45,0.94)',
       }}
@@ -72,7 +75,7 @@ export default function ImageCard({ image, title, description, className = '', o
       onClick={onClick}
       whileTap={{ scale: 0.97, transition: { type: 'spring', stiffness: 400, damping: 25 } }}
     >
-      {/* Background image or frosted glass fallback */}
+      {/* Background image */}
       {image ? (
         <>
           <img
@@ -80,14 +83,22 @@ export default function ImageCard({ image, title, description, className = '', o
             alt={title}
             className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-[1.04]"
             loading="lazy"
+            style={{
+              // Light mode: brighten images for theme harmony
+              filter: isDark ? 'none' : 'brightness(1.15) saturate(0.85)',
+            }}
           />
-          {/* Progressive blur overlay — only for image cards */}
+          {/* Progressive overlay — lighter in light mode */}
           <div className="absolute inset-0 z-[2]"
-            style={{ background: 'linear-gradient(to top, rgba(0,0,0,0.85) 0%, rgba(0,0,0,0.5) 35%, rgba(0,0,0,0.15) 60%, rgba(0,0,0,0.03) 80%, transparent 100%)' }}
+            style={{
+              background: isDark
+                ? 'linear-gradient(to top, rgba(0,0,0,0.85) 0%, rgba(0,0,0,0.5) 35%, rgba(0,0,0,0.15) 60%, transparent 100%)'
+                : 'linear-gradient(to top, rgba(255,255,255,0.95) 0%, rgba(255,255,255,0.6) 30%, rgba(255,255,255,0.2) 55%, transparent 100%)',
+            }}
           />
           <div className="absolute inset-0 z-[3]"
             style={{
-              backdropFilter: 'blur(8px)', WebkitBackdropFilter: 'blur(8px)',
+              backdropFilter: 'blur(6px)', WebkitBackdropFilter: 'blur(6px)',
               mask: 'linear-gradient(to top, black 0%, black 20%, transparent 55%)',
               WebkitMask: 'linear-gradient(to top, black 0%, black 20%, transparent 55%)',
             }}
@@ -97,14 +108,14 @@ export default function ImageCard({ image, title, description, className = '', o
         <div
           className="absolute inset-0 w-full h-full rounded-[inherit]"
           style={{
-            background: 'hsla(220 10% 15% / 0.65)',
+            background: 'hsla(var(--glass-bg))',
             backdropFilter: 'blur(60px) saturate(200%)',
             WebkitBackdropFilter: 'blur(60px) saturate(200%)',
           }}
         />
       )}
 
-      {/* Specular highlight — cursor-following tvOS glare */}
+      {/* Specular highlight */}
       <div
         className="absolute inset-0 pointer-events-none z-[6] transition-opacity duration-500"
         style={{
@@ -113,7 +124,7 @@ export default function ImageCard({ image, title, description, className = '', o
         }}
       />
 
-      {/* Hover rim light on border */}
+      {/* Hover rim light */}
       <div
         className="absolute inset-0 pointer-events-none z-[7] rounded-[inherit] transition-opacity duration-500"
         style={{
@@ -126,10 +137,10 @@ export default function ImageCard({ image, title, description, className = '', o
         }}
       />
 
-      {/* Content */}
+      {/* Content — theme-aware text colors */}
       <div className="absolute bottom-0 left-0 right-0 z-[5] p-6">
-        <h3 className="font-semibold text-base text-white mb-1">{title}</h3>
-        {description && <p className="text-sm text-white/70 leading-relaxed">{description}</p>}
+        <h3 className={`font-semibold text-base mb-1 ${isDark ? 'text-white' : 'text-foreground'}`}>{title}</h3>
+        {description && <p className={`text-sm leading-relaxed ${isDark ? 'text-white/70' : 'text-muted-foreground'}`}>{description}</p>}
         {children}
       </div>
     </motion.div>
