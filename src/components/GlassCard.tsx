@@ -14,10 +14,10 @@ export default function GlassCard({ children, className = '', onClick, tiltInten
   const [isHovered, setIsHovered] = useState(false);
   const rafRef = useRef<number>(0);
 
-  const springConfig = { stiffness: 260, damping: 26, mass: 0.9 };
+  const springConfig = { stiffness: 180, damping: 22, mass: 0.8 };
   const rotateX = useSpring(0, springConfig);
   const rotateY = useSpring(0, springConfig);
-  const scale = useSpring(1, { stiffness: 300, damping: 28, mass: 0.7 });
+  const scale = useSpring(1, { stiffness: 220, damping: 24, mass: 0.6 });
 
   const handleMouseMove = useCallback((e: React.MouseEvent) => {
     const el = cardRef.current;
@@ -44,13 +44,15 @@ export default function GlassCard({ children, className = '', onClick, tiltInten
   return (
     <motion.div
       ref={cardRef}
-      className={`glass-card relative overflow-hidden cursor-pointer group ${className}`}
+      className={`glass-card relative cursor-pointer group ${className}`}
       style={{
         rotateX,
         rotateY,
         scale,
         perspective: 1200,
         transformStyle: 'preserve-3d',
+        overflow: 'hidden',
+        borderRadius: 'var(--radius)',
         boxShadow: isHovered
           ? '0 16px 40px hsla(0,0%,0%,0.22), 0 0 0 0.5px hsla(0,0%,100%,0.06)'
           : 'var(--shadow-rest)',
