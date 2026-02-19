@@ -380,7 +380,7 @@
 }
 
 .heading-gradient-cyan {
-  background: linear-gradient(90deg, #E0FFFF 0%, #00FFFF 15%, #008B8B 35%, #40E0D0 50%, #006666 65%, #00FFFF 85%, #E0FFFF 100%);
+  background: linear-gradient(90deg, #0ABAB5 0%, #007A7A 15%, #004D4D 35%, #00B4AA 50%, #003D3D 65%, #008080 85%, #0ABAB5 100%);
   background-size: 500% 100%;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
@@ -390,6 +390,15 @@
   text-transform: uppercase;
   letter-spacing: 0.06em;
   font-weight: 400;
+}
+
+/* Dark mode: brighter cyan gradient */
+.dark .heading-gradient-cyan {
+  background: linear-gradient(90deg, #E0FFFF 0%, #00FFFF 15%, #008B8B 35%, #40E0D0 50%, #006666 65%, #00FFFF 85%, #E0FFFF 100%);
+  background-size: 500% 100%;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
 }
 
 @media (prefers-reduced-motion: reduce) {

@@ -64,13 +64,21 @@ export default function GlassCard({ children, className = '', onClick, tiltInten
       onClick={onClick}
       whileTap={{ scale: 0.98, transition: { type: 'spring', stiffness: 400, damping: 25 } }}
     >
-      {/* Frosted glass backdrop — blurred neural bg visible */}
+      {/* Frosted Glass backdrop — strong blur, subtle tint */}
       <div
         className="absolute inset-0 pointer-events-none z-0 rounded-[inherit]"
         style={{
-          backdropFilter: 'blur(60px) saturate(200%)',
-          WebkitBackdropFilter: 'blur(60px) saturate(200%)',
+          backdropFilter: 'blur(80px) saturate(220%)',
+          WebkitBackdropFilter: 'blur(80px) saturate(220%)',
           background: 'hsla(var(--glass-bg))',
+        }}
+      />
+
+      {/* Inner frosted sheen — subtle white layer for depth */}
+      <div
+        className="absolute inset-0 pointer-events-none z-[1] rounded-[inherit]"
+        style={{
+          background: 'linear-gradient(135deg, hsla(0 0% 100% / 0.08) 0%, hsla(0 0% 100% / 0.02) 50%, hsla(0 0% 100% / 0.06) 100%)',
         }}
       />
 
@@ -78,7 +86,7 @@ export default function GlassCard({ children, className = '', onClick, tiltInten
       <div
         className="absolute inset-0 pointer-events-none z-10 opacity-0 group-hover:opacity-100 transition-opacity duration-500"
         style={{
-          background: `radial-gradient(ellipse 280px 200px at ${specularPos.x}% ${specularPos.y}%, rgba(255,255,255,0.10), transparent 70%)`,
+          background: `radial-gradient(ellipse 280px 200px at ${specularPos.x}% ${specularPos.y}%, rgba(255,255,255,0.12), transparent 70%)`,
         }}
       />
 
