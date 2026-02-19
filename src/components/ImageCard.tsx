@@ -26,10 +26,10 @@ export default function ImageCard({ image, title, description, className = '', o
     return () => observer.disconnect();
   }, []);
 
-  const springConfig = { stiffness: 260, damping: 26, mass: 0.9 };
+  const springConfig = { stiffness: 180, damping: 22, mass: 0.8 };
   const rotateX = useSpring(0, springConfig);
   const rotateY = useSpring(0, springConfig);
-  const scale = useSpring(1, { stiffness: 300, damping: 28, mass: 0.7 });
+  const scale = useSpring(1, { stiffness: 220, damping: 24, mass: 0.6 });
 
   const handleMouseMove = useCallback((e: React.MouseEvent) => {
     const el = cardRef.current;
@@ -56,15 +56,17 @@ export default function ImageCard({ image, title, description, className = '', o
   return (
     <motion.div
       ref={cardRef}
-      className={`glass-card relative overflow-hidden cursor-pointer group ${className}`}
+      className={`glass-card relative cursor-pointer group ${className}`}
       style={{
         rotateX,
         rotateY,
         scale,
         perspective: 1200,
         transformStyle: 'preserve-3d',
+        overflow: 'hidden',
+        borderRadius: 'var(--radius)',
         boxShadow: isHovered
-          ? '0 20px 50px hsla(0,0%,0%,0.30), 0 0 0 0.5px hsla(0,0%,100%,0.06)'
+          ? '0 20px 50px hsla(0,0%,0%,0.25), 0 0 0 0.5px hsla(0,0%,100%,0.06)'
           : 'var(--shadow-rest)',
         minHeight: '240px',
         transition: 'box-shadow 0.6s cubic-bezier(0.25,0.46,0.45,0.94)',
@@ -84,23 +86,24 @@ export default function ImageCard({ image, title, description, className = '', o
             className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-[1.04]"
             loading="lazy"
             style={{
-              // Light mode: brighten images for theme harmony
-              filter: isDark ? 'none' : 'brightness(1.15) saturate(0.85)',
+              filter: isDark ? 'none' : 'brightness(1.25) saturate(0.75) contrast(0.9)',
             }}
           />
-          {/* Progressive overlay — lighter in light mode */}
+          {/* Pure blur overlay — no color tint, only blur */}
+          <div className="absolute inset-0 z-[3]"
+            style={{
+              backdropFilter: 'blur(8px)',
+              WebkitBackdropFilter: 'blur(8px)',
+              mask: 'linear-gradient(to top, black 0%, black 25%, transparent 60%)',
+              WebkitMask: 'linear-gradient(to top, black 0%, black 25%, transparent 60%)',
+            }}
+          />
+          {/* Subtle scrim for text readability — minimal opacity */}
           <div className="absolute inset-0 z-[2]"
             style={{
               background: isDark
-                ? 'linear-gradient(to top, rgba(0,0,0,0.85) 0%, rgba(0,0,0,0.5) 35%, rgba(0,0,0,0.15) 60%, transparent 100%)'
-                : 'linear-gradient(to top, rgba(255,255,255,0.95) 0%, rgba(255,255,255,0.6) 30%, rgba(255,255,255,0.2) 55%, transparent 100%)',
-            }}
-          />
-          <div className="absolute inset-0 z-[3]"
-            style={{
-              backdropFilter: 'blur(6px)', WebkitBackdropFilter: 'blur(6px)',
-              mask: 'linear-gradient(to top, black 0%, black 20%, transparent 55%)',
-              WebkitMask: 'linear-gradient(to top, black 0%, black 20%, transparent 55%)',
+                ? 'linear-gradient(to top, hsla(0,0%,0%,0.65) 0%, hsla(0,0%,0%,0.3) 30%, transparent 55%)'
+                : 'linear-gradient(to top, hsla(0,0%,100%,0.7) 0%, hsla(0,0%,100%,0.3) 25%, transparent 50%)',
             }}
           />
         </>
