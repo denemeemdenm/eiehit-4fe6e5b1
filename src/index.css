@@ -349,26 +349,30 @@
   }
 }
 
-/* Animated heading gradients — dynamic gradient-position cycling */
+/* Animated heading gradients — vivid color cycling */
 @keyframes gradient-shift-red {
   0%   { background-position: 0% 50%; }
+  25%  { background-position: 50% 50%; }
   50%  { background-position: 100% 50%; }
+  75%  { background-position: 50% 50%; }
   100% { background-position: 0% 50%; }
 }
 
 @keyframes gradient-shift-cyan {
   0%   { background-position: 0% 50%; }
+  25%  { background-position: 50% 50%; }
   50%  { background-position: 100% 50%; }
+  75%  { background-position: 50% 50%; }
   100% { background-position: 0% 50%; }
 }
 
 .heading-gradient-red {
-  background: linear-gradient(90deg, #FF8B5C 0%, #FF4B00 20%, #B82E00 40%, #FF4B00 60%, #B82E00 80%, #FF8B5C 100%);
-  background-size: 400% 100%;
+  background: linear-gradient(90deg, #FFCBA4 0%, #FF6B2C 15%, #CC1100 35%, #FF4500 50%, #B80000 65%, #FF6B2C 85%, #FFCBA4 100%);
+  background-size: 500% 100%;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
-  animation: gradient-shift-red 2.5s ease-in-out infinite;
+  animation: gradient-shift-red 2s linear infinite;
   font-family: 'DM Serif Display', 'Cormorant Garamond', Georgia, serif;
   text-transform: uppercase;
   letter-spacing: 0.06em;
@@ -376,12 +380,12 @@
 }
 
 .heading-gradient-cyan {
-  background: linear-gradient(90deg, #A8FFFF 0%, #64FFFF 20%, #1A9999 40%, #64FFFF 60%, #1A9999 80%, #A8FFFF 100%);
-  background-size: 400% 100%;
+  background: linear-gradient(90deg, #E0FFFF 0%, #00FFFF 15%, #008B8B 35%, #40E0D0 50%, #006666 65%, #00FFFF 85%, #E0FFFF 100%);
+  background-size: 500% 100%;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
-  animation: gradient-shift-cyan 2.5s ease-in-out infinite;
+  animation: gradient-shift-cyan 2s linear infinite;
   font-family: 'DM Serif Display', 'Cormorant Garamond', Georgia, serif;
   text-transform: uppercase;
   letter-spacing: 0.06em;
