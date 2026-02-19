@@ -86,24 +86,25 @@ export default function ImageCard({ image, title, description, className = '', o
             className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-[1.04]"
             loading="lazy"
             style={{
-              filter: isDark ? 'none' : 'brightness(1.25) saturate(0.75) contrast(0.9)',
+              filter: isDark ? 'none' : 'brightness(1.3) saturate(0.8) contrast(0.85)',
             }}
           />
-          {/* Pure blur overlay — no color tint, only blur */}
+          {/* Pure transparent progressive blur — NO color, just blur */}
           <div className="absolute inset-0 z-[3]"
             style={{
-              backdropFilter: 'blur(8px)',
-              WebkitBackdropFilter: 'blur(8px)',
-              mask: 'linear-gradient(to top, black 0%, black 25%, transparent 60%)',
-              WebkitMask: 'linear-gradient(to top, black 0%, black 25%, transparent 60%)',
+              backdropFilter: 'blur(12px)',
+              WebkitBackdropFilter: 'blur(12px)',
+              mask: 'linear-gradient(to top, black 0%, black 20%, transparent 55%)',
+              WebkitMask: 'linear-gradient(to top, black 0%, black 20%, transparent 55%)',
             }}
           />
-          {/* Subtle scrim for text readability — minimal opacity */}
-          <div className="absolute inset-0 z-[2]"
+          {/* Second blur layer for stronger bottom blur — still no color */}
+          <div className="absolute inset-0 z-[4]"
             style={{
-              background: isDark
-                ? 'linear-gradient(to top, hsla(0,0%,0%,0.65) 0%, hsla(0,0%,0%,0.3) 30%, transparent 55%)'
-                : 'linear-gradient(to top, hsla(0,0%,100%,0.7) 0%, hsla(0,0%,100%,0.3) 25%, transparent 50%)',
+              backdropFilter: 'blur(6px)',
+              WebkitBackdropFilter: 'blur(6px)',
+              mask: 'linear-gradient(to top, black 0%, transparent 35%)',
+              WebkitMask: 'linear-gradient(to top, black 0%, transparent 35%)',
             }}
           />
         </>
@@ -140,10 +141,22 @@ export default function ImageCard({ image, title, description, className = '', o
         }}
       />
 
-      {/* Content — theme-aware text colors */}
+      {/* Content — always white text with text-shadow for readability */}
       <div className="absolute bottom-0 left-0 right-0 z-[5] p-6">
-        <h3 className={`font-semibold text-base mb-1 ${isDark ? 'text-white' : 'text-foreground'}`}>{title}</h3>
-        {description && <p className={`text-sm leading-relaxed ${isDark ? 'text-white/70' : 'text-muted-foreground'}`}>{description}</p>}
+        <h3
+          className="font-semibold text-base mb-1 text-white"
+          style={{ textShadow: '0 1px 8px rgba(0,0,0,0.6), 0 0 2px rgba(0,0,0,0.4)' }}
+        >
+          {title}
+        </h3>
+        {description && (
+          <p
+            className="text-sm leading-relaxed text-white/85"
+            style={{ textShadow: '0 1px 6px rgba(0,0,0,0.5)' }}
+          >
+            {description}
+          </p>
+        )}
         {children}
       </div>
     </motion.div>
