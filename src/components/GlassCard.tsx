@@ -14,10 +14,10 @@ export default function GlassCard({ children, className = '', onClick, tiltInten
   const [isHovered, setIsHovered] = useState(false);
   const rafRef = useRef<number>(0);
 
-  const springConfig = { stiffness: 180, damping: 22, mass: 0.8 };
+  const springConfig = { stiffness: 150, damping: 26, mass: 1 };
   const rotateX = useSpring(0, springConfig);
   const rotateY = useSpring(0, springConfig);
-  const scale = useSpring(1, { stiffness: 220, damping: 24, mass: 0.6 });
+  const scale = useSpring(1, { stiffness: 200, damping: 28, mass: 0.8 });
 
   const handleMouseMove = useCallback((e: React.MouseEvent) => {
     const el = cardRef.current;
@@ -42,6 +42,7 @@ export default function GlassCard({ children, className = '', onClick, tiltInten
   }, [rotateX, rotateY, scale]);
 
   return (
+    <div style={{ perspective: 1200 }}>
     <motion.div
       ref={cardRef}
       className={`glass-card relative cursor-pointer group ${className}`}
@@ -49,14 +50,13 @@ export default function GlassCard({ children, className = '', onClick, tiltInten
         rotateX,
         rotateY,
         scale,
-        perspective: 1200,
         transformStyle: 'preserve-3d',
         overflow: 'hidden',
-        borderRadius: 'var(--radius)',
+        borderRadius: 16,
         boxShadow: isHovered
           ? '0 16px 40px hsla(0,0%,0%,0.22), 0 0 0 0.5px hsla(0,0%,100%,0.06)'
           : 'var(--shadow-rest)',
-        transition: 'box-shadow 0.6s cubic-bezier(0.25,0.46,0.45,0.94)',
+        willChange: 'transform',
       }}
       onMouseMove={handleMouseMove}
       onMouseLeave={handleMouseLeave}
@@ -104,5 +104,6 @@ export default function GlassCard({ children, className = '', onClick, tiltInten
 
       <div className="relative z-[5]">{children}</div>
     </motion.div>
+    </div>
   );
 }

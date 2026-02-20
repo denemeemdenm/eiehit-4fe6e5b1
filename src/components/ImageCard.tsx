@@ -1,4 +1,4 @@
-import { useRef, useState, useCallback, useEffect } from 'react';
+import { useRef, useState, useCallback } from 'react';
 import { motion, useSpring } from 'framer-motion';
 
 interface ImageCardProps {
@@ -15,21 +15,12 @@ export default function ImageCard({ image, title, description, className = '', o
   const cardRef = useRef<HTMLDivElement>(null);
   const [specularPos, setSpecularPos] = useState({ x: 50, y: 50 });
   const [isHovered, setIsHovered] = useState(false);
-  const [isDark, setIsDark] = useState(document.documentElement.classList.contains('dark'));
   const rafRef = useRef<number>(0);
 
-  useEffect(() => {
-    const observer = new MutationObserver(() => {
-      setIsDark(document.documentElement.classList.contains('dark'));
-    });
-    observer.observe(document.documentElement, { attributes: true, attributeFilter: ['class'] });
-    return () => observer.disconnect();
-  }, []);
-
-  const springConfig = { stiffness: 180, damping: 22, mass: 0.8 };
+  const springConfig = { stiffness: 150, damping: 26, mass: 1 };
   const rotateX = useSpring(0, springConfig);
   const rotateY = useSpring(0, springConfig);
-  const scale = useSpring(1, { stiffness: 220, damping: 24, mass: 0.6 });
+  const scale = useSpring(1, { stiffness: 200, damping: 28, mass: 0.8 });
 
   const handleMouseMove = useCallback((e: React.MouseEvent) => {
     const el = cardRef.current;
@@ -41,7 +32,7 @@ export default function ImageCard({ image, title, description, className = '', o
       const percentY = (e.clientY - rect.top) / rect.height;
       rotateY.set((percentX - 0.5) * tiltIntensity * 2);
       rotateX.set(-(percentY - 0.5) * tiltIntensity * 2);
-      scale.set(1.03);
+      scale.set(1.02);
       setSpecularPos({ x: percentX * 100, y: percentY * 100 });
     });
   }, [tiltIntensity, rotateX, rotateY, scale]);
@@ -54,6 +45,7 @@ export default function ImageCard({ image, title, description, className = '', o
   }, [rotateX, rotateY, scale]);
 
   return (
+    <div style={{ perspective: 1200 }}>
     <motion.div
       ref={cardRef}
       className={`glass-card relative cursor-pointer group ${className}`}
@@ -61,15 +53,14 @@ export default function ImageCard({ image, title, description, className = '', o
         rotateX,
         rotateY,
         scale,
-        perspective: 1200,
         transformStyle: 'preserve-3d',
         overflow: 'hidden',
-        borderRadius: 'var(--radius)',
+        borderRadius: 16,
         boxShadow: isHovered
           ? '0 20px 50px hsla(0,0%,0%,0.25), 0 0 0 0.5px hsla(0,0%,100%,0.06)'
           : 'var(--shadow-rest)',
         minHeight: '240px',
-        transition: 'box-shadow 0.6s cubic-bezier(0.25,0.46,0.45,0.94)',
+        willChange: 'transform',
       }}
       onMouseMove={handleMouseMove}
       onMouseLeave={handleMouseLeave}
@@ -85,26 +76,14 @@ export default function ImageCard({ image, title, description, className = '', o
             alt={title}
             className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-[1.04]"
             loading="lazy"
-            style={{
-              filter: isDark ? 'none' : 'brightness(1.3) saturate(0.8) contrast(0.85)',
-            }}
           />
-          {/* Pure transparent progressive blur — NO color, just blur */}
-          <div className="absolute inset-0 z-[3]"
+      {/* Progressive blur — transparent, no color tint, only at bottom for text */}
+          <div className="absolute inset-0 z-[3] pointer-events-none"
             style={{
-              backdropFilter: 'blur(12px)',
-              WebkitBackdropFilter: 'blur(12px)',
-              mask: 'linear-gradient(to top, black 0%, black 20%, transparent 55%)',
-              WebkitMask: 'linear-gradient(to top, black 0%, black 20%, transparent 55%)',
-            }}
-          />
-          {/* Second blur layer for stronger bottom blur — still no color */}
-          <div className="absolute inset-0 z-[4]"
-            style={{
-              backdropFilter: 'blur(6px)',
-              WebkitBackdropFilter: 'blur(6px)',
-              mask: 'linear-gradient(to top, black 0%, transparent 35%)',
-              WebkitMask: 'linear-gradient(to top, black 0%, transparent 35%)',
+              backdropFilter: 'blur(16px)',
+              WebkitBackdropFilter: 'blur(16px)',
+              mask: 'linear-gradient(to top, black 0%, black 15%, transparent 50%)',
+              WebkitMask: 'linear-gradient(to top, black 0%, black 15%, transparent 50%)',
             }}
           />
         </>
@@ -160,5 +139,6 @@ export default function ImageCard({ image, title, description, className = '', o
         {children}
       </div>
     </motion.div>
+    </div>
   );
 }
