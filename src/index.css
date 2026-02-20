@@ -349,30 +349,19 @@
   }
 }
 
-/* Animated heading gradients — vivid color cycling */
-@keyframes gradient-shift-red {
+/* Animated heading gradients — smooth left-to-right sweep */
+@keyframes gradient-sweep {
   0%   { background-position: 0% 50%; }
-  25%  { background-position: 50% 50%; }
-  50%  { background-position: 100% 50%; }
-  75%  { background-position: 50% 50%; }
-  100% { background-position: 0% 50%; }
-}
-
-@keyframes gradient-shift-cyan {
-  0%   { background-position: 0% 50%; }
-  25%  { background-position: 50% 50%; }
-  50%  { background-position: 100% 50%; }
-  75%  { background-position: 50% 50%; }
-  100% { background-position: 0% 50%; }
+  100% { background-position: 100% 50%; }
 }
 
 .heading-gradient-red {
-  background: linear-gradient(90deg, #FFB088 0%, #FF4B00 20%, #CC3A00 40%, #FF4B00 60%, #FF7733 80%, #FFB088 100%);
-  background-size: 400% 100%;
+  background: linear-gradient(90deg, #FF4B00, #CC3500, #FF4B00, #FF7733, #FF4B00, #CC3500, #FF4B00);
+  background-size: 300% 100%;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
-  animation: gradient-shift-red 2.5s linear infinite;
+  animation: gradient-sweep 3s linear infinite;
   font-family: 'DM Serif Display', 'Cormorant Garamond', Georgia, serif;
   text-transform: uppercase;
   letter-spacing: 0.06em;
@@ -380,36 +369,36 @@
 }
 
 .heading-gradient-cyan {
-  background: linear-gradient(90deg, #64FFFF 0%, #33CCCC 20%, #1A9999 40%, #64FFFF 60%, #33CCCC 80%, #64FFFF 100%);
-  background-size: 400% 100%;
+  background: linear-gradient(90deg, #64FFFF, #0EA5A5, #64FFFF, #33CCCC, #64FFFF, #0EA5A5, #64FFFF);
+  background-size: 300% 100%;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
-  animation: gradient-shift-cyan 2.5s linear infinite;
+  animation: gradient-sweep 3s linear infinite;
   font-family: 'DM Serif Display', 'Cormorant Garamond', Georgia, serif;
   text-transform: uppercase;
   letter-spacing: 0.06em;
   font-weight: 400;
 }
 
-/* Light mode: deeper cyan for readability */
+/* Light mode: deeper teal tones for readability, still animated */
 :root .heading-gradient-cyan {
-  background: linear-gradient(90deg, #00B4B4 0%, #008080 20%, #005555 40%, #00B4B4 60%, #008080 80%, #00B4B4 100%);
-  background-size: 400% 100%;
+  background: linear-gradient(90deg, #0EA5A5, #006666, #0EA5A5, #008B8B, #0EA5A5, #006666, #0EA5A5);
+  background-size: 300% 100%;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
-  animation: gradient-shift-cyan 2.5s linear infinite;
+  animation: gradient-sweep 3s linear infinite;
 }
 
 /* Dark mode: bright vivid cyan */
 .dark .heading-gradient-cyan {
-  background: linear-gradient(90deg, #64FFFF 0%, #33CCCC 20%, #1A9999 40%, #64FFFF 60%, #33CCCC 80%, #64FFFF 100%);
-  background-size: 400% 100%;
+  background: linear-gradient(90deg, #64FFFF, #0EA5A5, #64FFFF, #33CCCC, #64FFFF, #0EA5A5, #64FFFF);
+  background-size: 300% 100%;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
-  animation: gradient-shift-cyan 2.5s linear infinite;
+  animation: gradient-sweep 3s linear infinite;
 }
 
 @media (prefers-reduced-motion: reduce) {
