@@ -10,21 +10,33 @@ import logo from '@/assets/logo.png';
 import nameWhite from '@/assets/name-white.png';
 import nameBlack from '@/assets/name-black.png';
 
-// Trust signal images
+// Trust signal images — dark
 import trustProcess from '@/assets/cards/trust-process.jpg';
 import trustClarity from '@/assets/cards/trust-clarity.jpg';
 import trustPrivacy from '@/assets/cards/trust-privacy.jpg';
 import trustTech from '@/assets/cards/trust-tech.jpg';
+// Trust signal images — light
+import trustProcessLight from '@/assets/cards/trust-process-light.jpg';
+import trustClarityLight from '@/assets/cards/trust-clarity-light.jpg';
+import trustPrivacyLight from '@/assets/cards/trust-privacy-light.jpg';
+import trustTechLight from '@/assets/cards/trust-tech-light.jpg';
 
-// Practice area images
+// Practice area images — dark
 import areaFamily from '@/assets/cards/area-family.jpg';
 import areaObligations from '@/assets/cards/area-obligations.jpg';
 import areaItLaw from '@/assets/cards/area-it-law.jpg';
 import areaTrade from '@/assets/cards/area-trade.jpg';
 import areaEmployment from '@/assets/cards/area-employment.jpg';
 import areaEnforcement from '@/assets/cards/area-enforcement.jpg';
+// Practice area images — light
+import areaFamilyLight from '@/assets/cards/area-family-light.jpg';
+import areaObligationsLight from '@/assets/cards/area-obligations-light.jpg';
+import areaItLawLight from '@/assets/cards/area-it-law-light.jpg';
+import areaTradeLight from '@/assets/cards/area-trade-light.jpg';
+import areaEmploymentLight from '@/assets/cards/area-employment-light.jpg';
+import areaEnforcementLight from '@/assets/cards/area-enforcement-light.jpg';
 
-const trustSignals = [{
+const trustSignalsDark = [{
   icon: Shield, title: 'Güvenilir Süreç', desc: 'Her adımda şeffaf ve ölçülebilir hukuki süreç yönetimi.', image: trustProcess
 }, {
   icon: Eye, title: 'Netlik ve Açıklık', desc: 'Karmaşık hukuki meselelerin sade ve anlaşılır aktarımı.', image: trustClarity
@@ -34,9 +46,23 @@ const trustSignals = [{
   icon: Cpu, title: 'Teknoloji Okuryazarlığı', desc: 'Dijital çağın hukuki gereksinimlerine hakimiyet.', image: trustTech
 }];
 
-const areaImages: Record<string, string> = {
+const trustSignalsLight = [{
+  icon: Shield, title: 'Güvenilir Süreç', desc: 'Her adımda şeffaf ve ölçülebilir hukuki süreç yönetimi.', image: trustProcessLight
+}, {
+  icon: Eye, title: 'Netlik ve Açıklık', desc: 'Karmaşık hukuki meselelerin sade ve anlaşılır aktarımı.', image: trustClarityLight
+}, {
+  icon: Lock, title: 'Gizlilik', desc: 'Müvekkil bilgilerinin korunması en temel önceliğimizdir.', image: trustPrivacyLight
+}, {
+  icon: Cpu, title: 'Teknoloji Okuryazarlığı', desc: 'Dijital çağın hukuki gereksinimlerine hakimiyet.', image: trustTechLight
+}];
+
+const areaImagesDark: Record<string, string> = {
   'aile-hukuku': areaFamily, 'borclar-hukuku': areaObligations, 'bilisim-hukuku': areaItLaw,
   'ticaret-hukuku': areaTrade, 'is-hukuku': areaEmployment, 'icra-iflas': areaEnforcement
+};
+const areaImagesLight: Record<string, string> = {
+  'aile-hukuku': areaFamilyLight, 'borclar-hukuku': areaObligationsLight, 'bilisim-hukuku': areaItLawLight,
+  'ticaret-hukuku': areaTradeLight, 'is-hukuku': areaEmploymentLight, 'icra-iflas': areaEnforcementLight
 };
 const featuredAreas = practiceAreas.slice(0, 6);
 
@@ -174,7 +200,7 @@ export default function Home() {
             </AnimatedGradientHeading>
           </ScrollReveal>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-            {trustSignals.map((item, i) => (
+            {(isDark ? trustSignalsDark : trustSignalsLight).map((item, i) => (
               <ScrollReveal key={item.title} delay={i * 0.1}>
                 <ImageCard image={item.image} title={item.title} description={item.desc} className="h-full" />
               </ScrollReveal>
@@ -197,7 +223,7 @@ export default function Home() {
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
             {featuredAreas.map((area, i) => (
               <ScrollReveal key={area.id} delay={i * 0.08}>
-                <ImageCard image={areaImages[area.id] || ''} title={area.title} description={area.description} className="h-full" />
+                <ImageCard image={(isDark ? areaImagesDark : areaImagesLight)[area.id] || ''} title={area.title} description={area.description} className="h-full" />
               </ScrollReveal>
             ))}
           </div>
