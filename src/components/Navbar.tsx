@@ -57,7 +57,7 @@ export default function Navbar({ theme }: NavbarProps) {
       <header className="fixed top-4 left-1/2 -translate-x-1/2 z-50">
         <div className="flex items-center gap-2">
           <nav
-            className="glass-nav px-2 flex items-center gap-2 py-[8px] rounded-md"
+            className="glass-nav px-2 flex-row flex items-center justify-start gap-[8px] py-[5px] rounded-3xl"
             style={{
               background: isDark ? 'rgba(255,255,255,0.08)' : 'rgba(255,255,255,0.45)',
               backdropFilter: 'blur(60px) saturate(200%)',
