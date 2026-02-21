@@ -64,13 +64,12 @@ export default function GlassCard({ children, className = '', onClick, tiltInten
       onClick={onClick}
       whileTap={{ scale: 0.98, transition: { type: 'spring', stiffness: 400, damping: 25 } }}
     >
-      {/* Frosted Glass backdrop — strong blur, subtle tint */}
+      {/* Frosted Glass backdrop — navbar-style blur */}
       <div
-        className="absolute inset-0 pointer-events-none z-0 rounded-[inherit]"
+        className="absolute inset-0 pointer-events-none z-0 rounded-[inherit] dark:bg-[rgba(255,255,255,0.08)] bg-[rgba(255,255,255,0.45)]"
         style={{
-          backdropFilter: 'blur(80px) saturate(220%)',
-          WebkitBackdropFilter: 'blur(80px) saturate(220%)',
-          background: 'hsla(var(--glass-bg))',
+          backdropFilter: 'blur(60px) saturate(200%)',
+          WebkitBackdropFilter: 'blur(60px) saturate(200%)',
         }}
       />
 
