@@ -77,13 +77,10 @@ export default function ImageCard({ image, title, description, className = '', o
             className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-[1.04]"
             loading="lazy"
           />
-      {/* Progressive blur — transparent, no color tint, only at bottom for text */}
+          {/* Dark gradient at bottom for text readability — no blur */}
           <div className="absolute inset-0 z-[3] pointer-events-none"
             style={{
-              backdropFilter: 'blur(16px)',
-              WebkitBackdropFilter: 'blur(16px)',
-              mask: 'linear-gradient(to top, black 0%, black 15%, transparent 50%)',
-              WebkitMask: 'linear-gradient(to top, black 0%, black 15%, transparent 50%)',
+              background: 'linear-gradient(to top, rgba(0,0,0,0.55) 0%, rgba(0,0,0,0.25) 30%, transparent 55%)',
             }}
           />
         </>
