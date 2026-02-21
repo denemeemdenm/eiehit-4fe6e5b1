@@ -356,7 +356,7 @@
 }
 
 .heading-gradient-red {
-  background: linear-gradient(90deg, #FF4B00, #CC3500, #FF4B00, #FF7733, #FF4B00, #CC3500, #FF4B00);
+  background: linear-gradient(90deg, #FF4B00, #E64400, #FF4B00, #FF6A33, #FF4B00, #E64400, #FF4B00);
   background-size: 300% 100%;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
@@ -369,7 +369,7 @@
 }
 
 .heading-gradient-cyan {
-  background: linear-gradient(90deg, #64FFFF, #0EA5A5, #64FFFF, #33CCCC, #64FFFF, #0EA5A5, #64FFFF);
+  background: linear-gradient(90deg, #64FFFF, #5AE6E6, #64FFFF, #5AE6E6, #64FFFF, #5AE6E6, #64FFFF);
   background-size: 300% 100%;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
@@ -381,9 +381,9 @@
   font-weight: 400;
 }
 
-/* Light mode: deeper teal tones for readability, still animated */
+/* Light mode: deeper tones for readability, still animated */
 :root .heading-gradient-cyan {
-  background: linear-gradient(90deg, #0EA5A5, #006666, #0EA5A5, #008B8B, #0EA5A5, #006666, #0EA5A5);
+  background: linear-gradient(90deg, #0EA5A5, #0D9494, #0EA5A5, #0D9494, #0EA5A5, #0D9494, #0EA5A5);
   background-size: 300% 100%;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
@@ -391,9 +391,27 @@
   animation: gradient-sweep 3s linear infinite;
 }
 
-/* Dark mode: bright vivid cyan */
+:root .heading-gradient-red {
+  background: linear-gradient(90deg, #FF4B00, #E64400, #FF4B00, #E64400, #FF4B00, #E64400, #FF4B00);
+  background-size: 300% 100%;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  animation: gradient-sweep 3s linear infinite;
+}
+
+/* Dark mode: bright vivid colors */
 .dark .heading-gradient-cyan {
-  background: linear-gradient(90deg, #64FFFF, #0EA5A5, #64FFFF, #33CCCC, #64FFFF, #0EA5A5, #64FFFF);
+  background: linear-gradient(90deg, #64FFFF, #5AE6E6, #64FFFF, #5AE6E6, #64FFFF, #5AE6E6, #64FFFF);
+  background-size: 300% 100%;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  animation: gradient-sweep 3s linear infinite;
+}
+
+.dark .heading-gradient-red {
+  background: linear-gradient(90deg, #FF4B00, #E64400, #FF4B00, #FF6A33, #FF4B00, #E64400, #FF4B00);
   background-size: 300% 100%;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
