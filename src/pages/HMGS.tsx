@@ -9,7 +9,7 @@ export default function HMGS() {
         <ScrollReveal>
           <GlassCard className="p-14 sm:p-20">
             <Clock className="w-12 h-12 text-primary mx-auto mb-6 opacity-60" />
-            <h1 className="text-3xl sm:text-4xl font-bold mb-4 gradient-text-gray">
+            <h1 className="text-3xl sm:text-4xl font-bold mb-4 heading-gradient-red">
               HMGS ve Adli Yargı
             </h1>
             <p className="text-lg text-muted-foreground mb-2">Yakında</p>

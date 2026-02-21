@@ -308,6 +308,16 @@
     background-clip: text;
   }
 
+  /* Cyan gradient for icons — SVG stroke/fill approach */
+  .icon-gradient-cyan {
+    color: #64FFFF;
+  }
+  :root .icon-gradient-cyan {
+    color: #0EA5A5;
+  }
+  .dark .icon-gradient-cyan {
+    color: #64FFFF;
+  }
 
   .section-spacing {
     padding-top: clamp(80px, 15vh, 200px);

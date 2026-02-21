@@ -22,7 +22,7 @@ export default function Contact() {
     <main className="relative z-10 pt-28 content-padding min-h-screen">
       <div className="max-w-4xl mx-auto">
         <ScrollReveal>
-          <h1 className="text-4xl sm:text-6xl font-bold mb-4 gradient-text-gray">İletişim</h1>
+          <h1 className="text-4xl sm:text-6xl font-bold mb-4 heading-gradient-cyan">İletişim</h1>
           <p className="text-muted-foreground mb-12 max-w-xl">
             Hukuki danışmanlık veya bilgi talepleriniz için iletişime geçebilirsiniz.
           </p>
@@ -40,7 +40,7 @@ export default function Contact() {
                 <GlassCard key={item.label} className="p-6">
                   <div className="flex items-center justify-between">
                     <div className="flex items-center gap-4">
-                      <item.icon className="w-5 h-5 text-primary shrink-0" />
+                      <item.icon className="w-5 h-5 shrink-0 icon-gradient-cyan" />
                       <div>
                         <p className="text-xs text-muted-foreground">{item.label}</p>
                         <p className="text-sm font-medium">{item.value}</p>

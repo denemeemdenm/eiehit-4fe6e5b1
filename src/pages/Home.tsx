@@ -251,7 +251,7 @@ export default function Home() {
                   <GlassCard key={item.label} className="p-6">
                     <div className="flex items-center justify-between">
                       <div className="flex items-center gap-4">
-                        <item.icon className="w-5 h-5 text-primary shrink-0" />
+                        <item.icon className="w-5 h-5 shrink-0 icon-gradient-cyan" />
                         <div>
                           <p className="text-xs text-muted-foreground">{item.label}</p>
                           <p className="text-sm font-medium">{item.value}</p>
