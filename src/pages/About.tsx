@@ -7,7 +7,7 @@ export default function About() {
     <main className="relative z-10 pt-28 content-padding min-h-screen">
       <div className="max-w-4xl mx-auto">
         <ScrollReveal>
-          <h1 className="text-4xl sm:text-6xl font-bold mb-8 gradient-text-brand-heading">Hakkımda</h1>
+          <h1 className="text-4xl sm:text-6xl font-bold mb-8 heading-gradient-red">Hakkımda</h1>
         </ScrollReveal>
 
         <ScrollReveal delay={0.1}>
@@ -32,7 +32,7 @@ export default function About() {
 
         <ScrollReveal delay={0.2}>
           <GlassCard className="p-10 sm:p-14 mb-8">
-            <h3 className="text-xl font-bold mb-6 gradient-text-brand-heading">Yaklaşım ve Değerler</h3>
+            <h3 className="text-xl font-bold mb-6 heading-gradient-cyan">Yaklaşım ve Değerler</h3>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
               {[
                 { title: 'Şeffaflık', desc: 'Her aşamada müvekkile açık ve net bilgilendirme.' },
