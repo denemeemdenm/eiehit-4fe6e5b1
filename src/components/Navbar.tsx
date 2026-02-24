@@ -68,7 +68,7 @@ export default function Navbar({ theme }: NavbarProps) {
             }}>
             {/* White gradient border overlay */}
             <div className="absolute inset-0 rounded-[inherit] pointer-events-none" style={{
-              padding: '1.5px',
+              padding: '1.125px',
               background: `linear-gradient(180deg, ${isDark ? 'rgba(255,255,255,0.35)' : 'rgba(255,255,255,0.9)'} 0%, ${isDark ? 'rgba(255,255,255,0.08)' : 'rgba(255,255,255,0.3)'} 50%, ${isDark ? 'rgba(255,255,255,0.15)' : 'rgba(255,255,255,0.5)'} 100%)`,
               mask: 'linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0)',
               maskComposite: 'exclude',
