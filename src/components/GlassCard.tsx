@@ -97,7 +97,7 @@ export default function GlassCard({ children, className = '', onClick, tiltInten
           mask: 'linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0)',
           maskComposite: 'exclude',
           WebkitMaskComposite: 'xor',
-          padding: '0.5px',
+          padding: '1.125px',
         }}
       />
 
