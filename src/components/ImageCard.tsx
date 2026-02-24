@@ -57,7 +57,7 @@ export default function ImageCard({ image, title, description, className = '', o
         overflow: 'hidden',
         borderRadius: 20,
         boxShadow: isHovered
-          ? '0 20px 50px hsla(0,0%,0%,0.25), 0 0 0 0.5px hsla(0,0%,100%,0.06)'
+          ? '0 20px 50px hsla(0,0%,0%,0.25), 0 0 0 1.125px hsla(0,0%,100%,0.06)'
           : 'var(--shadow-rest)',
         minHeight: '240px',
         willChange: 'transform',
@@ -113,7 +113,7 @@ export default function ImageCard({ image, title, description, className = '', o
           mask: 'linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0)',
           maskComposite: 'exclude',
           WebkitMaskComposite: 'xor',
-          padding: '0.5px',
+          padding: '1.125px',
         }}
       />
 
