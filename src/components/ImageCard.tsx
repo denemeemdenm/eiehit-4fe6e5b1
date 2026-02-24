@@ -55,7 +55,7 @@ export default function ImageCard({ image, title, description, className = '', o
         scale,
         transformStyle: 'preserve-3d',
         overflow: 'hidden',
-        borderRadius: 16,
+        borderRadius: 20,
         boxShadow: isHovered
           ? '0 20px 50px hsla(0,0%,0%,0.25), 0 0 0 0.5px hsla(0,0%,100%,0.06)'
           : 'var(--shadow-rest)',
