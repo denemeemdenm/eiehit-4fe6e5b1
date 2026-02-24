@@ -52,7 +52,7 @@ export default function GlassCard({ children, className = '', onClick, tiltInten
         scale,
         transformStyle: 'preserve-3d',
         overflow: 'hidden',
-        borderRadius: 17.6,
+        borderRadius: 26.4,
         boxShadow: isHovered
           ? '0 16px 40px hsla(0,0%,0%,0.22), 0 0 0 0.5px hsla(0,0%,100%,0.06)'
           : 'var(--shadow-rest)',
