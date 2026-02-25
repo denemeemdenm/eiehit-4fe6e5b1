@@ -353,74 +353,74 @@
   }
 }
 
-/* Animated heading gradients — smooth left-to-right sweep */
+/* Animated heading gradients — smooth right-to-left sweep */
 @keyframes gradient-sweep {
-  0%   { background-position: 0% 50%; }
-  100% { background-position: 100% 50%; }
+  0%   { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
 }
 
 .heading-gradient-red {
-  background: linear-gradient(90deg, #FF4B00, #E64400, #FF4B00, #FF6A33, #FF4B00, #E64400, #FF4B00);
+  background: linear-gradient(270deg, #FF4B00, #CC3C00, #FF4B00, #CC3C00, #FF4B00, #CC3C00, #FF4B00);
   background-size: 300% 100%;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
-  animation: gradient-sweep 3s linear infinite;
-  font-family: 'DM Serif Display', 'Cormorant Garamond', Georgia, serif;
+  animation: gradient-sweep 3.9s linear infinite;
+  font-family: 'Fraunces', 'Cormorant Garamond', Georgia, serif;
   text-transform: uppercase;
   letter-spacing: 0.06em;
   font-weight: 400;
 }
 
 .heading-gradient-cyan {
-  background: linear-gradient(90deg, #64FFFF, #5AE6E6, #64FFFF, #5AE6E6, #64FFFF, #5AE6E6, #64FFFF);
+  background: linear-gradient(270deg, #64FFFF, #50CCCC, #64FFFF, #50CCCC, #64FFFF, #50CCCC, #64FFFF);
   background-size: 300% 100%;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
-  animation: gradient-sweep 3s linear infinite;
-  font-family: 'DM Serif Display', 'Cormorant Garamond', Georgia, serif;
+  animation: gradient-sweep 3.9s linear infinite;
+  font-family: 'Fraunces', 'Cormorant Garamond', Georgia, serif;
   text-transform: uppercase;
   letter-spacing: 0.06em;
   font-weight: 400;
 }
 
-/* Light mode: same vivid brand colors as dark mode */
+/* Light mode: bright vivid brand colors */
 :root .heading-gradient-cyan {
-  background: linear-gradient(90deg, #64FFFF, #5AE6E6, #64FFFF, #5AE6E6, #64FFFF, #5AE6E6, #64FFFF);
+  background: linear-gradient(270deg, #64FFFF, #5AE6E6, #64FFFF, #5AE6E6, #64FFFF, #5AE6E6, #64FFFF);
   background-size: 300% 100%;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
-  animation: gradient-sweep 3s linear infinite;
+  animation: gradient-sweep 3.9s linear infinite;
 }
 
 :root .heading-gradient-red {
-  background: linear-gradient(90deg, #FF4B00, #E64400, #FF4B00, #FF6A33, #FF4B00, #E64400, #FF4B00);
+  background: linear-gradient(270deg, #FF4B00, #E64400, #FF4B00, #E64400, #FF4B00, #E64400, #FF4B00);
   background-size: 300% 100%;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
-  animation: gradient-sweep 3s linear infinite;
+  animation: gradient-sweep 3.9s linear infinite;
 }
 
-/* Dark mode: bright vivid colors */
+/* Dark mode: 20% darker tones */
 .dark .heading-gradient-cyan {
-  background: linear-gradient(90deg, #64FFFF, #5AE6E6, #64FFFF, #5AE6E6, #64FFFF, #5AE6E6, #64FFFF);
+  background: linear-gradient(270deg, #50CCCC, #40A3A3, #50CCCC, #40A3A3, #50CCCC, #40A3A3, #50CCCC);
   background-size: 300% 100%;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
-  animation: gradient-sweep 3s linear infinite;
+  animation: gradient-sweep 3.9s linear infinite;
 }
 
 .dark .heading-gradient-red {
-  background: linear-gradient(90deg, #FF4B00, #E64400, #FF4B00, #FF6A33, #FF4B00, #E64400, #FF4B00);
+  background: linear-gradient(270deg, #CC3C00, #B33500, #CC3C00, #B33500, #CC3C00, #B33500, #CC3C00);
   background-size: 300% 100%;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
-  animation: gradient-sweep 3s linear infinite;
+  animation: gradient-sweep 3.9s linear infinite;
 }
 
 @media (prefers-reduced-motion: reduce) {
