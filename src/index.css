@@ -23,8 +23,8 @@
     --popover: 0 0% 100%;
     --popover-foreground: 240 6% 10%;
 
-    --primary: 180 100% 70%;
-    --primary-foreground: 0 0% 100%;
+    --primary: 192 100% 50%;
+    --primary-foreground: 0 0% 0%;
 
     --secondary: 18 100% 50%;
     --secondary-foreground: 0 0% 100%;
@@ -259,7 +259,7 @@
   }
 
   .gradient-text-cyan {
-    background: linear-gradient(135deg, #64FFFF, #1A9999);
+    background: linear-gradient(135deg, #64FFFF, #5AE6E6);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
@@ -288,7 +288,7 @@
   }
 
   .gradient-text-cyan-word {
-    background: linear-gradient(135deg, #64FFFF, #2AB5B5);
+    background: linear-gradient(135deg, #64FFFF, #5AE6E6);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
@@ -308,14 +308,8 @@
     background-clip: text;
   }
 
-  /* Cyan gradient for icons — SVG stroke/fill approach */
+  /* Cyan gradient for icons — same vivid color in both modes */
   .icon-gradient-cyan {
-    color: #64FFFF;
-  }
-  :root .icon-gradient-cyan {
-    color: #0EA5A5;
-  }
-  .dark .icon-gradient-cyan {
     color: #64FFFF;
   }
 
@@ -391,9 +385,9 @@
   font-weight: 400;
 }
 
-/* Light mode: deeper tones for readability, still animated */
+/* Light mode: same vivid brand colors as dark mode */
 :root .heading-gradient-cyan {
-  background: linear-gradient(90deg, #0EA5A5, #0D9494, #0EA5A5, #0D9494, #0EA5A5, #0D9494, #0EA5A5);
+  background: linear-gradient(90deg, #64FFFF, #5AE6E6, #64FFFF, #5AE6E6, #64FFFF, #5AE6E6, #64FFFF);
   background-size: 300% 100%;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
@@ -402,7 +396,7 @@
 }
 
 :root .heading-gradient-red {
-  background: linear-gradient(90deg, #FF4B00, #E64400, #FF4B00, #E64400, #FF4B00, #E64400, #FF4B00);
+  background: linear-gradient(90deg, #FF4B00, #E64400, #FF4B00, #FF6A33, #FF4B00, #E64400, #FF4B00);
   background-size: 300% 100%;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
