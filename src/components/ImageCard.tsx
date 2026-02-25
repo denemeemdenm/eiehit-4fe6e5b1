@@ -77,10 +77,20 @@ export default function ImageCard({ image, title, description, className = '', o
             className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-[1.04]"
             loading="lazy"
           />
-          {/* Dark gradient at bottom for text readability — no blur */}
+          {/* Dark gradient at bottom for text readability */}
           <div className="absolute inset-0 z-[3] pointer-events-none"
             style={{
               background: 'linear-gradient(to top, rgba(0,0,0,0.55) 0%, rgba(0,0,0,0.25) 30%, transparent 55%)',
+            }}
+          />
+          {/* Frosted glass blur layer at bottom — matches navbar blur */}
+          <div className="absolute bottom-0 left-0 right-0 z-[4] pointer-events-none"
+            style={{
+              height: '45%',
+              backdropFilter: 'blur(60px) saturate(200%)',
+              WebkitBackdropFilter: 'blur(60px) saturate(200%)',
+              mask: 'linear-gradient(to top, black 0%, black 40%, transparent 100%)',
+              WebkitMask: 'linear-gradient(to top, black 0%, black 40%, transparent 100%)',
             }}
           />
         </>
