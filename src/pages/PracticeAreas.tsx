@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import GlassCard from '@/components/GlassCard';
+import ImageCard from '@/components/ImageCard';
 import ScrollReveal from '@/components/ScrollReveal';
 import { practiceAreas, categories } from '@/lib/practiceAreas';
 import { Search } from 'lucide-react';
@@ -74,6 +75,8 @@ export default function PracticeAreas() {
                     <p className="text-sm text-muted-foreground leading-relaxed">{area.description}</p>
                   </GlassCard>
                 </Link>
+              ) : area.image ? (
+                <ImageCard image={area.image} title={area.title} description={area.description} />
               ) : (
                 <GlassCard className="p-8 h-full">
                   <area.icon className="w-7 h-7 text-primary mb-4" />

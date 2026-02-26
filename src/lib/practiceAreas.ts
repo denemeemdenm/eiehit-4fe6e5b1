@@ -1,20 +1,27 @@
 import { Scale, Building2, Briefcase, HandshakeIcon, Users, Landmark, Gavel, TrendingUp, DollarSign, Shield, Lock, Cpu, Home, HardHat, Handshake, Zap, Fuel, Mountain, Truck, Plane, Umbrella, HeartPulse, Sword, ShoppingCart } from 'lucide-react';
 
+import aileHukukuImg from '@/assets/cards/aile-hukuku.jpeg';
+import bilisimHukukuImg from '@/assets/cards/bilisim-hukuku.png';
+import ticaretHukukuImg from '@/assets/cards/ticaret-hukuku.jpeg';
+import isHukukuImg from '@/assets/cards/is-hukuku.jpg';
+import icraHukukuImg from '@/assets/cards/icra-hukuku.png';
+
 export interface PracticeArea {
   id: string;
   title: string;
   icon: any;
   description: string;
   category: string;
+  image?: string;
 }
 
 export const practiceAreas: PracticeArea[] = [
-  { id: 'aile-hukuku', title: 'Aile Hukuku', icon: Users, description: 'Boşanma, velayet, nafaka ve aile içi hukuki uyuşmazlıklar.', category: 'Temel' },
-  { id: 'borclar-hukuku', title: 'Borçlar Hukuku', icon: HandshakeIcon, description: 'Borç ilişkileri, sözleşmeler, haksız fiiller ve sebepsiz zenginleşme davaları.', category: 'Temel' },
-  { id: 'bilisim-hukuku', title: 'Bilişim Hukuku', icon: Cpu, description: 'Siber suçlar, dijital sözleşmeler, e-ticaret hukuku ve internet düzenlemeleri.', category: 'Teknoloji' },
-  { id: 'ticaret-hukuku', title: 'Ticaret Hukuku', icon: Building2, description: 'Ticari sözleşmeler, ticari işletme ve ticari uyuşmazlıkların çözümü.', category: 'Temel' },
-  { id: 'is-hukuku', title: 'İş Hukuku', icon: Users, description: 'İşçi-işveren ilişkileri, iş sözleşmeleri ve işçi hakları.', category: 'Temel' },
-  { id: 'icra-iflas', title: 'İcra ve İflas Hukuku', icon: Landmark, description: 'Alacak takibi, icra işlemleri ve iflas süreçlerinin yönetimi.', category: 'Temel' },
+  { id: 'aile-hukuku', title: 'Aile Hukuku', icon: Users, description: 'Boşanma, velayet, nafaka ve aile içi hukuki uyuşmazlıklar.', category: 'Temel', image: aileHukukuImg },
+  { id: 'ceza-hukuku', title: 'Ceza Hukuku', icon: Gavel, description: 'Ceza davaları, savunma hakları ve ceza yargılaması süreçleri.', category: 'Temel' },
+  { id: 'bilisim-hukuku', title: 'Bilişim Hukuku', icon: Cpu, description: 'Siber suçlar, dijital sözleşmeler, e-ticaret hukuku ve internet düzenlemeleri.', category: 'Teknoloji', image: bilisimHukukuImg },
+  { id: 'ticaret-hukuku', title: 'Ticaret ve Borçlar Hukuku', icon: Building2, description: 'Ticari sözleşmeler, ticari işletme, borç ilişkileri ve ticari uyuşmazlıkların çözümü.', category: 'Temel', image: ticaretHukukuImg },
+  { id: 'is-hukuku', title: 'İş Hukuku', icon: Users, description: 'İşçi-işveren ilişkileri, iş sözleşmeleri ve işçi hakları.', category: 'Temel', image: isHukukuImg },
+  { id: 'icra-iflas', title: 'İcra ve İflas Hukuku', icon: Landmark, description: 'Alacak takibi, icra işlemleri ve iflas süreçlerinin yönetimi.', category: 'Temel', image: icraHukukuImg },
   { id: 'uyusmazlik-cozumu', title: 'Uyuşmazlık Çözümü ve Dava Takibi', icon: Gavel, description: 'Arabuluculuk, tahkim ve dava süreçlerinin etkin yönetimi.', category: 'Temel' },
   { id: 'rekabet', title: 'Rekabet Hukuku', icon: TrendingUp, description: 'Rekabet ihlalleri, birleşme kontrolleri ve uyum danışmanlığı.', category: 'Düzenleyici' },
   { id: 'sermaye-piyasalari', title: 'Sermaye Piyasaları', icon: DollarSign, description: 'Halka arz, tahvil ihracı ve sermaye piyasası düzenlemelerine uyum.', category: 'Finans' },
