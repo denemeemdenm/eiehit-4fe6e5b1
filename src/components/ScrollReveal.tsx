@@ -20,8 +20,8 @@ export default function ScrollReveal({ children, delay = 0, className = '' }: Sc
       }}
       className={className}
       style={{
-        backdropFilter: 'blur(60px) saturate(200%)',
-        WebkitBackdropFilter: 'blur(60px) saturate(200%)',
+        backdropFilter: 'blur(25px) saturate(200%)',
+        WebkitBackdropFilter: 'blur(25px) saturate(200%)',
       }}
     >
       {children}
