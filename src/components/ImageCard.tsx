@@ -46,106 +46,113 @@ export default function ImageCard({ image, title, description, className = '', o
 
   return (
     <div style={{ perspective: 1200 }}>
-    <motion.div
-      ref={cardRef}
-      className={`glass-card relative cursor-pointer group ${className}`}
-      style={{
-        rotateX,
-        rotateY,
-        scale,
-        transformStyle: 'preserve-3d',
-        overflow: 'hidden',
-        borderRadius: 20,
-        boxShadow: isHovered
-          ? '0 20px 50px hsla(0,0%,0%,0.25), 0 0 0 1.125px hsla(0,0%,100%,0.06)'
-          : 'var(--shadow-rest)',
-        minHeight: '240px',
-        willChange: 'transform',
-      }}
-      onMouseMove={handleMouseMove}
-      onMouseLeave={handleMouseLeave}
-      onMouseEnter={() => setIsHovered(true)}
-      onClick={onClick}
-      whileTap={{ scale: 0.97, transition: { type: 'spring', stiffness: 400, damping: 25 } }}
-    >
-      {/* Background image */}
-      {image ? (
-        <>
-          <img
-            src={image}
-            alt={title}
-            className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-[1.04]"
-            loading="lazy"
-          />
-          {/* Dark gradient at bottom for text readability */}
-          <div className="absolute inset-0 z-[3] pointer-events-none"
-            style={{
-              background: 'linear-gradient(to top, rgba(0,0,0,0.55) 0%, rgba(0,0,0,0.25) 30%, transparent 55%)',
-            }}
-          />
-          {/* Frosted glass blur layer at bottom — matches navbar blur */}
-          <div className="absolute bottom-0 left-0 right-0 z-[4] pointer-events-none"
-            style={{
-              height: '45%',
-              backdropFilter: 'blur(60px) saturate(200%)',
-              WebkitBackdropFilter: 'blur(60px) saturate(200%)',
-              mask: 'linear-gradient(to top, black 0%, black 40%, transparent 100%)',
-              WebkitMask: 'linear-gradient(to top, black 0%, black 40%, transparent 100%)',
-            }}
-          />
-        </>
-      ) : (
+      <motion.div
+        ref={cardRef}
+        className={`relative cursor-pointer group ${className}`}
+        style={{
+          rotateX,
+          rotateY,
+          scale,
+          transformStyle: 'preserve-3d',
+          minHeight: '240px',
+          willChange: 'transform',
+        }}
+        onMouseMove={handleMouseMove}
+        onMouseLeave={handleMouseLeave}
+        onMouseEnter={() => setIsHovered(true)}
+        onClick={onClick}
+        whileTap={{ scale: 0.97, transition: { type: 'spring', stiffness: 400, damping: 25 } }}
+      >
+        {/* Clip wrapper — isolates overflow:hidden + borderRadius from 3D transform */}
         <div
-          className="absolute inset-0 w-full h-full rounded-[inherit]"
           style={{
-            background: 'hsla(var(--glass-bg))',
-            backdropFilter: 'blur(60px) saturate(200%)',
-            WebkitBackdropFilter: 'blur(60px) saturate(200%)',
+            position: 'absolute',
+            inset: 0,
+            borderRadius: 20,
+            overflow: 'hidden',
+          }}
+        >
+          {/* Background image */}
+          {image ? (
+            <>
+              <img
+                src={image}
+                alt={title}
+                className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-[1.04]"
+                loading="lazy"
+              />
+              {/* Dark gradient at bottom for text readability */}
+              <div
+                className="absolute inset-0 z-[3] pointer-events-none"
+                style={{
+                  background: 'linear-gradient(to top, rgba(0,0,0,0.6) 0%, rgba(0,0,0,0.3) 35%, transparent 60%)',
+                }}
+              />
+              {/* Progressive blur layer */}
+              <div
+                className="absolute bottom-0 left-0 right-0 z-[4] pointer-events-none"
+                style={{
+                  height: '40%',
+                  backdropFilter: 'blur(25px) saturate(180%)',
+                  WebkitBackdropFilter: 'blur(25px) saturate(180%)',
+                  mask: 'linear-gradient(to top, black 0%, black 30%, transparent 100%)',
+                  WebkitMask: 'linear-gradient(to top, black 0%, black 30%, transparent 100%)',
+                }}
+              />
+            </>
+          ) : (
+            <div
+              className="absolute inset-0 w-full h-full"
+              style={{
+                background: 'hsla(var(--glass-bg))',
+                backdropFilter: 'blur(25px) saturate(200%)',
+                WebkitBackdropFilter: 'blur(25px) saturate(200%)',
+              }}
+            />
+          )}
+
+          {/* Specular highlight */}
+          <div
+            className="absolute inset-0 pointer-events-none z-[6] transition-opacity duration-500"
+            style={{
+              opacity: isHovered ? 0.4 : 0,
+              background: `radial-gradient(ellipse 300px 220px at ${specularPos.x}% ${specularPos.y}%, rgba(255,255,255,0.2), transparent 70%)`,
+            }}
+          />
+
+          {/* Content */}
+          <div className="absolute bottom-0 left-0 right-0 z-[5] p-6">
+            <h3
+              className="font-semibold text-base mb-1 text-white"
+              style={{ textShadow: '0 1px 8px rgba(0,0,0,0.6), 0 0 2px rgba(0,0,0,0.4)' }}
+            >
+              {title}
+            </h3>
+            {description && (
+              <p
+                className="text-sm leading-relaxed text-white/85"
+                style={{ textShadow: '0 1px 6px rgba(0,0,0,0.5)' }}
+              >
+                {description}
+              </p>
+            )}
+            {children}
+          </div>
+        </div>
+
+        {/* Border glow — outside the clip wrapper so it doesn't get clipped */}
+        <div
+          className="absolute inset-0 pointer-events-none z-[7] transition-opacity duration-500"
+          style={{
+            borderRadius: 20,
+            opacity: isHovered ? 1 : 0,
+            boxShadow: `inset 0 0 0 1.125px hsla(0, 0%, 100%, 0.1), 0 20px 50px hsla(0, 0%, 0%, 0.25)`,
           }}
         />
-      )}
 
-      {/* Specular highlight */}
-      <div
-        className="absolute inset-0 pointer-events-none z-[6] transition-opacity duration-500"
-        style={{
-          opacity: isHovered ? 0.45 : 0,
-          background: `radial-gradient(ellipse 300px 220px at ${specularPos.x}% ${specularPos.y}%, rgba(255,255,255,0.22), transparent 70%)`,
-        }}
-      />
-
-      {/* Hover rim light */}
-      <div
-        className="absolute inset-0 pointer-events-none z-[7] rounded-[inherit] transition-opacity duration-500"
-        style={{
-          opacity: isHovered ? 1 : 0,
-          background: `radial-gradient(ellipse 400px 300px at ${specularPos.x}% ${specularPos.y}%, hsla(0 0% 100% / 0.14), transparent 70%)`,
-          mask: 'linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0)',
-          maskComposite: 'exclude',
-          WebkitMaskComposite: 'xor',
-          padding: '1.125px',
-        }}
-      />
-
-      {/* Content — always white text with text-shadow for readability */}
-      <div className="absolute bottom-0 left-0 right-0 z-[5] p-6">
-        <h3
-          className="font-semibold text-base mb-1 text-white"
-          style={{ textShadow: '0 1px 8px rgba(0,0,0,0.6), 0 0 2px rgba(0,0,0,0.4)' }}
-        >
-          {title}
-        </h3>
-        {description && (
-          <p
-            className="text-sm leading-relaxed text-white/85"
-            style={{ textShadow: '0 1px 6px rgba(0,0,0,0.5)' }}
-          >
-            {description}
-          </p>
-        )}
-        {children}
-      </div>
-    </motion.div>
+        {/* Invisible spacer to maintain height */}
+        <div style={{ minHeight: '240px', borderRadius: 20 }} />
+      </motion.div>
     </div>
   );
 }
