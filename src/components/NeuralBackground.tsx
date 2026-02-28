@@ -92,8 +92,8 @@ export default function NeuralBackground() {
           const dist = Math.sqrt(dx * dx + dy * dy);
           if (dist < cursorRadius && dist > 0) {
             const force = (1 - dist / cursorRadius) * 0.06;
-            p.vx += (dx / dist) * force;
-            p.vy += (dy / dist) * force;
+            p.vx -= (dx / dist) * force;
+            p.vy -= (dy / dist) * force;
           }
         }
 
