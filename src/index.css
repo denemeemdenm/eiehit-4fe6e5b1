@@ -46,7 +46,7 @@
     /* Glass tokens */
     --glass-bg: 0 0% 96% / 0.42;
     --glass-border: 0 0% 100% / 0.22;
-    --glass-blur: 60px;
+    --glass-blur: 25px;
     --glass-saturation: 200%;
     --surface: 0 0% 100% / 0.72;
 
@@ -104,7 +104,7 @@
 
     --glass-bg: 0 0% 8% / 0.38;
     --glass-border: 0 0% 100% / 0.14;
-    --glass-blur: 60px;
+    --glass-blur: 25px;
     --glass-saturation: 200%;
     --surface: 240 4% 18% / 0.82;
 
@@ -215,8 +215,8 @@
 
   .glass-nav {
     background: hsla(var(--glass-bg));
-    backdrop-filter: blur(60px) saturate(200%);
-    -webkit-backdrop-filter: blur(60px) saturate(200%);
+    backdrop-filter: blur(var(--glass-blur)) saturate(var(--glass-saturation));
+    -webkit-backdrop-filter: blur(var(--glass-blur)) saturate(var(--glass-saturation));
     border: none;
     position: relative;
   }

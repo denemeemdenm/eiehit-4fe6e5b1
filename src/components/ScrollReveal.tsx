@@ -19,10 +19,7 @@ export default function ScrollReveal({ children, delay = 0, className = '' }: Sc
         ease: [0.25, 0.1, 0.25, 1],
       }}
       className={className}
-      style={{
-        backdropFilter: 'blur(25px) saturate(200%)',
-        WebkitBackdropFilter: 'blur(25px) saturate(200%)',
-      }}
+      style={{ willChange: 'opacity, transform, filter' }}
     >
       {children}
     </motion.div>
