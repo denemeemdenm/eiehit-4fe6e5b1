@@ -21,20 +21,15 @@ import trustClarityLight from '@/assets/cards/trust-clarity-light.jpg';
 import trustPrivacyLight from '@/assets/cards/trust-privacy-light.jpg';
 import trustTechLight from '@/assets/cards/trust-tech-light.jpg';
 
-// Practice area images — dark
-import areaFamily from '@/assets/cards/area-family.jpg';
+// Practice area images — uploaded replacements (both themes)
+import aileHukukuImg from '@/assets/cards/aile-hukuku.jpeg';
+import bilisimHukukuImg from '@/assets/cards/bilisim-hukuku.png';
+import ticaretHukukuImg from '@/assets/cards/ticaret-hukuku.jpeg';
+import isHukukuImg from '@/assets/cards/is-hukuku.jpg';
+import icraHukukuImg from '@/assets/cards/icra-hukuku.png';
+// Ceza Hukuku fallback visuals
 import areaObligations from '@/assets/cards/area-obligations.jpg';
-import areaItLaw from '@/assets/cards/area-it-law.jpg';
-import areaTrade from '@/assets/cards/area-trade.jpg';
-import areaEmployment from '@/assets/cards/area-employment.jpg';
-import areaEnforcement from '@/assets/cards/area-enforcement.jpg';
-// Practice area images — light
-import areaFamilyLight from '@/assets/cards/area-family-light.jpg';
 import areaObligationsLight from '@/assets/cards/area-obligations-light.jpg';
-import areaItLawLight from '@/assets/cards/area-it-law-light.jpg';
-import areaTradeLight from '@/assets/cards/area-trade-light.jpg';
-import areaEmploymentLight from '@/assets/cards/area-employment-light.jpg';
-import areaEnforcementLight from '@/assets/cards/area-enforcement-light.jpg';
 
 const trustSignalsDark = [{
   icon: Shield, title: 'Güvenilir Süreç', desc: 'Her adımda şeffaf ve ölçülebilir hukuki süreç yönetimi.', image: trustProcess
@@ -57,12 +52,20 @@ const trustSignalsLight = [{
 }];
 
 const areaImagesDark: Record<string, string> = {
-  'aile-hukuku': areaFamily, 'borclar-hukuku': areaObligations, 'bilisim-hukuku': areaItLaw,
-  'ticaret-hukuku': areaTrade, 'is-hukuku': areaEmployment, 'icra-iflas': areaEnforcement
+  'aile-hukuku': aileHukukuImg,
+  'ceza-hukuku': areaObligations,
+  'bilisim-hukuku': bilisimHukukuImg,
+  'ticaret-hukuku': ticaretHukukuImg,
+  'is-hukuku': isHukukuImg,
+  'icra-iflas': icraHukukuImg,
 };
 const areaImagesLight: Record<string, string> = {
-  'aile-hukuku': areaFamilyLight, 'borclar-hukuku': areaObligationsLight, 'bilisim-hukuku': areaItLawLight,
-  'ticaret-hukuku': areaTradeLight, 'is-hukuku': areaEmploymentLight, 'icra-iflas': areaEnforcementLight
+  'aile-hukuku': aileHukukuImg,
+  'ceza-hukuku': areaObligationsLight,
+  'bilisim-hukuku': bilisimHukukuImg,
+  'ticaret-hukuku': ticaretHukukuImg,
+  'is-hukuku': isHukukuImg,
+  'icra-iflas': icraHukukuImg,
 };
 const featuredAreas = practiceAreas.slice(0, 6);
 

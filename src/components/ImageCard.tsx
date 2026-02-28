@@ -56,6 +56,7 @@ export default function ImageCard({ image, title, description, className = '', o
           transformStyle: 'preserve-3d',
           minHeight: '240px',
           willChange: 'transform',
+          backfaceVisibility: 'hidden',
         }}
         onMouseMove={handleMouseMove}
         onMouseLeave={handleMouseLeave}
@@ -70,6 +71,7 @@ export default function ImageCard({ image, title, description, className = '', o
             inset: 0,
             borderRadius: 20,
             overflow: 'hidden',
+            transform: 'translateZ(0)',
           }}
         >
           {/* Background image */}
@@ -97,6 +99,8 @@ export default function ImageCard({ image, title, description, className = '', o
                   WebkitBackdropFilter: 'blur(25px) saturate(180%)',
                   mask: 'linear-gradient(to top, black 0%, black 30%, transparent 100%)',
                   WebkitMask: 'linear-gradient(to top, black 0%, black 30%, transparent 100%)',
+                  transform: 'translateZ(0)',
+                  willChange: 'backdrop-filter',
                 }}
               />
             </>

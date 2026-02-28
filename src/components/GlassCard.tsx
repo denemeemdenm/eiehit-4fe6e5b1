@@ -43,66 +43,69 @@ export default function GlassCard({ children, className = '', onClick, tiltInten
 
   return (
     <div style={{ perspective: 1200 }}>
-    <motion.div
-      ref={cardRef}
-      className={`glass-card relative cursor-pointer group ${className}`}
-      style={{
-        rotateX,
-        rotateY,
-        scale,
-        transformStyle: 'preserve-3d',
-        overflow: 'hidden',
-        borderRadius: 20,
-        boxShadow: isHovered
-          ? '0 16px 40px hsla(0,0%,0%,0.22), 0 0 0 0.5px hsla(0,0%,100%,0.06)'
-          : 'var(--shadow-rest)',
-        willChange: 'transform',
-      }}
-      onMouseMove={handleMouseMove}
-      onMouseLeave={handleMouseLeave}
-      onMouseEnter={() => setIsHovered(true)}
-      onClick={onClick}
-      whileTap={{ scale: 0.98, transition: { type: 'spring', stiffness: 400, damping: 25 } }}
-    >
-      {/* Frosted Glass backdrop — navbar-style blur */}
-      <div
-        className="absolute inset-0 pointer-events-none z-0 rounded-[inherit] dark:bg-[rgba(255,255,255,0.08)] bg-[rgba(255,255,255,0.45)]"
+      <motion.div
+        ref={cardRef}
+        className={`glass-card relative cursor-pointer group ${className}`}
         style={{
-          backdropFilter: 'blur(60px) saturate(200%)',
-          WebkitBackdropFilter: 'blur(60px) saturate(200%)',
+          rotateX,
+          rotateY,
+          scale,
+          transformStyle: 'preserve-3d',
+          borderRadius: 20,
+          boxShadow: isHovered
+            ? '0 16px 40px hsla(0,0%,0%,0.22), 0 0 0 0.5px hsla(0,0%,100%,0.06)'
+            : 'var(--shadow-rest)',
+          willChange: 'transform',
+          backfaceVisibility: 'hidden',
         }}
-      />
+        onMouseMove={handleMouseMove}
+        onMouseLeave={handleMouseLeave}
+        onMouseEnter={() => setIsHovered(true)}
+        onClick={onClick}
+        whileTap={{ scale: 0.98, transition: { type: 'spring', stiffness: 400, damping: 25 } }}
+      >
+        <div
+          className="absolute inset-0"
+          style={{ borderRadius: 20, overflow: 'hidden', transform: 'translateZ(0)' }}
+        >
+          <div
+            className="absolute inset-0 pointer-events-none z-0"
+            style={{
+              background: 'hsla(var(--glass-bg))',
+              backdropFilter: 'blur(var(--glass-blur)) saturate(var(--glass-saturation))',
+              WebkitBackdropFilter: 'blur(var(--glass-blur)) saturate(var(--glass-saturation))',
+              willChange: 'backdrop-filter',
+            }}
+          />
 
-      {/* Inner frosted sheen — subtle white layer for depth */}
-      <div
-        className="absolute inset-0 pointer-events-none z-[1] rounded-[inherit]"
-        style={{
-          background: 'linear-gradient(135deg, hsla(0 0% 100% / 0.08) 0%, hsla(0 0% 100% / 0.02) 50%, hsla(0 0% 100% / 0.06) 100%)',
-        }}
-      />
+          <div
+            className="absolute inset-0 pointer-events-none z-[1]"
+            style={{
+              background: 'linear-gradient(135deg, hsla(0 0% 100% / 0.08) 0%, hsla(0 0% 100% / 0.02) 50%, hsla(0 0% 100% / 0.06) 100%)',
+            }}
+          />
 
-      {/* Specular highlight — follows cursor */}
-      <div
-        className="absolute inset-0 pointer-events-none z-10 opacity-0 group-hover:opacity-100 transition-opacity duration-500"
-        style={{
-          background: `radial-gradient(ellipse 280px 200px at ${specularPos.x}% ${specularPos.y}%, rgba(255,255,255,0.12), transparent 70%)`,
-        }}
-      />
+          <div
+            className="absolute inset-0 pointer-events-none z-10 opacity-0 group-hover:opacity-100 transition-opacity duration-500"
+            style={{
+              background: `radial-gradient(ellipse 280px 200px at ${specularPos.x}% ${specularPos.y}%, hsla(0 0% 100% / 0.12), transparent 70%)`,
+            }}
+          />
 
-      {/* Border glow on hover */}
-      <div
-        className="absolute inset-0 pointer-events-none z-20 rounded-[inherit] opacity-0 group-hover:opacity-100 transition-opacity duration-500"
-        style={{
-          background: `radial-gradient(ellipse 400px 300px at ${specularPos.x}% ${specularPos.y}%, hsla(0 0% 100% / 0.15), transparent 70%)`,
-          mask: 'linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0)',
-          maskComposite: 'exclude',
-          WebkitMaskComposite: 'xor',
-          padding: '1.125px',
-        }}
-      />
+          <div className="relative z-[5]">{children}</div>
+        </div>
 
-      <div className="relative z-[5]">{children}</div>
-    </motion.div>
+        <div
+          className="absolute inset-0 pointer-events-none z-20 rounded-[20px] opacity-0 group-hover:opacity-100 transition-opacity duration-500"
+          style={{
+            background: `radial-gradient(ellipse 400px 300px at ${specularPos.x}% ${specularPos.y}%, hsla(0 0% 100% / 0.15), transparent 70%)`,
+            mask: 'linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0)',
+            maskComposite: 'exclude',
+            WebkitMaskComposite: 'xor',
+            padding: '1.125px',
+          }}
+        />
+      </motion.div>
     </div>
   );
 }
