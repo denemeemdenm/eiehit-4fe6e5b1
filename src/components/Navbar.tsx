@@ -60,8 +60,8 @@ export default function Navbar({ theme }: NavbarProps) {
             className="glass-nav px-2 flex-row flex items-center justify-start gap-[8px] rounded-[21.6px] py-[8px] relative"
             style={{
               background: isDark ? 'rgba(255,255,255,0.08)' : 'rgba(255,255,255,0.45)',
-              backdropFilter: 'blur(60px) saturate(200%)',
-              WebkitBackdropFilter: 'blur(60px) saturate(200%)',
+              backdropFilter: 'blur(25px) saturate(200%)',
+              WebkitBackdropFilter: 'blur(25px) saturate(200%)',
               boxShadow: isDark ?
               '0 8px 32px rgba(0,0,0,0.4), inset 0 1px 0 rgba(255,255,255,0.06)' :
               '0 8px 32px rgba(0,0,0,0.08), inset 0 1px 0 rgba(255,255,255,0.7)'
@@ -69,7 +69,7 @@ export default function Navbar({ theme }: NavbarProps) {
             {/* White gradient border overlay */}
             <div className="absolute inset-0 rounded-[inherit] pointer-events-none" style={{
               padding: '1px',
-              background: `linear-gradient(120deg, ${isDark ? 'rgba(255,255,255,0.22)' : 'rgba(255,255,255,0.35)'} 0%, ${isDark ? 'rgba(255,255,255,0.05)' : 'rgba(255,255,255,0.12)'} 30%, ${isDark ? 'rgba(255,255,255,0.03)' : 'rgba(255,255,255,0.08)'} 50%, ${isDark ? 'rgba(255,255,255,0.05)' : 'rgba(255,255,255,0.12)'} 70%, ${isDark ? 'rgba(255,255,255,0.18)' : 'rgba(255,255,255,0.25)'} 100%)`,
+              background: `linear-gradient(100deg, ${isDark ? 'rgba(255,255,255,0.22)' : 'rgba(255,255,255,0.35)'} 0%, ${isDark ? 'rgba(255,255,255,0.05)' : 'rgba(255,255,255,0.12)'} 30%, ${isDark ? 'rgba(255,255,255,0.03)' : 'rgba(255,255,255,0.08)'} 50%, ${isDark ? 'rgba(255,255,255,0.05)' : 'rgba(255,255,255,0.12)'} 70%, ${isDark ? 'rgba(255,255,255,0.18)' : 'rgba(255,255,255,0.25)'} 100%)`,
               mask: 'linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0)',
               maskComposite: 'exclude',
               WebkitMaskComposite: 'xor' as any
@@ -190,8 +190,8 @@ export default function Navbar({ theme }: NavbarProps) {
             className="glass-nav rounded-[16px] mt-2 p-2 md:hidden"
             style={{
               background: isDark ? 'rgba(255,255,255,0.08)' : 'rgba(255,255,255,0.45)',
-              backdropFilter: 'blur(60px) saturate(200%)',
-              WebkitBackdropFilter: 'blur(60px) saturate(200%)',
+              backdropFilter: 'blur(25px) saturate(200%)',
+              WebkitBackdropFilter: 'blur(25px) saturate(200%)',
               boxShadow: isDark ? '0 8px 32px rgba(0,0,0,0.4)' : '0 8px 32px rgba(0,0,0,0.08)'
             }}>
 
