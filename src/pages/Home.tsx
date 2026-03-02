@@ -123,7 +123,7 @@ export default function Home() {
         <div className="max-w-4xl mx-auto text-center space-y-8">
           <motion.div initial={{ opacity: 0, scale: 0.8, filter: 'blur(20px)' }} animate={{ opacity: 1, scale: 1, filter: 'blur(0px)' }} transition={{ duration: 1.2, ease: [0.25, 0.46, 0.45, 0.94] }} className="flex justify-center">
             <div className="relative">
-              <motion.img src={logo} alt="HiT Logo" className="h-36 sm:h-44 w-auto mx-auto mb-8 object-contain relative z-10" animate={{ y: [0, -6, 0] }} transition={{ duration: 4, repeat: Infinity, ease: 'easeInOut' }} />
+              <motion.img src={logo} alt="HiT Logo" className="h-36 sm:h-44 w-auto mx-auto mb-8 object-contain relative z-10 cursor-grab active:cursor-grabbing" animate={{ y: [0, -6, 0] }} transition={{ duration: 4, repeat: Infinity, ease: 'easeInOut' }} drag dragConstraints={{ top: -40, bottom: 40, left: -40, right: 40 }} dragElastic={0.3} dragTransition={{ bounceStiffness: 300, bounceDamping: 20 }} whileDrag={{ scale: 1.1, filter: 'drop-shadow(0 0 20px rgba(255,204,0,0.4))' }} whileTap={{ scale: 0.95 }} />
               <motion.div className="absolute inset-0 -m-6 mb-2 rounded-full z-0" style={{ background: 'radial-gradient(circle, rgba(255,204,0,0.18) 0%, rgba(255,180,0,0.06) 50%, transparent 70%)', filter: 'blur(24px)' }} animate={{ scale: [1, 1.1, 1], opacity: [0.6, 0.9, 0.6] }} transition={{ duration: 5, repeat: Infinity, ease: 'easeInOut' }} />
             </div>
           </motion.div>
