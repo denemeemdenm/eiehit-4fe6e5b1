@@ -226,9 +226,6 @@
   }
 
   .glass-nav {
-    background: hsla(var(--glass-bg));
-    backdrop-filter: blur(var(--glass-blur)) saturate(var(--glass-saturation));
-    -webkit-backdrop-filter: blur(var(--glass-blur)) saturate(var(--glass-saturation));
     border: none;
     position: relative;
   }
