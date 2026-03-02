@@ -58,7 +58,7 @@
     /* Glass tokens */
     --glass-bg: 0 0% 96% / 0.42;
     --glass-border: 0 0% 100% / 0.22;
-    --glass-blur: 25px;
+    --glass-blur: 20px;
     --glass-saturation: 200%;
     --surface: 0 0% 100% / 0.72;
 
@@ -116,7 +116,7 @@
 
     --glass-bg: 0 0% 8% / 0.38;
     --glass-border: 0 0% 100% / 0.14;
-    --glass-blur: 25px;
+    --glass-blur: 20px;
     --glass-saturation: 200%;
     --surface: 240 4% 18% / 0.82;
 
@@ -237,11 +237,12 @@
     border-radius: inherit;
     padding: 0.5px;
     background: linear-gradient(
-      180deg,
-      hsla(0 0% 100% / 0.14) 0%,
-      hsla(0 0% 100% / 0.05) 40%,
-      hsla(0 0% 100% / 0.02) 70%,
-      hsla(0 0% 100% / 0.14) 100%
+      135deg,
+      hsla(0 0% 100% / 0.18) 0%,
+      hsla(0 0% 100% / 0.06) 25%,
+      hsla(0 0% 100% / 0.02) 50%,
+      hsla(0 0% 100% / 0.06) 75%,
+      hsla(0 0% 100% / 0.18) 100%
     );
     mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
     mask-composite: exclude;
@@ -252,11 +253,12 @@
 
   .dark .glass-nav::before {
     background: linear-gradient(
-      180deg,
-      hsla(0 0% 100% / 0.10) 0%,
-      hsla(0 0% 100% / 0.03) 40%,
-      hsla(0 0% 100% / 0.015) 70%,
-      hsla(0 0% 100% / 0.10) 100%
+      135deg,
+      hsla(0 0% 100% / 0.12) 0%,
+      hsla(0 0% 100% / 0.04) 25%,
+      hsla(0 0% 100% / 0.015) 50%,
+      hsla(0 0% 100% / 0.04) 75%,
+      hsla(0 0% 100% / 0.12) 100%
     );
   }
 
