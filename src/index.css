@@ -238,10 +238,10 @@
     padding: 0.5px;
     background: linear-gradient(
       180deg,
-      hsla(0 0% 100% / 0.25) 0%,
-      hsla(0 0% 100% / 0.06) 40%,
-      hsla(0 0% 100% / 0.03) 70%,
-      hsla(0 0% 100% / 0.10) 100%
+      hsla(0 0% 100% / 0.14) 0%,
+      hsla(0 0% 100% / 0.05) 40%,
+      hsla(0 0% 100% / 0.02) 70%,
+      hsla(0 0% 100% / 0.14) 100%
     );
     mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
     mask-composite: exclude;
@@ -253,10 +253,10 @@
   .dark .glass-nav::before {
     background: linear-gradient(
       180deg,
-      hsla(0 0% 100% / 0.18) 0%,
-      hsla(0 0% 100% / 0.04) 40%,
-      hsla(0 0% 100% / 0.02) 70%,
-      hsla(0 0% 100% / 0.08) 100%
+      hsla(0 0% 100% / 0.10) 0%,
+      hsla(0 0% 100% / 0.03) 40%,
+      hsla(0 0% 100% / 0.015) 70%,
+      hsla(0 0% 100% / 0.10) 100%
     );
   }
 

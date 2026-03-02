@@ -59,17 +59,17 @@ export default function Navbar({ theme }: NavbarProps) {
           <nav
             className="glass-nav px-2 flex-row flex items-center justify-start gap-[8px] rounded-[21.6px] py-[8px] relative"
             style={{
-              background: isDark ? 'rgba(255,255,255,0.08)' : 'rgba(255,255,255,0.45)',
-              backdropFilter: 'blur(25px) saturate(200%)',
-              WebkitBackdropFilter: 'blur(25px) saturate(200%)',
+              background: 'hsla(var(--glass-bg))',
+              backdropFilter: 'blur(var(--glass-blur)) saturate(var(--glass-saturation))',
+              WebkitBackdropFilter: 'blur(var(--glass-blur)) saturate(var(--glass-saturation))',
               boxShadow: isDark ?
               '0 8px 32px rgba(0,0,0,0.4), inset 0 1px 0 rgba(255,255,255,0.06)' :
-              '0 8px 32px rgba(0,0,0,0.08), inset 0 1px 0 rgba(255,255,255,0.7)'
+              '0 8px 32px rgba(0,0,0,0.08), inset 0 1px 0 rgba(255,255,255,0.22)'
             }}>
             {/* White gradient border overlay */}
             <div className="absolute inset-0 rounded-[inherit] pointer-events-none" style={{
-              padding: '1px',
-              background: `linear-gradient(180deg, ${isDark ? 'rgba(255,255,255,0.28)' : 'rgba(255,255,255,0.5)'} 0%, ${isDark ? 'rgba(255,255,255,0.06)' : 'rgba(255,255,255,0.15)'} 40%, ${isDark ? 'rgba(255,255,255,0.03)' : 'rgba(255,255,255,0.08)'} 70%, ${isDark ? 'rgba(255,255,255,0.10)' : 'rgba(255,255,255,0.18)'} 100%)`,
+              padding: '0.85px',
+              background: `linear-gradient(180deg, ${isDark ? 'rgba(255,255,255,0.16)' : 'rgba(255,255,255,0.24)'} 0%, ${isDark ? 'rgba(255,255,255,0.05)' : 'rgba(255,255,255,0.10)'} 40%, ${isDark ? 'rgba(255,255,255,0.03)' : 'rgba(255,255,255,0.06)'} 70%, ${isDark ? 'rgba(255,255,255,0.16)' : 'rgba(255,255,255,0.24)'} 100%)`,
               mask: 'linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0)',
               maskComposite: 'exclude',
               WebkitMaskComposite: 'xor' as any
@@ -189,9 +189,9 @@ export default function Navbar({ theme }: NavbarProps) {
             transition={{ duration: 0.2 }}
             className="glass-nav rounded-[16px] mt-2 p-2 md:hidden"
             style={{
-              background: isDark ? 'rgba(255,255,255,0.08)' : 'rgba(255,255,255,0.45)',
-              backdropFilter: 'blur(25px) saturate(200%)',
-              WebkitBackdropFilter: 'blur(25px) saturate(200%)',
+              background: 'hsla(var(--glass-bg))',
+              backdropFilter: 'blur(var(--glass-blur)) saturate(var(--glass-saturation))',
+              WebkitBackdropFilter: 'blur(var(--glass-blur)) saturate(var(--glass-saturation))',
               boxShadow: isDark ? '0 8px 32px rgba(0,0,0,0.4)' : '0 8px 32px rgba(0,0,0,0.08)'
             }}>
 
