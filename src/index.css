@@ -228,11 +228,12 @@
     border-radius: inherit;
     padding: 0.5px;
     background: linear-gradient(
-      180deg,
-      hsla(0 0% 100% / 0.18) 0%,
-      hsla(0 0% 100% / 0.06) 35%,
-      hsla(0 0% 100% / 0.02) 55%,
-      hsla(0 0% 100% / 0.18) 100%
+      160deg,
+      hsla(0 0% 100% / 0.30) 0%,
+      hsla(0 0% 100% / 0.08) 30%,
+      hsla(0 0% 100% / 0.04) 50%,
+      hsla(0 0% 100% / 0.08) 70%,
+      hsla(0 0% 100% / 0.22) 100%
     );
     mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
     mask-composite: exclude;
@@ -243,11 +244,12 @@
 
   .dark .glass-nav::before {
     background: linear-gradient(
-      180deg,
-      hsla(0 0% 100% / 0.12) 0%,
-      hsla(0 0% 100% / 0.04) 35%,
-      hsla(0 0% 100% / 0.01) 55%,
-      hsla(0 0% 100% / 0.12) 100%
+      160deg,
+      hsla(0 0% 100% / 0.22) 0%,
+      hsla(0 0% 100% / 0.06) 30%,
+      hsla(0 0% 100% / 0.02) 50%,
+      hsla(0 0% 100% / 0.06) 70%,
+      hsla(0 0% 100% / 0.16) 100%
     );
   }
 
