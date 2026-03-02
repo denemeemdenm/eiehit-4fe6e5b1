@@ -381,8 +381,9 @@
   text-transform: uppercase;
   letter-spacing: 0.06em;
   font-weight: 400;
-  line-height: 1.5;
-  padding-block: 0.1em;
+  line-height: 1.75;
+  padding-block: 0.22em;
+  display: inline-block;
 }
 
 .heading-gradient-cyan {
@@ -396,8 +397,9 @@
   text-transform: uppercase;
   letter-spacing: 0.06em;
   font-weight: 400;
-  line-height: 1.5;
-  padding-block: 0.1em;
+  line-height: 1.75;
+  padding-block: 0.22em;
+  display: inline-block;
 }
 
 /* Light mode: bright vivid brand colors */
