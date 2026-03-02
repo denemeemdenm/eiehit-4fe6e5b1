@@ -90,10 +90,19 @@ export default function NeuralBackground() {
           const dx = p.x - mouse.x;
           const dy = p.y - mouse.y;
           const dist = Math.sqrt(dx * dx + dy * dy);
+          // Attract toward cursor but keep a 60px comfort zone
           if (dist < cursorRadius && dist > 0) {
-            const force = (1 - dist / cursorRadius) * 0.06;
-            p.vx -= (dx / dist) * force;
-            p.vy -= (dy / dist) * force;
+            const minDist = 60;
+            if (dist > minDist) {
+              const force = (1 - dist / cursorRadius) * 0.025;
+              p.vx -= (dx / dist) * force;
+              p.vy -= (dy / dist) * force;
+            } else {
+              // Soft repel inside comfort zone to prevent clumping
+              const repel = (1 - dist / minDist) * 0.03;
+              p.vx += (dx / dist) * repel;
+              p.vy += (dy / dist) * repel;
+            }
           }
         }
 
