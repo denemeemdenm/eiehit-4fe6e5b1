@@ -52,6 +52,7 @@ export default function GlassCard({ children, className = '', onClick, tiltInten
           scale,
           transformStyle: 'preserve-3d',
           borderRadius: 20,
+          overflow: 'hidden',
           boxShadow: isHovered
             ? '0 16px 40px hsla(0,0%,0%,0.22), 0 0 0 0.5px hsla(0,0%,100%,0.06)'
             : 'var(--shadow-rest)',
@@ -64,47 +65,34 @@ export default function GlassCard({ children, className = '', onClick, tiltInten
         onClick={onClick}
         whileTap={{ scale: 0.98, transition: { type: 'spring', stiffness: 400, damping: 25 } }}
       >
+        {/* Glass background — absolute, behind content */}
         <div
-          className="absolute inset-0"
-          style={{ borderRadius: 20, overflow: 'hidden', transform: 'translateZ(0)' }}
-        >
-          <div
-            className="absolute inset-0 pointer-events-none z-0"
-            style={{
-              background: 'hsla(var(--glass-bg))',
-              backdropFilter: 'blur(var(--glass-blur)) saturate(var(--glass-saturation))',
-              WebkitBackdropFilter: 'blur(var(--glass-blur)) saturate(var(--glass-saturation))',
-              willChange: 'backdrop-filter',
-            }}
-          />
-
-          <div
-            className="absolute inset-0 pointer-events-none z-[1]"
-            style={{
-              background: 'linear-gradient(135deg, hsla(0 0% 100% / 0.08) 0%, hsla(0 0% 100% / 0.02) 50%, hsla(0 0% 100% / 0.06) 100%)',
-            }}
-          />
-
-          <div
-            className="absolute inset-0 pointer-events-none z-10 opacity-0 group-hover:opacity-100 transition-opacity duration-500"
-            style={{
-              background: `radial-gradient(ellipse 280px 200px at ${specularPos.x}% ${specularPos.y}%, hsla(0 0% 100% / 0.12), transparent 70%)`,
-            }}
-          />
-
-          <div className="relative z-[5]">{children}</div>
-        </div>
-
-        <div
-          className="absolute inset-0 pointer-events-none z-20 rounded-[20px] opacity-0 group-hover:opacity-100 transition-opacity duration-500"
+          className="absolute inset-0 pointer-events-none z-0"
           style={{
-            background: `radial-gradient(ellipse 400px 300px at ${specularPos.x}% ${specularPos.y}%, hsla(0 0% 100% / 0.15), transparent 70%)`,
-            mask: 'linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0)',
-            maskComposite: 'exclude',
-            WebkitMaskComposite: 'xor',
-            padding: '1.125px',
+            background: 'hsla(var(--glass-bg))',
+            backdropFilter: 'blur(var(--glass-blur)) saturate(var(--glass-saturation))',
+            WebkitBackdropFilter: 'blur(var(--glass-blur)) saturate(var(--glass-saturation))',
           }}
         />
+
+        {/* Subtle inner gradient */}
+        <div
+          className="absolute inset-0 pointer-events-none z-[1]"
+          style={{
+            background: 'linear-gradient(135deg, hsla(0 0% 100% / 0.08) 0%, hsla(0 0% 100% / 0.02) 50%, hsla(0 0% 100% / 0.06) 100%)',
+          }}
+        />
+
+        {/* Specular highlight on hover */}
+        <div
+          className="absolute inset-0 pointer-events-none z-10 opacity-0 group-hover:opacity-100 transition-opacity duration-500"
+          style={{
+            background: `radial-gradient(ellipse 280px 200px at ${specularPos.x}% ${specularPos.y}%, hsla(0 0% 100% / 0.12), transparent 70%)`,
+          }}
+        />
+
+        {/* Content — normal flow, determines card height */}
+        <div className="relative z-[5]">{children}</div>
       </motion.div>
     </div>
   );
