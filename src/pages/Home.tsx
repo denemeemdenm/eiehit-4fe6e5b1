@@ -86,6 +86,7 @@ function AnimatedGradientHeading({ children, className, color = 'red', as: Tag =
 export default function Home() {
   const [isDark, setIsDark] = useState(document.documentElement.classList.contains('dark'));
   const [formData, setFormData] = useState({ name: '', email: '', message: '' });
+  const heroRef = useRef<HTMLElement>(null);
 
   useEffect(() => {
     const observer = new MutationObserver(() => {
@@ -119,11 +120,11 @@ export default function Home() {
       
 
       {/* ═══ HERO ═══ */}
-      <section id="hero" className="min-h-screen flex items-center justify-center content-padding pt-24">
+      <section id="hero" ref={heroRef} className="min-h-screen flex items-center justify-center content-padding pt-24 overflow-hidden">
         <div className="max-w-4xl mx-auto text-center space-y-8">
           <motion.div initial={{ opacity: 0, scale: 0.8, filter: 'blur(20px)' }} animate={{ opacity: 1, scale: 1, filter: 'blur(0px)' }} transition={{ duration: 1.2, ease: [0.25, 0.46, 0.45, 0.94] }} className="flex justify-center">
             <div className="relative">
-              <motion.img src={logo} alt="HiT Logo" className="h-36 sm:h-44 w-auto mx-auto mb-8 object-contain relative z-10 cursor-grab active:cursor-grabbing" animate={{ y: [0, -6, 0] }} transition={{ duration: 4, repeat: Infinity, ease: 'easeInOut' }} drag dragConstraints={false as any} dragElastic={0.08} dragMomentum dragTransition={{ timeConstant: 200, power: 0.3 }} whileDrag={{ scale: 1.08, rotate: 0, filter: 'drop-shadow(0 0 24px rgba(255,204,0,0.5)) drop-shadow(0 8px 32px rgba(0,0,0,0.3))' }} whileTap={{ scale: 0.97 }} />
+              <motion.img src={logo} alt="HiT Logo" className="h-36 sm:h-44 w-auto mx-auto mb-8 object-contain relative z-10 cursor-grab active:cursor-grabbing" animate={{ y: [0, -6, 0] }} transition={{ duration: 4, repeat: Infinity, ease: 'easeInOut' }} drag dragConstraints={heroRef} dragElastic={0.15} dragMomentum dragTransition={{ timeConstant: 150, power: 0.3, bounceDamping: 15, bounceStiffness: 300 }} whileDrag={{ scale: 1.08, rotate: 0, filter: 'drop-shadow(0 0 24px rgba(255,204,0,0.5)) drop-shadow(0 8px 32px rgba(0,0,0,0.3))' }} whileTap={{ scale: 0.97 }} />
               <motion.div className="absolute inset-0 -m-6 mb-2 rounded-full z-0" style={{ background: 'radial-gradient(circle, rgba(255,204,0,0.18) 0%, rgba(255,180,0,0.06) 50%, transparent 70%)', filter: 'blur(24px)' }} animate={{ scale: [1, 1.1, 1], opacity: [0.6, 0.9, 0.6] }} transition={{ duration: 5, repeat: Infinity, ease: 'easeInOut' }} />
             </div>
           </motion.div>
