@@ -25,6 +25,11 @@
 
 
 @layer base {
+  html, body {
+    background-color: hsl(var(--background));
+    overscroll-behavior: none;
+  }
+
   :root {
     --background: 0 0% 96%;
     --foreground: 240 6% 10%;
