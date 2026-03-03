@@ -18,6 +18,7 @@ export default function NeuralBackground() {
   const isDarkRef = useRef(false);
   const prevMouseRef = useRef({ x: -1000, y: -1000 });
   const scrollYRef = useRef(0);
+  const coveredYRef = useRef(0); // how far down we've spawned particles
 
   useEffect(() => {
     const canvas = canvasRef.current;
@@ -32,43 +33,75 @@ export default function NeuralBackground() {
     isDarkRef.current = document.documentElement.classList.contains('dark');
 
     const mobile = window.innerWidth < 768;
-    const particleCount = mobile ? 60 : 130;
+    const particleCount = mobile ? 60 : 130; // per viewport-height
     const connectionDist = mobile ? 150 : 180;
     const cursorRadius = 220;
+    const BUFFER = 300; // px buffer above/below viewport for updates
 
     function resizeCanvas() {
       canvas.width = window.innerWidth;
       canvas.height = window.innerHeight;
-      if (particlesRef.current.length > 0) {
-        particlesRef.current.forEach(p => {
-          p.homeX = Math.random() * canvas.width;
-          p.homeY = Math.random() * canvas.height;
-        });
-      }
     }
 
+    function makeParticle(minY: number, maxY: number): Particle {
+      const x = Math.random() * canvas.width;
+      const y = minY + Math.random() * (maxY - minY);
+      return {
+        x, y,
+        vx: (Math.random() - 0.5) * 0.35,
+        vy: (Math.random() - 0.5) * 0.35,
+        color: COLORS[Math.floor(Math.random() * COLORS.length)],
+        opacity: Math.random() * 0.5 + 0.35,
+        baseOpacity: Math.random() * 0.5 + 0.35,
+        size: Math.random() * 2 + 1.2,
+        pulsePhase: Math.random() * Math.PI * 2,
+        homeX: x, homeY: y,
+      };
+    }
+
+    // Spawn initial viewport worth of particles
     function createParticles() {
       particlesRef.current = [];
+      const h = window.innerHeight;
       for (let i = 0; i < particleCount; i++) {
-        const x = Math.random() * canvas.width;
-        const y = Math.random() * canvas.height;
-        particlesRef.current.push({
-          x, y,
-          vx: (Math.random() - 0.5) * 0.35,
-          vy: (Math.random() - 0.5) * 0.35,
-          color: COLORS[Math.floor(Math.random() * COLORS.length)],
-          opacity: Math.random() * 0.5 + 0.35,
-          baseOpacity: Math.random() * 0.5 + 0.35,
-          size: Math.random() * 2 + 1.2,
-          pulsePhase: Math.random() * Math.PI * 2,
-          homeX: x, homeY: y,
-        });
+        particlesRef.current.push(makeParticle(0, h));
+      }
+      coveredYRef.current = h;
+    }
+
+    // Extend particles into newly scrolled territory
+    function extendParticlesIfNeeded() {
+      const scrollY = scrollYRef.current;
+      const viewBottom = scrollY + window.innerHeight;
+      const needed = viewBottom + BUFFER;
+
+      if (needed > coveredYRef.current) {
+        const oldCovered = coveredYRef.current;
+        const newCovered = needed;
+        const bandHeight = newCovered - oldCovered;
+        const viewportH = window.innerHeight;
+        // Same density as initial: particleCount per viewportH
+        const count = Math.round((bandHeight / viewportH) * particleCount);
+        for (let i = 0; i < count; i++) {
+          particlesRef.current.push(makeParticle(oldCovered, newCovered));
+        }
+        coveredYRef.current = newCovered;
       }
     }
 
     function updateParticles(time: number) {
       const mouse = mouseRef.current;
+      const scrollY = scrollYRef.current;
+      const viewTop = scrollY - BUFFER;
+      const viewBottom = scrollY + window.innerHeight + BUFFER;
+      // Mouse in document-space
+      const mouseDocX = mouse.x;
+      const mouseDocY = mouse.y > 0 ? mouse.y + scrollY : -1000;
+
       particlesRef.current.forEach(p => {
+        // Only do full physics for particles near viewport
+        if (p.y < viewTop - 200 || p.y > viewBottom + 200) return;
+
         p.x += p.vx + Math.sin(time * 0.0003 + p.pulsePhase) * 0.04;
         p.y += p.vy + Math.cos(time * 0.00025 + p.pulsePhase) * 0.04;
 
@@ -81,16 +114,15 @@ export default function NeuralBackground() {
           p.vy += (homeDistY / homeDist) * homeForce;
         }
 
+        // Horizontal wrapping
         if (p.x < -20) { p.x = canvas.width + 20; p.homeX = canvas.width * Math.random(); }
         if (p.x > canvas.width + 20) { p.x = -20; p.homeX = canvas.width * Math.random(); }
-        if (p.y < -20) { p.y = canvas.height + 20; p.homeY = canvas.height * Math.random(); }
-        if (p.y > canvas.height + 20) { p.y = -20; p.homeY = canvas.height * Math.random(); }
 
-        if (mouse.x > 0 && mouse.y > 0) {
-          const dx = p.x - mouse.x;
-          const dy = p.y - mouse.y;
+        // Cursor attraction (document-space)
+        if (mouseDocY > 0) {
+          const dx = p.x - mouseDocX;
+          const dy = p.y - mouseDocY;
           const dist = Math.sqrt(dx * dx + dy * dy);
-          // Attract toward cursor but keep a 60px comfort zone
           if (dist < cursorRadius && dist > 0) {
             const minDist = 60;
             if (dist > minDist) {
@@ -98,7 +130,6 @@ export default function NeuralBackground() {
               p.vx -= (dx / dist) * force;
               p.vy -= (dy / dist) * force;
             } else {
-              // Soft repel inside comfort zone to prevent clumping
               const repel = (1 - dist / minDist) * 0.03;
               p.vx += (dx / dist) * repel;
               p.vy += (dy / dist) * repel;
@@ -106,8 +137,19 @@ export default function NeuralBackground() {
           }
         }
 
-        particlesRef.current.forEach(other => {
-          if (other === p) return;
+        p.vx *= 0.97;
+        p.vy *= 0.97;
+        const speed = Math.sqrt(p.vx * p.vx + p.vy * p.vy);
+        if (speed > 1.2) { p.vx = (p.vx / speed) * 1.2; p.vy = (p.vy / speed) * 1.2; }
+        p.opacity = p.baseOpacity + Math.sin(time * 0.001 + p.pulsePhase) * 0.1;
+      });
+
+      // Anti-clumping only for visible particles
+      const visible = particlesRef.current.filter(p => p.y >= viewTop && p.y <= viewBottom);
+      for (let i = 0; i < visible.length; i++) {
+        for (let j = i + 1; j < visible.length; j++) {
+          const p = visible[i];
+          const other = visible[j];
           const dx = p.x - other.x;
           const dy = p.y - other.y;
           const dist = Math.sqrt(dx * dx + dy * dy);
@@ -115,73 +157,71 @@ export default function NeuralBackground() {
             const repel = (1 - dist / 30) * 0.02;
             p.vx += (dx / dist) * repel;
             p.vy += (dy / dist) * repel;
+            other.vx -= (dx / dist) * repel;
+            other.vy -= (dy / dist) * repel;
           }
-        });
-
-        p.vx *= 0.97;
-        p.vy *= 0.97;
-        const speed = Math.sqrt(p.vx * p.vx + p.vy * p.vy);
-        if (speed > 1.2) { p.vx = (p.vx / speed) * 1.2; p.vy = (p.vy / speed) * 1.2; }
-        p.opacity = p.baseOpacity + Math.sin(time * 0.001 + p.pulsePhase) * 0.1;
-      });
+        }
+      }
     }
 
-    function drawParticles() {
+    function drawScene() {
       const isDark = isDarkRef.current;
-      const parallaxOffset = scrollYRef.current * 0.08;
+      const scrollY = scrollYRef.current;
+      const viewTop = scrollY;
+      const viewBottom = scrollY + window.innerHeight;
 
       ctx.clearRect(0, 0, canvas.width, canvas.height);
-      ctx.save();
-      ctx.translate(0, -parallaxOffset);
 
-      particlesRef.current.forEach(p => {
-        // More visible in light mode
+      // Get visible particles (with buffer for connections that cross edges)
+      const visible = particlesRef.current.filter(p =>
+        p.y > viewTop - connectionDist && p.y < viewBottom + connectionDist
+      );
+
+      // Draw particles — transform doc Y to canvas Y
+      visible.forEach(p => {
+        const cy = p.y - scrollY;
         const alpha = Math.max(0, Math.min(1, p.opacity)) * (isDark ? 0.9 : 0.8);
         ctx.globalAlpha = alpha;
         ctx.fillStyle = p.color;
         ctx.beginPath();
-        ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
+        ctx.arc(p.x, cy, p.size, 0, Math.PI * 2);
         ctx.fill();
       });
       ctx.globalAlpha = 1;
-    }
 
-    function drawConnections() {
-      const particles = particlesRef.current;
-      const mouse = mouseRef.current;
-      const isDark = isDarkRef.current;
-
-      for (let i = 0; i < particles.length; i++) {
-        for (let j = i + 1; j < particles.length; j++) {
-          const p1 = particles[i];
-          const p2 = particles[j];
+      // Draw connections
+      for (let i = 0; i < visible.length; i++) {
+        for (let j = i + 1; j < visible.length; j++) {
+          const p1 = visible[i];
+          const p2 = visible[j];
           const dx = p1.x - p2.x;
           const dy = p1.y - p2.y;
           const dist = Math.sqrt(dx * dx + dy * dy);
-
           if (dist < connectionDist) {
-            // Stronger connections in light mode for visibility
             const alpha = (1 - dist / connectionDist) * (isDark ? 0.28 : 0.22);
-            const grad = ctx.createLinearGradient(p1.x, p1.y, p2.x, p2.y);
+            const p1cy = p1.y - scrollY;
+            const p2cy = p2.y - scrollY;
+            const grad = ctx.createLinearGradient(p1.x, p1cy, p2.x, p2cy);
             grad.addColorStop(0, p1.color + Math.floor(alpha * 255).toString(16).padStart(2, '0'));
             grad.addColorStop(1, p2.color + Math.floor(alpha * 255).toString(16).padStart(2, '0'));
             ctx.strokeStyle = grad;
             ctx.lineWidth = isDark ? 0.7 : 0.8;
             ctx.beginPath();
-            ctx.moveTo(p1.x, p1.y);
-            ctx.lineTo(p2.x, p2.y);
+            ctx.moveTo(p1.x, p1cy);
+            ctx.lineTo(p2.x, p2cy);
             ctx.stroke();
           }
         }
       }
 
+      // Cursor connections
+      const mouse = mouseRef.current;
       if (mouse.x > 0 && mouse.y > 0) {
-        const nearCursor: Particle[] = [];
-        particles.forEach(p => {
+        const mouseDocY = mouse.y + scrollY;
+        const nearCursor = visible.filter(p => {
           const dx = mouse.x - p.x;
-          const dy = mouse.y - p.y;
-          const dist = Math.sqrt(dx * dx + dy * dy);
-          if (dist < cursorRadius) nearCursor.push(p);
+          const dy = mouseDocY - p.y;
+          return Math.sqrt(dx * dx + dy * dy) < cursorRadius;
         });
 
         for (let i = 0; i < nearCursor.length; i++) {
@@ -191,28 +231,25 @@ export default function NeuralBackground() {
             const dx = p1.x - p2.x;
             const dy = p1.y - p2.y;
             const dist = Math.sqrt(dx * dx + dy * dy);
-
             if (dist < connectionDist) {
               const alpha = (1 - dist / connectionDist) * (isDark ? 0.5 : 0.35);
-              const grad = ctx.createLinearGradient(p1.x, p1.y, p2.x, p2.y);
+              const p1cy = p1.y - scrollY;
+              const p2cy = p2.y - scrollY;
+              const grad = ctx.createLinearGradient(p1.x, p1cy, p2.x, p2cy);
               grad.addColorStop(0, p1.color + Math.floor(alpha * 255).toString(16).padStart(2, '0'));
               grad.addColorStop(1, p2.color + Math.floor(alpha * 255).toString(16).padStart(2, '0'));
               ctx.strokeStyle = grad;
               ctx.lineWidth = 1.2;
               ctx.beginPath();
-              ctx.moveTo(p1.x, p1.y);
-              ctx.lineTo(p2.x, p2.y);
+              ctx.moveTo(p1.x, p1cy);
+              ctx.lineTo(p2.x, p2cy);
               ctx.stroke();
             }
           }
         }
       }
 
-      ctx.restore();
-    }
-
-    function updateGoldTrail() {
-      const mouse = mouseRef.current;
+      // Gold trail (screen-space)
       const prev = prevMouseRef.current;
       if (mouse.x > 0 && (Math.abs(mouse.x - prev.x) > 1 || Math.abs(mouse.y - prev.y) > 1)) {
         trailRef.current.push({
@@ -228,9 +265,7 @@ export default function NeuralBackground() {
         t.size *= 0.97;
         return t.alpha > 0;
       });
-    }
 
-    function drawGoldTrail() {
       trailRef.current.forEach(t => {
         const g = ctx.createRadialGradient(t.x, t.y, 0, t.x, t.y, t.size * 3);
         g.addColorStop(0, `rgba(255, 204, 0, ${t.alpha * 0.4})`);
@@ -242,7 +277,6 @@ export default function NeuralBackground() {
         ctx.fill();
       });
 
-      const mouse = mouseRef.current;
       if (mouse.x > 0) {
         const g = ctx.createRadialGradient(mouse.x, mouse.y, 0, mouse.x, mouse.y, 50);
         g.addColorStop(0, 'rgba(255, 204, 0, 0.08)');
@@ -256,11 +290,9 @@ export default function NeuralBackground() {
     }
 
     function animate(time: number) {
+      extendParticlesIfNeeded();
       updateParticles(time);
-      updateGoldTrail();
-      drawParticles();
-      drawConnections();
-      drawGoldTrail();
+      drawScene();
       animRef.current = requestAnimationFrame(animate);
     }
 
