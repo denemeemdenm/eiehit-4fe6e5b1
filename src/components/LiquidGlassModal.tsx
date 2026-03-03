@@ -10,7 +10,6 @@ interface LiquidGlassPopoverProps {
 export default function LiquidGlassModal({ isOpen, onClose, anchorRef }: LiquidGlassPopoverProps) {
   const popoverRef = useRef<HTMLDivElement>(null);
 
-  // ESC key + click outside
   useEffect(() => {
     if (!isOpen) return;
 
@@ -39,24 +38,19 @@ export default function LiquidGlassModal({ isOpen, onClose, anchorRef }: LiquidG
       {isOpen && (
         <motion.div
           ref={popoverRef}
-          className="absolute top-full right-0 mt-3 z-[100] w-[260px]"
-          style={{ borderRadius: '20px' }}
-          initial={{ opacity: 0, y: -6, scale: 0.96, filter: 'blur(8px)' }}
-          animate={{ opacity: 1, y: 0, scale: 1, filter: 'blur(0px)' }}
-          exit={{ opacity: 0, y: -6, scale: 0.96, filter: 'blur(8px)' }}
+          className="absolute top-full right-0 mt-3 z-[100] w-[260px] overflow-hidden p-8 text-center"
+          style={{
+            borderRadius: '20px',
+            background: 'hsla(0 0% 20% / 0.35)',
+            backdropFilter: 'blur(10px) saturate(200%)',
+            WebkitBackdropFilter: 'blur(10px) saturate(200%)',
+            boxShadow: '0 16px 48px rgba(0,0,0,0.3), 0 4px 12px rgba(0,0,0,0.2)',
+          }}
+          initial={{ opacity: 0, y: -6, scale: 0.96 }}
+          animate={{ opacity: 1, y: 0, scale: 1 }}
+          exit={{ opacity: 0, y: -6, scale: 0.96 }}
           transition={{ type: 'spring', stiffness: 500, damping: 32, mass: 0.6 }}
         >
-          {/* Glass surface */}
-          <div
-            className="relative p-8 text-center overflow-hidden"
-            style={{
-              borderRadius: '20px',
-              background: 'hsla(0 0% 20% / 0.35)',
-              backdropFilter: 'blur(80px) saturate(200%)',
-              WebkitBackdropFilter: 'blur(80px) saturate(200%)',
-              boxShadow: '0 16px 48px rgba(0,0,0,0.3), 0 4px 12px rgba(0,0,0,0.2)',
-            }}
-          >
             {/* Noise/grain texture */}
             <div
               className="absolute inset-0 pointer-events-none opacity-[0.03] rounded-[inherit]"
@@ -101,7 +95,6 @@ export default function LiquidGlassModal({ isOpen, onClose, anchorRef }: LiquidG
                 HiT platformu üzerinde çalışmalar devam etmektedir.
               </p>
             </motion.div>
-          </div>
         </motion.div>
       )}
     </AnimatePresence>
