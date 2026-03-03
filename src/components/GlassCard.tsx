@@ -53,6 +53,9 @@ export default function GlassCard({ children, className = '', onClick, tiltInten
           transformStyle: 'preserve-3d',
           borderRadius: 20,
           overflow: 'hidden',
+          background: 'hsla(var(--glass-bg))',
+          backdropFilter: 'blur(10px) saturate(var(--glass-saturation))',
+          WebkitBackdropFilter: 'blur(10px) saturate(var(--glass-saturation))',
           boxShadow: isHovered
             ? '0 16px 40px hsla(0,0%,0%,0.22), 0 0 0 0.5px hsla(0,0%,100%,0.06)'
             : 'var(--shadow-rest)',
@@ -65,16 +68,6 @@ export default function GlassCard({ children, className = '', onClick, tiltInten
         onClick={onClick}
         whileTap={{ scale: 0.98, transition: { type: 'spring', stiffness: 400, damping: 25 } }}
       >
-        {/* Glass background — absolute, behind content */}
-        <div
-          className="absolute inset-0 pointer-events-none z-0"
-          style={{
-            background: 'hsla(var(--glass-bg))',
-            backdropFilter: 'blur(var(--glass-blur)) saturate(var(--glass-saturation))',
-            WebkitBackdropFilter: 'blur(var(--glass-blur)) saturate(var(--glass-saturation))',
-          }}
-        />
-
         {/* Subtle inner gradient */}
         <div
           className="absolute inset-0 pointer-events-none z-[1]"

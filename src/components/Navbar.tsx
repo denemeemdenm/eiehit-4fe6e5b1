@@ -107,8 +107,8 @@ export default function Navbar({ theme }: NavbarProps) {
                       className="absolute inset-0 rounded-[14px] overflow-hidden"
                       style={{
                         background: isDark ? 'rgba(255,255,255,0.1)' : 'rgba(255,255,255,0.55)',
-                        backdropFilter: 'blur(5px)',
-                        WebkitBackdropFilter: 'blur(5px)',
+                        backdropFilter: 'blur(10px)',
+                        WebkitBackdropFilter: 'blur(10px)',
                         boxShadow: isDark ?
                         '0 2px 12px rgba(0,0,0,0.3), inset 0 1px 0 rgba(255,255,255,0.08)' :
                         '0 2px 12px rgba(0,0,0,0.06), inset 0 1px 0 rgba(255,255,255,0.8)'
