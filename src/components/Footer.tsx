@@ -30,7 +30,7 @@ export default function Footer() {
             <nav className="flex flex-col gap-2">
               <button onClick={() => document.getElementById('about')?.scrollIntoView({ behavior: 'smooth' })} className="text-sm text-muted-foreground hover:text-foreground transition-colors text-left">Hakkımda</button>
               <button onClick={() => document.getElementById('practice')?.scrollIntoView({ behavior: 'smooth' })} className="text-sm text-muted-foreground hover:text-foreground transition-colors text-left">Çalışma Alanları</button>
-              <button onClick={() => document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' })} className="text-sm text-muted-foreground hover:text-foreground transition-colors text-left">İletişim</button>
+              
               <Link to="/kvkk" className="text-sm text-muted-foreground hover:text-foreground transition-colors">KVKK / Gizlilik</Link>
             </nav>
           </div>
