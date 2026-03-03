@@ -184,10 +184,13 @@
   }
 
   .glass-card {
-    background: transparent;
+    background: hsl(var(--glass-bg));
+    backdrop-filter: blur(var(--glass-blur)) saturate(var(--glass-saturation));
+    -webkit-backdrop-filter: blur(var(--glass-blur)) saturate(var(--glass-saturation));
     border: none;
     border-radius: var(--radius);
     position: relative;
+    isolation: isolate;
   }
 
   /* Full-perimeter hairline glass edge — matches reference */
