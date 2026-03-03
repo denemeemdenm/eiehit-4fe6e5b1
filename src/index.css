@@ -27,7 +27,6 @@
 @layer base {
   html, body {
     background-color: hsl(var(--background));
-    overscroll-behavior: none;
   }
 
   :root {
