@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef } from 'react';
 import { motion, useScroll, useTransform } from 'framer-motion';
-import { ArrowRight, Shield, Eye, Lock, Cpu, Phone, Mail, MapPin, Copy } from 'lucide-react';
+import { Shield, Eye, Lock, Cpu, Phone, Mail, MapPin, Copy } from 'lucide-react';
 import GlassCard from '@/components/GlassCard';
 import ImageCard from '@/components/ImageCard';
 import ScrollReveal from '@/components/ScrollReveal';
@@ -11,23 +11,25 @@ import nameWhite from '@/assets/name-white.png';
 import nameBlack from '@/assets/name-black.png';
 
 // Trust signal images — dark
-import trustProcess from '@/assets/cards/trust-process-new.jpg';
+import trustProcess from '@/assets/cards/trust-process.jpg';
 import trustClarity from '@/assets/cards/trust-clarity.jpg';
 import trustPrivacy from '@/assets/cards/trust-privacy.jpg';
 import trustTech from '@/assets/cards/trust-tech.jpg';
 // Trust signal images — light
-import trustProcessLight from '@/assets/cards/trust-process-new.jpg';
+import trustProcessLight from '@/assets/cards/trust-process-light.jpg';
 import trustClarityLight from '@/assets/cards/trust-clarity-light.jpg';
 import trustPrivacyLight from '@/assets/cards/trust-privacy-light.jpg';
 import trustTechLight from '@/assets/cards/trust-tech-light.jpg';
 
 // Practice area images — uploaded replacements (both themes)
-import aileHukukuImg from '@/assets/cards/aile-hukuku-new.png';
-import bilisimHukukuImg from '@/assets/cards/bilisim-hukuku-new.png';
-import ticaretHukukuImg from '@/assets/cards/ticaret-hukuku-new.png';
-import isHukukuImg from '@/assets/cards/is-hukuku-new.png';
-import icraHukukuImg from '@/assets/cards/icra-hukuku-new.png';
-import cezaHukukuImg from '@/assets/cards/ceza-hukuku.png';
+import aileHukukuImg from '@/assets/cards/aile-hukuku.jpeg';
+import bilisimHukukuImg from '@/assets/cards/bilisim-hukuku.png';
+import ticaretHukukuImg from '@/assets/cards/ticaret-hukuku.jpeg';
+import isHukukuImg from '@/assets/cards/is-hukuku.jpg';
+import icraHukukuImg from '@/assets/cards/icra-hukuku.png';
+// Ceza Hukuku fallback visuals
+import areaObligations from '@/assets/cards/area-obligations.jpg';
+import areaObligationsLight from '@/assets/cards/area-obligations-light.jpg';
 
 const trustSignalsDark = [{
   icon: Shield, title: 'Güvenilir Süreç', desc: 'Her adımda şeffaf ve ölçülebilir hukuki süreç yönetimi.', image: trustProcess
@@ -51,34 +53,34 @@ const trustSignalsLight = [{
 
 const areaImagesDark: Record<string, string> = {
   'aile-hukuku': aileHukukuImg,
-  'ceza-hukuku': cezaHukukuImg,
+  'ceza-hukuku': areaObligations,
   'bilisim-hukuku': bilisimHukukuImg,
   'ticaret-hukuku': ticaretHukukuImg,
   'is-hukuku': isHukukuImg,
-  'icra-iflas': icraHukukuImg,
+  'icra-iflas': icraHukukuImg
 };
 const areaImagesLight: Record<string, string> = {
   'aile-hukuku': aileHukukuImg,
-  'ceza-hukuku': cezaHukukuImg,
+  'ceza-hukuku': areaObligationsLight,
   'bilisim-hukuku': bilisimHukukuImg,
   'ticaret-hukuku': ticaretHukukuImg,
   'is-hukuku': isHukukuImg,
-  'icra-iflas': icraHukukuImg,
+  'icra-iflas': icraHukukuImg
 };
 const featuredAreas = practiceAreas.slice(0, 6);
 
 // Animated gradient heading with serif font — alternates red/cyan
-function AnimatedGradientHeading({ children, className, color = 'red', as: Tag = 'h2' }: {
-  children: React.ReactNode;
-  className?: string;
-  color?: 'red' | 'cyan';
-  as?: 'h2' | 'h3';
-}) {
+function AnimatedGradientHeading({ children, className, color = 'red', as: Tag = 'h2'
+
+
+
+
+}: {children: React.ReactNode;className?: string;color?: 'red' | 'cyan';as?: 'h2' | 'h3';}) {
   return (
     <Tag className={`${color === 'red' ? 'heading-gradient-red' : 'heading-gradient-cyan'} ${className || ''}`}>
       {children}
-    </Tag>
-  );
+    </Tag>);
+
 }
 
 export default function Home() {
@@ -108,13 +110,13 @@ export default function Home() {
     <main className="relative z-10">
       {/* ═══ TOP GLASS BLUR ═══ */}
       <div className="fixed top-0 left-0 right-0 z-30 pointer-events-none h-28"
-        style={{
-          backdropFilter: 'blur(24px) saturate(180%)',
-          WebkitBackdropFilter: 'blur(24px) saturate(180%)',
-          mask: 'linear-gradient(to bottom, black 0%, black 30%, transparent 100%)',
-          WebkitMask: 'linear-gradient(to bottom, black 0%, black 30%, transparent 100%)',
-        }}
-      />
+      style={{
+        backdropFilter: 'blur(24px) saturate(180%)',
+        WebkitBackdropFilter: 'blur(24px) saturate(180%)',
+        mask: 'linear-gradient(to bottom, black 0%, black 30%, transparent 100%)',
+        WebkitMask: 'linear-gradient(to bottom, black 0%, black 30%, transparent 100%)'
+      }} />
+      
 
       {/* ═══ HERO ═══ */}
       <section id="hero" className="min-h-screen flex items-center justify-center content-padding pt-24">
@@ -140,7 +142,7 @@ export default function Home() {
 
           <motion.div className="flex flex-col sm:flex-row items-center justify-center gap-4" initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8, delay: 1.8 }}>
             <button onClick={() => document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' })} className="glass-panel px-8 py-3.5 font-semibold text-sm inline-flex items-center gap-2 hover:scale-105 active:scale-95 transition-transform duration-300">
-              İletişim <ArrowRight size={16} />
+              İletişim 
             </button>
             <button onClick={() => document.getElementById('practice')?.scrollIntoView({ behavior: 'smooth' })} className="glass-panel px-8 py-3.5 font-semibold text-sm inline-flex items-center gap-2 hover:scale-105 active:scale-95 transition-transform duration-300">
               Çalışma Alanları
@@ -176,16 +178,16 @@ export default function Home() {
               <AnimatedGradientHeading as="h3" color="cyan" className="text-xl font-bold mb-6">Yaklaşım ve Değerler</AnimatedGradientHeading>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
                 {[
-                  { title: 'Şeffaflık', desc: 'Her aşamada müvekkile açık ve net bilgilendirme.' },
-                  { title: 'Gizlilik', desc: 'Müvekkil bilgilerinin korunması en üst düzeyde sağlanır.' },
-                  { title: 'Teknoloji Odaklılık', desc: 'Dijital araçlar ve yenilikçi yaklaşımlarla etkin hukuki hizmet.' },
-                  { title: 'Sonuç Odaklı İletişim', desc: 'Karmaşık süreçlerin sade ve etkili biçimde yönetimi.' },
-                ].map(item => (
-                  <div key={item.title} className="space-y-2">
+                { title: 'Şeffaflık', desc: 'Her aşamada müvekkile açık ve net bilgilendirme.' },
+                { title: 'Gizlilik', desc: 'Müvekkil bilgilerinin korunması en üst düzeyde sağlanır.' },
+                { title: 'Teknoloji Odaklılık', desc: 'Dijital araçlar ve yenilikçi yaklaşımlarla etkin hukuki hizmet.' },
+                { title: 'Sonuç Odaklı İletişim', desc: 'Karmaşık süreçlerin sade ve etkili biçimde yönetimi.' }].
+                map((item) =>
+                <div key={item.title} className="space-y-2">
                     <h4 className="font-semibold text-sm">{item.title}</h4>
                     <p className="text-sm text-muted-foreground leading-relaxed">{item.desc}</p>
                   </div>
-                ))}
+                )}
               </div>
             </GlassCard>
           </ScrollReveal>
@@ -201,11 +203,11 @@ export default function Home() {
             </AnimatedGradientHeading>
           </ScrollReveal>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-            {(isDark ? trustSignalsDark : trustSignalsLight).map((item, i) => (
-              <ScrollReveal key={item.title} delay={i * 0.1}>
+            {(isDark ? trustSignalsDark : trustSignalsLight).map((item, i) =>
+            <ScrollReveal key={item.title} delay={i * 0.1}>
                 <ImageCard image={item.image} title={item.title} description={item.desc} className="h-full" />
               </ScrollReveal>
-            ))}
+            )}
           </div>
         </div>
       </section>
@@ -222,11 +224,11 @@ export default function Home() {
             </p>
           </ScrollReveal>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-            {featuredAreas.map((area, i) => (
-              <ScrollReveal key={area.id} delay={i * 0.08}>
+            {featuredAreas.map((area, i) =>
+            <ScrollReveal key={area.id} delay={i * 0.08}>
                 <ImageCard image={(isDark ? areaImagesDark : areaImagesLight)[area.id] || ''} title={area.title} description={area.description} className="h-full" />
               </ScrollReveal>
-            ))}
+            )}
           </div>
         </div>
       </section>
@@ -245,11 +247,11 @@ export default function Home() {
             <ScrollReveal delay={0.1}>
               <div className="space-y-4">
                 {[
-                  { icon: Phone, label: 'Telefon', value: '0537 550 17 40', raw: '05375501740' },
-                  { icon: Mail, label: 'E-posta', value: 'ekinisaeroglu@gmail.com', raw: 'ekinisaeroglu@gmail.com' },
-                  { icon: MapPin, label: 'Adres', value: 'Adana, Seyhan', raw: 'Adana, Seyhan' },
-                ].map(item => (
-                  <GlassCard key={item.label} className="p-6">
+                { icon: Phone, label: 'Telefon', value: '0537 550 17 40', raw: '05375501740' },
+                { icon: Mail, label: 'E-posta', value: 'ekinisaeroglu@gmail.com', raw: 'ekinisaeroglu@gmail.com' },
+                { icon: MapPin, label: 'Adres', value: 'Adana, Seyhan', raw: 'Adana, Seyhan' }].
+                map((item) =>
+                <GlassCard key={item.label} className="p-6">
                     <div className="flex items-center justify-between">
                       <div className="flex items-center gap-4">
                         <item.icon className="w-5 h-5 shrink-0 icon-gradient-cyan" />
@@ -263,7 +265,7 @@ export default function Home() {
                       </button>
                     </div>
                   </GlassCard>
-                ))}
+                )}
               </div>
             </ScrollReveal>
 
@@ -273,15 +275,15 @@ export default function Home() {
                 <form onSubmit={handleSubmit} className="space-y-4">
                   <div>
                     <label className="text-xs text-muted-foreground block mb-1.5">Ad Soyad</label>
-                    <input required type="text" value={formData.name} onChange={e => setFormData(prev => ({ ...prev, name: e.target.value }))} className="w-full glass-panel px-4 py-2.5 text-sm bg-transparent outline-none focus:ring-2 focus:ring-primary/30 transition-all" />
+                    <input required type="text" value={formData.name} onChange={(e) => setFormData((prev) => ({ ...prev, name: e.target.value }))} className="w-full glass-panel px-4 py-2.5 text-sm bg-transparent outline-none focus:ring-2 focus:ring-primary/30 transition-all" />
                   </div>
                   <div>
                     <label className="text-xs text-muted-foreground block mb-1.5">E-posta</label>
-                    <input required type="email" value={formData.email} onChange={e => setFormData(prev => ({ ...prev, email: e.target.value }))} className="w-full glass-panel px-4 py-2.5 text-sm bg-transparent outline-none focus:ring-2 focus:ring-primary/30 transition-all" />
+                    <input required type="email" value={formData.email} onChange={(e) => setFormData((prev) => ({ ...prev, email: e.target.value }))} className="w-full glass-panel px-4 py-2.5 text-sm bg-transparent outline-none focus:ring-2 focus:ring-primary/30 transition-all" />
                   </div>
                   <div>
                     <label className="text-xs text-muted-foreground block mb-1.5">Mesaj</label>
-                    <textarea required rows={4} value={formData.message} onChange={e => setFormData(prev => ({ ...prev, message: e.target.value }))} className="w-full glass-panel px-4 py-2.5 text-sm bg-transparent outline-none resize-none focus:ring-2 focus:ring-primary/30 transition-all" />
+                    <textarea required rows={4} value={formData.message} onChange={(e) => setFormData((prev) => ({ ...prev, message: e.target.value }))} className="w-full glass-panel px-4 py-2.5 text-sm bg-transparent outline-none resize-none focus:ring-2 focus:ring-primary/30 transition-all" />
                   </div>
                   <button type="submit" className="w-full glass-panel py-3 text-sm font-semibold bg-primary/10 hover:bg-primary/20 transition-all duration-300 hover:scale-[1.02] active:scale-[0.98]">
                     Gönder
@@ -313,6 +315,6 @@ export default function Home() {
           </ScrollReveal>
         </div>
       </section>
-    </main>
-  );
+    </main>);
+
 }
