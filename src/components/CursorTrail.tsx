@@ -25,18 +25,18 @@ export default function CursorTrail() {
   const lastPos = useRef({ x: -1, y: -1 });
 
   const spawnParticles = useCallback((x: number, y: number) => {
-    const count = 2 + Math.floor(Math.random() * 2);
+    const count = 1 + Math.floor(Math.random() * 2);
     for (let i = 0; i < count; i++) {
       const angle = Math.random() * Math.PI * 2;
-      const speed = 0.3 + Math.random() * 1.2;
+      const speed = 0.2 + Math.random() * 0.8;
       particles.current.push({
-        x: x + (Math.random() - 0.5) * 6,
-        y: y + (Math.random() - 0.5) * 6,
+        x: x + (Math.random() - 0.5) * 4,
+        y: y + (Math.random() - 0.5) * 4,
         vx: Math.cos(angle) * speed,
-        vy: Math.sin(angle) * speed - 0.5,
+        vy: Math.sin(angle) * speed - 0.3,
         life: 1,
-        maxLife: 0.6 + Math.random() * 0.6,
-        size: 1.5 + Math.random() * 2.5,
+        maxLife: 0.4 + Math.random() * 0.4,
+        size: 1 + Math.random() * 1.5,
         color: GOLD_COLORS[Math.floor(Math.random() * GOLD_COLORS.length)],
       });
     }
@@ -98,7 +98,7 @@ export default function CursorTrail() {
         p.vy += 0.02; // slight gravity
         p.vx *= 0.98;
 
-        const alpha = p.life * 0.8;
+        const alpha = p.life * 0.45;
         ctx.beginPath();
         ctx.arc(p.x, p.y, p.size * p.life, 0, Math.PI * 2);
         ctx.fillStyle = p.color + alpha + ')';
@@ -107,7 +107,7 @@ export default function CursorTrail() {
         // glow
         ctx.beginPath();
         ctx.arc(p.x, p.y, p.size * p.life * 2.5, 0, Math.PI * 2);
-        ctx.fillStyle = p.color + (alpha * 0.15) + ')';
+        ctx.fillStyle = p.color + (alpha * 0.08) + ')';
         ctx.fill();
 
         return true;

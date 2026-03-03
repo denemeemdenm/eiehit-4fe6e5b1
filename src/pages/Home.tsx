@@ -22,14 +22,12 @@ import trustPrivacyLight from '@/assets/cards/trust-privacy-light.jpg';
 import trustTechLight from '@/assets/cards/trust-tech-light.jpg';
 
 // Practice area images — uploaded replacements (both themes)
-import aileHukukuImg from '@/assets/cards/aile-hukuku.jpeg';
-import bilisimHukukuImg from '@/assets/cards/bilisim-hukuku.png';
-import ticaretHukukuImg from '@/assets/cards/ticaret-hukuku.jpeg';
-import isHukukuImg from '@/assets/cards/is-hukuku.jpg';
-import icraHukukuImg from '@/assets/cards/icra-hukuku.png';
-// Ceza Hukuku fallback visuals
-import areaObligations from '@/assets/cards/area-obligations.jpg';
-import areaObligationsLight from '@/assets/cards/area-obligations-light.jpg';
+import aileHukukuImg from '@/assets/cards/aile-hukuku-new.png';
+import bilisimHukukuImg from '@/assets/cards/bilisim-hukuku-new.png';
+import ticaretHukukuImg from '@/assets/cards/ticaret-hukuku-new.png';
+import isHukukuImg from '@/assets/cards/is-hukuku-new.png';
+import icraHukukuImg from '@/assets/cards/icra-hukuku-new.png';
+import cezaHukukuImg from '@/assets/cards/ceza-hukuku.png';
 
 const trustSignalsDark = [{
   icon: Shield, title: 'Güvenilir Süreç', desc: 'Her adımda şeffaf ve ölçülebilir hukuki süreç yönetimi.', image: trustProcess
@@ -53,7 +51,7 @@ const trustSignalsLight = [{
 
 const areaImagesDark: Record<string, string> = {
   'aile-hukuku': aileHukukuImg,
-  'ceza-hukuku': areaObligations,
+  'ceza-hukuku': cezaHukukuImg,
   'bilisim-hukuku': bilisimHukukuImg,
   'ticaret-hukuku': ticaretHukukuImg,
   'is-hukuku': isHukukuImg,
@@ -61,7 +59,7 @@ const areaImagesDark: Record<string, string> = {
 };
 const areaImagesLight: Record<string, string> = {
   'aile-hukuku': aileHukukuImg,
-  'ceza-hukuku': areaObligationsLight,
+  'ceza-hukuku': cezaHukukuImg,
   'bilisim-hukuku': bilisimHukukuImg,
   'ticaret-hukuku': ticaretHukukuImg,
   'is-hukuku': isHukukuImg,

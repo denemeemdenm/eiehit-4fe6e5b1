@@ -1,10 +1,11 @@
 import { Scale, Building2, Briefcase, HandshakeIcon, Users, Landmark, Gavel, TrendingUp, DollarSign, Shield, Lock, Cpu, Home, HardHat, Handshake, Zap, Fuel, Mountain, Truck, Plane, Umbrella, HeartPulse, Sword, ShoppingCart } from 'lucide-react';
 
-import aileHukukuImg from '@/assets/cards/aile-hukuku.jpeg';
-import bilisimHukukuImg from '@/assets/cards/bilisim-hukuku.png';
-import ticaretHukukuImg from '@/assets/cards/ticaret-hukuku.jpeg';
-import isHukukuImg from '@/assets/cards/is-hukuku.jpg';
-import icraHukukuImg from '@/assets/cards/icra-hukuku.png';
+import aileHukukuImg from '@/assets/cards/aile-hukuku-new.png';
+import bilisimHukukuImg from '@/assets/cards/bilisim-hukuku-new.png';
+import ticaretHukukuImg from '@/assets/cards/ticaret-hukuku-new.png';
+import isHukukuImg from '@/assets/cards/is-hukuku-new.png';
+import icraHukukuImg from '@/assets/cards/icra-hukuku-new.png';
+import cezaHukukuImg from '@/assets/cards/ceza-hukuku.png';
 
 export interface PracticeArea {
   id: string;
@@ -17,7 +18,7 @@ export interface PracticeArea {
 
 export const practiceAreas: PracticeArea[] = [
   { id: 'aile-hukuku', title: 'Aile Hukuku', icon: Users, description: 'Boşanma, velayet, nafaka ve aile içi hukuki uyuşmazlıklar.', category: 'Temel', image: aileHukukuImg },
-  { id: 'ceza-hukuku', title: 'Ceza Hukuku', icon: Gavel, description: 'Ceza davaları, savunma hakları ve ceza yargılaması süreçleri.', category: 'Temel' },
+  { id: 'ceza-hukuku', title: 'Ceza Hukuku', icon: Gavel, description: 'Ceza davaları, savunma hakları ve ceza yargılaması süreçleri.', category: 'Temel', image: cezaHukukuImg },
   { id: 'bilisim-hukuku', title: 'Bilişim Hukuku', icon: Cpu, description: 'Siber suçlar, dijital sözleşmeler, e-ticaret hukuku ve internet düzenlemeleri.', category: 'Teknoloji', image: bilisimHukukuImg },
   { id: 'ticaret-hukuku', title: 'Ticaret ve Borçlar Hukuku', icon: Building2, description: 'Ticari sözleşmeler, ticari işletme, borç ilişkileri ve ticari uyuşmazlıkların çözümü.', category: 'Temel', image: ticaretHukukuImg },
   { id: 'is-hukuku', title: 'İş Hukuku', icon: Users, description: 'İşçi-işveren ilişkileri, iş sözleşmeleri ve işçi hakları.', category: 'Temel', image: isHukukuImg },

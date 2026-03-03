@@ -18,6 +18,7 @@ export default function NeuralBackground() {
   const isDarkRef = useRef(false);
   const prevMouseRef = useRef({ x: -1000, y: -1000 });
   const scrollYRef = useRef(0);
+  const canvasHeightRef = useRef(0);
 
   useEffect(() => {
     const canvas = canvasRef.current;
@@ -32,26 +33,39 @@ export default function NeuralBackground() {
     isDarkRef.current = document.documentElement.classList.contains('dark');
 
     const mobile = window.innerWidth < 768;
-    const particleCount = mobile ? 60 : 130;
+    const particleDensity = mobile ? 0.000025 : 0.00005; // particles per px²
     const connectionDist = mobile ? 150 : 180;
     const cursorRadius = 220;
 
-    function resizeCanvas() {
-      canvas.width = window.innerWidth;
-      canvas.height = window.innerHeight;
-      if (particlesRef.current.length > 0) {
-        particlesRef.current.forEach(p => {
-          p.homeX = Math.random() * canvas.width;
-          p.homeY = Math.random() * canvas.height;
-        });
-      }
+    function getDocHeight() {
+      return Math.max(
+        document.body.scrollHeight,
+        document.documentElement.scrollHeight,
+        window.innerHeight
+      );
     }
 
-    function createParticles() {
-      particlesRef.current = [];
-      for (let i = 0; i < particleCount; i++) {
-        const x = Math.random() * canvas.width;
-        const y = Math.random() * canvas.height;
+    function resizeCanvas() {
+      const docHeight = getDocHeight();
+      canvas.width = window.innerWidth;
+      canvas.height = docHeight;
+      canvasHeightRef.current = docHeight;
+      reconcileParticles();
+    }
+
+    function reconcileParticles() {
+      const w = canvas.width;
+      const h = canvasHeightRef.current;
+      const targetCount = Math.max(60, Math.round(w * h * particleDensity));
+      const current = particlesRef.current;
+
+      // Remove particles outside bounds
+      particlesRef.current = current.filter(p => p.homeY < h + 50);
+
+      // Add if needed
+      while (particlesRef.current.length < targetCount) {
+        const x = Math.random() * w;
+        const y = Math.random() * h;
         particlesRef.current.push({
           x, y,
           vx: (Math.random() - 0.5) * 0.35,
@@ -68,6 +82,11 @@ export default function NeuralBackground() {
 
     function updateParticles(time: number) {
       const mouse = mouseRef.current;
+      const scrollY = scrollYRef.current;
+      // Mouse position in document coordinates
+      const mouseDocX = mouse.x;
+      const mouseDocY = mouse.y + scrollY;
+
       particlesRef.current.forEach(p => {
         p.x += p.vx + Math.sin(time * 0.0003 + p.pulsePhase) * 0.04;
         p.y += p.vy + Math.cos(time * 0.00025 + p.pulsePhase) * 0.04;
@@ -81,16 +100,17 @@ export default function NeuralBackground() {
           p.vy += (homeDistY / homeDist) * homeForce;
         }
 
-        if (p.x < -20) { p.x = canvas.width + 20; p.homeX = canvas.width * Math.random(); }
-        if (p.x > canvas.width + 20) { p.x = -20; p.homeX = canvas.width * Math.random(); }
-        if (p.y < -20) { p.y = canvas.height + 20; p.homeY = canvas.height * Math.random(); }
-        if (p.y > canvas.height + 20) { p.y = -20; p.homeY = canvas.height * Math.random(); }
+        const w = canvas.width;
+        const h = canvasHeightRef.current;
+        if (p.x < -20) { p.x = w + 20; p.homeX = w * Math.random(); }
+        if (p.x > w + 20) { p.x = -20; p.homeX = w * Math.random(); }
+        if (p.y < -20) { p.y = h + 20; p.homeY = h * Math.random(); }
+        if (p.y > h + 20) { p.y = -20; p.homeY = h * Math.random(); }
 
         if (mouse.x > 0 && mouse.y > 0) {
-          const dx = p.x - mouse.x;
-          const dy = p.y - mouse.y;
+          const dx = p.x - mouseDocX;
+          const dy = p.y - mouseDocY;
           const dist = Math.sqrt(dx * dx + dy * dy);
-          // Attract toward cursor but keep a 60px comfort zone
           if (dist < cursorRadius && dist > 0) {
             const minDist = 60;
             if (dist > minDist) {
@@ -98,7 +118,6 @@ export default function NeuralBackground() {
               p.vx -= (dx / dist) * force;
               p.vy -= (dy / dist) * force;
             } else {
-              // Soft repel inside comfort zone to prevent clumping
               const repel = (1 - dist / minDist) * 0.03;
               p.vx += (dx / dist) * repel;
               p.vy += (dy / dist) * repel;
@@ -106,6 +125,7 @@ export default function NeuralBackground() {
           }
         }
 
+        // Anti-clumping
         particlesRef.current.forEach(other => {
           if (other === p) return;
           const dx = p.x - other.x;
@@ -126,16 +146,21 @@ export default function NeuralBackground() {
       });
     }
 
-    function drawParticles() {
+    function drawScene() {
       const isDark = isDarkRef.current;
-      const parallaxOffset = scrollYRef.current * 0.08;
+      const scrollY = scrollYRef.current;
+      const viewTop = scrollY;
+      const viewBottom = scrollY + window.innerHeight;
 
       ctx.clearRect(0, 0, canvas.width, canvas.height);
-      ctx.save();
-      ctx.translate(0, -parallaxOffset);
 
-      particlesRef.current.forEach(p => {
-        // More visible in light mode
+      // Only draw visible particles & connections
+      const visible = particlesRef.current.filter(p =>
+        p.y > viewTop - 100 && p.y < viewBottom + 100
+      );
+
+      // Draw particles
+      visible.forEach(p => {
         const alpha = Math.max(0, Math.min(1, p.opacity)) * (isDark ? 0.9 : 0.8);
         ctx.globalAlpha = alpha;
         ctx.fillStyle = p.color;
@@ -144,23 +169,16 @@ export default function NeuralBackground() {
         ctx.fill();
       });
       ctx.globalAlpha = 1;
-    }
 
-    function drawConnections() {
-      const particles = particlesRef.current;
-      const mouse = mouseRef.current;
-      const isDark = isDarkRef.current;
-
-      for (let i = 0; i < particles.length; i++) {
-        for (let j = i + 1; j < particles.length; j++) {
-          const p1 = particles[i];
-          const p2 = particles[j];
+      // Draw connections
+      for (let i = 0; i < visible.length; i++) {
+        for (let j = i + 1; j < visible.length; j++) {
+          const p1 = visible[i];
+          const p2 = visible[j];
           const dx = p1.x - p2.x;
           const dy = p1.y - p2.y;
           const dist = Math.sqrt(dx * dx + dy * dy);
-
           if (dist < connectionDist) {
-            // Stronger connections in light mode for visibility
             const alpha = (1 - dist / connectionDist) * (isDark ? 0.28 : 0.22);
             const grad = ctx.createLinearGradient(p1.x, p1.y, p2.x, p2.y);
             grad.addColorStop(0, p1.color + Math.floor(alpha * 255).toString(16).padStart(2, '0'));
@@ -175,13 +193,14 @@ export default function NeuralBackground() {
         }
       }
 
+      // Cursor connections
+      const mouse = mouseRef.current;
       if (mouse.x > 0 && mouse.y > 0) {
-        const nearCursor: Particle[] = [];
-        particles.forEach(p => {
+        const mouseDocY = mouse.y + scrollY;
+        const nearCursor = visible.filter(p => {
           const dx = mouse.x - p.x;
-          const dy = mouse.y - p.y;
-          const dist = Math.sqrt(dx * dx + dy * dy);
-          if (dist < cursorRadius) nearCursor.push(p);
+          const dy = mouseDocY - p.y;
+          return Math.sqrt(dx * dx + dy * dy) < cursorRadius;
         });
 
         for (let i = 0; i < nearCursor.length; i++) {
@@ -191,7 +210,6 @@ export default function NeuralBackground() {
             const dx = p1.x - p2.x;
             const dy = p1.y - p2.y;
             const dist = Math.sqrt(dx * dx + dy * dy);
-
             if (dist < connectionDist) {
               const alpha = (1 - dist / connectionDist) * (isDark ? 0.5 : 0.35);
               const grad = ctx.createLinearGradient(p1.x, p1.y, p2.x, p2.y);
@@ -208,16 +226,13 @@ export default function NeuralBackground() {
         }
       }
 
-      ctx.restore();
-    }
-
-    function updateGoldTrail() {
-      const mouse = mouseRef.current;
+      // Gold trail
       const prev = prevMouseRef.current;
       if (mouse.x > 0 && (Math.abs(mouse.x - prev.x) > 1 || Math.abs(mouse.y - prev.y) > 1)) {
+        const mouseDocY = mouse.y + scrollY;
         trailRef.current.push({
           x: mouse.x + (Math.random() - 0.5) * 8,
-          y: mouse.y + (Math.random() - 0.5) * 8,
+          y: mouseDocY + (Math.random() - 0.5) * 8,
           alpha: 0.5,
           size: Math.random() * 2.5 + 1,
         });
@@ -228,10 +243,9 @@ export default function NeuralBackground() {
         t.size *= 0.97;
         return t.alpha > 0;
       });
-    }
 
-    function drawGoldTrail() {
       trailRef.current.forEach(t => {
+        if (t.y < viewTop - 50 || t.y > viewBottom + 50) return;
         const g = ctx.createRadialGradient(t.x, t.y, 0, t.x, t.y, t.size * 3);
         g.addColorStop(0, `rgba(255, 204, 0, ${t.alpha * 0.4})`);
         g.addColorStop(0.5, `rgba(255, 180, 0, ${t.alpha * 0.15})`);
@@ -242,37 +256,44 @@ export default function NeuralBackground() {
         ctx.fill();
       });
 
-      const mouse = mouseRef.current;
       if (mouse.x > 0) {
-        const g = ctx.createRadialGradient(mouse.x, mouse.y, 0, mouse.x, mouse.y, 50);
+        const mouseDocY = mouse.y + scrollY;
+        const g = ctx.createRadialGradient(mouse.x, mouseDocY, 0, mouse.x, mouseDocY, 50);
         g.addColorStop(0, 'rgba(255, 204, 0, 0.08)');
         g.addColorStop(0.5, 'rgba(255, 180, 0, 0.03)');
         g.addColorStop(1, 'rgba(255, 160, 0, 0)');
         ctx.fillStyle = g;
         ctx.beginPath();
-        ctx.arc(mouse.x, mouse.y, 50, 0, Math.PI * 2);
+        ctx.arc(mouse.x, mouseDocY, 50, 0, Math.PI * 2);
         ctx.fill();
       }
     }
 
     function animate(time: number) {
       updateParticles(time);
-      updateGoldTrail();
-      drawParticles();
-      drawConnections();
-      drawGoldTrail();
+      drawScene();
       animRef.current = requestAnimationFrame(animate);
     }
 
     resizeCanvas();
-    createParticles();
     animRef.current = requestAnimationFrame(animate);
 
     const handleResize = () => { resizeCanvas(); };
     const handleMouse = (e: MouseEvent) => { mouseRef.current = { x: e.clientX, y: e.clientY }; };
     const handleTouch = (e: TouchEvent) => { mouseRef.current = { x: e.touches[0].clientX, y: e.touches[0].clientY }; };
     const handleTouchEnd = () => { mouseRef.current = { x: -1000, y: -1000 }; };
-    const handleScroll = () => { scrollYRef.current = window.scrollY; };
+    const handleScroll = () => {
+      scrollYRef.current = window.scrollY;
+      // Re-check doc height on scroll (content may have loaded)
+      const newH = getDocHeight();
+      if (Math.abs(newH - canvasHeightRef.current) > 100) {
+        resizeCanvas();
+      }
+    };
+
+    // Also observe body size changes
+    const resizeObserver = new ResizeObserver(() => { resizeCanvas(); });
+    resizeObserver.observe(document.body);
 
     window.addEventListener('resize', handleResize);
     window.addEventListener('mousemove', handleMouse);
@@ -287,6 +308,7 @@ export default function NeuralBackground() {
       window.removeEventListener('touchmove', handleTouch);
       window.removeEventListener('touchend', handleTouchEnd);
       window.removeEventListener('scroll', handleScroll);
+      resizeObserver.disconnect();
       observer.disconnect();
     };
   }, []);
@@ -294,7 +316,7 @@ export default function NeuralBackground() {
   return (
     <canvas
       ref={canvasRef}
-      className="fixed inset-0 pointer-events-none z-0"
+      className="absolute top-0 left-0 w-full pointer-events-none z-0"
       style={{ opacity: 0.85 }}
     />
   );
