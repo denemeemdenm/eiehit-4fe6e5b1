@@ -12,9 +12,8 @@
 }
 
 @font-face {
-  font-family: 'TAN Pearl';
-  src: url('/fonts/TAN-PEARL.woff2') format('woff2'),
-       url('/fonts/TAN-PEARL.woff') format('woff');
+  font-family: 'HiT LAW';
+  src: url('/fonts/HiT-LAW.otf') format('opentype');
   font-weight: normal;
   font-style: normal;
   font-display: swap;
@@ -381,7 +380,7 @@
   -webkit-text-fill-color: transparent;
   background-clip: text;
   animation: gradient-sweep 5s linear infinite;
-  font-family: 'TAN Pearl', 'Fraunces', Georgia, serif;
+  font-family: 'HiT LAW', 'Fraunces', Georgia, serif;
   text-transform: none;
   letter-spacing: 0.06em;
   font-weight: 400;
@@ -398,7 +397,7 @@
   -webkit-text-fill-color: transparent;
   background-clip: text;
   animation: gradient-sweep 5s linear infinite;
-  font-family: 'TAN Pearl', 'Fraunces', Georgia, serif;
+  font-family: 'HiT LAW', 'Fraunces', Georgia, serif;
   text-transform: none;
   letter-spacing: 0.06em;
   font-weight: 400;
