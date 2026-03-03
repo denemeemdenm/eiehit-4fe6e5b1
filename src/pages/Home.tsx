@@ -155,7 +155,7 @@ export default function Home() {
       <section id="about" className="section-spacing content-padding">
         <div className="max-w-4xl mx-auto">
           <ScrollReveal>
-            <AnimatedGradientHeading color="red" className="text-3xl sm:text-4xl font-bold mb-12 text-center">Hakkımda</AnimatedGradientHeading>
+            <AnimatedGradientHeading color="red" className="text-2xl sm:text-[30px] font-bold mb-12 text-center">Hakkımda</AnimatedGradientHeading>
           </ScrollReveal>
 
           <ScrollReveal delay={0.1}>
@@ -198,7 +198,7 @@ export default function Home() {
       <section className="section-spacing content-padding">
         <div className="max-w-6xl mx-auto">
           <ScrollReveal>
-            <AnimatedGradientHeading color="cyan" className="text-3xl sm:text-4xl font-bold text-center mb-16">
+            <AnimatedGradientHeading color="cyan" className="text-2xl sm:text-[30px] font-bold text-center mb-16">
               Profesyonel Yaklaşım
             </AnimatedGradientHeading>
           </ScrollReveal>
@@ -216,7 +216,7 @@ export default function Home() {
       <section id="practice" className="section-spacing content-padding">
         <div className="max-w-6xl mx-auto">
           <ScrollReveal>
-            <AnimatedGradientHeading color="red" className="text-3xl sm:text-4xl font-bold text-center mb-4">
+            <AnimatedGradientHeading color="red" className="text-2xl sm:text-[30px] font-bold text-center mb-4">
               Çalışma Alanları
             </AnimatedGradientHeading>
             <p className="text-center text-muted-foreground mb-16 max-w-xl mx-auto">
@@ -237,7 +237,7 @@ export default function Home() {
       <section id="contact" className="section-spacing content-padding">
         <div className="max-w-4xl mx-auto">
           <ScrollReveal>
-            <AnimatedGradientHeading color="cyan" className="text-3xl sm:text-4xl font-bold mb-4 text-center">İletişim</AnimatedGradientHeading>
+            <AnimatedGradientHeading color="cyan" className="text-2xl sm:text-[30px] font-bold mb-4 text-center">İletişim</AnimatedGradientHeading>
             <p className="text-muted-foreground mb-12 max-w-xl text-center mx-auto">
               Hukuki danışmanlık veya bilgi talepleriniz için iletişime geçebilirsiniz.
             </p>
