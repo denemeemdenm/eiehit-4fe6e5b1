@@ -13,7 +13,8 @@ interface NavbarProps {
 const navItems = [
 { label: 'Ana Sayfa', id: 'hero' },
 { label: 'Hakkımda', id: 'about' },
-{ label: 'Çalışma Alanları', id: 'practice' }];
+{ label: 'Çalışma Alanları', id: 'practice' },
+{ label: 'İletişim', id: 'contact' }];
 
 
 export default function Navbar({ theme }: NavbarProps) {
