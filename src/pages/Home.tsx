@@ -145,9 +145,9 @@ export default function Home() {
             <button onClick={() => document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' })} className="glass-panel px-8 py-3.5 font-semibold text-sm inline-flex items-center gap-2 hover:scale-105 active:scale-95 transition-transform duration-300">
               İletişim 
             </button>
-            <button onClick={() => document.getElementById('practice')?.scrollIntoView({ behavior: 'smooth' })} className="glass-panel px-8 py-3.5 font-semibold text-sm inline-flex items-center gap-2 hover:scale-105 active:scale-95 transition-transform duration-300">
-              Çalışma Alanları
-            </button>
+            
+
+            
           </motion.div>
         </div>
       </section>
