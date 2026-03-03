@@ -11,12 +11,12 @@ import nameWhite from '@/assets/name-white.png';
 import nameBlack from '@/assets/name-black.png';
 
 // Trust signal images — dark
-import trustProcess from '@/assets/cards/trust-process.jpg';
+import trustProcess from '@/assets/cards/trust-process-new.jpg';
 import trustClarity from '@/assets/cards/trust-clarity.jpg';
 import trustPrivacy from '@/assets/cards/trust-privacy.jpg';
 import trustTech from '@/assets/cards/trust-tech.jpg';
 // Trust signal images — light
-import trustProcessLight from '@/assets/cards/trust-process-light.jpg';
+import trustProcessLight from '@/assets/cards/trust-process-new.jpg';
 import trustClarityLight from '@/assets/cards/trust-clarity-light.jpg';
 import trustPrivacyLight from '@/assets/cards/trust-privacy-light.jpg';
 import trustTechLight from '@/assets/cards/trust-tech-light.jpg';
