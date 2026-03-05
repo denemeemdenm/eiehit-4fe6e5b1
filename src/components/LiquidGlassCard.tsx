@@ -11,6 +11,7 @@ export default function LiquidGlassCard({ children, className = '', tiltIntensit
   const cardRef = useRef<HTMLDivElement>(null);
   const rafRef = useRef<number>(0);
   const [specularPos, setSpecularPos] = useState({ x: 50, y: 50 });
+  const [isHovered, setIsHovered] = useState(false);
 
   const springConfig = { stiffness: 150, damping: 26, mass: 1 };
   const rotateX = useSpring(0, springConfig);
@@ -41,7 +42,7 @@ export default function LiquidGlassCard({ children, className = '', tiltIntensit
     rotateX.set(0);
     rotateY.set(0);
     scale.set(1);
-    setSpecularPos({ x: 50, y: 50 });
+    setIsHovered(false);
   }, [rotateX, rotateY, scale]);
 
   return (
@@ -63,6 +64,7 @@ export default function LiquidGlassCard({ children, className = '', tiltIntensit
           backfaceVisibility: 'hidden',
         }}
         onMouseMove={handleMouseMove}
+        onMouseEnter={() => setIsHovered(true)}
         onMouseLeave={handleMouseLeave}
       >
         {/* 135° diagonal specular edge highlight + cursor-follow border shine */}
@@ -71,7 +73,7 @@ export default function LiquidGlassCard({ children, className = '', tiltIntensit
           style={{
             borderRadius: 'inherit',
             padding: '1px',
-            background: `radial-gradient(130px 130px at ${specularPos.x}% ${specularPos.y}%, hsla(0 0% 100% / 0.38), hsla(0 0% 100% / 0) 72%), linear-gradient(135deg, hsla(0 0% 100% / 0.24) 0%, hsla(0 0% 100% / 0.1) 25%, hsla(0 0% 100% / 0.03) 50%, hsla(0 0% 100% / 0.1) 75%, hsla(0 0% 100% / 0.24) 100%)`,
+            background: `${isHovered ? `radial-gradient(130px 130px at ${specularPos.x}% ${specularPos.y}%, hsla(0 0% 100% / 0.38), hsla(0 0% 100% / 0) 72%), ` : ''}linear-gradient(135deg, hsla(0 0% 100% / 0.24) 0%, hsla(0 0% 100% / 0.1) 25%, hsla(0 0% 100% / 0.03) 50%, hsla(0 0% 100% / 0.1) 75%, hsla(0 0% 100% / 0.24) 100%)`,
             mask: 'linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0)',
             maskComposite: 'exclude',
             WebkitMaskComposite: 'xor' as any,
