@@ -53,7 +53,7 @@ export default function GlassCard({ children, className = '', onClick, tiltInten
           transformStyle: 'preserve-3d',
           borderRadius: 20,
           overflow: 'hidden',
-          background: 'hsla(var(--glass-bg))',
+          background: 'hsl(var(--surface))',
           backdropFilter: 'blur(10px) saturate(var(--glass-saturation))',
           WebkitBackdropFilter: 'blur(10px) saturate(var(--glass-saturation))',
           boxShadow: isHovered
