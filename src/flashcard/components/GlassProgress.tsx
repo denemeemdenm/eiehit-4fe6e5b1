@@ -15,7 +15,9 @@ export default function GlassProgress({ value, className = '' }: { value: number
         className="h-full rounded-full transition-all duration-500"
         style={{
           width: `${Math.min(100, Math.max(0, value))}%`,
-          background: 'linear-gradient(90deg, hsl(var(--primary)), hsl(var(--primary) / 0.7))',
+          background: isDark
+            ? 'linear-gradient(90deg, hsl(180 100% 69%), hsl(180 100% 69% / 0.7))'
+            : 'linear-gradient(90deg, hsl(0 84% 60%), hsl(0 84% 60% / 0.7))',
         }}
       />
     </div>
