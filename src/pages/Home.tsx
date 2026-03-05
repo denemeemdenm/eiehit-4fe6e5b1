@@ -1,7 +1,7 @@
 import { useState, useEffect, useRef } from 'react';
 import { motion, useScroll, useTransform } from 'framer-motion';
 import { Shield, Eye, Lock, Cpu, Phone, Mail, MapPin, Copy } from 'lucide-react';
-import GlassCard from '@/components/GlassCard';
+
 import ImageCard from '@/components/ImageCard';
 import ScrollReveal from '@/components/ScrollReveal';
 import { practiceAreas } from '@/lib/practiceAreas';
@@ -161,7 +161,7 @@ export default function Home() {
           </ScrollReveal>
 
           <ScrollReveal delay={0.1}>
-            <GlassCard className="p-10 sm:p-14 mb-8">
+            <div className="p-10 sm:p-14 mb-8">
               <div className="flex items-start gap-6 mb-8">
                 <img src={logo} alt="Logo" className="w-16 h-auto shrink-0 object-contain" />
                 <div>
@@ -172,11 +172,11 @@ export default function Home() {
                 <p>Hukuki süreçlerin değişen dinamiklerini yakından takip eden, teknolojiyi hukuk pratiğinin ayrılmaz bir parçası olarak benimseyen bir yaklaşımla çalışmaktadır.</p>
                 <p>Müvekkillerin ihtiyaçlarını net biçimde anlayarak, karmaşık hukuki meseleleri anlaşılır ve uygulanabilir çözümlere dönüştürmek temel ilkesidir.</p>
               </div>
-            </GlassCard>
+            </div>
           </ScrollReveal>
 
           <ScrollReveal delay={0.2}>
-            <GlassCard className="p-10 sm:p-14">
+            <div className="p-10 sm:p-14">
               <AnimatedGradientHeading as="h3" color="cyan" className="text-xl font-bold mb-6">Yaklaşım ve Değerler</AnimatedGradientHeading>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
                 {[
@@ -191,7 +191,7 @@ export default function Home() {
                   </div>
                 )}
               </div>
-            </GlassCard>
+            </div>
           </ScrollReveal>
         </div>
       </section>
@@ -253,7 +253,7 @@ export default function Home() {
                 { icon: Mail, label: 'E-posta', value: 'ekinisaeroglu@gmail.com', raw: 'ekinisaeroglu@gmail.com' },
                 { icon: MapPin, label: 'Adres', value: 'Adana, Seyhan', raw: 'Adana, Seyhan' }].
                 map((item) =>
-                <GlassCard key={item.label} className="p-6">
+                <div key={item.label} className="p-6 glass-panel rounded-[20px]">
                     <div className="flex items-center justify-between">
                       <div className="flex items-center gap-4">
                         <item.icon className="w-5 h-5 shrink-0 icon-gradient-cyan" />
@@ -266,13 +266,13 @@ export default function Home() {
                         <Copy size={14} className="text-muted-foreground" />
                       </button>
                     </div>
-                  </GlassCard>
+                  </div>
                 )}
               </div>
             </ScrollReveal>
 
             <ScrollReveal delay={0.2}>
-              <GlassCard className="p-8">
+              <div className="p-8 glass-panel rounded-[20px]">
                 <h3 className="font-semibold text-base mb-6">Mesaj Gönderin</h3>
                 <form onSubmit={handleSubmit} className="space-y-4">
                   <div>
@@ -291,7 +291,7 @@ export default function Home() {
                     Gönder
                   </button>
                 </form>
-              </GlassCard>
+              </div>
             </ScrollReveal>
           </div>
         </div>
@@ -301,7 +301,7 @@ export default function Home() {
       <section className="section-spacing content-padding">
         <div className="max-w-4xl mx-auto">
           <ScrollReveal>
-            <GlassCard className="p-12 sm:p-16 text-center">
+            <div className="p-12 sm:p-16 text-center glass-panel rounded-[20px]">
               <h2 className="text-2xl sm:text-3xl font-bold mb-4" style={{ fontFamily: "'EKiN Pro Max Diyakritik', sans-serif" }}>
                 <span className="gradient-text-cyan-word">HUKUK</span>
                 <span className="text-foreground/40"> × </span>
@@ -313,7 +313,7 @@ export default function Home() {
                 Geleneksel hukuk anlayışını dijital çağın gereksinimleriyle harmanlayan,
                 yenilikçi ve teknoloji odaklı bir yaklaşımla hukuki çözümler üretilmektedir.
               </p>
-            </GlassCard>
+            </div>
           </ScrollReveal>
         </div>
       </section>
