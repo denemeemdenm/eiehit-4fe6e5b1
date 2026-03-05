@@ -1,5 +1,6 @@
 import { useRef, useState, useCallback } from 'react';
 import { motion, useSpring } from 'framer-motion';
+import { useTheme } from '@/hooks/useTheme';
 
 interface GlassCardProps {
   children: React.ReactNode;
@@ -13,6 +14,8 @@ export default function GlassCard({ children, className = '', onClick, tiltInten
   const [specularPos, setSpecularPos] = useState({ x: 50, y: 50 });
   const [isHovered, setIsHovered] = useState(false);
   const rafRef = useRef<number>(0);
+  const { theme } = useTheme();
+  const isDark = theme === 'dark';
 
   const springConfig = { stiffness: 150, damping: 26, mass: 1 };
   const rotateX = useSpring(0, springConfig);
@@ -45,20 +48,23 @@ export default function GlassCard({ children, className = '', onClick, tiltInten
     <div style={{ perspective: 1200 }}>
       <motion.div
         ref={cardRef}
-        className={`glass-card relative cursor-pointer group ${className}`}
+        className={`relative cursor-pointer group overflow-hidden ${className}`}
         style={{
           rotateX,
           rotateY,
           scale,
           transformStyle: 'preserve-3d',
           borderRadius: 20,
-          overflow: 'hidden',
-          background: 'hsla(var(--glass-bg))',
-          backdropFilter: 'blur(10px) saturate(var(--glass-saturation))',
-          WebkitBackdropFilter: 'blur(10px) saturate(var(--glass-saturation))',
+          background: isDark ? 'hsla(0 0% 8% / 0.12)' : 'hsla(0 0% 96% / 0.12)',
+          backdropFilter: 'blur(10px) saturate(200%)',
+          WebkitBackdropFilter: 'blur(10px) saturate(200%)',
           boxShadow: isHovered
-            ? '0 16px 40px hsla(0,0%,0%,0.22), 0 0 0 0.5px hsla(0,0%,100%,0.06)'
-            : 'var(--shadow-rest)',
+            ? isDark
+              ? '0 16px 40px rgba(0,0,0,0.4), inset 0 1px 0 rgba(255,255,255,0.06)'
+              : '0 16px 40px rgba(0,0,0,0.12), inset 0 1px 0 rgba(255,255,255,0.22)'
+            : isDark
+              ? '0 8px 32px rgba(0,0,0,0.4), inset 0 1px 0 rgba(255,255,255,0.06)'
+              : '0 8px 32px rgba(0,0,0,0.08), inset 0 1px 0 rgba(255,255,255,0.22)',
           willChange: 'transform',
           backfaceVisibility: 'hidden',
         }}
@@ -68,24 +74,39 @@ export default function GlassCard({ children, className = '', onClick, tiltInten
         onClick={onClick}
         whileTap={{ scale: 0.98, transition: { type: 'spring', stiffness: 400, damping: 25 } }}
       >
-        {/* Subtle inner gradient */}
+        {/* Glass edge highlight — mask-composite: exclude, 135° diagonal specular */}
         <div
-          className="absolute inset-0 pointer-events-none z-[1]"
+          className="absolute inset-0 pointer-events-none z-[2]"
           style={{
-            background: 'linear-gradient(135deg, hsla(0 0% 100% / 0.08) 0%, hsla(0 0% 100% / 0.02) 50%, hsla(0 0% 100% / 0.06) 100%)',
+            borderRadius: 'inherit',
+            padding: '1px',
+            background: `linear-gradient(135deg, ${
+              isDark ? 'rgba(255,255,255,0.20)' : 'rgba(255,255,255,0.35)'
+            } 0%, ${
+              isDark ? 'rgba(255,255,255,0.08)' : 'rgba(255,255,255,0.14)'
+            } 25%, ${
+              isDark ? 'rgba(255,255,255,0.03)' : 'rgba(255,255,255,0.06)'
+            } 50%, ${
+              isDark ? 'rgba(255,255,255,0.08)' : 'rgba(255,255,255,0.14)'
+            } 75%, ${
+              isDark ? 'rgba(255,255,255,0.20)' : 'rgba(255,255,255,0.35)'
+            } 100%)`,
+            mask: 'linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0)',
+            maskComposite: 'exclude',
+            WebkitMaskComposite: 'xor' as any,
           }}
         />
 
         {/* Specular highlight on hover */}
         <div
-          className="absolute inset-0 pointer-events-none z-10 opacity-0 group-hover:opacity-100 transition-opacity duration-500"
+          className="absolute inset-0 pointer-events-none z-[3] opacity-0 group-hover:opacity-100 transition-opacity duration-500"
           style={{
             background: `radial-gradient(ellipse 280px 200px at ${specularPos.x}% ${specularPos.y}%, hsla(0 0% 100% / 0.12), transparent 70%)`,
           }}
         />
 
-        {/* Content — normal flow, determines card height */}
-        <div className="relative z-[5]">{children}</div>
+        {/* Content */}
+        <div className="relative z-[1]">{children}</div>
       </motion.div>
     </div>
   );
