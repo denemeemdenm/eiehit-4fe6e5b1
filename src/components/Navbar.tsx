@@ -25,7 +25,24 @@ export default function Navbar({ theme, onHitClick, flashcardOpen, onFlashcardCl
   const [activeSection, setActiveSection] = useState('hero');
   const [hitModalOpen, setHitModalOpen] = useState(false);
   const [clickedId, setClickedId] = useState<string | null>(null);
+  const [navHovered, setNavHovered] = useState(false);
+  const [navSpecular, setNavSpecular] = useState({ x: 50, y: 50 });
   const hitButtonRef = useRef<HTMLButtonElement>(null);
+  const navRef = useRef<HTMLElement>(null);
+  const navRaf = useRef<number>(0);
+
+  const handleNavMouseMove = useCallback((e: React.MouseEvent) => {
+    const el = navRef.current;
+    if (!el) return;
+    cancelAnimationFrame(navRaf.current);
+    navRaf.current = requestAnimationFrame(() => {
+      const rect = el.getBoundingClientRect();
+      setNavSpecular({
+        x: ((e.clientX - rect.left) / rect.width) * 100,
+        y: ((e.clientY - rect.top) / rect.height) * 100,
+      });
+    });
+  }, []);
 
   useEffect(() => {
     const sectionIds = navItems.map((item) => item.id);
@@ -60,6 +77,7 @@ export default function Navbar({ theme, onHitClick, flashcardOpen, onFlashcardCl
       <header className="fixed top-4 left-1/2 -translate-x-1/2 z-50">
         <div className="flex items-center gap-2">
           <motion.nav
+            ref={navRef}
             layout
             transition={{ type: 'spring', stiffness: 300, damping: 30, mass: 0.8 }}
             className="px-2 flex-row flex items-center justify-start gap-[8px] rounded-[21.6px] py-[8px] relative overflow-hidden"
@@ -70,11 +88,15 @@ export default function Navbar({ theme, onHitClick, flashcardOpen, onFlashcardCl
               boxShadow: isDark ?
               '0 8px 32px rgba(0,0,0,0.4), inset 0 1px 0 rgba(255,255,255,0.06)' :
               '0 8px 32px rgba(0,0,0,0.08), inset 0 1px 0 rgba(255,255,255,0.22)'
-            }}>
-            {/* 135° diagonal specular edge highlight — mask-composite: exclude */}
-            <div className="absolute inset-0 rounded-[inherit] pointer-events-none z-[2]" style={{
+            }}
+            onMouseMove={handleNavMouseMove}
+            onMouseEnter={() => setNavHovered(true)}
+            onMouseLeave={() => setNavHovered(false)}
+          >
+            {/* 135° diagonal specular edge highlight + hover radial glow — mask-composite: exclude */}
+            <div className="absolute inset-0 rounded-[inherit] pointer-events-none z-[2] transition-opacity duration-300" style={{
               padding: '1px',
-              background: `linear-gradient(135deg, ${isDark ? 'rgba(255,255,255,0.22)' : 'rgba(255,255,255,0.35)'} 0%, ${isDark ? 'rgba(255,255,255,0.08)' : 'rgba(255,255,255,0.14)'} 25%, ${isDark ? 'rgba(255,255,255,0.03)' : 'rgba(255,255,255,0.06)'} 50%, ${isDark ? 'rgba(255,255,255,0.08)' : 'rgba(255,255,255,0.14)'} 75%, ${isDark ? 'rgba(255,255,255,0.22)' : 'rgba(255,255,255,0.35)'} 100%)`,
+              background: `${navHovered ? `radial-gradient(120px 120px at ${navSpecular.x}% ${navSpecular.y}%, ${isDark ? 'rgba(255,255,255,0.45)' : 'rgba(255,255,255,0.7)'}, transparent 72%), ` : ''}linear-gradient(135deg, ${isDark ? 'rgba(255,255,255,0.22)' : 'rgba(255,255,255,0.35)'} 0%, ${isDark ? 'rgba(255,255,255,0.08)' : 'rgba(255,255,255,0.14)'} 25%, ${isDark ? 'rgba(255,255,255,0.03)' : 'rgba(255,255,255,0.06)'} 50%, ${isDark ? 'rgba(255,255,255,0.08)' : 'rgba(255,255,255,0.14)'} 75%, ${isDark ? 'rgba(255,255,255,0.22)' : 'rgba(255,255,255,0.35)'} 100%)`,
               mask: 'linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0)',
               maskComposite: 'exclude',
               WebkitMaskComposite: 'xor' as any
