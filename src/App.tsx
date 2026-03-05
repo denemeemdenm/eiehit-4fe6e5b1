@@ -32,7 +32,7 @@ const AppContent = () => {
     <div className="min-h-screen flex flex-col relative">
       <NeuralBackground />
       <CursorTrail />
-      <Navbar theme={theme} onHitClick={handleHitClick} />
+      <Navbar theme={theme} onHitClick={handleHitClick} flashcardOpen={flashcardOpen} onFlashcardClose={() => setFlashcardOpen(false)} />
       <div className="flex-1">
         <Routes>
           <Route path="/" element={<Home />} />
