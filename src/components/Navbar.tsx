@@ -59,8 +59,10 @@ export default function Navbar({ theme, onHitClick, flashcardOpen, onFlashcardCl
     <>
       <header className="fixed top-4 left-1/2 -translate-x-1/2 z-50">
         <div className="flex items-center gap-2">
-          <nav
-            className="glass-nav px-2 flex-row flex items-center justify-start gap-[8px] rounded-[21.6px] py-[8px] relative"
+          <motion.nav
+            layout
+            transition={{ type: 'spring', stiffness: 300, damping: 30, mass: 0.8 }}
+            className="px-2 flex-row flex items-center justify-start gap-[8px] rounded-[21.6px] py-[8px] relative overflow-hidden"
             style={{
               background: 'hsla(var(--glass-bg))',
               backdropFilter: 'blur(var(--glass-blur)) saturate(var(--glass-saturation))',
@@ -69,10 +71,10 @@ export default function Navbar({ theme, onHitClick, flashcardOpen, onFlashcardCl
               '0 8px 32px rgba(0,0,0,0.4), inset 0 1px 0 rgba(255,255,255,0.06)' :
               '0 8px 32px rgba(0,0,0,0.08), inset 0 1px 0 rgba(255,255,255,0.22)'
             }}>
-            {/* White gradient border overlay */}
-            <div className="absolute inset-0 rounded-[inherit] pointer-events-none" style={{
-              padding: '0.85px',
-              background: `linear-gradient(135deg, ${isDark ? 'rgba(255,255,255,0.20)' : 'rgba(255,255,255,0.30)'} 0%, ${isDark ? 'rgba(255,255,255,0.08)' : 'rgba(255,255,255,0.14)'} 25%, ${isDark ? 'rgba(255,255,255,0.03)' : 'rgba(255,255,255,0.06)'} 50%, ${isDark ? 'rgba(255,255,255,0.08)' : 'rgba(255,255,255,0.14)'} 75%, ${isDark ? 'rgba(255,255,255,0.20)' : 'rgba(255,255,255,0.30)'} 100%)`,
+            {/* 135° diagonal specular edge highlight — mask-composite: exclude */}
+            <div className="absolute inset-0 rounded-[inherit] pointer-events-none z-[2]" style={{
+              padding: '1px',
+              background: `linear-gradient(135deg, ${isDark ? 'rgba(255,255,255,0.22)' : 'rgba(255,255,255,0.35)'} 0%, ${isDark ? 'rgba(255,255,255,0.08)' : 'rgba(255,255,255,0.14)'} 25%, ${isDark ? 'rgba(255,255,255,0.03)' : 'rgba(255,255,255,0.06)'} 50%, ${isDark ? 'rgba(255,255,255,0.08)' : 'rgba(255,255,255,0.14)'} 75%, ${isDark ? 'rgba(255,255,255,0.22)' : 'rgba(255,255,255,0.35)'} 100%)`,
               mask: 'linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0)',
               maskComposite: 'exclude',
               WebkitMaskComposite: 'xor' as any
@@ -120,8 +122,8 @@ export default function Navbar({ theme, onHitClick, flashcardOpen, onFlashcardCl
 
                         {/* Hairline glass edge */}
                         <div className="absolute inset-0 rounded-[inherit] pointer-events-none" style={{
-                        padding: '0.5px',
-                        background: `linear-gradient(180deg, ${isDark ? 'hsla(0 0% 100% / 0.2)' : 'hsla(0 0% 100% / 0.7)'} 0%, ${isDark ? 'hsla(0 0% 100% / 0.04)' : 'hsla(0 0% 100% / 0.2)'} 50%, ${isDark ? 'hsla(0 0% 100% / 0.1)' : 'hsla(0 0% 100% / 0.4)'} 100%)`,
+                        padding: '1px',
+                        background: `linear-gradient(135deg, ${isDark ? 'rgba(255,255,255,0.22)' : 'rgba(255,255,255,0.5)'} 0%, ${isDark ? 'rgba(255,255,255,0.06)' : 'rgba(255,255,255,0.15)'} 25%, ${isDark ? 'rgba(255,255,255,0.02)' : 'rgba(255,255,255,0.06)'} 50%, ${isDark ? 'rgba(255,255,255,0.06)' : 'rgba(255,255,255,0.15)'} 75%, ${isDark ? 'rgba(255,255,255,0.22)' : 'rgba(255,255,255,0.5)'} 100%)`,
                         mask: 'linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0)',
                         maskComposite: 'exclude',
                         WebkitMaskComposite: 'xor' as any
@@ -149,6 +151,7 @@ export default function Navbar({ theme, onHitClick, flashcardOpen, onFlashcardCl
 
               {flashcardOpen && (
                 <motion.button
+                  layout
                   onClick={() => onFlashcardClose?.()}
                   className="relative px-3.5 py-1.5 text-[13px] font-medium whitespace-nowrap z-10 rounded-[14px]"
                   style={{ color: isDark ? '#fff' : '#000' }}
@@ -169,12 +172,21 @@ export default function Navbar({ theme, onHitClick, flashcardOpen, onFlashcardCl
                         : '0 2px 12px rgba(0,0,0,0.06), inset 0 1px 0 rgba(255,255,255,0.8)',
                     }}
                     transition={{ type: 'spring', stiffness: 350, damping: 30, mass: 0.8 }}
-                  />
+                  >
+                    {/* 135° specular edge on capsule */}
+                    <div className="absolute inset-0 rounded-[inherit] pointer-events-none" style={{
+                      padding: '1px',
+                      background: `linear-gradient(135deg, ${isDark ? 'rgba(255,255,255,0.22)' : 'rgba(255,255,255,0.5)'} 0%, ${isDark ? 'rgba(255,255,255,0.06)' : 'rgba(255,255,255,0.15)'} 25%, ${isDark ? 'rgba(255,255,255,0.02)' : 'rgba(255,255,255,0.06)'} 50%, ${isDark ? 'rgba(255,255,255,0.06)' : 'rgba(255,255,255,0.15)'} 75%, ${isDark ? 'rgba(255,255,255,0.22)' : 'rgba(255,255,255,0.5)'} 100%)`,
+                      mask: 'linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0)',
+                      maskComposite: 'exclude',
+                      WebkitMaskComposite: 'xor' as any
+                    }} />
+                  </motion.div>
                   <span className="relative z-10">Ana Sayfa</span>
                 </motion.button>
               )}
 
-              <span className="w-px h-4 mx-1.5 shrink-0" style={{ background: isDark ? 'rgba(255,255,255,0.12)' : 'rgba(0,0,0,0.1)' }} />
+              {!flashcardOpen && <span className="w-px h-4 mx-1.5 shrink-0" style={{ background: isDark ? 'rgba(255,255,255,0.12)' : 'rgba(0,0,0,0.1)' }} />}
 
               {/* HiT logo — opens popover */}
               <div className="relative">
@@ -209,7 +221,7 @@ export default function Navbar({ theme, onHitClick, flashcardOpen, onFlashcardCl
 
               {mobileOpen ? <X size={16} /> : <Menu size={16} />}
             </button>
-          </nav>
+          </motion.nav>
         </div>
 
         {/* Mobile menu */}
