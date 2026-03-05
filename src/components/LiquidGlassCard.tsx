@@ -71,7 +71,7 @@ export default function LiquidGlassCard({ children, className = '', tiltIntensit
           style={{
             borderRadius: 'inherit',
             padding: '1px',
-            background: `radial-gradient(130px 130px at ${specularPos.x}% ${specularPos.y}%, hsla(var(--ring) / 0.34), hsla(var(--ring) / 0) 72%), linear-gradient(135deg, hsla(0 0% 100% / 0.24) 0%, hsla(0 0% 100% / 0.1) 25%, hsla(0 0% 100% / 0.03) 50%, hsla(0 0% 100% / 0.1) 75%, hsla(0 0% 100% / 0.24) 100%)`,
+            background: `radial-gradient(130px 130px at ${specularPos.x}% ${specularPos.y}%, hsla(0 0% 100% / 0.38), hsla(0 0% 100% / 0) 72%), linear-gradient(135deg, hsla(0 0% 100% / 0.24) 0%, hsla(0 0% 100% / 0.1) 25%, hsla(0 0% 100% / 0.03) 50%, hsla(0 0% 100% / 0.1) 75%, hsla(0 0% 100% / 0.24) 100%)`,
             mask: 'linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0)',
             maskComposite: 'exclude',
             WebkitMaskComposite: 'xor' as any,
