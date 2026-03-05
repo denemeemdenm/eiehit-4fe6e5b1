@@ -55,6 +55,13 @@ export default function ImageCard({ image, title, description, className = '', o
           scale,
           transformStyle: 'preserve-3d',
           minHeight: '240px',
+          borderRadius: 20,
+          background: 'hsla(var(--glass-bg))',
+          backdropFilter: 'blur(10px) saturate(var(--glass-saturation))',
+          WebkitBackdropFilter: 'blur(10px) saturate(var(--glass-saturation))',
+          boxShadow: isHovered
+            ? '0 16px 40px hsla(0,0%,0%,0.22), 0 0 0 0.5px hsla(0,0%,100%,0.06)'
+            : 'var(--shadow-rest)',
           willChange: 'transform',
           backfaceVisibility: 'hidden',
         }}
