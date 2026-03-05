@@ -124,12 +124,10 @@ export default function FlashcardApp({ onClose, originRect }: FlashcardAppProps)
         <div
           className="flex items-center justify-between px-4 pt-3 pb-2 sticky top-0 z-50"
           style={{
-            background: isDark ? 'hsla(0 0% 0% / 0.8)' : 'hsla(0 0% 96% / 0.8)',
-            backdropFilter: 'blur(20px) saturate(180%)',
-            WebkitBackdropFilter: 'blur(20px) saturate(180%)',
+            background: 'transparent',
           }}
         >
-          <button onClick={goBack} className="flex items-center gap-1 text-sm font-medium" style={{ color: 'hsl(var(--primary))' }}>
+          <button onClick={goBack} className="flex items-center gap-1 text-sm font-medium" style={{ color: isDark ? 'hsl(180 100% 69%)' : 'hsl(0 84% 60%)' }}>
             <ArrowLeft size={18} />
             {view.type === 'home' ? 'Kapat' : 'Geri'}
           </button>

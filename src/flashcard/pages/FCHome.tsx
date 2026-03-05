@@ -27,7 +27,7 @@ export default function FCHome({ navigate }: { navigate: (v: FCView) => void }) 
           📚 Dersler
         </h1>
         {streak > 0 && (
-          <div className="flex items-center gap-1.5 mt-2" style={{ color: 'hsl(var(--accent))' }}>
+          <div className="flex items-center gap-1.5 mt-2" style={{ color: isDark ? 'hsl(var(--accent))' : 'hsl(0 84% 60%)' }}>
             <Flame size={16} />
             <span className="text-sm font-medium">{streak} günlük seri</span>
           </div>
@@ -69,7 +69,7 @@ export default function FCHome({ navigate }: { navigate: (v: FCView) => void }) 
                     <span className="text-xs" style={{ color: isDark ? 'rgba(255,255,255,0.5)' : 'rgba(0,0,0,0.45)' }}>
                       {cards.length} kart · {unitCount} ünite
                     </span>
-                    <span className="text-xs font-medium" style={{ color: 'hsl(var(--primary))' }}>
+                    <span className="text-xs font-medium" style={{ color: isDark ? 'hsl(var(--primary))' : 'hsl(0 84% 60%)' }}>
                       %{progress}
                     </span>
                   </div>
