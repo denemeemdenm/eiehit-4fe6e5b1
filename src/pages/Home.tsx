@@ -249,8 +249,7 @@ export default function Home() {
               <div className="max-w-lg mx-auto space-y-4">
                 {[
                 { icon: Phone, label: 'Telefon', value: '0537 550 17 40', raw: '05375501740' },
-                { icon: Mail, label: 'E-posta', value: 'ekinisaeroglu@gmail.com', raw: 'ekinisaeroglu@gmail.com' },
-                { icon: MapPin, label: 'Adres', value: 'Adana, Seyhan', raw: 'Adana, Seyhan' }].
+                { icon: Mail, label: 'E-posta', value: 'ekinisaeroglu@gmail.com', raw: 'ekinisaeroglu@gmail.com' }].
                 map((item) =>
                 <LiquidGlassCard key={item.label} className="p-6">
                     <div className="flex items-center justify-between">
