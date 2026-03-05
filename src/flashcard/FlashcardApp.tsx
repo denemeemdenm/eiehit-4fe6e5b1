@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
 import { useTheme } from '@/hooks/useTheme';
+import NeuralBackground from '@/components/NeuralBackground';
 import FCHome from './pages/FCHome';
 import FCCourseDetail from './pages/FCCourseDetail';
 import FCStudy from './pages/FCStudy';
@@ -51,6 +52,7 @@ export default function FlashcardApp({ onClose }: { onClose: () => void }) {
       exit={{ opacity: 0, y: 40 }}
       transition={{ type: 'spring', stiffness: 300, damping: 30 }}
     >
+      <NeuralBackground />
       {/* Top bar */}
       {showNav && (
         <div
