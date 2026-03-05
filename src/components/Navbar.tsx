@@ -8,6 +8,7 @@ import LiquidGlassModal from '@/components/LiquidGlassModal';
 
 interface NavbarProps {
   theme: 'light' | 'dark';
+  onHitClick?: () => void;
 }
 
 const navItems = [
@@ -17,7 +18,7 @@ const navItems = [
 { label: 'İletişim', id: 'contact' }];
 
 
-export default function Navbar({ theme }: NavbarProps) {
+export default function Navbar({ theme, onHitClick }: NavbarProps) {
   const [mobileOpen, setMobileOpen] = useState(false);
   const [activeSection, setActiveSection] = useState('hero');
   const [hitModalOpen, setHitModalOpen] = useState(false);
@@ -150,7 +151,7 @@ export default function Navbar({ theme }: NavbarProps) {
               <div className="relative">
                 <motion.button
                   ref={hitButtonRef}
-                  onClick={() => setHitModalOpen((prev) => !prev)}
+                  onClick={() => { setHitModalOpen((prev) => !prev); onHitClick?.(); }}
                   className="px-2 flex items-center rounded-xl"
                   whileHover={{ scale: 1.05, backgroundColor: isDark ? 'rgba(255,255,255,0.06)' : 'rgba(0,0,0,0.04)' }}
                   whileTap={{ scale: 0.94 }}
@@ -224,7 +225,7 @@ export default function Navbar({ theme }: NavbarProps) {
               transition={{ delay: navItems.length * 0.04, duration: 0.2 }}>
 
                 <button
-                onClick={() => {setHitModalOpen(true);setMobileOpen(false);}}
+                onClick={() => {onHitClick?.();setMobileOpen(false);}}
                 className="block w-full text-left px-4 py-2.5 rounded-xl text-sm font-medium transition-colors duration-200"
                 style={{ color: isDark ? 'rgba(255,255,255,0.5)' : 'rgba(0,0,0,0.45)' }}>
 
