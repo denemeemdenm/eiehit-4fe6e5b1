@@ -48,7 +48,7 @@ export default function FlashcardApp({ onClose, originRect }: FlashcardAppProps)
   };
 
   const handleClose = () => {
-    onClose();
+    setIsClosing(true);
   };
 
   const showNav = view.type !== 'study' && view.type !== 'spaced';
@@ -77,7 +77,13 @@ export default function FlashcardApp({ onClose, originRect }: FlashcardAppProps)
         y: originY,
         borderRadius: hasOrigin ? 40 : 24,
       }}
-      animate={{
+      animate={isClosing ? {
+        opacity: 0,
+        scale: initialScale,
+        x: originX,
+        y: originY,
+        borderRadius: hasOrigin ? 40 : 24,
+      } : {
         opacity: 1,
         scale: 1,
         x: 0,
@@ -96,13 +102,10 @@ export default function FlashcardApp({ onClose, originRect }: FlashcardAppProps)
         stiffness: 260,
         damping: 32,
         mass: 0.8,
-        opacity: { duration: 0.25 },
+        opacity: { duration: 0.3 },
       }}
-      onAnimationComplete={(def: any) => {
-        // When exit animation completes
-        if (isClosing && def?.opacity === 0) {
-          onClose();
-        }
+      onAnimationComplete={() => {
+        if (isClosing) onClose();
       }}
     >
       {/* Overlay glow during morph */}
