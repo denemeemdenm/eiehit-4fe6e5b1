@@ -9,6 +9,8 @@ import LiquidGlassModal from '@/components/LiquidGlassModal';
 interface NavbarProps {
   theme: 'light' | 'dark';
   onHitClick?: (rect?: DOMRect) => void;
+  flashcardOpen?: boolean;
+  onFlashcardClose?: () => void;
 }
 
 const navItems = [
@@ -18,7 +20,7 @@ const navItems = [
 { label: 'İletişim', id: 'contact' }];
 
 
-export default function Navbar({ theme, onHitClick }: NavbarProps) {
+export default function Navbar({ theme, onHitClick, flashcardOpen, onFlashcardClose }: NavbarProps) {
   const [mobileOpen, setMobileOpen] = useState(false);
   const [activeSection, setActiveSection] = useState('hero');
   const [hitModalOpen, setHitModalOpen] = useState(false);
@@ -77,13 +79,13 @@ export default function Navbar({ theme, onHitClick }: NavbarProps) {
             }} />
 
             {/* Logo */}
-            <button onClick={() => scrollTo('hero')} className="shrink-0 flex items-center pl-2">
+            <button onClick={() => { if (flashcardOpen) { onFlashcardClose?.(); } else { scrollTo('hero'); } }} className="shrink-0 flex items-center pl-2">
               <img src={logo} alt="Logo" className="w-7 h-7 object-contain" />
             </button>
 
             {/* Desktop links */}
             <div className="hidden md:flex items-center relative">
-              {navItems.map((item) => {
+              {!flashcardOpen && navItems.map((item) => {
                 const isActive = activeSection === item.id;
                 const isClicked = clickedId === item.id;
                 return (
@@ -145,6 +147,33 @@ export default function Navbar({ theme, onHitClick }: NavbarProps) {
 
               })}
 
+              {flashcardOpen && (
+                <motion.button
+                  onClick={() => onFlashcardClose?.()}
+                  className="relative px-3.5 py-1.5 text-[13px] font-medium whitespace-nowrap z-10 rounded-[14px]"
+                  style={{ color: isDark ? '#fff' : '#000' }}
+                  whileHover={{ backgroundColor: isDark ? 'rgba(255,255,255,0.06)' : 'rgba(0,0,0,0.04)' }}
+                  initial={{ opacity: 0, scale: 0.9 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  transition={{ type: 'spring', stiffness: 400, damping: 25 }}
+                >
+                  <motion.div
+                    layoutId="nav-capsule"
+                    className="absolute inset-0 rounded-[14px] overflow-hidden"
+                    style={{
+                      background: isDark ? 'rgba(255,255,255,0.1)' : 'rgba(255,255,255,0.55)',
+                      backdropFilter: 'blur(10px)',
+                      WebkitBackdropFilter: 'blur(10px)',
+                      boxShadow: isDark
+                        ? '0 2px 12px rgba(0,0,0,0.3), inset 0 1px 0 rgba(255,255,255,0.08)'
+                        : '0 2px 12px rgba(0,0,0,0.06), inset 0 1px 0 rgba(255,255,255,0.8)',
+                    }}
+                    transition={{ type: 'spring', stiffness: 350, damping: 30, mass: 0.8 }}
+                  />
+                  <span className="relative z-10">Ana Sayfa</span>
+                </motion.button>
+              )}
+
               <span className="w-px h-4 mx-1.5 shrink-0" style={{ background: isDark ? 'rgba(255,255,255,0.12)' : 'rgba(0,0,0,0.1)' }} />
 
               {/* HiT logo — opens popover */}
@@ -199,7 +228,16 @@ export default function Navbar({ theme, onHitClick }: NavbarProps) {
               boxShadow: isDark ? '0 8px 32px rgba(0,0,0,0.4)' : '0 8px 32px rgba(0,0,0,0.08)'
             }}>
 
-              {navItems.map((item, i) => {
+              {flashcardOpen ? (
+                <motion.div initial={{ opacity: 0, x: -12 }} animate={{ opacity: 1, x: 0 }} transition={{ duration: 0.2 }}>
+                  <button
+                    onClick={() => { onFlashcardClose?.(); setMobileOpen(false); }}
+                    className="relative block w-full text-left px-4 py-2.5 rounded-xl text-sm font-medium"
+                    style={{ color: isDark ? '#fff' : '#000', background: isDark ? 'rgba(255,255,255,0.08)' : 'rgba(255,255,255,0.5)' }}>
+                    Ana Sayfa
+                  </button>
+                </motion.div>
+              ) : navItems.map((item, i) => {
               const isActive = activeSection === item.id;
               return (
                 <motion.div
@@ -207,7 +245,6 @@ export default function Navbar({ theme, onHitClick }: NavbarProps) {
                   initial={{ opacity: 0, x: -12 }}
                   animate={{ opacity: 1, x: 0 }}
                   transition={{ delay: i * 0.04, duration: 0.2 }}>
-
                     <button
                     onClick={() => scrollTo(item.id)}
                     className="relative block w-full text-left px-4 py-2.5 rounded-xl text-sm font-medium transition-colors duration-200"
@@ -215,7 +252,6 @@ export default function Navbar({ theme, onHitClick }: NavbarProps) {
                       color: isActive ? isDark ? '#fff' : '#000' : isDark ? 'rgba(255,255,255,0.5)' : 'rgba(0,0,0,0.45)',
                       background: isActive ? isDark ? 'rgba(255,255,255,0.08)' : 'rgba(255,255,255,0.5)' : 'transparent'
                     }}>
-
                       {item.label}
                     </button>
                   </motion.div>);
