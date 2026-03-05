@@ -1,48 +1,87 @@
-import { ReactNode } from 'react';
-import { motion } from 'framer-motion';
+import { ReactNode, useCallback, useRef, useState } from 'react';
+import { motion, useSpring } from 'framer-motion';
 
 interface LiquidGlassCardProps {
   children: ReactNode;
   className?: string;
+  tiltIntensity?: number;
 }
 
-export default function LiquidGlassCard({ children, className = '' }: LiquidGlassCardProps) {
+export default function LiquidGlassCard({ children, className = '', tiltIntensity = 4 }: LiquidGlassCardProps) {
+  const cardRef = useRef<HTMLDivElement>(null);
+  const rafRef = useRef<number>(0);
+  const [specularPos, setSpecularPos] = useState({ x: 50, y: 50 });
+
+  const springConfig = { stiffness: 150, damping: 26, mass: 1 };
+  const rotateX = useSpring(0, springConfig);
+  const rotateY = useSpring(0, springConfig);
+  const scale = useSpring(1, { stiffness: 200, damping: 28, mass: 0.8 });
+
+  const handleMouseMove = useCallback(
+    (e: React.MouseEvent<HTMLDivElement>) => {
+      const el = cardRef.current;
+      if (!el) return;
+
+      cancelAnimationFrame(rafRef.current);
+      rafRef.current = requestAnimationFrame(() => {
+        const rect = el.getBoundingClientRect();
+        const percentX = (e.clientX - rect.left) / rect.width;
+        const percentY = (e.clientY - rect.top) / rect.height;
+
+        rotateY.set((percentX - 0.5) * tiltIntensity * 2);
+        rotateX.set(-(percentY - 0.5) * tiltIntensity * 2);
+        scale.set(1.02);
+        setSpecularPos({ x: percentX * 100, y: percentY * 100 });
+      });
+    },
+    [tiltIntensity, rotateX, rotateY, scale],
+  );
+
+  const handleMouseLeave = useCallback(() => {
+    rotateX.set(0);
+    rotateY.set(0);
+    scale.set(1);
+    setSpecularPos({ x: 50, y: 50 });
+  }, [rotateX, rotateY, scale]);
+
   return (
-    <motion.div
-      className={`relative overflow-hidden group ${className}`}
-      style={{
-        borderRadius: 20,
-        background: 'hsla(var(--glass-bg))',
-        backdropFilter: 'blur(10px) saturate(200%)',
-        WebkitBackdropFilter: 'blur(10px) saturate(200%)',
-        boxShadow: 'var(--shadow-rest)',
-        willChange: 'transform, backdrop-filter',
-        transform: 'translateZ(0)',
-      }}
-      whileHover={{ scale: 1.01 }}
-      transition={{ type: 'spring', stiffness: 300, damping: 24 }}
-    >
-      {/* 135° diagonal specular edge highlight — mask-composite: exclude */}
-      <div
-        className="absolute inset-0 pointer-events-none z-[2]"
+    <div style={{ perspective: 1200 }}>
+      <motion.div
+        ref={cardRef}
+        className={`relative overflow-hidden ${className}`}
         style={{
-          borderRadius: 'inherit',
-          padding: '1px',
-          background:
-            'linear-gradient(135deg, hsla(0 0% 100% / 0.24) 0%, hsla(0 0% 100% / 0.1) 25%, hsla(0 0% 100% / 0.03) 50%, hsla(0 0% 100% / 0.1) 75%, hsla(0 0% 100% / 0.24) 100%)',
-          mask: 'linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0)',
-          maskComposite: 'exclude',
-          WebkitMaskComposite: 'xor' as any,
+          rotateX,
+          rotateY,
+          scale,
+          transformStyle: 'preserve-3d',
+          borderRadius: 20,
+          background: 'hsla(var(--glass-bg))',
+          backdropFilter: 'blur(10px) saturate(200%)',
+          WebkitBackdropFilter: 'blur(10px) saturate(200%)',
+          boxShadow: 'var(--shadow-rest)',
+          willChange: 'transform, backdrop-filter',
+          backfaceVisibility: 'hidden',
         }}
-      />
+        onMouseMove={handleMouseMove}
+        onMouseLeave={handleMouseLeave}
+      >
+        {/* 135° diagonal specular edge highlight + cursor-follow border shine */}
+        <div
+          className="absolute inset-0 pointer-events-none z-[2]"
+          style={{
+            borderRadius: 'inherit',
+            padding: '1px',
+            background: `radial-gradient(130px 130px at ${specularPos.x}% ${specularPos.y}%, hsla(var(--ring) / 0.34), hsla(var(--ring) / 0) 72%), linear-gradient(135deg, hsla(0 0% 100% / 0.24) 0%, hsla(0 0% 100% / 0.1) 25%, hsla(0 0% 100% / 0.03) 50%, hsla(0 0% 100% / 0.1) 75%, hsla(0 0% 100% / 0.24) 100%)`,
+            mask: 'linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0)',
+            maskComposite: 'exclude',
+            WebkitMaskComposite: 'xor' as any,
+          }}
+        />
 
-      <div
-        className="absolute inset-0 pointer-events-none opacity-0 group-hover:opacity-100 transition-opacity duration-300"
-        style={{ boxShadow: '0 0 32px hsla(var(--ring) / 0.16) inset, 0 8px 28px hsla(var(--ring) / 0.08)' }}
-      />
-
-      <div className="relative z-[1]">{children}</div>
-    </motion.div>
+        <div className="relative z-[1]">{children}</div>
+      </motion.div>
+    </div>
   );
 }
+
 
