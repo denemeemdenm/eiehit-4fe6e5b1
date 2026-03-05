@@ -11,9 +11,9 @@ import nameWhite from '@/assets/name-white.png';
 import nameBlack from '@/assets/name-black.png';
 
 // Trust signal images — dark
-import trustProcess from '@/assets/cards/trust-process.jpg';
-import trustClarity from '@/assets/cards/trust-clarity.jpg';
-import trustPrivacy from '@/assets/cards/trust-privacy.jpg';
+import trustProcess from '@/assets/cards/trust-process-v2.jpg';
+import trustClarity from '@/assets/cards/trust-clarity-v2.png';
+import trustPrivacy from '@/assets/cards/trust-privacy-v2.jpeg';
 import trustTech from '@/assets/cards/trust-tech.jpg';
 // Trust signal images — light
 import trustProcessLight from '@/assets/cards/trust-process-light.jpg';
@@ -22,11 +22,12 @@ import trustPrivacyLight from '@/assets/cards/trust-privacy-light.jpg';
 import trustTechLight from '@/assets/cards/trust-tech-light.jpg';
 
 // Practice area images — uploaded replacements (both themes)
-import aileHukukuImg from '@/assets/cards/aile-hukuku.jpeg';
+import aileHukukuImg from '@/assets/cards/aile-hukuku-v2.png';
 import bilisimHukukuImg from '@/assets/cards/bilisim-hukuku.png';
-import ticaretHukukuImg from '@/assets/cards/ticaret-hukuku.jpeg';
-import isHukukuImg from '@/assets/cards/is-hukuku.jpg';
-import icraHukukuImg from '@/assets/cards/icra-hukuku.png';
+import ticaretHukukuImg from '@/assets/cards/ticaret-hukuku-v2.png';
+import isHukukuImg from '@/assets/cards/is-hukuku-v2.png';
+import icraHukukuImg from '@/assets/cards/icra-hukuku-v2.png';
+import cezaHukukuImg from '@/assets/cards/ceza-hukuku-v2.png';
 // Ceza Hukuku fallback visuals
 import areaObligations from '@/assets/cards/area-obligations.jpg';
 import areaObligationsLight from '@/assets/cards/area-obligations-light.jpg';
@@ -53,7 +54,7 @@ const trustSignalsLight = [{
 
 const areaImagesDark: Record<string, string> = {
   'aile-hukuku': aileHukukuImg,
-  'ceza-hukuku': areaObligations,
+  'ceza-hukuku': cezaHukukuImg,
   'bilisim-hukuku': bilisimHukukuImg,
   'ticaret-hukuku': ticaretHukukuImg,
   'is-hukuku': isHukukuImg,
@@ -61,7 +62,7 @@ const areaImagesDark: Record<string, string> = {
 };
 const areaImagesLight: Record<string, string> = {
   'aile-hukuku': aileHukukuImg,
-  'ceza-hukuku': areaObligationsLight,
+  'ceza-hukuku': cezaHukukuImg,
   'bilisim-hukuku': bilisimHukukuImg,
   'ticaret-hukuku': ticaretHukukuImg,
   'is-hukuku': isHukukuImg,
