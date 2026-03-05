@@ -153,7 +153,6 @@ export default function Navbar({ theme, onHitClick }: NavbarProps) {
                   ref={hitButtonRef}
                   onClick={() => {
                     const rect = hitButtonRef.current?.getBoundingClientRect();
-                    setHitModalOpen((prev) => !prev);
                     onHitClick?.(rect || undefined);
                   }}
                   className="px-2 flex items-center rounded-xl"
@@ -168,7 +167,7 @@ export default function Navbar({ theme, onHitClick }: NavbarProps) {
                     className="h-5 w-auto object-contain" />
 
                 </motion.button>
-                <LiquidGlassModal isOpen={hitModalOpen} onClose={() => setHitModalOpen(false)} anchorRef={hitButtonRef} />
+                
               </div>
             </div>
 
