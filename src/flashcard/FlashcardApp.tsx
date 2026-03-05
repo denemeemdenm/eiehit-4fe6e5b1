@@ -120,23 +120,19 @@ export default function FlashcardApp({ onClose, originRect }: FlashcardAppProps)
 
       <NeuralBackground />
       {/* Top bar */}
-      {showNav && (
+      {showNav && view.type !== 'home' && (
         <div
           className="flex items-center justify-between px-4 pt-3 pb-2 sticky top-0 z-50"
-          style={{
-            background: 'transparent',
-          }}
+          style={{ background: 'transparent' }}
         >
           <button onClick={goBack} className="flex items-center gap-1 text-sm font-medium" style={{ color: isDark ? 'hsl(180 100% 69%)' : 'hsl(0 84% 60%)' }}>
             <ArrowLeft size={18} />
-            {view.type === 'home' ? 'Kapat' : 'Geri'}
+            Geri
           </button>
           <div className="flex items-center gap-3">
-            {view.type !== 'home' && (
-              <button onClick={goHome} style={{ color: isDark ? 'rgba(255,255,255,0.6)' : 'rgba(0,0,0,0.5)' }}>
-                <Home size={20} />
-              </button>
-            )}
+            <button onClick={goHome} style={{ color: isDark ? 'rgba(255,255,255,0.6)' : 'rgba(0,0,0,0.5)' }}>
+              <Home size={20} />
+            </button>
             <button onClick={() => navigate({ type: 'stats' })} style={{ color: isDark ? 'rgba(255,255,255,0.6)' : 'rgba(0,0,0,0.5)' }}>
               <BarChart3 size={20} />
             </button>
