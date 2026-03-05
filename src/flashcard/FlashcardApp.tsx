@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
 import { useTheme } from '@/hooks/useTheme';
 import NeuralBackground from '@/components/NeuralBackground';
@@ -16,9 +16,15 @@ export type FCView =
   | { type: 'spaced'; courseId: string }
   | { type: 'stats' };
 
-export default function FlashcardApp({ onClose }: { onClose: () => void }) {
+interface FlashcardAppProps {
+  onClose: () => void;
+  originRect?: DOMRect | null;
+}
+
+export default function FlashcardApp({ onClose, originRect }: FlashcardAppProps) {
   const [view, setView] = useState<FCView>({ type: 'home' });
   const [history, setHistory] = useState<FCView[]>([]);
+  const [isClosing, setIsClosing] = useState(false);
   const { theme } = useTheme();
   const isDark = theme === 'dark';
 
@@ -32,7 +38,7 @@ export default function FlashcardApp({ onClose }: { onClose: () => void }) {
       setView(history[history.length - 1]);
       setHistory(prev => prev.slice(0, -1));
     } else {
-      onClose();
+      handleClose();
     }
   };
 
@@ -41,17 +47,77 @@ export default function FlashcardApp({ onClose }: { onClose: () => void }) {
     setView({ type: 'home' });
   };
 
+  const handleClose = () => {
+    setIsClosing(true);
+  };
+
   const showNav = view.type !== 'study' && view.type !== 'spaced';
+
+  // Calculate initial transform from origin rect
+  const vw = typeof window !== 'undefined' ? window.innerWidth : 1920;
+  const vh = typeof window !== 'undefined' ? window.innerHeight : 1080;
+
+  const hasOrigin = !!originRect;
+  const originX = hasOrigin ? originRect!.left + originRect!.width / 2 - vw / 2 : 0;
+  const originY = hasOrigin ? originRect!.top + originRect!.height / 2 - vh / 2 : 0;
+  const scaleX = hasOrigin ? originRect!.width / vw : 0.85;
+  const scaleY = hasOrigin ? originRect!.height / vh : 0.85;
+  const initialScale = Math.max(scaleX, scaleY, 0.03);
 
   return (
     <motion.div
-      className="fixed inset-0 z-[100] flex flex-col"
-      style={{ background: isDark ? 'hsl(0 0% 0%)' : 'hsl(0 0% 96%)' }}
-      initial={{ opacity: 0, y: 40 }}
-      animate={{ opacity: 1, y: 0 }}
-      exit={{ opacity: 0, y: 40 }}
-      transition={{ type: 'spring', stiffness: 300, damping: 30 }}
+      className="fixed inset-0 z-[100] flex flex-col overflow-hidden"
+      style={{
+        background: isDark ? 'hsl(0 0% 0%)' : 'hsl(0 0% 96%)',
+      }}
+      initial={{
+        opacity: 0,
+        scale: initialScale,
+        x: originX,
+        y: originY,
+        borderRadius: hasOrigin ? 40 : 24,
+      }}
+      animate={{
+        opacity: 1,
+        scale: 1,
+        x: 0,
+        y: 0,
+        borderRadius: 0,
+      }}
+      exit={{
+        opacity: 0,
+        scale: initialScale,
+        x: originX,
+        y: originY,
+        borderRadius: hasOrigin ? 40 : 24,
+      }}
+      transition={{
+        type: 'spring',
+        stiffness: 260,
+        damping: 32,
+        mass: 0.8,
+        opacity: { duration: 0.25 },
+      }}
+      onAnimationComplete={(def: any) => {
+        // When exit animation completes
+        if (isClosing && def?.opacity === 0) {
+          onClose();
+        }
+      }}
     >
+      {/* Overlay glow during morph */}
+      <motion.div
+        className="absolute inset-0 pointer-events-none z-[200]"
+        initial={{ opacity: 0.6 }}
+        animate={{ opacity: 0 }}
+        transition={{ duration: 0.5, delay: 0.1 }}
+        style={{
+          background: isDark
+            ? 'radial-gradient(ellipse at center, hsla(180 100% 69% / 0.15), transparent 70%)'
+            : 'radial-gradient(ellipse at center, hsla(0 0% 100% / 0.4), transparent 70%)',
+        }}
+      />
+
       <NeuralBackground />
       {/* Top bar */}
       {showNav && (

@@ -21,12 +21,18 @@ const queryClient = new QueryClient();
 const AppContent = () => {
   const { theme, toggleTheme } = useTheme();
   const [flashcardOpen, setFlashcardOpen] = useState(false);
+  const [hitRect, setHitRect] = useState<DOMRect | null>(null);
+
+  const handleHitClick = (rect?: DOMRect) => {
+    if (rect) setHitRect(rect);
+    setFlashcardOpen(true);
+  };
 
   return (
     <div className="min-h-screen flex flex-col relative">
       <NeuralBackground />
       <CursorTrail />
-      <Navbar theme={theme} onHitClick={() => setFlashcardOpen(true)} />
+      <Navbar theme={theme} onHitClick={handleHitClick} />
       <div className="flex-1">
         <Routes>
           <Route path="/" element={<Home />} />
@@ -38,7 +44,7 @@ const AppContent = () => {
       <Footer />
       <ThemeToggle theme={theme} toggleTheme={toggleTheme} />
       <AnimatePresence>
-        {flashcardOpen && <FlashcardApp onClose={() => setFlashcardOpen(false)} />}
+        {flashcardOpen && <FlashcardApp onClose={() => setFlashcardOpen(false)} originRect={hitRect} />}
       </AnimatePresence>
     </div>
   );
