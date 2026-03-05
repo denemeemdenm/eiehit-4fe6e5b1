@@ -60,7 +60,7 @@ export default function ImageCard({ image, title, description, className = '', o
           minHeight: '240px',
           borderRadius: 20,
           overflow: 'hidden',
-          background: isDark ? 'hsla(0 0% 8% / 0.12)' : 'hsla(0 0% 96% / 0.12)',
+          background: 'transparent',
           backdropFilter: 'blur(10px) saturate(200%)',
           WebkitBackdropFilter: 'blur(10px) saturate(200%)',
           boxShadow: isHovered
