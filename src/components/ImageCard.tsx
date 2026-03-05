@@ -56,7 +56,7 @@ export default function ImageCard({ image, title, description, className = '', o
           transformStyle: 'preserve-3d',
           minHeight: '240px',
           borderRadius: 20,
-          background: 'hsl(var(--surface))',
+          background: 'hsla(var(--glass-bg))',
           backdropFilter: 'blur(10px) saturate(var(--glass-saturation))',
           WebkitBackdropFilter: 'blur(10px) saturate(var(--glass-saturation))',
           boxShadow: isHovered

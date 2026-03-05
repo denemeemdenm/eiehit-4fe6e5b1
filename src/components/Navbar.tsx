@@ -8,7 +8,7 @@ import LiquidGlassModal from '@/components/LiquidGlassModal';
 
 interface NavbarProps {
   theme: 'light' | 'dark';
-  onHitClick?: () => void;
+  onHitClick?: (rect?: DOMRect) => void;
 }
 
 const navItems = [
@@ -151,7 +151,11 @@ export default function Navbar({ theme, onHitClick }: NavbarProps) {
               <div className="relative">
                 <motion.button
                   ref={hitButtonRef}
-                  onClick={() => { setHitModalOpen((prev) => !prev); onHitClick?.(); }}
+                  onClick={() => {
+                    const rect = hitButtonRef.current?.getBoundingClientRect();
+                    setHitModalOpen((prev) => !prev);
+                    onHitClick?.(rect || undefined);
+                  }}
                   className="px-2 flex items-center rounded-xl"
                   whileHover={{ scale: 1.05, backgroundColor: isDark ? 'rgba(255,255,255,0.06)' : 'rgba(0,0,0,0.04)' }}
                   whileTap={{ scale: 0.94 }}
