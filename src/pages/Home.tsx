@@ -221,8 +221,8 @@ export default function Home() {
             <AnimatedGradientHeading color="red" className="text-2xl sm:text-[30px] font-bold text-center mb-4">
               Çalışma Alanları
             </AnimatedGradientHeading>
-            <p className="text-center text-muted-foreground mb-16 max-w-xl mx-auto">
-              25 farklı hukuk dalında profesyonel danışmanlık hizmeti sunulmaktadır.
+            <p className="text-center text-muted-foreground mb-16 max-w-xl mx-auto">Aşağıdaki tüm alanlar ve daha birçok farklı hukuk dalında
+profesyonel danışmanlık hizmeti sunulmaktadır.
             </p>
           </ScrollReveal>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -248,10 +248,10 @@ export default function Home() {
           <ScrollReveal delay={0.1}>
               <div className="max-w-lg mx-auto space-y-4">
                 {[
-                { icon: Phone, label: 'Telefon', value: '0537 550 17 40', raw: '05375501740' },
-                { icon: Mail, label: 'E-posta', value: 'ekinisaeroglu@gmail.com', raw: 'ekinisaeroglu@gmail.com' }].
-                map((item) =>
-                <LiquidGlassCard key={item.label} className="p-6">
+              { icon: Phone, label: 'Telefon', value: '0537 550 17 40', raw: '05375501740' },
+              { icon: Mail, label: 'E-posta', value: 'ekinisaeroglu@gmail.com', raw: 'ekinisaeroglu@gmail.com' }].
+              map((item) =>
+              <LiquidGlassCard key={item.label} className="p-6">
                     <div className="flex items-center justify-between">
                       <div className="flex items-center gap-4">
                         <item.icon className="w-5 h-5 shrink-0 icon-gradient-cyan" />
@@ -265,7 +265,7 @@ export default function Home() {
                       </button>
                     </div>
                   </LiquidGlassCard>
-                )}
+              )}
               </div>
             </ScrollReveal>
         </div>
