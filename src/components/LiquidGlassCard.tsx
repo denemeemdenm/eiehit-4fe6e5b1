@@ -55,10 +55,6 @@ export default function LiquidGlassCard({ children, className = '', tiltIntensit
     setIsHovered(false);
   }, [rotateX, rotateY, scaleVal]);
 
-  const bgColor = isDark
-    ? 'rgba(255, 255, 255, 0.05)'
-    : 'rgba(255, 255, 255, 0.25)';
-
   return (
     <motion.div
       ref={cardRef}
@@ -66,9 +62,9 @@ export default function LiquidGlassCard({ children, className = '', tiltIntensit
       style={{
         transform,
         borderRadius: 20,
-        backgroundColor: bgColor,
-        backdropFilter: 'blur(12px) saturate(200%)',
-        WebkitBackdropFilter: 'blur(12px) saturate(200%)',
+        background: 'hsla(var(--glass-bg))',
+        backdropFilter: 'blur(var(--glass-blur)) saturate(var(--glass-saturation))',
+        WebkitBackdropFilter: 'blur(var(--glass-blur)) saturate(var(--glass-saturation))',
         boxShadow: isHovered
           ? isDark
             ? '0 16px 40px rgba(0,0,0,0.4), inset 0 1px 0 rgba(255,255,255,0.06)'
