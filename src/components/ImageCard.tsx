@@ -48,7 +48,7 @@ export default function ImageCard({ image, title, description, className = '', o
     <div style={{ perspective: 1200 }}>
       <motion.div
         ref={cardRef}
-        className={`glass-card relative cursor-pointer group ${className}`}
+        className={`relative cursor-pointer group ${className}`}
         style={{
           rotateX,
           rotateY,
@@ -90,15 +90,6 @@ export default function ImageCard({ image, title, description, className = '', o
                 className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-[1.04]"
                 loading="lazy"
               />
-              {/* Full-card frosted glass overlay (backdrop-blur 10px) */}
-              <div
-                className="absolute inset-0 z-[2] pointer-events-none"
-                style={{
-                  background: 'hsla(var(--glass-bg))',
-                  backdropFilter: 'blur(10px) saturate(var(--glass-saturation))',
-                  WebkitBackdropFilter: 'blur(10px) saturate(var(--glass-saturation))',
-                }}
-              />
               {/* Dark gradient at bottom for text readability */}
               <div
                 className="absolute inset-0 z-[3] pointer-events-none"
@@ -125,8 +116,8 @@ export default function ImageCard({ image, title, description, className = '', o
               className="absolute inset-0 w-full h-full"
               style={{
                 background: 'hsla(var(--glass-bg))',
-                backdropFilter: 'blur(10px) saturate(var(--glass-saturation))',
-                WebkitBackdropFilter: 'blur(10px) saturate(var(--glass-saturation))',
+                backdropFilter: 'blur(25px) saturate(200%)',
+                WebkitBackdropFilter: 'blur(25px) saturate(200%)',
               }}
             />
           )}
