@@ -45,9 +45,9 @@ export default function Footer() {
               <a href="mailto:ekinisaeroglu@gmail.com" className="flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground transition-colors">
                 <Mail size={14} /> ekinisaeroglu@gmail.com
               </a>
-              <p className="flex items-center gap-2 text-sm text-muted-foreground">
-                <MapPin size={14} /> Adana, Seyhan
-              </p>
+              
+
+              
               <a href="https://instagram.com/ekinisaeroglu" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground transition-colors">
                 <Instagram size={14} /> @ekinisaeroglu
               </a>
@@ -66,6 +66,6 @@ export default function Footer() {
           </p>
         </div>
       </div>
-    </footer>
-  );
+    </footer>);
+
 }
