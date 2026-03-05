@@ -48,7 +48,7 @@ export default function FlashcardApp({ onClose, originRect }: FlashcardAppProps)
   };
 
   const handleClose = () => {
-    setIsClosing(true);
+    onClose();
   };
 
   const showNav = view.type !== 'study' && view.type !== 'spaced';
