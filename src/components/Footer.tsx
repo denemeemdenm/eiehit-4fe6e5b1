@@ -4,7 +4,7 @@ import logo from '@/assets/logo.png';
 
 export default function Footer() {
   return (
-    <footer className="relative z-10 border-t border-border/50 mt-auto">
+    <footer className="relative z-10 mt-auto">
       <div className="max-w-6xl mx-auto content-padding py-16">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-12">
           {/* Brand */}
