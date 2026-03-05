@@ -23,7 +23,7 @@ import trustTechLight from '@/assets/cards/trust-tech-light.jpg';
 
 // Practice area images — uploaded replacements (both themes)
 import aileHukukuImg from '@/assets/cards/aile-hukuku-v2.png';
-import bilisimHukukuImg from '@/assets/cards/bilisim-hukuku.png';
+import bilisimHukukuImg from '@/assets/cards/bilisim-hukuku-v2.png';
 import ticaretHukukuImg from '@/assets/cards/ticaret-hukuku-v2.png';
 import isHukukuImg from '@/assets/cards/is-hukuku-v2.png';
 import icraHukukuImg from '@/assets/cards/icra-hukuku-v2.png';
