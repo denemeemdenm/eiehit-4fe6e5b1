@@ -1,4 +1,4 @@
-import { useCallback, useRef, useState } from 'react';
+import { forwardRef, useCallback, useRef, useState } from 'react';
 import { motion, useSpring, useTransform } from 'framer-motion';
 import { useTheme } from '@/hooks/useTheme';
 
@@ -9,7 +9,7 @@ interface GlassPanelProps {
   tiltIntensity?: number;
 }
 
-export default function GlassPanel({ children, className = '', onClick, tiltIntensity = 5 }: GlassPanelProps) {
+const GlassPanel = forwardRef<HTMLDivElement, GlassPanelProps>(({ children, className = '', onClick, tiltIntensity = 5 }, _ref) => {
   const { theme } = useTheme();
   const isDark = theme === 'dark';
   const cardRef = useRef<HTMLDivElement>(null);
@@ -102,4 +102,7 @@ export default function GlassPanel({ children, className = '', onClick, tiltInte
       </div>
     </motion.div>
   );
-}
+});
+
+GlassPanel.displayName = 'GlassPanel';
+export default GlassPanel;

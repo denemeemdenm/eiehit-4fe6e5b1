@@ -1,11 +1,13 @@
+import { forwardRef } from 'react';
 import { useTheme } from '@/hooks/useTheme';
 
-export default function GlassProgress({ value, className = '' }: { value: number; className?: string }) {
+const GlassProgress = forwardRef<HTMLDivElement, { value: number; className?: string }>(({ value, className = '' }, ref) => {
   const { theme } = useTheme();
   const isDark = theme === 'dark';
 
   return (
     <div
+      ref={ref}
       className={`h-2 rounded-full overflow-hidden ${className}`}
       style={{
         background: isDark ? 'rgba(255,255,255,0.08)' : 'rgba(0,0,0,0.06)',
@@ -22,4 +24,7 @@ export default function GlassProgress({ value, className = '' }: { value: number
       />
     </div>
   );
-}
+});
+
+GlassProgress.displayName = 'GlassProgress';
+export default GlassProgress;
