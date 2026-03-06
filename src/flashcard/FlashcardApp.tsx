@@ -1,7 +1,6 @@
 import { useState, useEffect } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
 import { useTheme } from '@/hooks/useTheme';
-import NeuralBackground from '@/components/NeuralBackground';
 import FCHome from './pages/FCHome';
 import FCCourseDetail from './pages/FCCourseDetail';
 import FCStudy from './pages/FCStudy';
@@ -68,7 +67,7 @@ export default function FlashcardApp({ onClose, originRect }: FlashcardAppProps)
     <motion.div
       className="fixed inset-0 z-40 flex flex-col overflow-hidden pt-[72px]"
       style={{
-        background: isDark ? 'hsl(0 0% 0%)' : 'hsl(0 0% 96%)',
+        background: isDark ? 'hsla(0 0% 0% / 0.85)' : 'hsla(0 0% 96% / 0.7)',
       }}
       initial={{
         opacity: 0,
@@ -121,7 +120,7 @@ export default function FlashcardApp({ onClose, originRect }: FlashcardAppProps)
         }}
       />
 
-      <NeuralBackground />
+      
       {/* Top bar */}
       {showNav && view.type !== 'home' && (
         <div
