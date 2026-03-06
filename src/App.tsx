@@ -33,7 +33,12 @@ const AppContent = () => {
       <NeuralBackground />
       <CursorTrail />
       <Navbar theme={theme} onHitClick={handleHitClick} flashcardOpen={flashcardOpen} onFlashcardClose={() => setFlashcardOpen(false)} />
-      <div className="flex-1">
+      <div
+        className={`flex-1 transition-opacity duration-200 ${
+          flashcardOpen ? "opacity-0 pointer-events-none select-none" : "opacity-100"
+        }`}
+        aria-hidden={flashcardOpen}
+      >
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/kvkk" element={<Privacy />} />
@@ -41,8 +46,15 @@ const AppContent = () => {
           <Route path="*" element={<Home />} />
         </Routes>
       </div>
-      <Footer />
-      <ThemeToggle theme={theme} toggleTheme={toggleTheme} />
+      <div
+        className={`transition-opacity duration-200 ${
+          flashcardOpen ? "opacity-0 pointer-events-none" : "opacity-100"
+        }`}
+        aria-hidden={flashcardOpen}
+      >
+        <Footer />
+      </div>
+      {!flashcardOpen && <ThemeToggle theme={theme} toggleTheme={toggleTheme} />}
       <AnimatePresence>
         {flashcardOpen && <FlashcardApp onClose={() => setFlashcardOpen(false)} originRect={hitRect} />}
       </AnimatePresence>
