@@ -67,7 +67,7 @@ export default function FlashcardApp({ onClose, originRect }: FlashcardAppProps)
     <motion.div
       className="fixed inset-0 z-40 flex flex-col overflow-hidden pt-[72px]"
       style={{
-        background: isDark ? 'hsla(0 0% 0% / 0.97)' : 'hsla(0 0% 96% / 0.95)',
+        background: 'transparent',
       }}
       initial={{
         opacity: 0,
