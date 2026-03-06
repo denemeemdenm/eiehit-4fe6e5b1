@@ -269,11 +269,11 @@ profesyonel danışmanlık hizmeti sunulmaktadır.
           <ScrollReveal>
             <LiquidGlassCard className="p-12 sm:p-16 text-center">
               <h2 className="text-2xl sm:text-3xl font-bold mb-4" style={{ fontFamily: "'EKiN Pro Max Diyakritik', sans-serif" }}>
-                <span className="gradient-text-yellow-word">HUKUK</span>
+                <span className="gradient-text-cyan-word">HUKUK</span>
                 <span className="text-foreground/40"> × </span>
                 <span className="gradient-text-orange-word">İNOVASYON</span>
                 <span className="text-foreground/40"> × </span>
-                <span className="gradient-text-cyan-word">TEKNOLOJİ</span>
+                <span className="gradient-text-yellow-word">TEKNOLOJİ</span>
               </h2>
               <p className="text-muted-foreground leading-relaxed max-w-2xl mx-auto">
                 Geleneksel hukuk anlayışını dijital çağın gereksinimleriyle harmanlayan,
