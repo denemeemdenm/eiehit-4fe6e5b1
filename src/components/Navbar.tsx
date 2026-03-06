@@ -96,7 +96,7 @@ export default function Navbar({ theme, onHitClick, flashcardOpen, onFlashcardCl
             {/* 135° diagonal specular edge highlight + hover radial glow — mask-composite: exclude */}
             <div className="absolute inset-0 rounded-[inherit] pointer-events-none z-[2]" style={{
               padding: '1px',
-              background: `${navHovered ? `radial-gradient(80px 30px at ${navSpecular.x}px ${navSpecular.y}px, ${isDark ? 'rgba(255,255,255,0.5)' : 'rgba(255,255,255,0.75)'}, transparent 100%), ` : ''}linear-gradient(135deg, ${isDark ? 'rgba(255,255,255,0.22)' : 'rgba(255,255,255,0.35)'} 0%, ${isDark ? 'rgba(255,255,255,0.08)' : 'rgba(255,255,255,0.14)'} 25%, ${isDark ? 'rgba(255,255,255,0.03)' : 'rgba(255,255,255,0.06)'} 50%, ${isDark ? 'rgba(255,255,255,0.08)' : 'rgba(255,255,255,0.14)'} 75%, ${isDark ? 'rgba(255,255,255,0.22)' : 'rgba(255,255,255,0.35)'} 100%)`,
+              background: `${navHovered ? `radial-gradient(80px 30px at ${navSpecular.x}px ${navSpecular.y}px, ${isDark ? 'rgba(255,255,255,0.5)' : 'rgba(255,255,255,0.75)'}, transparent 100%), ` : ''}linear-gradient(135deg, ${isDark ? 'rgba(255,255,255,0.22)' : 'rgba(255,255,255,0.35)'} 0%, ${isDark ? 'rgba(255,255,255,0.05)' : 'rgba(255,255,255,0.08)'} 20%, ${isDark ? 'rgba(255,255,255,0.02)' : 'rgba(255,255,255,0.03)'} 40%, ${isDark ? 'rgba(255,255,255,0.02)' : 'rgba(255,255,255,0.03)'} 60%, ${isDark ? 'rgba(255,255,255,0.05)' : 'rgba(255,255,255,0.08)'} 80%, ${isDark ? 'rgba(255,255,255,0.22)' : 'rgba(255,255,255,0.35)'} 100%)`,
               mask: 'linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0)',
               maskComposite: 'exclude',
               WebkitMaskComposite: 'xor' as any
