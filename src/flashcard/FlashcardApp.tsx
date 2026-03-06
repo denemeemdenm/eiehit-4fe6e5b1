@@ -143,7 +143,13 @@ export default function FlashcardApp({ onClose, originRect }: FlashcardAppProps)
       )}
 
       {/* Content */}
-      <div className="flex-1 overflow-y-auto">
+      <div
+        className="flex-1 overflow-y-auto"
+        onScroll={(e) => {
+          const scrollTop = (e.target as HTMLElement).scrollTop;
+          window.dispatchEvent(new CustomEvent('flashcard-scroll', { detail: { scrollTop } }));
+        }}
+      >
         <AnimatePresence mode="wait">
           {view.type === 'home' && <FCHome key="home" navigate={navigate} />}
           {view.type === 'course' && <FCCourseDetail key={`course-${view.courseId}`} courseId={view.courseId} navigate={navigate} />}

@@ -305,12 +305,18 @@ export default function NeuralBackground() {
     const handleTouch = (e: TouchEvent) => { mouseRef.current = { x: e.touches[0].clientX, y: e.touches[0].clientY }; };
     const handleTouchEnd = () => { mouseRef.current = { x: -1000, y: -1000 }; };
     const handleScroll = () => { scrollYRef.current = window.scrollY; };
+    const handleFlashcardScroll = (e: Event) => {
+      const scrollTop = (e as CustomEvent).detail?.scrollTop ?? 0;
+      scrollYRef.current = scrollTop;
+      extendParticlesIfNeeded();
+    };
 
     window.addEventListener('resize', handleResize);
     window.addEventListener('mousemove', handleMouse);
     window.addEventListener('touchmove', handleTouch, { passive: true });
     window.addEventListener('touchend', handleTouchEnd);
     window.addEventListener('scroll', handleScroll, { passive: true });
+    window.addEventListener('flashcard-scroll', handleFlashcardScroll);
 
     return () => {
       cancelAnimationFrame(animRef.current);
@@ -319,6 +325,7 @@ export default function NeuralBackground() {
       window.removeEventListener('touchmove', handleTouch);
       window.removeEventListener('touchend', handleTouchEnd);
       window.removeEventListener('scroll', handleScroll);
+      window.removeEventListener('flashcard-scroll', handleFlashcardScroll);
       observer.disconnect();
     };
   }, []);
