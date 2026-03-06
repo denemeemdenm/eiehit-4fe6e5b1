@@ -93,10 +93,10 @@ export default function Navbar({ theme, onHitClick, flashcardOpen, onFlashcardCl
             onMouseEnter={() => setNavHovered(true)}
             onMouseLeave={() => setNavHovered(false)}
           >
-            {/* 135° diagonal specular edge highlight + hover radial glow — mask-composite: exclude */}
+            {/* Specular edge highlight — bright top/sides, fading to bottom */}
             <div className="absolute inset-0 rounded-[inherit] pointer-events-none z-[2]" style={{
               padding: '1px',
-              background: `${navHovered ? `radial-gradient(80px 30px at ${navSpecular.x}px ${navSpecular.y}px, ${isDark ? 'rgba(255,255,255,0.5)' : 'rgba(255,255,255,0.75)'}, transparent 100%), ` : ''}linear-gradient(to bottom, ${isDark ? 'rgba(255,255,255,0.22)' : 'rgba(255,255,255,0.35)'} 0%, ${isDark ? 'rgba(255,255,255,0.10)' : 'rgba(255,255,255,0.18)'} 40%, transparent 100%)`,
+              background: `${navHovered ? `radial-gradient(80px 30px at ${navSpecular.x}px ${navSpecular.y}px, ${isDark ? 'rgba(255,255,255,0.5)' : 'rgba(255,255,255,0.75)'}, transparent 100%), ` : ''}linear-gradient(180deg, ${isDark ? 'rgba(255,255,255,0.22)' : 'rgba(255,255,255,0.35)'} 0%, ${isDark ? 'rgba(255,255,255,0.14)' : 'rgba(255,255,255,0.25)'} 35%, ${isDark ? 'rgba(255,255,255,0.06)' : 'rgba(255,255,255,0.10)'} 65%, transparent 100%)`,
               mask: 'linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0)',
               maskComposite: 'exclude',
               WebkitMaskComposite: 'xor' as any
