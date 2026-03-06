@@ -273,7 +273,7 @@ profesyonel danışmanlık hizmeti sunulmaktadır.
                 <span className="text-foreground/40"> × </span>
                 <span className="gradient-text-orange-word">İNOVASYON</span>
                 <span className="text-foreground/40"> × </span>
-                <span className="gradient-text-orange-word">TEKNOLOJİ</span>
+                <span className="gradient-text-cyan-word">TEKNOLOJİ</span>
               </h2>
               <p className="text-muted-foreground leading-relaxed max-w-2xl mx-auto">
                 Geleneksel hukuk anlayışını dijital çağın gereksinimleriyle harmanlayan,
