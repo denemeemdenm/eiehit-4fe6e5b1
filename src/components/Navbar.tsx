@@ -38,8 +38,8 @@ export default function Navbar({ theme, onHitClick, flashcardOpen, onFlashcardCl
     navRaf.current = requestAnimationFrame(() => {
       const rect = el.getBoundingClientRect();
       setNavSpecular({
-        x: ((e.clientX - rect.left) / rect.width) * 100,
-        y: ((e.clientY - rect.top) / rect.height) * 100,
+        x: e.clientX - rect.left,
+        y: e.clientY - rect.top,
       });
     });
   }, []);
@@ -94,9 +94,9 @@ export default function Navbar({ theme, onHitClick, flashcardOpen, onFlashcardCl
             onMouseLeave={() => setNavHovered(false)}
           >
             {/* 135° diagonal specular edge highlight + hover radial glow — mask-composite: exclude */}
-            <div className="absolute inset-0 rounded-[inherit] pointer-events-none z-[2] transition-opacity duration-300" style={{
+            <div className="absolute inset-0 rounded-[inherit] pointer-events-none z-[2]" style={{
               padding: '1px',
-              background: `${navHovered ? `radial-gradient(120px 120px at ${navSpecular.x}% ${navSpecular.y}%, ${isDark ? 'rgba(255,255,255,0.45)' : 'rgba(255,255,255,0.7)'}, transparent 72%), ` : ''}linear-gradient(135deg, ${isDark ? 'rgba(255,255,255,0.22)' : 'rgba(255,255,255,0.35)'} 0%, ${isDark ? 'rgba(255,255,255,0.08)' : 'rgba(255,255,255,0.14)'} 25%, ${isDark ? 'rgba(255,255,255,0.03)' : 'rgba(255,255,255,0.06)'} 50%, ${isDark ? 'rgba(255,255,255,0.08)' : 'rgba(255,255,255,0.14)'} 75%, ${isDark ? 'rgba(255,255,255,0.22)' : 'rgba(255,255,255,0.35)'} 100%)`,
+              background: `${navHovered ? `radial-gradient(80px 30px at ${navSpecular.x}px ${navSpecular.y}px, ${isDark ? 'rgba(255,255,255,0.5)' : 'rgba(255,255,255,0.75)'}, transparent 100%), ` : ''}linear-gradient(135deg, ${isDark ? 'rgba(255,255,255,0.22)' : 'rgba(255,255,255,0.35)'} 0%, ${isDark ? 'rgba(255,255,255,0.08)' : 'rgba(255,255,255,0.14)'} 25%, ${isDark ? 'rgba(255,255,255,0.03)' : 'rgba(255,255,255,0.06)'} 50%, ${isDark ? 'rgba(255,255,255,0.08)' : 'rgba(255,255,255,0.14)'} 75%, ${isDark ? 'rgba(255,255,255,0.22)' : 'rgba(255,255,255,0.35)'} 100%)`,
               mask: 'linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0)',
               maskComposite: 'exclude',
               WebkitMaskComposite: 'xor' as any
