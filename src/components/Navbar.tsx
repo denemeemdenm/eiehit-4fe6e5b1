@@ -336,34 +336,50 @@ export default function Navbar({ theme, onHitClick, flashcardOpen, onFlashcardCl
             exit={{ opacity: 0 }}
             transition={{ duration: 0.2 }}
           >
-            <div className="absolute inset-0 bg-black/40 backdrop-blur-sm" onClick={() => setShowPasswordModal(false)} />
+            <div className="absolute inset-0 bg-black/60 backdrop-blur-md" onClick={() => setShowPasswordModal(false)} />
             <motion.div
-              className="relative z-10 w-[320px] rounded-2xl p-6 overflow-hidden"
+              className="relative z-10 w-[320px] rounded-[24px] p-8 overflow-hidden"
               style={{
-                background: isDark ? 'hsla(220, 20%, 12%, 0.85)' : 'hsla(0, 0%, 100%, 0.85)',
-                backdropFilter: 'blur(20px) saturate(200%)',
-                WebkitBackdropFilter: 'blur(20px) saturate(200%)',
-                boxShadow: isDark
-                  ? '0 8px 32px rgba(0,0,0,0.5), inset 0 1px 0 rgba(255,255,255,0.06)'
-                  : '0 8px 32px rgba(0,0,0,0.12), inset 0 1px 0 rgba(255,255,255,0.8)',
+                background: 'hsla(210, 15%, 8%, 0.75)',
+                backdropFilter: 'blur(40px) saturate(200%)',
+                WebkitBackdropFilter: 'blur(40px) saturate(200%)',
+                boxShadow: '0 24px 64px rgba(0,0,0,0.6), 0 8px 24px rgba(0,0,0,0.4), inset 0 1px 0 rgba(255,255,255,0.08)',
               }}
               initial={{ scale: 0.9, opacity: 0, y: 20 }}
               animate={{ scale: 1, opacity: 1, y: 0 }}
               exit={{ scale: 0.9, opacity: 0, y: 20 }}
               transition={{ type: 'spring', stiffness: 400, damping: 30 }}
             >
-              {/* Glass border */}
+              {/* Noise texture */}
+              <div
+                className="absolute inset-0 pointer-events-none opacity-[0.03] rounded-[inherit]"
+                style={{
+                  backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")`,
+                  backgroundSize: '128px',
+                }}
+              />
+              {/* Top shine */}
+              <div
+                className="absolute inset-x-0 top-0 h-1/2 pointer-events-none rounded-t-[inherit]"
+                style={{ background: 'linear-gradient(180deg, hsla(180, 100%, 69%, 0.08) 0%, transparent 100%)' }}
+              />
+              {/* Glass border with cyan/red accents */}
               <div className="absolute inset-0 rounded-[inherit] pointer-events-none" style={{
                 padding: '1px',
-                background: `linear-gradient(135deg, ${isDark ? 'rgba(255,255,255,0.20)' : 'rgba(255,255,255,0.5)'} 0%, ${isDark ? 'rgba(255,255,255,0.03)' : 'rgba(255,255,255,0.06)'} 50%, ${isDark ? 'rgba(255,255,255,0.20)' : 'rgba(255,255,255,0.5)'} 100%)`,
+                background: 'linear-gradient(135deg, rgba(100,255,255,0.3) 0%, rgba(255,255,255,0.06) 25%, rgba(255,255,255,0.02) 50%, rgba(255,255,255,0.06) 75%, rgba(255,75,0,0.25) 100%)',
                 mask: 'linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0)',
                 maskComposite: 'exclude',
                 WebkitMaskComposite: 'xor' as any,
               }} />
 
-              <div className="flex flex-col items-center gap-4">
-                <Lock size={24} style={{ color: isDark ? 'hsl(180, 100%, 69%)' : 'hsl(0, 84%, 60%)' }} />
-                <h3 className="text-base font-semibold" style={{ color: isDark ? '#fff' : '#000' }}>
+              <div className="relative z-10 flex flex-col items-center gap-5">
+                <div className="w-12 h-12 rounded-2xl flex items-center justify-center" style={{
+                  background: 'linear-gradient(135deg, hsla(180, 100%, 69%, 0.15), hsla(0, 84%, 60%, 0.15))',
+                  boxShadow: '0 0 24px hsla(180, 100%, 69%, 0.1)',
+                }}>
+                  <Lock size={22} style={{ color: 'hsl(180, 100%, 69%)' }} />
+                </div>
+                <h3 className="text-base font-semibold text-white" style={{ fontFamily: "'EKiN Pro Max Diyakritik', sans-serif" }}>
                   Erişim Şifresi
                 </h3>
                 <form
@@ -381,27 +397,35 @@ export default function Navbar({ theme, onHitClick, flashcardOpen, onFlashcardCl
                 >
                   <Input
                     type="password"
-                    placeholder="Şifre"
+                    placeholder="••••"
                     value={password}
                     onChange={(e) => { setPassword(e.target.value); setPasswordError(false); }}
                     autoFocus
-                    className="text-center"
+                    className="text-center text-white placeholder:text-white/30"
                     style={{
-                      background: isDark ? 'rgba(255,255,255,0.06)' : 'rgba(0,0,0,0.04)',
-                      borderColor: passwordError ? 'hsl(0, 84%, 60%)' : isDark ? 'rgba(255,255,255,0.1)' : 'rgba(0,0,0,0.1)',
+                      background: 'rgba(255,255,255,0.06)',
+                      borderColor: passwordError ? 'hsl(0, 84%, 60%)' : 'rgba(255,255,255,0.1)',
+                      borderRadius: '14px',
+                      backdropFilter: 'blur(10px)',
                     }}
                   />
                   {passwordError && (
-                    <p className="text-xs text-center" style={{ color: 'hsl(0, 84%, 60%)' }}>
+                    <motion.p
+                      className="text-xs text-center"
+                      style={{ color: 'hsl(0, 84%, 60%)' }}
+                      initial={{ opacity: 0, y: -4 }}
+                      animate={{ opacity: 1, y: 0 }}
+                    >
                       Yanlış şifre
-                    </p>
+                    </motion.p>
                   )}
                   <button
                     type="submit"
-                    className="w-full py-2 rounded-xl text-sm font-medium transition-colors"
+                    className="w-full py-2.5 rounded-[14px] text-sm font-semibold transition-all"
                     style={{
-                      background: isDark ? 'hsl(180, 100%, 69%)' : 'hsl(0, 84%, 60%)',
-                      color: isDark ? '#000' : '#fff',
+                      background: 'linear-gradient(135deg, hsl(180, 100%, 69%), hsl(180, 80%, 55%))',
+                      color: '#000',
+                      boxShadow: '0 4px 16px hsla(180, 100%, 69%, 0.25)',
                     }}
                   >
                     Giriş
