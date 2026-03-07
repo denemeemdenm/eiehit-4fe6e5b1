@@ -336,26 +336,37 @@ export default function Navbar({ theme, onHitClick, flashcardOpen, onFlashcardCl
             exit={{ opacity: 0 }}
             transition={{ duration: 0.2 }}
           >
-            <div className="absolute inset-0 bg-black/40 backdrop-blur-sm" onClick={() => setShowPasswordModal(false)} />
+            <div className="absolute inset-0 bg-black/60 backdrop-blur-md" onClick={() => setShowPasswordModal(false)} />
             <motion.div
-              className="relative z-10 w-[320px] rounded-2xl p-6 overflow-hidden"
+              className="relative z-10 w-[320px] rounded-[24px] p-8 overflow-hidden"
               style={{
-                background: isDark ? 'hsla(220, 20%, 12%, 0.85)' : 'hsla(0, 0%, 100%, 0.85)',
-                backdropFilter: 'blur(20px) saturate(200%)',
-                WebkitBackdropFilter: 'blur(20px) saturate(200%)',
-                boxShadow: isDark
-                  ? '0 8px 32px rgba(0,0,0,0.5), inset 0 1px 0 rgba(255,255,255,0.06)'
-                  : '0 8px 32px rgba(0,0,0,0.12), inset 0 1px 0 rgba(255,255,255,0.8)',
+                background: 'hsla(210, 15%, 8%, 0.75)',
+                backdropFilter: 'blur(40px) saturate(200%)',
+                WebkitBackdropFilter: 'blur(40px) saturate(200%)',
+                boxShadow: '0 24px 64px rgba(0,0,0,0.6), 0 8px 24px rgba(0,0,0,0.4), inset 0 1px 0 rgba(255,255,255,0.08)',
               }}
               initial={{ scale: 0.9, opacity: 0, y: 20 }}
               animate={{ scale: 1, opacity: 1, y: 0 }}
               exit={{ scale: 0.9, opacity: 0, y: 20 }}
               transition={{ type: 'spring', stiffness: 400, damping: 30 }}
             >
-              {/* Glass border */}
+              {/* Noise texture */}
+              <div
+                className="absolute inset-0 pointer-events-none opacity-[0.03] rounded-[inherit]"
+                style={{
+                  backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")`,
+                  backgroundSize: '128px',
+                }}
+              />
+              {/* Top shine */}
+              <div
+                className="absolute inset-x-0 top-0 h-1/2 pointer-events-none rounded-t-[inherit]"
+                style={{ background: 'linear-gradient(180deg, hsla(180, 100%, 69%, 0.08) 0%, transparent 100%)' }}
+              />
+              {/* Glass border with cyan/red accents */}
               <div className="absolute inset-0 rounded-[inherit] pointer-events-none" style={{
                 padding: '1px',
-                background: `linear-gradient(135deg, ${isDark ? 'rgba(255,255,255,0.20)' : 'rgba(255,255,255,0.5)'} 0%, ${isDark ? 'rgba(255,255,255,0.03)' : 'rgba(255,255,255,0.06)'} 50%, ${isDark ? 'rgba(255,255,255,0.20)' : 'rgba(255,255,255,0.5)'} 100%)`,
+                background: 'linear-gradient(135deg, rgba(100,255,255,0.3) 0%, rgba(255,255,255,0.06) 25%, rgba(255,255,255,0.02) 50%, rgba(255,255,255,0.06) 75%, rgba(255,75,0,0.25) 100%)',
                 mask: 'linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0)',
                 maskComposite: 'exclude',
                 WebkitMaskComposite: 'xor' as any,
