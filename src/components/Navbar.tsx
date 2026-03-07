@@ -326,6 +326,92 @@ export default function Navbar({ theme, onHitClick, flashcardOpen, onFlashcardCl
         </AnimatePresence>
       </header>
 
+      {/* Password Modal */}
+      <AnimatePresence>
+        {showPasswordModal && (
+          <motion.div
+            className="fixed inset-0 z-[100] flex items-center justify-center"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.2 }}
+          >
+            <div className="absolute inset-0 bg-black/40 backdrop-blur-sm" onClick={() => setShowPasswordModal(false)} />
+            <motion.div
+              className="relative z-10 w-[320px] rounded-2xl p-6 overflow-hidden"
+              style={{
+                background: isDark ? 'hsla(220, 20%, 12%, 0.85)' : 'hsla(0, 0%, 100%, 0.85)',
+                backdropFilter: 'blur(20px) saturate(200%)',
+                WebkitBackdropFilter: 'blur(20px) saturate(200%)',
+                boxShadow: isDark
+                  ? '0 8px 32px rgba(0,0,0,0.5), inset 0 1px 0 rgba(255,255,255,0.06)'
+                  : '0 8px 32px rgba(0,0,0,0.12), inset 0 1px 0 rgba(255,255,255,0.8)',
+              }}
+              initial={{ scale: 0.9, opacity: 0, y: 20 }}
+              animate={{ scale: 1, opacity: 1, y: 0 }}
+              exit={{ scale: 0.9, opacity: 0, y: 20 }}
+              transition={{ type: 'spring', stiffness: 400, damping: 30 }}
+            >
+              {/* Glass border */}
+              <div className="absolute inset-0 rounded-[inherit] pointer-events-none" style={{
+                padding: '1px',
+                background: `linear-gradient(135deg, ${isDark ? 'rgba(255,255,255,0.20)' : 'rgba(255,255,255,0.5)'} 0%, ${isDark ? 'rgba(255,255,255,0.03)' : 'rgba(255,255,255,0.06)'} 50%, ${isDark ? 'rgba(255,255,255,0.20)' : 'rgba(255,255,255,0.5)'} 100%)`,
+                mask: 'linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0)',
+                maskComposite: 'exclude',
+                WebkitMaskComposite: 'xor' as any,
+              }} />
+
+              <div className="flex flex-col items-center gap-4">
+                <Lock size={24} style={{ color: isDark ? 'hsl(180, 100%, 69%)' : 'hsl(0, 84%, 60%)' }} />
+                <h3 className="text-base font-semibold" style={{ color: isDark ? '#fff' : '#000' }}>
+                  Erişim Şifresi
+                </h3>
+                <form
+                  onSubmit={(e) => {
+                    e.preventDefault();
+                    if (password === '1071') {
+                      setShowPasswordModal(false);
+                      onHitClick?.(pendingRect);
+                    } else {
+                      setPasswordError(true);
+                      setPassword('');
+                    }
+                  }}
+                  className="w-full flex flex-col gap-3"
+                >
+                  <Input
+                    type="password"
+                    placeholder="Şifre"
+                    value={password}
+                    onChange={(e) => { setPassword(e.target.value); setPasswordError(false); }}
+                    autoFocus
+                    className="text-center"
+                    style={{
+                      background: isDark ? 'rgba(255,255,255,0.06)' : 'rgba(0,0,0,0.04)',
+                      borderColor: passwordError ? 'hsl(0, 84%, 60%)' : isDark ? 'rgba(255,255,255,0.1)' : 'rgba(0,0,0,0.1)',
+                    }}
+                  />
+                  {passwordError && (
+                    <p className="text-xs text-center" style={{ color: 'hsl(0, 84%, 60%)' }}>
+                      Yanlış şifre
+                    </p>
+                  )}
+                  <button
+                    type="submit"
+                    className="w-full py-2 rounded-xl text-sm font-medium transition-colors"
+                    style={{
+                      background: isDark ? 'hsl(180, 100%, 69%)' : 'hsl(0, 84%, 60%)',
+                      color: isDark ? '#000' : '#fff',
+                    }}
+                  >
+                    Giriş
+                  </button>
+                </form>
+              </div>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </>);
 
 }
