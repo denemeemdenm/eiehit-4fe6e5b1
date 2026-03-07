@@ -14,12 +14,12 @@ import nameBlack from '@/assets/name-black.png';
 import trustProcess from '@/assets/cards/trust-process-v2.jpg';
 import trustClarity from '@/assets/cards/trust-clarity-v2.png';
 import trustPrivacy from '@/assets/cards/trust-privacy-v2.jpeg';
-import trustTech from '@/assets/cards/trust-tech.jpg';
+import trustTech from '@/assets/cards/trust-tech-new.png';
 // Trust signal images — light
 import trustProcessLight from '@/assets/cards/trust-process-light.jpg';
 import trustClarityLight from '@/assets/cards/trust-clarity-light.jpg';
 import trustPrivacyLight from '@/assets/cards/trust-privacy-light.jpg';
-import trustTechLight from '@/assets/cards/trust-tech-light.jpg';
+import trustTechLight from '@/assets/cards/trust-tech-new.png';
 
 // Practice area images — uploaded replacements (both themes)
 import aileHukukuImg from '@/assets/cards/aile-hukuku-v2.png';
