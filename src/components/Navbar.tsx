@@ -28,6 +28,10 @@ export default function Navbar({ theme, onHitClick, flashcardOpen, onFlashcardCl
   const [clickedId, setClickedId] = useState<string | null>(null);
   const [navHovered, setNavHovered] = useState(false);
   const [navSpecular, setNavSpecular] = useState({ x: 50, y: 50 });
+  const [showPasswordModal, setShowPasswordModal] = useState(false);
+  const [password, setPassword] = useState('');
+  const [passwordError, setPasswordError] = useState(false);
+  const [pendingRect, setPendingRect] = useState<DOMRect | undefined>();
   const hitButtonRef = useRef<HTMLButtonElement>(null);
   const navRef = useRef<HTMLElement>(null);
   const navRaf = useRef<number>(0);
