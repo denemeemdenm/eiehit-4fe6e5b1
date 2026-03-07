@@ -213,7 +213,7 @@ export default function Navbar({ theme, onHitClick, flashcardOpen, onFlashcardCl
                   {flashcardOpen && (
                     <motion.div
                       layoutId="nav-capsule"
-                      className="absolute inset-0 rounded-xl overflow-hidden"
+                      className="absolute inset-0 rounded-[14px] overflow-hidden"
                       style={{
                         background: isDark ? 'rgba(255,255,255,0.1)' : 'rgba(255,255,255,0.55)',
                         backdropFilter: 'blur(10px)',
