@@ -1,11 +1,11 @@
 import { Scale, Building2, Briefcase, HandshakeIcon, Users, Landmark, Gavel, TrendingUp, DollarSign, Shield, Lock, Cpu, Home, HardHat, Handshake, Zap, Fuel, Mountain, Truck, Plane, Umbrella, HeartPulse, Sword, ShoppingCart } from 'lucide-react';
 
 import aileHukukuImg from '@/assets/cards/aile-hukuku-v2.png';
-import bilisimHukukuImg from '@/assets/cards/bilisim-hukuku-new.png';
-import ticaretHukukuImg from '@/assets/cards/ticaret-hukuku-v2.png';
+import bilisimHukukuImg from '@/assets/cards/bilisim-hukuku.png';
+import ticaretHukukuImg from '@/assets/cards/ticaret-ve-borclar-hukuku.png';
 import isHukukuImg from '@/assets/cards/is-hukuku-v2.png';
-import icraHukukuImg from '@/assets/cards/icra-hukuku-v2.png';
-import cezaHukukuImg from '@/assets/cards/ceza-hukuku-v2.png';
+import icraHukukuImg from '@/assets/cards/icra-ve-iflas-hukuku.png';
+import cezaHukukuImg from '@/assets/cards/ceza-hukuku-new.png';
 
 export interface PracticeArea {
   id: string;

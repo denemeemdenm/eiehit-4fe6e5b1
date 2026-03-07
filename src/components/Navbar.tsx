@@ -372,9 +372,14 @@ export default function Navbar({ theme, onHitClick, flashcardOpen, onFlashcardCl
                 WebkitMaskComposite: 'xor' as any,
               }} />
 
-              <div className="flex flex-col items-center gap-4">
-                <Lock size={24} style={{ color: isDark ? 'hsl(180, 100%, 69%)' : 'hsl(0, 84%, 60%)' }} />
-                <h3 className="text-base font-semibold" style={{ color: isDark ? '#fff' : '#000' }}>
+              <div className="relative z-10 flex flex-col items-center gap-5">
+                <div className="w-12 h-12 rounded-2xl flex items-center justify-center" style={{
+                  background: 'linear-gradient(135deg, hsla(180, 100%, 69%, 0.15), hsla(0, 84%, 60%, 0.15))',
+                  boxShadow: '0 0 24px hsla(180, 100%, 69%, 0.1)',
+                }}>
+                  <Lock size={22} style={{ color: 'hsl(180, 100%, 69%)' }} />
+                </div>
+                <h3 className="text-base font-semibold text-white" style={{ fontFamily: "'EKiN Pro Max Diyakritik', sans-serif" }}>
                   Erişim Şifresi
                 </h3>
                 <form
@@ -392,27 +397,35 @@ export default function Navbar({ theme, onHitClick, flashcardOpen, onFlashcardCl
                 >
                   <Input
                     type="password"
-                    placeholder="Şifre"
+                    placeholder="••••"
                     value={password}
                     onChange={(e) => { setPassword(e.target.value); setPasswordError(false); }}
                     autoFocus
-                    className="text-center"
+                    className="text-center text-white placeholder:text-white/30"
                     style={{
-                      background: isDark ? 'rgba(255,255,255,0.06)' : 'rgba(0,0,0,0.04)',
-                      borderColor: passwordError ? 'hsl(0, 84%, 60%)' : isDark ? 'rgba(255,255,255,0.1)' : 'rgba(0,0,0,0.1)',
+                      background: 'rgba(255,255,255,0.06)',
+                      borderColor: passwordError ? 'hsl(0, 84%, 60%)' : 'rgba(255,255,255,0.1)',
+                      borderRadius: '14px',
+                      backdropFilter: 'blur(10px)',
                     }}
                   />
                   {passwordError && (
-                    <p className="text-xs text-center" style={{ color: 'hsl(0, 84%, 60%)' }}>
+                    <motion.p
+                      className="text-xs text-center"
+                      style={{ color: 'hsl(0, 84%, 60%)' }}
+                      initial={{ opacity: 0, y: -4 }}
+                      animate={{ opacity: 1, y: 0 }}
+                    >
                       Yanlış şifre
-                    </p>
+                    </motion.p>
                   )}
                   <button
                     type="submit"
-                    className="w-full py-2 rounded-xl text-sm font-medium transition-colors"
+                    className="w-full py-2.5 rounded-[14px] text-sm font-semibold transition-all"
                     style={{
-                      background: isDark ? 'hsl(180, 100%, 69%)' : 'hsl(0, 84%, 60%)',
-                      color: isDark ? '#000' : '#fff',
+                      background: 'linear-gradient(135deg, hsl(180, 100%, 69%), hsl(180, 80%, 55%))',
+                      color: '#000',
+                      boxShadow: '0 4px 16px hsla(180, 100%, 69%, 0.25)',
                     }}
                   >
                     Giriş
