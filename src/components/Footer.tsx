@@ -56,7 +56,7 @@ export default function Footer() {
         </div>
 
         {/* Legal */}
-        <div className="mt-12 pt-8 border-t border-border/30 space-y-3">
+        <div className="mt-12 pt-8 space-y-3">
           <p className="text-xs text-muted-foreground/70 text-center max-w-2xl mx-auto">
             Bu web sitesinde yer alan bilgiler yalnızca bilgilendirme amacıyla sunulmakta olup hukuki danışmanlık niteliği taşımamaktadır.
             Avukat-müvekkil ilişkisi ancak yazılı sözleşme ile kurulur. Sonuç taahhüdü verilmemektedir.
