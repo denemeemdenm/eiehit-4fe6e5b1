@@ -153,7 +153,7 @@ export default function Navbar({ theme, onHitClick, flashcardOpen, onFlashcardCl
                   <motion.button
                     key={item.id}
                     onClick={() => scrollTo(item.id)}
-                    className="relative px-3.5 py-1.5 text-[13px] font-medium whitespace-nowrap z-10 rounded-[14px] transition-colors duration-300"
+                    className="relative px-3.5 py-1.5 text-[0.8125rem] font-medium whitespace-nowrap z-10 rounded-[14px] transition-colors duration-300"
                     style={{
                       color: isActive ?
                       isDark ? '#fff' : '#000' :
@@ -212,7 +212,7 @@ export default function Navbar({ theme, onHitClick, flashcardOpen, onFlashcardCl
                 <motion.button
                   layout
                   onClick={() => onFlashcardClose?.()}
-                  className="relative px-3.5 py-1.5 text-[13px] font-medium whitespace-nowrap z-10 rounded-[14px]"
+                  className="relative px-3.5 py-1.5 text-[0.8125rem] font-medium whitespace-nowrap z-10 rounded-[14px]"
                   style={{ color: isDark ? 'rgba(255,255,255,0.5)' : 'rgba(0,0,0,0.45)' }}
                   whileHover={{ backgroundColor: isDark ? 'rgba(255,255,255,0.06)' : 'rgba(0,0,0,0.04)' }}
                   initial={{ opacity: 0, scale: 0.9 }}
@@ -458,7 +458,7 @@ export default function Navbar({ theme, onHitClick, flashcardOpen, onFlashcardCl
                 </div>
                 {passwordError && (
                   <motion.p
-                    className="text-xs text-center text-red-500"
+                    className="text-xs text-center text-destructive"
                     initial={{ opacity: 0, y: -4 }}
                     animate={{ opacity: 1, y: 0 }}
                   >

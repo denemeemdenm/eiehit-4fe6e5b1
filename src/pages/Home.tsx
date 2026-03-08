@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef } from 'react';
-import { motion, useScroll, useTransform } from 'framer-motion';
-import { Shield, Eye, Lock, Cpu, Phone, Mail, MapPin, Copy } from 'lucide-react';
+import { motion } from 'framer-motion';
+import { Shield, Eye, Lock, Cpu, Phone, Mail, Copy } from 'lucide-react';
 import LiquidGlassCard from '@/components/LiquidGlassCard';
 import ImageCard from '@/components/ImageCard';
 import ScrollReveal from '@/components/ScrollReveal';

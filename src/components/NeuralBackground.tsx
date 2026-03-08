@@ -7,16 +7,13 @@ interface Particle {
 }
 
 const COLORS = ['#64FFFF', '#FF4B00', '#FFCC00'];
-interface GoldTrail { x: number; y: number; alpha: number; size: number; }
 
 export default function NeuralBackground() {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const mouseRef = useRef({ x: -1000, y: -1000 });
   const particlesRef = useRef<Particle[]>([]);
-  const trailRef = useRef<GoldTrail[]>([]);
   const animRef = useRef<number>(0);
   const isDarkRef = useRef(false);
-  const prevMouseRef = useRef({ x: -1000, y: -1000 });
   const scrollYRef = useRef(0);
   const coveredYRef = useRef(0); // how far down we've spawned particles
 
@@ -258,44 +255,6 @@ export default function NeuralBackground() {
         }
       }
 
-      // Gold trail (screen-space)
-      const prev = prevMouseRef.current;
-      if (mouse.x > 0 && (Math.abs(mouse.x - prev.x) > 1 || Math.abs(mouse.y - prev.y) > 1)) {
-        trailRef.current.push({
-          x: mouse.x + (Math.random() - 0.5) * 8,
-          y: mouse.y + (Math.random() - 0.5) * 8,
-          alpha: 0.5,
-          size: Math.random() * 2.5 + 1,
-        });
-      }
-      prevMouseRef.current = { ...mouse };
-      trailRef.current = trailRef.current.filter(t => {
-        t.alpha -= 0.018;
-        t.size *= 0.97;
-        return t.alpha > 0;
-      });
-
-      trailRef.current.forEach(t => {
-        const g = ctx.createRadialGradient(t.x, t.y, 0, t.x, t.y, t.size * 3);
-        g.addColorStop(0, `rgba(255, 204, 0, ${t.alpha * 0.4})`);
-        g.addColorStop(0.5, `rgba(255, 180, 0, ${t.alpha * 0.15})`);
-        g.addColorStop(1, `rgba(255, 160, 0, 0)`);
-        ctx.fillStyle = g;
-        ctx.beginPath();
-        ctx.arc(t.x, t.y, t.size * 3, 0, Math.PI * 2);
-        ctx.fill();
-      });
-
-      if (mouse.x > 0) {
-        const g = ctx.createRadialGradient(mouse.x, mouse.y, 0, mouse.x, mouse.y, 50);
-        g.addColorStop(0, 'rgba(255, 204, 0, 0.08)');
-        g.addColorStop(0.5, 'rgba(255, 180, 0, 0.03)');
-        g.addColorStop(1, 'rgba(255, 160, 0, 0)');
-        ctx.fillStyle = g;
-        ctx.beginPath();
-        ctx.arc(mouse.x, mouse.y, 50, 0, Math.PI * 2);
-        ctx.fill();
-      }
     }
 
     function animate(time: number) {
