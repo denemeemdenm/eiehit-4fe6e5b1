@@ -467,6 +467,33 @@ export default function Navbar({ theme, onHitClick, flashcardOpen, onFlashcardCl
 
             </div>
 
+            {/* HiT button — mobile only, inside nav */}
+            <div className="relative shrink-0 md:hidden">
+              <motion.button
+                ref={hitButtonRef}
+                onClick={() => {
+                  if (showPasswordModal) {
+                    setShowPasswordModal(false);
+                  } else {
+                    const rect = hitButtonRef.current?.getBoundingClientRect();
+                    setPendingRect(rect || undefined);
+                    setPassword('');
+                    setPasswordError(false);
+                    setShowPasswordModal(true);
+                  }
+                }}
+                className="relative px-3 py-1.5 flex items-center shrink-0 rounded-[14px]"
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.94 }}
+                transition={{ type: 'spring', stiffness: 400, damping: 20 }}
+                aria-label="HiT — Çok Yakında">
+                <img
+                  src={isDark ? logoLight : logoDark}
+                  alt="HiTKURT"
+                  className="h-6 w-auto object-contain relative z-10" />
+              </motion.button>
+            </div>
+
             {/* Mobile hamburger — inside nav */}
             <button
               onClick={() => setMobileOpen(!mobileOpen)}
