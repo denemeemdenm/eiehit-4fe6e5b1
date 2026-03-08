@@ -294,7 +294,7 @@
     background-clip: text;
     background-size: 400px 100%;
     background-repeat: repeat-x;
-    animation: heading-gradient-rtl 10s linear infinite;
+    animation: heading-gradient-rtl 5s linear infinite;
   }
 
   .gradient-text-red {
