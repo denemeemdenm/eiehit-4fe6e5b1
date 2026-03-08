@@ -467,7 +467,7 @@
   background-image: repeating-linear-gradient(90deg, hsl(0 0% 100%) 0px, hsl(0 0% 85%) 100px, hsl(0 0% 100%) 200px, hsl(0 0% 85%) 300px, hsl(0 0% 100%) 400px);
   background-size: 400px 100%;
   background-repeat: repeat-x;
-  animation: heading-gradient-rtl 10s linear infinite;
+  animation: heading-gradient-rtl 5s linear infinite;
 }
 
 .dark .heading-gradient-gold {
