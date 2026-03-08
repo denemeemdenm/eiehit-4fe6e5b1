@@ -10,6 +10,7 @@ interface ImageCardProps {
   onClick?: () => void;
   children?: React.ReactNode;
   tiltIntensity?: number;
+  aspectRatio?: string;
 }
 
 export default function ImageCard({ image, title, description, className = '', onClick, children, tiltIntensity = 6 }: ImageCardProps) {
