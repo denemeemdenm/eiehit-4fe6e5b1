@@ -121,7 +121,7 @@ export default function Home() {
 
           <motion.div initial={{ opacity: 0, y: 30, filter: 'blur(10px)' }} animate={{ opacity: 1, y: 0, filter: 'blur(0px)' }} transition={{ duration: 1, delay: 0.4, ease: [0.25, 0.46, 0.45, 0.94] }} className="flex justify-center">
             <h1
-              className="text-4xl sm:text-5xl md:text-6xl font-bold tracking-wide heading-gradient-silver"
+              className="text-4xl sm:text-5xl md:text-6xl font-bold tracking-normal heading-gradient-silver"
               style={{ fontFamily: "'HiT Vision Pro Max', sans-serif", lineHeight: 1.4, paddingTop: '0.15em', overflow: 'visible' }}
             >
               EKİN İSA EROĞLU
