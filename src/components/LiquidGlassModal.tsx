@@ -87,7 +87,7 @@ export default function LiquidGlassModal({ isOpen, onClose, anchorRef }: LiquidG
             >
               <h3
                 className="text-lg font-bold mb-1.5 text-white"
-                style={{ fontFamily: "'EKiN Pro Max Diyakritik', sans-serif" }}
+                style={{ fontFamily: "'HiT Vision Pro Max', sans-serif" }}
               >
                 Çok Yakında!
               </h3>

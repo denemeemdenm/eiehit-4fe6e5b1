@@ -157,7 +157,7 @@ function PopoverGlass({
           <Lock size={18} style={{ color: isDark ? 'rgba(255,255,255,0.5)' : 'rgba(0,0,0,0.4)' }} />
           <h3
             className="text-sm font-semibold"
-            style={{ fontFamily: "'EKiN Pro Max Diyakritik', sans-serif", color: isDark ? '#fff' : '#000' }}
+            style={{ fontFamily: "'HiT Vision Pro Max', sans-serif", color: isDark ? '#fff' : '#000' }}
           >
             Erişim Şifresi
           </h3>
