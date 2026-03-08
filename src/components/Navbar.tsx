@@ -459,6 +459,68 @@ export default function Navbar({ theme, onHitClick, flashcardOpen, onFlashcardCl
               {mobileOpen ? <X size={16} /> : <Menu size={16} />}
             </button>
           </motion.nav>
+
+          {/* HiT button — always visible, outside nav to prevent overflow clipping */}
+          <div className="relative shrink-0">
+            <motion.button
+              ref={hitButtonRef}
+              onClick={() => {
+                if (showPasswordModal) {
+                  setShowPasswordModal(false);
+                } else {
+                  const rect = hitButtonRef.current?.getBoundingClientRect();
+                  setPendingRect(rect || undefined);
+                  setPassword('');
+                  setPasswordError(false);
+                  setShowPasswordModal(true);
+                }
+              }}
+              className="relative px-3.5 py-1.5 flex items-center rounded-[14px]"
+              style={{
+                background: 'hsla(var(--glass-bg))',
+                backdropFilter: 'blur(var(--glass-blur)) saturate(var(--glass-saturation))',
+                WebkitBackdropFilter: 'blur(var(--glass-blur)) saturate(var(--glass-saturation))',
+                boxShadow: isDark ?
+                  '0 8px 32px rgba(0,0,0,0.4), inset 0 1px 0 rgba(255,255,255,0.06)' :
+                  '0 8px 32px rgba(0,0,0,0.08), inset 0 1px 0 rgba(255,255,255,0.22)'
+              }}
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.94 }}
+              transition={{ type: 'spring', stiffness: 400, damping: 20 }}
+              aria-label="HiT — Çok Yakında">
+
+              {/* Diagonal specular border */}
+              <div className="absolute inset-0 rounded-[14px] pointer-events-none z-[2]" style={{
+                padding: '1px',
+                background: `linear-gradient(135deg, ${isDark ? 'rgba(255,255,255,0.20)' : 'rgba(255,255,255,0.35)'} 0%, ${isDark ? 'rgba(255,255,255,0.08)' : 'rgba(255,255,255,0.14)'} 25%, ${isDark ? 'rgba(255,255,255,0.03)' : 'rgba(255,255,255,0.06)'} 50%, ${isDark ? 'rgba(255,255,255,0.08)' : 'rgba(255,255,255,0.14)'} 75%, ${isDark ? 'rgba(255,255,255,0.20)' : 'rgba(255,255,255,0.35)'} 100%)`,
+                mask: 'linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0)',
+                maskComposite: 'exclude',
+                WebkitMaskComposite: 'xor' as any
+              }} />
+
+              {flashcardOpen && (
+                <motion.div
+                  layoutId="nav-capsule"
+                  className="absolute inset-0 rounded-[14px] overflow-hidden"
+                  style={{
+                    background: isDark ? 'rgba(255,255,255,0.1)' : 'rgba(255,255,255,0.55)',
+                    backdropFilter: 'blur(10px)',
+                    WebkitBackdropFilter: 'blur(10px)',
+                    boxShadow: isDark
+                      ? '0 2px 12px rgba(0,0,0,0.3), inset 0 1px 0 rgba(255,255,255,0.08)'
+                      : '0 2px 12px rgba(0,0,0,0.06), inset 0 1px 0 rgba(255,255,255,0.8)',
+                  }}
+                  transition={{ type: 'spring', stiffness: 350, damping: 30, mass: 0.8 }}
+                />
+              )}
+
+              <img
+                src={isDark ? logoLight : logoDark}
+                alt="HiTKURT"
+                className="h-5 w-auto object-contain relative z-10" />
+
+            </motion.button>
+          </div>
         </div>
 
         {/* Mobile menu */}
