@@ -350,7 +350,7 @@
   }
 
   .gradient-text-yellow-word {
-    background-image: repeating-linear-gradient(90deg, hsl(48 100% 50%) 0px, hsl(48 100% 40%) 100px, hsl(48 100% 50%) 200px, hsl(48 100% 40%) 300px, hsl(48 100% 50%) 400px);
+    background-image: repeating-linear-gradient(90deg, hsl(48 100% 50%) 0px, hsl(48 100% 45%) 100px, hsl(48 100% 50%) 200px, hsl(48 100% 45%) 300px, hsl(48 100% 50%) 400px);
   }
 
   /* Cyan gradient for icons — same vivid color in both modes */
