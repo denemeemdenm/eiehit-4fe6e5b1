@@ -61,8 +61,8 @@ export default function Footer() {
             Bu web sitesinde yer alan bilgiler yalnızca bilgilendirme amacıyla sunulmakta olup hukuki danışmanlık niteliği taşımamaktadır.
             Avukat-müvekkil ilişkisi ancak yazılı sözleşme ile kurulur. Sonuç taahhüdü verilmemektedir.
           </p>
-          <p className="text-xs text-muted-foreground/50 text-center">
-            © {new Date().getFullYear()} <span className="heading-gradient-silver" style={{ fontFamily: "'HiT Vision Pro Max', sans-serif" }}>Av. Ekin İsa EROĞLU</span>. Tüm hakları saklıdır.
+          <p className="text-xs text-muted-foreground/50 text-center overflow-visible leading-relaxed">
+            © {new Date().getFullYear()} <span className="text-muted-foreground/50" style={{ fontFamily: "'HiT Vision Pro Max', sans-serif", lineHeight: '1.6' }}>Av. Ekin İsa EROĞLU</span>. Tüm hakları saklıdır.
           </p>
         </div>
       </div>
