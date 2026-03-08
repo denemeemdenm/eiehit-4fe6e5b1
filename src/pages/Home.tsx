@@ -99,15 +99,6 @@ export default function Home() {
 
   return (
     <main className="relative z-10">
-      {/* ═══ TOP GLASS BLUR ═══ */}
-      <div className="fixed top-0 left-0 right-0 z-30 pointer-events-none h-28"
-      style={{
-        backdropFilter: 'blur(24px) saturate(180%)',
-        WebkitBackdropFilter: 'blur(24px) saturate(180%)',
-        mask: 'linear-gradient(to bottom, black 0%, black 30%, transparent 100%)',
-        WebkitMask: 'linear-gradient(to bottom, black 0%, black 30%, transparent 100%)'
-      }} />
-      
 
       {/* ═══ HERO ═══ */}
       <section id="hero" ref={heroRef} className="min-h-screen flex items-center justify-center content-padding pt-24 overflow-hidden">

@@ -31,6 +31,18 @@ const AppContent = () => {
   return (
     <div className="min-h-screen flex flex-col relative">
       <NeuralBackground />
+      <div
+        aria-hidden
+        className="fixed top-0 left-0 right-0 z-40 pointer-events-none h-36"
+        style={{
+          background: 'hsla(var(--glass-bg))',
+          backdropFilter: 'blur(28px) saturate(220%)',
+          WebkitBackdropFilter: 'blur(28px) saturate(220%)',
+          borderBottom: '1px solid hsla(var(--glass-border))',
+          maskImage: 'linear-gradient(to bottom, black 0%, black 55%, transparent 100%)',
+          WebkitMaskImage: 'linear-gradient(to bottom, black 0%, black 55%, transparent 100%)',
+        }}
+      />
       <CursorTrail />
       <Navbar theme={theme} onHitClick={handleHitClick} flashcardOpen={flashcardOpen} onFlashcardClose={() => setFlashcardOpen(false)} />
       <div
