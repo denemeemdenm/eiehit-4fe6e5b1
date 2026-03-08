@@ -82,6 +82,17 @@ export default function LiquidGlassCard({ children, className = '', tiltIntensit
               : '0 4px 16px rgba(0,0,0,0.04), inset 0 1px 0 rgba(255,255,255,0.35)',
         }}
       >
+        {/* Base frosted layer */}
+        <div
+          className="absolute inset-0 pointer-events-none z-0"
+          style={{
+            borderRadius: 'inherit',
+            background: 'hsla(var(--glass-bg))',
+            backdropFilter: 'blur(calc(var(--glass-blur) + 8px)) saturate(var(--glass-saturation))',
+            WebkitBackdropFilter: 'blur(calc(var(--glass-blur) + 8px)) saturate(var(--glass-saturation))',
+          }}
+        />
+
         {/* 135° diagonal specular edge highlight — mask-composite: exclude */}
         <div
           className="absolute inset-0 pointer-events-none z-[2]"
