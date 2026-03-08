@@ -171,7 +171,7 @@ export default function ImageCard({ image, title, description, className = '', o
         </div>
 
         {/* Invisible spacer */}
-        <div style={{ minHeight: '240px' }} />
+        {!aspectRatio && <div style={{ minHeight: '240px' }} />}
       </div>
     </motion.div>
   );
