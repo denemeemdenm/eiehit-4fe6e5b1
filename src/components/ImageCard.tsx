@@ -1,5 +1,5 @@
 import { useRef, useState, useCallback } from 'react';
-import { motion, useSpring } from 'framer-motion';
+import { motion, useSpring, useTransform } from 'framer-motion';
 import { useTheme } from '@/hooks/useTheme';
 
 interface ImageCardProps {
@@ -23,7 +23,13 @@ export default function ImageCard({ image, title, description, className = '', o
   const springConfig = { stiffness: 150, damping: 26, mass: 1 };
   const rotateX = useSpring(0, springConfig);
   const rotateY = useSpring(0, springConfig);
-  const scale = useSpring(1, { stiffness: 200, damping: 28, mass: 0.8 });
+  const scaleVal = useSpring(1, { stiffness: 200, damping: 28, mass: 0.8 });
+
+  const transform = useTransform(
+    [rotateX, rotateY, scaleVal],
+    ([rx, ry, s]: number[]) =>
+      `perspective(1200px) rotateX(${rx}deg) rotateY(${ry}deg) scale(${s})`
+  );
 
   const handleMouseMove = useCallback((e: React.MouseEvent) => {
     const el = cardRef.current;
@@ -35,32 +41,41 @@ export default function ImageCard({ image, title, description, className = '', o
       const percentY = (e.clientY - rect.top) / rect.height;
       rotateY.set((percentX - 0.5) * tiltIntensity * 2);
       rotateX.set(-(percentY - 0.5) * tiltIntensity * 2);
-      scale.set(1.02);
+      scaleVal.set(1.02);
       setSpecularPos({ x: percentX * 100, y: percentY * 100 });
     });
-  }, [tiltIntensity, rotateX, rotateY, scale]);
+  }, [tiltIntensity, rotateX, rotateY, scaleVal]);
 
   const handleMouseLeave = useCallback(() => {
     rotateX.set(0);
     rotateY.set(0);
-    scale.set(1);
+    scaleVal.set(1);
     setIsHovered(false);
-  }, [rotateX, rotateY, scale]);
+  }, [rotateX, rotateY, scaleVal]);
 
   return (
-    <div style={{ perspective: 1200 }}>
-      <motion.div
-        ref={cardRef}
-        className={`relative cursor-pointer group ${className}`}
+    /* Outer wrapper handles 3D transform only — no backdrop-filter here */
+    <motion.div
+      ref={cardRef}
+      style={{
+        transform,
+        willChange: 'transform',
+        cursor: onClick ? 'pointer' : undefined,
+      }}
+      onMouseMove={handleMouseMove}
+      onMouseLeave={handleMouseLeave}
+      onMouseEnter={() => setIsHovered(true)}
+      onClick={onClick}
+      whileTap={onClick ? { scale: 0.97, transition: { type: 'spring', stiffness: 400, damping: 25 } } : undefined}
+    >
+      {/* Inner div handles backdrop-filter + glass styling — separated from transform */}
+      <div
+        className={`relative group ${className}`}
         style={{
-          rotateX,
-          rotateY,
-          scale,
-          transformStyle: 'preserve-3d',
           minHeight: '240px',
           borderRadius: 20,
           overflow: 'hidden',
-          background: 'transparent',
+          background: 'hsla(var(--glass-bg))',
           backdropFilter: 'blur(10px) saturate(200%)',
           WebkitBackdropFilter: 'blur(10px) saturate(200%)',
           boxShadow: isHovered
@@ -70,14 +85,7 @@ export default function ImageCard({ image, title, description, className = '', o
             : isDark
               ? '0 8px 32px rgba(0,0,0,0.4), inset 0 1px 0 rgba(255,255,255,0.06)'
               : '0 8px 32px rgba(0,0,0,0.08), inset 0 1px 0 rgba(255,255,255,0.22)',
-          willChange: 'transform',
-          backfaceVisibility: 'hidden',
         }}
-        onMouseMove={handleMouseMove}
-        onMouseLeave={handleMouseLeave}
-        onMouseEnter={() => setIsHovered(true)}
-        onClick={onClick}
-        whileTap={{ scale: 0.97, transition: { type: 'spring', stiffness: 400, damping: 25 } }}
       >
         {/* Glass edge highlight — mask-composite: exclude, 135° diagonal specular */}
         <div
@@ -85,7 +93,7 @@ export default function ImageCard({ image, title, description, className = '', o
           style={{
             borderRadius: 'inherit',
             padding: '1px',
-            background: `linear-gradient(135deg, ${
+            background: `${isHovered ? `radial-gradient(130px 130px at ${specularPos.x}% ${specularPos.y}%, hsla(0 0% 100% / 0.4), hsla(0 0% 100% / 0) 72%), ` : ''}linear-gradient(135deg, ${
               isDark ? 'rgba(255,255,255,0.20)' : 'rgba(255,255,255,0.35)'
             } 0%, ${
               isDark ? 'rgba(255,255,255,0.08)' : 'rgba(255,255,255,0.14)'
@@ -104,7 +112,7 @@ export default function ImageCard({ image, title, description, className = '', o
 
         {/* Image layer */}
         {image && (
-          <div className="absolute inset-0" style={{ borderRadius: 20, overflow: 'hidden' }}>
+          <div className="absolute inset-0" style={{ borderRadius: 'inherit', overflow: 'hidden' }}>
             <img
               src={image}
               alt={title}
@@ -161,8 +169,8 @@ export default function ImageCard({ image, title, description, className = '', o
         </div>
 
         {/* Invisible spacer */}
-        <div style={{ minHeight: '240px', borderRadius: 20 }} />
-      </motion.div>
-    </div>
+        <div style={{ minHeight: '240px' }} />
+      </div>
+    </motion.div>
   );
 }
