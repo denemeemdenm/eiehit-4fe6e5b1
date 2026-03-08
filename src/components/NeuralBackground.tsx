@@ -32,11 +32,20 @@ export default function NeuralBackground() {
     observer.observe(document.documentElement, { attributes: true, attributeFilter: ['class'] });
     isDarkRef.current = document.documentElement.classList.contains('dark');
 
-    const mobile = window.innerWidth < 768;
-    const particleCount = mobile ? 60 : 130; // per viewport-height
-    const connectionDist = mobile ? 150 : 180;
+    const connectionDist = window.innerWidth < 768 ? 150 : 180;
     const cursorRadius = 220;
     const BUFFER = 300; // px buffer above/below viewport for updates
+    let resizeTimer: ReturnType<typeof setTimeout> | null = null;
+
+    // Dynamic particle density: ~1 particle per 8000px² of screen area
+    function getParticleCount() {
+      const area = window.innerWidth * window.innerHeight;
+      const mobile = window.innerWidth < 768;
+      const density = mobile ? 12000 : 8000;
+      return Math.max(30, Math.min(150, Math.round(area / density)));
+    }
+
+    let particleCount = getParticleCount();
 
     function resizeCanvas() {
       canvas.width = window.innerWidth;
@@ -302,15 +311,11 @@ export default function NeuralBackground() {
 
     const handleResize = () => {
       resizeCanvas();
-      // Rescale particle positions to new canvas dimensions & reset coverage
-      const oldWidth = particlesRef.current.length > 0 ? Math.max(...particlesRef.current.map(p => p.homeX), canvas.width) : canvas.width;
-      const scaleX = canvas.width / (oldWidth || canvas.width);
-      particlesRef.current.forEach(p => {
-        p.x *= scaleX;
-        p.homeX *= scaleX;
-      });
-      // Re-create particles from scratch to avoid stale layout
-      createParticles();
+      if (resizeTimer) clearTimeout(resizeTimer);
+      resizeTimer = setTimeout(() => {
+        particleCount = getParticleCount();
+        createParticles();
+      }, 200);
     };
     const handleMouse = (e: MouseEvent) => { mouseRef.current = { x: e.clientX, y: e.clientY }; };
     const handleTouch = (e: TouchEvent) => { mouseRef.current = { x: e.touches[0].clientX, y: e.touches[0].clientY }; };
