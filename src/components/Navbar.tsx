@@ -346,131 +346,18 @@ export default function Navbar({ theme, onHitClick, flashcardOpen, onFlashcardCl
       {/* Password Popover — fixed, macOS menu bar dropdown style */}
       <AnimatePresence>
         {showPasswordModal && (
-          <motion.div
-            ref={popoverRef}
-            className="fixed z-[200] w-[240px] overflow-hidden p-6 text-center"
-            style={{
-              top: popoverPos.top,
-              right: popoverPos.right,
-              borderRadius: '16px',
-              background: 'hsla(var(--glass-bg))',
-              backdropFilter: 'blur(var(--glass-blur)) saturate(var(--glass-saturation))',
-              WebkitBackdropFilter: 'blur(var(--glass-blur)) saturate(var(--glass-saturation))',
-              boxShadow: isDark
-                ? '0 16px 48px rgba(0,0,0,0.4), 0 4px 12px rgba(0,0,0,0.3)'
-                : '0 16px 48px rgba(0,0,0,0.1), 0 4px 12px rgba(0,0,0,0.06)',
-            }}
-            initial={{ opacity: 0, y: -6, scale: 0.96 }}
-            animate={{ opacity: 1, y: 0, scale: 1 }}
-            exit={{ opacity: 0, y: -6, scale: 0.96 }}
-            transition={{ type: 'spring', stiffness: 500, damping: 32, mass: 0.6 }}
-          >
-            {/* Noise/grain texture */}
-            <div
-              className="absolute inset-0 pointer-events-none opacity-[0.03] rounded-[inherit]"
-              style={{
-                backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")`,
-                backgroundSize: '128px',
-              }}
-            />
-            {/* Top shine */}
-            <div
-              className="absolute inset-x-0 top-0 h-1/2 pointer-events-none rounded-t-[inherit]"
-              style={{ background: `linear-gradient(180deg, ${isDark ? 'hsla(0 0% 100% / 0.12)' : 'hsla(0 0% 100% / 0.6)'} 0%, transparent 100%)` }}
-            />
-            {/* Rim light border — same as navbar */}
-            <div
-              className="absolute inset-0 pointer-events-none rounded-[inherit]"
-              style={{
-                padding: '0.5px',
-                background: `linear-gradient(180deg, ${isDark ? 'hsla(0 0% 100% / 0.25)' : 'hsla(0 0% 100% / 0.7)'} 0%, ${isDark ? 'hsla(0 0% 100% / 0.06)' : 'hsla(0 0% 100% / 0.2)'} 40%, ${isDark ? 'hsla(0 0% 100% / 0.12)' : 'hsla(0 0% 100% / 0.35)'} 100%)`,
-                mask: 'linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0)',
-                maskComposite: 'exclude',
-                WebkitMaskComposite: 'xor' as any,
-              }}
-            />
-
-            <motion.div
-              className="relative z-10 flex flex-col items-center gap-4"
-              initial={{ opacity: 0, y: 6 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.06, duration: 0.25 }}
-            >
-              <Lock size={18} style={{ color: isDark ? 'rgba(255,255,255,0.5)' : 'rgba(0,0,0,0.4)' }} />
-              <h3
-                className="text-sm font-semibold"
-                style={{ fontFamily: "'EKiN Pro Max Diyakritik', sans-serif", color: isDark ? '#fff' : '#000' }}
-              >
-                Erişim Şifresi
-              </h3>
-              <form
-                onSubmit={(e) => {
-                  e.preventDefault();
-                  if (password === '1071') {
-                    setShowPasswordModal(false);
-                    onHitClick?.(pendingRect);
-                  } else {
-                    setPasswordError(true);
-                    setPassword('');
-                  }
-                }}
-                className="w-full flex flex-col gap-2.5"
-              >
-                <div className="relative group/input rounded-[12px] overflow-hidden">
-                  <Input
-                    type="password"
-                    placeholder="••••"
-                    value={password}
-                    onChange={(e) => { setPassword(e.target.value); setPasswordError(false); }}
-                    autoFocus
-                    className="text-center text-sm placeholder:text-muted-foreground/40 border-none focus-visible:ring-0 focus-visible:ring-offset-0 relative z-10"
-                    style={{
-                      background: isDark ? 'rgba(255,255,255,0.06)' : 'rgba(0,0,0,0.04)',
-                      borderRadius: '12px',
-                      color: isDark ? '#fff' : '#000',
-                    }}
-                  />
-                  {/* Diagonal specular border */}
-                  <div className="absolute inset-0 rounded-[12px] pointer-events-none transition-opacity duration-300 opacity-60 group-hover/input:opacity-100" style={{
-                    padding: '1px',
-                    background: `linear-gradient(135deg, ${isDark ? 'rgba(255,255,255,0.22)' : 'rgba(255,255,255,0.5)'} 0%, ${isDark ? 'rgba(255,255,255,0.04)' : 'rgba(255,255,255,0.1)'} 25%, ${isDark ? 'rgba(255,255,255,0.02)' : 'rgba(255,255,255,0.05)'} 50%, ${isDark ? 'rgba(255,255,255,0.04)' : 'rgba(255,255,255,0.1)'} 75%, ${isDark ? 'rgba(255,255,255,0.22)' : 'rgba(255,255,255,0.5)'} 100%)`,
-                    mask: 'linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0)',
-                    maskComposite: 'exclude',
-                    WebkitMaskComposite: 'xor' as any,
-                  }} />
-                </div>
-                {passwordError && (
-                  <motion.p
-                    className="text-xs text-center text-destructive"
-                    initial={{ opacity: 0, y: -4 }}
-                    animate={{ opacity: 1, y: 0 }}
-                  >
-                    Yanlış şifre
-                  </motion.p>
-                )}
-                <div className="relative group/btn rounded-xl overflow-hidden">
-                  <button
-                    type="submit"
-                    className="w-full py-2 rounded-xl text-xs font-semibold transition-all relative z-10"
-                    style={{
-                      background: isDark ? 'rgba(255,255,255,0.1)' : 'rgba(0,0,0,0.06)',
-                      color: isDark ? 'rgba(255,255,255,0.8)' : 'rgba(0,0,0,0.7)',
-                    }}
-                  >
-                    Giriş
-                  </button>
-                  {/* Diagonal specular border */}
-                  <div className="absolute inset-0 rounded-xl pointer-events-none transition-opacity duration-300 opacity-60 group-hover/btn:opacity-100" style={{
-                    padding: '1px',
-                    background: `linear-gradient(135deg, ${isDark ? 'rgba(255,255,255,0.22)' : 'rgba(255,255,255,0.5)'} 0%, ${isDark ? 'rgba(255,255,255,0.04)' : 'rgba(255,255,255,0.1)'} 25%, ${isDark ? 'rgba(255,255,255,0.02)' : 'rgba(255,255,255,0.05)'} 50%, ${isDark ? 'rgba(255,255,255,0.04)' : 'rgba(255,255,255,0.1)'} 75%, ${isDark ? 'rgba(255,255,255,0.22)' : 'rgba(255,255,255,0.5)'} 100%)`,
-                    mask: 'linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0)',
-                    maskComposite: 'exclude',
-                    WebkitMaskComposite: 'xor' as any,
-                  }} />
-                </div>
-              </form>
-            </motion.div>
-          </motion.div>
+          <PopoverGlass
+            popoverRef={popoverRef}
+            popoverPos={popoverPos}
+            isDark={isDark}
+            password={password}
+            setPassword={setPassword}
+            passwordError={passwordError}
+            setPasswordError={setPasswordError}
+            setShowPasswordModal={setShowPasswordModal}
+            onHitClick={onHitClick}
+            pendingRect={pendingRect}
+          />
         )}
       </AnimatePresence>
 
