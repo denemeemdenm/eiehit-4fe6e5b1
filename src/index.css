@@ -443,7 +443,7 @@
 }
 
 .heading-gradient-gold {
-  background-image: linear-gradient(90deg, hsl(47 95% 65%) 0%, hsl(38 75% 40%) 100%);
+  background-image: linear-gradient(90deg, #f6e587 0%, #eccb72 100%);
 }
 
 .dark .heading-gradient-red {
@@ -461,7 +461,7 @@
 }
 
 .dark .heading-gradient-gold {
-  background-image: linear-gradient(90deg, hsl(47 95% 70%) 0%, hsl(38 75% 45%) 100%);
+  background-image: linear-gradient(90deg, #f6e587 0%, #eccb72 100%);
 }
 
 @keyframes gradient-shift {
