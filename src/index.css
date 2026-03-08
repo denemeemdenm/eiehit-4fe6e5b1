@@ -278,53 +278,53 @@
   }
 
   .gradient-text-gray {
-    background-image: repeating-linear-gradient(90deg, hsl(var(--text-secondary)) 0px, hsl(var(--text-secondary)) 52px, hsl(var(--foreground)) 52px, hsl(var(--foreground)) 64px, hsl(var(--text-secondary)) 64px, hsl(var(--text-secondary)) 112px);
+    background-image: repeating-linear-gradient(90deg, hsl(var(--text-secondary)) 0px, hsl(var(--foreground)) 50px, hsl(var(--text-secondary)) 100px, hsl(var(--foreground)) 150px, hsl(var(--text-secondary)) 200px);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
-    background-size: 112px 100%;
+    background-size: 200px 100%;
     background-repeat: repeat-x;
-    animation: heading-gradient-rtl 3.2s linear infinite;
+    animation: heading-gradient-rtl 4s linear infinite;
   }
 
   .gradient-text-cyan {
-    background-image: repeating-linear-gradient(90deg, hsl(180 100% 70%) 0px, hsl(180 100% 70%) 52px, hsl(180 100% 60%) 52px, hsl(180 100% 60%) 64px, hsl(180 100% 70%) 64px, hsl(180 100% 70%) 112px);
+    background-image: repeating-linear-gradient(90deg, hsl(180 100% 70%) 0px, hsl(180 100% 60%) 50px, hsl(180 100% 70%) 100px, hsl(180 100% 60%) 150px, hsl(180 100% 70%) 200px);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
-    background-size: 112px 100%;
+    background-size: 200px 100%;
     background-repeat: repeat-x;
-    animation: heading-gradient-rtl 3.2s linear infinite;
+    animation: heading-gradient-rtl 4s linear infinite;
   }
 
   .gradient-text-red {
-    background-image: repeating-linear-gradient(90deg, hsl(18 100% 50%) 0px, hsl(18 100% 50%) 52px, hsl(18 100% 40%) 52px, hsl(18 100% 40%) 64px, hsl(18 100% 50%) 64px, hsl(18 100% 50%) 112px);
+    background-image: repeating-linear-gradient(90deg, hsl(18 100% 50%) 0px, hsl(18 100% 40%) 50px, hsl(18 100% 50%) 100px, hsl(18 100% 40%) 150px, hsl(18 100% 50%) 200px);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
-    background-size: 112px 100%;
+    background-size: 200px 100%;
     background-repeat: repeat-x;
-    animation: heading-gradient-rtl 3.2s linear infinite;
+    animation: heading-gradient-rtl 4s linear infinite;
   }
 
   .gradient-text-brand {
-    background-image: repeating-linear-gradient(90deg, hsl(180 100% 70%) 0px, hsl(180 100% 70%) 36px, hsl(18 100% 50%) 36px, hsl(18 100% 50%) 72px, hsl(48 100% 50%) 72px, hsl(48 100% 50%) 108px, hsl(18 100% 40%) 108px, hsl(18 100% 40%) 120px, hsl(180 100% 70%) 120px, hsl(180 100% 70%) 156px);
-    background-size: 156px 100%;
+    background-image: repeating-linear-gradient(90deg, hsl(180 100% 70%) 0px, hsl(18 100% 50%) 50px, hsl(48 100% 50%) 100px, hsl(18 100% 40%) 150px, hsl(180 100% 70%) 200px);
+    background-size: 200px 100%;
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
     background-repeat: repeat-x;
-    animation: heading-gradient-rtl 3.6s linear infinite;
+    animation: heading-gradient-rtl 4s linear infinite;
   }
 
   .gradient-text-gold {
-    background-image: repeating-linear-gradient(90deg, hsl(47 89% 60%) 0px, hsl(47 89% 60%) 52px, hsl(47 89% 50%) 52px, hsl(47 89% 50%) 64px, hsl(47 89% 60%) 64px, hsl(47 89% 60%) 112px);
+    background-image: repeating-linear-gradient(90deg, hsl(47 89% 60%) 0px, hsl(47 89% 50%) 50px, hsl(47 89% 60%) 100px, hsl(47 89% 50%) 150px, hsl(47 89% 60%) 200px);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
-    background-size: 112px 100%;
+    background-size: 200px 100%;
     background-repeat: repeat-x;
-    animation: heading-gradient-rtl 3.2s linear infinite;
+    animation: heading-gradient-rtl 4s linear infinite;
   }
 
   .gradient-text-cyan-word,
@@ -333,24 +333,24 @@
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
-    background-size: 112px 100%;
+    background-size: 200px 100%;
     background-repeat: repeat-x;
-    animation: heading-gradient-rtl 3.2s linear infinite;
+    animation: heading-gradient-rtl 4s linear infinite;
     display: inline-block;
     padding: 0 0.08em;
     margin: 0 -0.08em;
   }
 
   .gradient-text-cyan-word {
-    background-image: repeating-linear-gradient(90deg, hsl(180 100% 70%) 0px, hsl(180 100% 70%) 52px, hsl(180 100% 60%) 52px, hsl(180 100% 60%) 64px, hsl(180 100% 70%) 64px, hsl(180 100% 70%) 112px);
+    background-image: repeating-linear-gradient(90deg, hsl(180 100% 70%) 0px, hsl(180 100% 60%) 50px, hsl(180 100% 70%) 100px, hsl(180 100% 60%) 150px, hsl(180 100% 70%) 200px);
   }
 
   .gradient-text-orange-word {
-    background-image: repeating-linear-gradient(90deg, hsl(18 100% 50%) 0px, hsl(18 100% 50%) 52px, hsl(18 100% 40%) 52px, hsl(18 100% 40%) 64px, hsl(18 100% 50%) 64px, hsl(18 100% 50%) 112px);
+    background-image: repeating-linear-gradient(90deg, hsl(18 100% 50%) 0px, hsl(18 100% 40%) 50px, hsl(18 100% 50%) 100px, hsl(18 100% 40%) 150px, hsl(18 100% 50%) 200px);
   }
 
   .gradient-text-yellow-word {
-    background-image: repeating-linear-gradient(90deg, hsl(48 100% 50%) 0px, hsl(48 100% 50%) 52px, hsl(48 100% 40%) 52px, hsl(48 100% 40%) 64px, hsl(48 100% 50%) 64px, hsl(48 100% 50%) 112px);
+    background-image: repeating-linear-gradient(90deg, hsl(48 100% 50%) 0px, hsl(48 100% 40%) 50px, hsl(48 100% 50%) 100px, hsl(48 100% 40%) 150px, hsl(48 100% 50%) 200px);
   }
 
   /* Cyan gradient for icons — same vivid color in both modes */
@@ -401,7 +401,7 @@
 /* Animated heading gradients - text sabit, renk sağdan sola kayar */
 @keyframes heading-gradient-rtl {
   0% { background-position: 0 50%; }
-  100% { background-position: -112px 50%; }
+  100% { background-position: -200px 50%; }
 }
 
 .heading-gradient-red,
@@ -411,9 +411,9 @@
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
-  background-size: 112px 100%;
+  background-size: 200px 100%;
   background-repeat: repeat-x;
-  animation: heading-gradient-rtl 3.2s linear infinite;
+  animation: heading-gradient-rtl 4s linear infinite;
 }
 
 .heading-gradient-red,
@@ -429,35 +429,35 @@
 }
 
 .heading-gradient-red {
-  background-image: repeating-linear-gradient(90deg, hsl(18 100% 50%) 0px, hsl(18 100% 50%) 52px, hsl(18 100% 40%) 52px, hsl(18 100% 40%) 64px, hsl(18 100% 50%) 64px, hsl(18 100% 50%) 112px);
+  background-image: repeating-linear-gradient(90deg, hsl(18 100% 50%) 0px, hsl(18 100% 40%) 50px, hsl(18 100% 50%) 100px, hsl(18 100% 40%) 150px, hsl(18 100% 50%) 200px);
 }
 
 .heading-gradient-cyan {
-  background-image: repeating-linear-gradient(90deg, hsl(180 100% 70%) 0px, hsl(180 100% 70%) 52px, hsl(180 100% 60%) 52px, hsl(180 100% 60%) 64px, hsl(180 100% 70%) 64px, hsl(180 100% 70%) 112px);
+  background-image: repeating-linear-gradient(90deg, hsl(180 100% 70%) 0px, hsl(180 100% 60%) 50px, hsl(180 100% 70%) 100px, hsl(180 100% 60%) 150px, hsl(180 100% 70%) 200px);
 }
 
 .heading-gradient-silver {
-  background-image: repeating-linear-gradient(90deg, #222222 0px, #222222 52px, #000000 52px, #000000 64px, #222222 64px, #222222 112px);
+  background-image: repeating-linear-gradient(90deg, #222222 0px, #000000 50px, #222222 100px, #000000 150px, #222222 200px);
 }
 
 .heading-gradient-gold {
-  background-image: repeating-linear-gradient(90deg, hsl(47 89% 60%) 0px, hsl(47 89% 60%) 52px, hsl(47 89% 50%) 52px, hsl(47 89% 50%) 64px, hsl(47 89% 60%) 64px, hsl(47 89% 60%) 112px);
+  background-image: repeating-linear-gradient(90deg, hsl(47 89% 60%) 0px, hsl(47 89% 50%) 50px, hsl(47 89% 60%) 100px, hsl(47 89% 50%) 150px, hsl(47 89% 60%) 200px);
 }
 
 .dark .heading-gradient-red {
-  background-image: repeating-linear-gradient(90deg, hsl(18 100% 50%) 0px, hsl(18 100% 50%) 52px, hsl(18 100% 40%) 52px, hsl(18 100% 40%) 64px, hsl(18 100% 50%) 64px, hsl(18 100% 50%) 112px);
+  background-image: repeating-linear-gradient(90deg, hsl(18 100% 50%) 0px, hsl(18 100% 40%) 50px, hsl(18 100% 50%) 100px, hsl(18 100% 40%) 150px, hsl(18 100% 50%) 200px);
 }
 
 .dark .heading-gradient-cyan {
-  background-image: repeating-linear-gradient(90deg, hsl(180 100% 70%) 0px, hsl(180 100% 70%) 52px, hsl(180 100% 60%) 52px, hsl(180 100% 60%) 64px, hsl(180 100% 70%) 64px, hsl(180 100% 70%) 112px);
+  background-image: repeating-linear-gradient(90deg, hsl(180 100% 70%) 0px, hsl(180 100% 60%) 50px, hsl(180 100% 70%) 100px, hsl(180 100% 60%) 150px, hsl(180 100% 70%) 200px);
 }
 
 .dark .heading-gradient-silver {
-  background-image: repeating-linear-gradient(90deg, hsl(0 0% 100%) 0px, hsl(0 0% 100%) 52px, hsl(0 0% 90%) 52px, hsl(0 0% 90%) 64px, hsl(0 0% 100%) 64px, hsl(0 0% 100%) 112px);
+  background-image: repeating-linear-gradient(90deg, hsl(0 0% 100%) 0px, hsl(0 0% 90%) 50px, hsl(0 0% 100%) 100px, hsl(0 0% 90%) 150px, hsl(0 0% 100%) 200px);
 }
 
 .dark .heading-gradient-gold {
-  background-image: repeating-linear-gradient(90deg, hsl(47 89% 60%) 0px, hsl(47 89% 60%) 52px, hsl(47 89% 50%) 52px, hsl(47 89% 50%) 64px, hsl(47 89% 60%) 64px, hsl(47 89% 60%) 112px);
+  background-image: repeating-linear-gradient(90deg, hsl(47 89% 60%) 0px, hsl(47 89% 50%) 50px, hsl(47 89% 60%) 100px, hsl(47 89% 50%) 150px, hsl(47 89% 60%) 200px);
 }
 
 @keyframes gradient-shift {
