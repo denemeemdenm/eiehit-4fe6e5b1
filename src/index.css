@@ -434,11 +434,11 @@
 }
 
 .heading-gradient-red {
-  background-image: repeating-linear-gradient(90deg, hsl(18 100% 50%) 0px, hsl(18 100% 40%) 100px, hsl(18 100% 50%) 200px, hsl(18 100% 40%) 300px, hsl(18 100% 50%) 400px);
+  background-image: repeating-linear-gradient(90deg, #FF4000 0px, #E63A00 100px, #FF4000 200px, #E63A00 300px, #FF4000 400px);
 }
 
 .heading-gradient-cyan {
-  background-image: repeating-linear-gradient(90deg, hsl(180 100% 75%) 0px, hsl(185 90% 45%) 100px, hsl(180 100% 75%) 200px, hsl(185 90% 45%) 300px, hsl(180 100% 75%) 400px);
+  background-image: repeating-linear-gradient(90deg, #65FFFF 0px, #5BE6E6 100px, #65FFFF 200px, #5BE6E6 300px, #65FFFF 400px);
 }
 
 .heading-gradient-silver {
@@ -454,18 +454,18 @@
 }
 
 .heading-gradient-gold {
-  background-image: repeating-linear-gradient(90deg, #f6e587 0px, #eccb72 100px, #f6e587 200px, #eccb72 300px, #f6e587 400px);
+  background-image: repeating-linear-gradient(90deg, #FFD000 0px, #E6BB00 100px, #FFD000 200px, #E6BB00 300px, #FFD000 400px);
   background-size: 400px 100%;
   background-repeat: repeat-x;
   animation: heading-gradient-rtl 5s linear infinite;
 }
 
 .dark .heading-gradient-red {
-  background-image: repeating-linear-gradient(90deg, hsl(18 100% 50%) 0px, hsl(18 100% 40%) 100px, hsl(18 100% 50%) 200px, hsl(18 100% 40%) 300px, hsl(18 100% 50%) 400px);
+  background-image: repeating-linear-gradient(90deg, #FF4000 0px, #E63A00 100px, #FF4000 200px, #E63A00 300px, #FF4000 400px);
 }
 
 .dark .heading-gradient-cyan {
-  background-image: repeating-linear-gradient(90deg, hsl(180 100% 75%) 0px, hsl(185 90% 45%) 100px, hsl(180 100% 75%) 200px, hsl(185 90% 45%) 300px, hsl(180 100% 75%) 400px);
+  background-image: repeating-linear-gradient(90deg, #65FFFF 0px, #5BE6E6 100px, #65FFFF 200px, #5BE6E6 300px, #65FFFF 400px);
 }
 
 .dark .heading-gradient-silver {
@@ -475,7 +475,7 @@
 }
 
 .dark .heading-gradient-gold {
-  background-image: repeating-linear-gradient(90deg, #f6e587 0px, #eccb72 100px, #f6e587 200px, #eccb72 300px, #f6e587 400px);
+  background-image: repeating-linear-gradient(90deg, #FFD000 0px, #E6BB00 100px, #FFD000 200px, #E6BB00 300px, #FFD000 400px);
   background-size: 400px 100%;
   background-repeat: repeat-x;
   animation: heading-gradient-rtl 5s linear infinite;
