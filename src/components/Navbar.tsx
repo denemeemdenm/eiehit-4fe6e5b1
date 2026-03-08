@@ -266,6 +266,7 @@ export default function Navbar({ theme, onHitClick, flashcardOpen, onFlashcardCl
                 <AnimatePresence>
                   {showPasswordModal && (
                     <motion.div
+                      data-password-popover
                       className="absolute top-full right-0 mt-3 z-[100] w-[240px] overflow-hidden p-6 text-center"
                       style={{
                         borderRadius: '16px',
