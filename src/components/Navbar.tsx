@@ -338,26 +338,6 @@ export default function Navbar({ theme, onHitClick, flashcardOpen, onFlashcardCl
                   </motion.div>);
 
             })}
-              {/* Mobile HiT button */}
-              <motion.div
-              initial={{ opacity: 0, x: -12 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ delay: navItems.length * 0.04, duration: 0.2 }}>
-
-                <button
-                onClick={() => {
-                  setPendingRect(undefined);
-                  setPassword('');
-                  setPasswordError(false);
-                  setShowPasswordModal(true);
-                  setMobileOpen(false);
-                }}
-                className="block w-full text-left px-4 py-2.5 rounded-xl text-sm font-medium transition-colors duration-200"
-                style={{ color: isDark ? 'rgba(255,255,255,0.5)' : 'rgba(0,0,0,0.45)' }}>
-
-                  HiT
-                </button>
-              </motion.div>
             </motion.div>
           }
         </AnimatePresence>
