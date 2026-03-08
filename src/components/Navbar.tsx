@@ -182,7 +182,8 @@ function PopoverGlass({
                   setPasswordError(true);
                   setPassword('');
                 }
-              } catch {
+              } catch (err) {
+                console.error('GAS fetch error:', err);
                 setPasswordError(true);
                 setPassword('');
               }
