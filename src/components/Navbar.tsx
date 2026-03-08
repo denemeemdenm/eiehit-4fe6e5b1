@@ -370,7 +370,7 @@ export default function Navbar({ theme, onHitClick, flashcardOpen, onFlashcardCl
             </button>
 
             {/* Desktop links */}
-            <div className="hidden md:flex items-center relative">
+            <div className="hidden lg:flex items-center relative">
               {!flashcardOpen && navItems.map((item) => {
                 const isActive = activeSection === item.id;
                 const isClicked = clickedId === item.id;
@@ -451,10 +451,10 @@ export default function Navbar({ theme, onHitClick, flashcardOpen, onFlashcardCl
             </div>
 
             {/* Separator — desktop only, not in flashcard mode */}
-            {!flashcardOpen && <span className="hidden md:block w-px h-4 mx-1.5 shrink-0" style={{ background: isDark ? 'rgba(255,255,255,0.12)' : 'rgba(0,0,0,0.1)' }} />}
+            {!flashcardOpen && <span className="hidden lg:block w-px h-4 mx-1.5 shrink-0" style={{ background: isDark ? 'rgba(255,255,255,0.12)' : 'rgba(0,0,0,0.1)' }} />}
 
             {/* HiT button — always visible */}
-            <div className="relative">
+            <div className="relative shrink-0">
               <motion.button
                 ref={hitButtonRef}
                 onClick={() => {
@@ -468,7 +468,7 @@ export default function Navbar({ theme, onHitClick, flashcardOpen, onFlashcardCl
                     setShowPasswordModal(true);
                   }
                 }}
-                className="relative px-3.5 py-1.5 flex items-center rounded-[14px]"
+                className="relative px-3.5 py-1.5 flex items-center shrink-0 rounded-[14px]"
                 whileHover={{ scale: 1.05, backgroundColor: isDark ? 'rgba(255,255,255,0.06)' : 'rgba(0,0,0,0.04)' }}
                 whileTap={{ scale: 0.94 }}
                 transition={{ type: 'spring', stiffness: 400, damping: 20 }}
@@ -509,7 +509,7 @@ export default function Navbar({ theme, onHitClick, flashcardOpen, onFlashcardCl
             {/* Mobile hamburger */}
             <button
               onClick={() => setMobileOpen(!mobileOpen)}
-              className="md:hidden w-8 h-8 rounded-lg flex items-center justify-center transition-colors"
+              className="lg:hidden w-8 h-8 rounded-lg flex items-center justify-center transition-colors"
               style={{ color: isDark ? 'rgba(255,255,255,0.6)' : 'rgba(0,0,0,0.5)' }}
               aria-label="Menü">
 
