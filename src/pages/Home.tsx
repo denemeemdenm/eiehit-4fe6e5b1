@@ -213,8 +213,8 @@ export default function Home() {
             <AnimatedGradientHeading color="red" className="text-2xl sm:text-[30px] font-bold text-center mb-4">
               Çalışma Alanları
             </AnimatedGradientHeading>
-            <p className="text-center text-muted-foreground mb-16 max-w-xl mx-auto">Aşağıdaki tüm alanlar ve daha birçok farklı hukuk alanında
- profesyonel danışmanlık hizmeti sunulmaktadır.
+            <p className="text-center text-muted-foreground mb-16 max-w-xl mx-auto">Aşağıdaki tüm alanlarda ve daha birçok farklı hukuk alanında  profesyonel danışmanlık hizmeti sunulmaktadır.
+
             </p>
           </ScrollReveal>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
