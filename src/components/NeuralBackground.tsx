@@ -7,7 +7,6 @@ interface Particle {
 }
 
 const COLORS = ['#64FFFF', '#FF4B00', '#FFCC00'];
-interface GoldTrail { x: number; y: number; alpha: number; size: number; }
 
 export default function NeuralBackground() {
   const canvasRef = useRef<HTMLCanvasElement>(null);
