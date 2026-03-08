@@ -354,7 +354,7 @@ export default function Navbar({ theme, onHitClick, flashcardOpen, onFlashcardCl
   return (
     <>
       <header className="fixed top-4 left-1/2 -translate-x-1/2 z-50">
-        <div className="flex items-center gap-2">
+        <div className="flex items-center gap-2 shrink-0">
           <motion.nav
             ref={navRef}
             layout="position"
