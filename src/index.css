@@ -466,7 +466,7 @@
 }
 
 .heading-gradient-silver {
-  background: linear-gradient(270deg, #ffffff, #999999, #e0e0e0, #777777, #ffffff, #999999, #e0e0e0);
+  background: linear-gradient(270deg, #ffffff, #EBEBEB, #ffffff, #EBEBEB, #ffffff, #EBEBEB, #ffffff);
   background-size: 300% 100%;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
@@ -484,7 +484,7 @@
 }
 
 .dark .heading-gradient-silver {
-  background: linear-gradient(270deg, #e0e0e0, #808080, #c0c0c0, #666666, #e0e0e0, #808080, #c0c0c0);
+  background: linear-gradient(270deg, #ffffff, #EBEBEB, #ffffff, #EBEBEB, #ffffff, #EBEBEB, #ffffff);
   background-size: 300% 100%;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
