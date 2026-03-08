@@ -518,7 +518,7 @@ export default function Navbar({ theme, onHitClick, flashcardOpen, onFlashcardCl
                 <img
                   src={isDark ? logoLight : logoDark}
                   alt="HiTKURT"
-                  className="h-7 w-auto object-contain relative z-10" />
+                  className="h-7 w-auto object-contain relative z-10 block" />
 
               </motion.button>
             </div>
