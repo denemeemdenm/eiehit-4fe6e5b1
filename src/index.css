@@ -442,7 +442,7 @@
 }
 
 .heading-gradient-silver {
-  background-image: repeating-linear-gradient(90deg, #505050 0px, #000000 100px, #505050 200px, #000000 300px, #505050 400px);
+  background-image: repeating-linear-gradient(90deg, #505050 0px, #000000 200px, #505050 400px);
   background-size: 400px 100%;
   background-repeat: repeat-x;
   animation: heading-gradient-rtl 5s linear infinite;
