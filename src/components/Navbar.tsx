@@ -357,9 +357,9 @@ export default function Navbar({ theme, onHitClick, flashcardOpen, onFlashcardCl
         <div className="flex items-center gap-2">
           <motion.nav
             ref={navRef}
-            layout
+            layout="position"
             transition={{ type: 'spring', stiffness: 300, damping: 30, mass: 0.8 }}
-            className="px-2 pr-4 flex-row flex items-center justify-start gap-[8px] rounded-[21.6px] py-[8px] relative overflow-visible md:min-w-[540px]"
+            className="px-2 pr-5 flex-row flex items-center justify-start gap-[8px] rounded-[21.6px] py-[8px] relative overflow-visible md:min-w-[540px]"
             style={{
               background: 'hsla(var(--glass-bg))',
               backdropFilter: 'blur(var(--glass-blur)) saturate(var(--glass-saturation))',
