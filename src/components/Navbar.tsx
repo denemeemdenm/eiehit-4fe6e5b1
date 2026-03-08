@@ -509,7 +509,7 @@ export default function Navbar({ theme, onHitClick, flashcardOpen, onFlashcardCl
             {/* Mobile hamburger */}
             <button
               onClick={() => setMobileOpen(!mobileOpen)}
-              className="md:hidden w-8 h-8 rounded-lg flex items-center justify-center transition-colors"
+              className="lg:hidden w-8 h-8 rounded-lg flex items-center justify-center transition-colors"
               style={{ color: isDark ? 'rgba(255,255,255,0.6)' : 'rgba(0,0,0,0.5)' }}
               aria-label="Menü">
 
