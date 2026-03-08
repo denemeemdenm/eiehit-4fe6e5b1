@@ -461,7 +461,7 @@
 }
 
 .dark .heading-gradient-gold {
-  background-image: repeating-linear-gradient(90deg, hsl(47 89% 60%) 0px, hsl(47 89% 50%) 100px, hsl(47 89% 60%) 200px, hsl(47 89% 50%) 300px, hsl(47 89% 60%) 400px);
+  background-image: linear-gradient(90deg, hsl(38 80% 50%) 0%, hsl(43 92% 60%) 25%, hsl(47 95% 70%) 50%, hsl(43 92% 60%) 75%, hsl(38 80% 50%) 100%);
 }
 
 @keyframes gradient-shift {
