@@ -314,7 +314,7 @@
     -webkit-text-fill-color: transparent;
     background-clip: text;
     background-repeat: repeat-x;
-    animation: heading-gradient-rtl 15s linear infinite;
+    animation: heading-gradient-rtl 10s linear infinite;
   }
 
   .gradient-text-gold {
