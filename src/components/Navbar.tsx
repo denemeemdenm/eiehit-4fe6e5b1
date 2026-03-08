@@ -232,7 +232,7 @@ function PopoverGlass({
 }
 
 
-  theme: 'light' | 'dark';
+  interface NavbarProps {
   onHitClick?: (rect?: DOMRect) => void;
   flashcardOpen?: boolean;
   onFlashcardClose?: () => void;
