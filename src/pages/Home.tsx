@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect, useRef, forwardRef } from 'react';
 import { motion } from 'framer-motion';
 import { Shield, Eye, Lock, Cpu, Phone, Mail, Copy } from 'lucide-react';
 import LiquidGlassCard from '@/components/LiquidGlassCard';
@@ -71,18 +71,14 @@ const areaImagesLight: Record<string, string> = {
 const featuredAreas = practiceAreas.slice(0, 6);
 
 // Animated gradient heading with serif font — alternates red/cyan
-function AnimatedGradientHeading({ children, className, color = 'red', as: Tag = 'h2'
-
-
-
-
-}: {children: React.ReactNode;className?: string;color?: 'red' | 'cyan';as?: 'h2' | 'h3';}) {
-  return (
-    <Tag className={`${color === 'red' ? 'heading-gradient-red' : 'heading-gradient-cyan'} ${className || ''}`}>
+const AnimatedGradientHeading = forwardRef<HTMLHeadingElement, {children: React.ReactNode;className?: string;color?: 'red' | 'cyan';as?: 'h2' | 'h3';}>(
+  ({ children, className, color = 'red', as: Tag = 'h2' }, ref) => (
+    <Tag ref={ref as any} className={`${color === 'red' ? 'heading-gradient-red' : 'heading-gradient-cyan'} ${className || ''}`}>
       {children}
-    </Tag>);
-
-}
+    </Tag>
+  )
+);
+AnimatedGradientHeading.displayName = 'AnimatedGradientHeading';
 
 export default function Home() {
   const [isDark, setIsDark] = useState(document.documentElement.classList.contains('dark'));
