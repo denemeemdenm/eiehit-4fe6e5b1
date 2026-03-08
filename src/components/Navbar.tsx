@@ -66,6 +66,23 @@ export default function Navbar({ theme, onHitClick, flashcardOpen, onFlashcardCl
     return () => observers.forEach((o) => o.disconnect());
   }, []);
 
+  // Close password popover on click outside
+  useEffect(() => {
+    if (!showPasswordModal) return;
+    const handler = (e: MouseEvent) => {
+      const target = e.target as Node;
+      if (hitButtonRef.current?.contains(target)) return;
+      // Check if click is inside the popover
+      const popover = hitButtonRef.current?.parentElement?.querySelector('[data-password-popover]');
+      if (popover?.contains(target)) return;
+      setShowPasswordModal(false);
+    };
+    const escHandler = (e: KeyboardEvent) => { if (e.key === 'Escape') setShowPasswordModal(false); };
+    document.addEventListener('mousedown', handler);
+    document.addEventListener('keydown', escHandler);
+    return () => { document.removeEventListener('mousedown', handler); document.removeEventListener('keydown', escHandler); };
+  }, [showPasswordModal]);
+
   const scrollTo = useCallback((id: string) => {
     setActiveSection(id);
     setClickedId(id);
@@ -198,11 +215,15 @@ export default function Navbar({ theme, onHitClick, flashcardOpen, onFlashcardCl
                 <motion.button
                   ref={hitButtonRef}
                   onClick={() => {
-                    const rect = hitButtonRef.current?.getBoundingClientRect();
-                    setPendingRect(rect || undefined);
-                    setPassword('');
-                    setPasswordError(false);
-                    setShowPasswordModal(true);
+                    if (showPasswordModal) {
+                      setShowPasswordModal(false);
+                    } else {
+                      const rect = hitButtonRef.current?.getBoundingClientRect();
+                      setPendingRect(rect || undefined);
+                      setPassword('');
+                      setPasswordError(false);
+                      setShowPasswordModal(true);
+                    }
                   }}
                   className="relative px-3.5 py-1.5 flex items-center rounded-[14px]"
                   whileHover={{ scale: 1.05, backgroundColor: isDark ? 'rgba(255,255,255,0.06)' : 'rgba(0,0,0,0.04)' }}
@@ -240,7 +261,116 @@ export default function Navbar({ theme, onHitClick, flashcardOpen, onFlashcardCl
                     className="h-5 w-auto object-contain relative z-10" />
 
                 </motion.button>
-                
+
+                {/* Password Popover — macOS menu bar style */}
+                <AnimatePresence>
+                  {showPasswordModal && (
+                    <motion.div
+                      data-password-popover
+                      className="absolute top-full right-0 mt-3 z-[100] w-[240px] overflow-hidden p-6 text-center"
+                      style={{
+                        borderRadius: '16px',
+                        background: 'hsla(var(--glass-bg))',
+                        backdropFilter: 'blur(var(--glass-blur)) saturate(var(--glass-saturation))',
+                        WebkitBackdropFilter: 'blur(var(--glass-blur)) saturate(var(--glass-saturation))',
+                        boxShadow: isDark
+                          ? '0 16px 48px rgba(0,0,0,0.4), 0 4px 12px rgba(0,0,0,0.3)'
+                          : '0 16px 48px rgba(0,0,0,0.1), 0 4px 12px rgba(0,0,0,0.06)',
+                      }}
+                      initial={{ opacity: 0, y: -6, scale: 0.96 }}
+                      animate={{ opacity: 1, y: 0, scale: 1 }}
+                      exit={{ opacity: 0, y: -6, scale: 0.96 }}
+                      transition={{ type: 'spring', stiffness: 500, damping: 32, mass: 0.6 }}
+                    >
+                      {/* Noise/grain texture */}
+                      <div
+                        className="absolute inset-0 pointer-events-none opacity-[0.03] rounded-[inherit]"
+                        style={{
+                          backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")`,
+                          backgroundSize: '128px',
+                        }}
+                      />
+                      {/* Top shine */}
+                      <div
+                        className="absolute inset-x-0 top-0 h-1/2 pointer-events-none rounded-t-[inherit]"
+                        style={{ background: `linear-gradient(180deg, ${isDark ? 'hsla(0 0% 100% / 0.12)' : 'hsla(0 0% 100% / 0.6)'} 0%, transparent 100%)` }}
+                      />
+                      {/* Rim light border — same as navbar */}
+                      <div
+                        className="absolute inset-0 pointer-events-none rounded-[inherit]"
+                        style={{
+                          padding: '0.5px',
+                          background: `linear-gradient(180deg, ${isDark ? 'hsla(0 0% 100% / 0.25)' : 'hsla(0 0% 100% / 0.7)'} 0%, ${isDark ? 'hsla(0 0% 100% / 0.06)' : 'hsla(0 0% 100% / 0.2)'} 40%, ${isDark ? 'hsla(0 0% 100% / 0.12)' : 'hsla(0 0% 100% / 0.35)'} 100%)`,
+                          mask: 'linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0)',
+                          maskComposite: 'exclude',
+                          WebkitMaskComposite: 'xor' as any,
+                        }}
+                      />
+
+                      <motion.div
+                        className="relative z-10 flex flex-col items-center gap-4"
+                        initial={{ opacity: 0, y: 6 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ delay: 0.06, duration: 0.25 }}
+                      >
+                        <Lock size={18} style={{ color: isDark ? 'rgba(255,255,255,0.5)' : 'rgba(0,0,0,0.4)' }} />
+                        <h3
+                          className="text-sm font-semibold"
+                          style={{ fontFamily: "'EKiN Pro Max Diyakritik', sans-serif", color: isDark ? '#fff' : '#000' }}
+                        >
+                          Erişim Şifresi
+                        </h3>
+                        <form
+                          onSubmit={(e) => {
+                            e.preventDefault();
+                            if (password === '1071') {
+                              setShowPasswordModal(false);
+                              onHitClick?.(pendingRect);
+                            } else {
+                              setPasswordError(true);
+                              setPassword('');
+                            }
+                          }}
+                          className="w-full flex flex-col gap-2.5"
+                        >
+                          <Input
+                            type="password"
+                            placeholder="••••"
+                            value={password}
+                            onChange={(e) => { setPassword(e.target.value); setPasswordError(false); }}
+                            autoFocus
+                            className="text-center text-sm placeholder:text-muted-foreground/40"
+                            style={{
+                              background: isDark ? 'rgba(255,255,255,0.06)' : 'rgba(0,0,0,0.04)',
+                              borderColor: passwordError ? 'hsl(0, 84%, 60%)' : isDark ? 'rgba(255,255,255,0.1)' : 'rgba(0,0,0,0.08)',
+                              borderRadius: '12px',
+                              color: isDark ? '#fff' : '#000',
+                            }}
+                          />
+                          {passwordError && (
+                            <motion.p
+                              className="text-xs text-center text-red-500"
+                              initial={{ opacity: 0, y: -4 }}
+                              animate={{ opacity: 1, y: 0 }}
+                            >
+                              Yanlış şifre
+                            </motion.p>
+                          )}
+                          <button
+                            type="submit"
+                            className="w-full py-2 rounded-xl text-xs font-semibold transition-all"
+                            style={{
+                              background: isDark ? 'rgba(255,255,255,0.1)' : 'rgba(0,0,0,0.06)',
+                              color: isDark ? 'rgba(255,255,255,0.8)' : 'rgba(0,0,0,0.7)',
+                            }}
+                          >
+                            Giriş
+                          </button>
+                        </form>
+                      </motion.div>
+                    </motion.div>
+                  )}
+                </AnimatePresence>
               </div>
             </div>
 
@@ -326,113 +456,6 @@ export default function Navbar({ theme, onHitClick, flashcardOpen, onFlashcardCl
         </AnimatePresence>
       </header>
 
-      {/* Password Modal */}
-      <AnimatePresence>
-        {showPasswordModal && (
-          <motion.div
-            className="fixed inset-0 z-[100] flex items-center justify-center"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            transition={{ duration: 0.2 }}
-          >
-            <div className="absolute inset-0 bg-black/60 backdrop-blur-md" onClick={() => setShowPasswordModal(false)} />
-            <motion.div
-              className="relative z-10 w-[320px] rounded-[24px] p-8 overflow-hidden"
-              style={{
-                background: 'hsla(0 0% 20% / 0.35)',
-                backdropFilter: 'blur(40px) saturate(200%)',
-                WebkitBackdropFilter: 'blur(40px) saturate(200%)',
-                boxShadow: '0 16px 48px rgba(0,0,0,0.3), 0 4px 12px rgba(0,0,0,0.2)',
-              }}
-              initial={{ scale: 0.9, opacity: 0, y: 20 }}
-              animate={{ scale: 1, opacity: 1, y: 0 }}
-              exit={{ scale: 0.9, opacity: 0, y: 20 }}
-              transition={{ type: 'spring', stiffness: 400, damping: 30 }}
-            >
-              {/* Noise texture */}
-              <div
-                className="absolute inset-0 pointer-events-none opacity-[0.03] rounded-[inherit]"
-                style={{
-                  backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")`,
-                  backgroundSize: '128px',
-                }}
-              />
-              {/* Top shine */}
-              <div
-                className="absolute inset-x-0 top-0 h-1/2 pointer-events-none rounded-t-[inherit]"
-                style={{ background: 'linear-gradient(180deg, hsla(0 0% 100% / 0.18) 0%, transparent 100%)' }}
-              />
-              {/* Rim light border */}
-              <div className="absolute inset-0 rounded-[inherit] pointer-events-none" style={{
-                padding: '0.5px',
-                background: 'linear-gradient(180deg, hsla(0 0% 100% / 0.35) 0%, hsla(0 0% 100% / 0.08) 40%, hsla(0 0% 100% / 0.15) 100%)',
-                mask: 'linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0)',
-                maskComposite: 'exclude',
-                WebkitMaskComposite: 'xor' as any,
-              }} />
-
-              <div className="relative z-10 flex flex-col items-center gap-5">
-                <div className="w-12 h-12 rounded-2xl flex items-center justify-center" style={{
-                  background: 'hsla(0 0% 100% / 0.1)',
-                }}>
-                  <Lock size={22} className="text-white/70" />
-                </div>
-                <h3 className="text-base font-semibold text-white" style={{ fontFamily: "'EKiN Pro Max Diyakritik', sans-serif" }}>
-                  Erişim Şifresi
-                </h3>
-                <form
-                  onSubmit={(e) => {
-                    e.preventDefault();
-                    if (password === '1071') {
-                      setShowPasswordModal(false);
-                      onHitClick?.(pendingRect);
-                    } else {
-                      setPasswordError(true);
-                      setPassword('');
-                    }
-                  }}
-                  className="w-full flex flex-col gap-3"
-                >
-                  <Input
-                    type="password"
-                    placeholder="••••"
-                    value={password}
-                    onChange={(e) => { setPassword(e.target.value); setPasswordError(false); }}
-                    autoFocus
-                    className="text-center text-white placeholder:text-white/30"
-                    style={{
-                      background: 'hsla(0 0% 100% / 0.06)',
-                      borderColor: passwordError ? 'hsl(0, 84%, 60%)' : 'hsla(0 0% 100% / 0.12)',
-                      borderRadius: '14px',
-                      backdropFilter: 'blur(10px)',
-                    }}
-                  />
-                  {passwordError && (
-                    <motion.p
-                      className="text-xs text-center text-red-400"
-                      initial={{ opacity: 0, y: -4 }}
-                      animate={{ opacity: 1, y: 0 }}
-                    >
-                      Yanlış şifre
-                    </motion.p>
-                  )}
-                  <button
-                    type="submit"
-                    className="w-full py-2.5 rounded-[14px] text-sm font-semibold text-white/90 transition-all"
-                    style={{
-                      background: 'hsla(0 0% 100% / 0.12)',
-                      boxShadow: '0 2px 8px rgba(0,0,0,0.2)',
-                    }}
-                  >
-                    Giriş
-                  </button>
-                </form>
-              </div>
-            </motion.div>
-          </motion.div>
-        )}
-      </AnimatePresence>
     </>);
 
 }
