@@ -122,13 +122,13 @@ export default function Home() {
           <motion.div initial={{ opacity: 0, y: 30, filter: 'blur(10px)' }} animate={{ opacity: 1, y: 0, filter: 'blur(0px)' }} transition={{ duration: 1, delay: 0.4, ease: [0.25, 0.46, 0.45, 0.94] }} className="flex justify-center">
             <h1
               className="text-4xl sm:text-5xl md:text-6xl font-bold tracking-wide heading-gradient-silver"
-              style={{ fontFamily: "'EKiN Pro Max Diyakritik', sans-serif", lineHeight: 1.4, paddingTop: '0.15em', overflow: 'visible' }}
+              style={{ fontFamily: "'HiT Vision Pro Max', sans-serif", lineHeight: 1.4, paddingTop: '0.15em', overflow: 'visible' }}
             >
               EKİN İSA EROĞLU
             </h1>
           </motion.div>
 
-          <motion.p className="text-lg sm:text-xl md:text-2xl max-w-2xl mx-auto leading-relaxed heading-gradient-gold" initial={{ opacity: 0, y: 30, filter: 'blur(10px)' }} animate={{ opacity: 1, y: 0, filter: 'blur(0px)' }} transition={{ duration: 1, delay: 1.4, ease: [0.25, 0.46, 0.45, 0.94] }}>
+          <motion.p className="text-lg sm:text-xl md:text-2xl max-w-2xl mx-auto leading-relaxed heading-gradient-gold" style={{ fontFamily: "'HiT Font', serif" }} initial={{ opacity: 0, y: 30, filter: 'blur(10px)' }} animate={{ opacity: 1, y: 0, filter: 'blur(0px)' }} transition={{ duration: 1, delay: 1.4, ease: [0.25, 0.46, 0.45, 0.94] }}>
             "Ay-Yıldız'ın Işığında; Atatürk'ün Yolunda…"
           </motion.p>
 
@@ -151,7 +151,7 @@ export default function Home() {
               <div className="flex items-start gap-6 mb-8">
                 <img src={logo} alt="Logo" className="w-16 h-auto shrink-0 object-contain" />
                 <div>
-                  <h3 className="text-2xl font-bold mb-1" style={{ fontFamily: "'EKiN Pro Max Diyakritik', sans-serif" }}>Av. Ekin İsa EROĞLU</h3>
+                  <h3 className="text-2xl font-bold mb-1" style={{ fontFamily: "'HiT Vision Pro Max', sans-serif" }}>Av. Ekin İsa EROĞLU</h3>
                 </div>
               </div>
               <div className="space-y-4 text-muted-foreground leading-relaxed">
@@ -262,7 +262,7 @@ export default function Home() {
         <div className="max-w-4xl mx-auto">
           <ScrollReveal>
             <LiquidGlassCard className="p-12 sm:p-16 text-center">
-              <h2 className="text-2xl sm:text-3xl font-bold mb-4" style={{ fontFamily: "'EKiN Pro Max Diyakritik', sans-serif" }}>
+              <h2 className="text-2xl sm:text-3xl font-bold mb-4" style={{ fontFamily: "'HiT Vision Pro Max', sans-serif" }}>
                 <span className="gradient-text-cyan-word">HUKUK</span>
                 <span className="text-foreground/40"> × </span>
                 <span className="gradient-text-orange-word">İNOVASYON</span>
