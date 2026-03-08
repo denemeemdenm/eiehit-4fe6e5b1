@@ -12,7 +12,7 @@ export default function Footer() {
             <div className="flex items-center gap-3">
               <img src={logo} alt="Logo" className="w-10 h-auto object-contain" />
               <div>
-                <p className="font-bold text-sm" style={{ fontFamily: "'HiT Vision Pro Max', sans-serif" }}>Av. Ekin İsa EROĞLU</p>
+                <p className="font-bold text-sm heading-gradient-silver" style={{ fontFamily: "'HiT Vision Pro Max', sans-serif" }}>Av. Ekin İsa EROĞLU</p>
                 <p className="text-xs" style={{ fontFamily: "'HiT Vision Pro Max', sans-serif" }}>
                   <span className="gradient-text-cyan-word">Hukuk</span>
                   <span className="text-foreground/40 dark:text-gray-400"> × </span>
@@ -62,7 +62,7 @@ export default function Footer() {
             Avukat-müvekkil ilişkisi ancak yazılı sözleşme ile kurulur. Sonuç taahhüdü verilmemektedir.
           </p>
           <p className="text-xs text-muted-foreground/50 text-center">
-            © {new Date().getFullYear()} <span style={{ fontFamily: "'HiT Vision Pro Max', sans-serif" }}>Av. Ekin İsa EROĞLU</span>. Tüm hakları saklıdır.
+            © {new Date().getFullYear()} <span className="heading-gradient-silver" style={{ fontFamily: "'HiT Vision Pro Max', sans-serif" }}>Av. Ekin İsa EROĞLU</span>. Tüm hakları saklıdır.
           </p>
         </div>
       </div>
