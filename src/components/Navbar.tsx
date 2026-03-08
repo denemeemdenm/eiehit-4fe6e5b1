@@ -67,20 +67,35 @@ export default function Navbar({ theme, onHitClick, flashcardOpen, onFlashcardCl
   }, []);
 
   // Close password popover on click outside
+  const popoverRef = useRef<HTMLDivElement>(null);
   useEffect(() => {
     if (!showPasswordModal) return;
     const handler = (e: MouseEvent) => {
       const target = e.target as Node;
       if (hitButtonRef.current?.contains(target)) return;
-      // Check if click is inside the popover
-      const popover = hitButtonRef.current?.parentElement?.querySelector('[data-password-popover]');
-      if (popover?.contains(target)) return;
+      if (popoverRef.current?.contains(target)) return;
       setShowPasswordModal(false);
     };
     const escHandler = (e: KeyboardEvent) => { if (e.key === 'Escape') setShowPasswordModal(false); };
     document.addEventListener('mousedown', handler);
     document.addEventListener('keydown', escHandler);
     return () => { document.removeEventListener('mousedown', handler); document.removeEventListener('keydown', escHandler); };
+  }, [showPasswordModal]);
+
+  // Calculate popover position from HiT button
+  const [popoverPos, setPopoverPos] = useState({ top: 0, right: 0 });
+  useEffect(() => {
+    if (!showPasswordModal || !hitButtonRef.current) return;
+    const updatePos = () => {
+      const rect = hitButtonRef.current!.getBoundingClientRect();
+      setPopoverPos({
+        top: rect.bottom + 10,
+        right: window.innerWidth - rect.right,
+      });
+    };
+    updatePos();
+    window.addEventListener('resize', updatePos);
+    return () => window.removeEventListener('resize', updatePos);
   }, [showPasswordModal]);
 
   const scrollTo = useCallback((id: string) => {
@@ -210,7 +225,6 @@ export default function Navbar({ theme, onHitClick, flashcardOpen, onFlashcardCl
 
               {!flashcardOpen && <span className="w-px h-4 mx-1.5 shrink-0" style={{ background: isDark ? 'rgba(255,255,255,0.12)' : 'rgba(0,0,0,0.1)' }} />}
 
-              {/* HiT logo — opens popover */}
               <div className="relative">
                 <motion.button
                   ref={hitButtonRef}
@@ -261,116 +275,6 @@ export default function Navbar({ theme, onHitClick, flashcardOpen, onFlashcardCl
                     className="h-5 w-auto object-contain relative z-10" />
 
                 </motion.button>
-
-                {/* Password Popover — macOS menu bar style */}
-                <AnimatePresence>
-                  {showPasswordModal && (
-                    <motion.div
-                      data-password-popover
-                      className="absolute top-full right-0 mt-3 z-[100] w-[240px] overflow-hidden p-6 text-center"
-                      style={{
-                        borderRadius: '16px',
-                        background: 'hsla(var(--glass-bg))',
-                        backdropFilter: 'blur(var(--glass-blur)) saturate(var(--glass-saturation))',
-                        WebkitBackdropFilter: 'blur(var(--glass-blur)) saturate(var(--glass-saturation))',
-                        boxShadow: isDark
-                          ? '0 16px 48px rgba(0,0,0,0.4), 0 4px 12px rgba(0,0,0,0.3)'
-                          : '0 16px 48px rgba(0,0,0,0.1), 0 4px 12px rgba(0,0,0,0.06)',
-                      }}
-                      initial={{ opacity: 0, y: -6, scale: 0.96 }}
-                      animate={{ opacity: 1, y: 0, scale: 1 }}
-                      exit={{ opacity: 0, y: -6, scale: 0.96 }}
-                      transition={{ type: 'spring', stiffness: 500, damping: 32, mass: 0.6 }}
-                    >
-                      {/* Noise/grain texture */}
-                      <div
-                        className="absolute inset-0 pointer-events-none opacity-[0.03] rounded-[inherit]"
-                        style={{
-                          backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")`,
-                          backgroundSize: '128px',
-                        }}
-                      />
-                      {/* Top shine */}
-                      <div
-                        className="absolute inset-x-0 top-0 h-1/2 pointer-events-none rounded-t-[inherit]"
-                        style={{ background: `linear-gradient(180deg, ${isDark ? 'hsla(0 0% 100% / 0.12)' : 'hsla(0 0% 100% / 0.6)'} 0%, transparent 100%)` }}
-                      />
-                      {/* Rim light border — same as navbar */}
-                      <div
-                        className="absolute inset-0 pointer-events-none rounded-[inherit]"
-                        style={{
-                          padding: '0.5px',
-                          background: `linear-gradient(180deg, ${isDark ? 'hsla(0 0% 100% / 0.25)' : 'hsla(0 0% 100% / 0.7)'} 0%, ${isDark ? 'hsla(0 0% 100% / 0.06)' : 'hsla(0 0% 100% / 0.2)'} 40%, ${isDark ? 'hsla(0 0% 100% / 0.12)' : 'hsla(0 0% 100% / 0.35)'} 100%)`,
-                          mask: 'linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0)',
-                          maskComposite: 'exclude',
-                          WebkitMaskComposite: 'xor' as any,
-                        }}
-                      />
-
-                      <motion.div
-                        className="relative z-10 flex flex-col items-center gap-4"
-                        initial={{ opacity: 0, y: 6 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        transition={{ delay: 0.06, duration: 0.25 }}
-                      >
-                        <Lock size={18} style={{ color: isDark ? 'rgba(255,255,255,0.5)' : 'rgba(0,0,0,0.4)' }} />
-                        <h3
-                          className="text-sm font-semibold"
-                          style={{ fontFamily: "'EKiN Pro Max Diyakritik', sans-serif", color: isDark ? '#fff' : '#000' }}
-                        >
-                          Erişim Şifresi
-                        </h3>
-                        <form
-                          onSubmit={(e) => {
-                            e.preventDefault();
-                            if (password === '1071') {
-                              setShowPasswordModal(false);
-                              onHitClick?.(pendingRect);
-                            } else {
-                              setPasswordError(true);
-                              setPassword('');
-                            }
-                          }}
-                          className="w-full flex flex-col gap-2.5"
-                        >
-                          <Input
-                            type="password"
-                            placeholder="••••"
-                            value={password}
-                            onChange={(e) => { setPassword(e.target.value); setPasswordError(false); }}
-                            autoFocus
-                            className="text-center text-sm placeholder:text-muted-foreground/40"
-                            style={{
-                              background: isDark ? 'rgba(255,255,255,0.06)' : 'rgba(0,0,0,0.04)',
-                              borderColor: passwordError ? 'hsl(0, 84%, 60%)' : isDark ? 'rgba(255,255,255,0.1)' : 'rgba(0,0,0,0.08)',
-                              borderRadius: '12px',
-                              color: isDark ? '#fff' : '#000',
-                            }}
-                          />
-                          {passwordError && (
-                            <motion.p
-                              className="text-xs text-center text-red-500"
-                              initial={{ opacity: 0, y: -4 }}
-                              animate={{ opacity: 1, y: 0 }}
-                            >
-                              Yanlış şifre
-                            </motion.p>
-                          )}
-                          <button
-                            type="submit"
-                            className="w-full py-2 rounded-xl text-xs font-semibold transition-all"
-                            style={{
-                              background: isDark ? 'rgba(255,255,255,0.1)' : 'rgba(0,0,0,0.06)',
-                              color: isDark ? 'rgba(255,255,255,0.8)' : 'rgba(0,0,0,0.7)',
-                            }}
-                          >
-                            Giriş
-                          </button>
-                        </form>
-                      </motion.div>
-                    </motion.div>
-                  )}
-                </AnimatePresence>
               </div>
             </div>
 
@@ -455,6 +359,118 @@ export default function Navbar({ theme, onHitClick, flashcardOpen, onFlashcardCl
           }
         </AnimatePresence>
       </header>
+
+      {/* Password Popover — fixed, macOS menu bar dropdown style */}
+      <AnimatePresence>
+        {showPasswordModal && (
+          <motion.div
+            ref={popoverRef}
+            className="fixed z-[200] w-[240px] overflow-hidden p-6 text-center"
+            style={{
+              top: popoverPos.top,
+              right: popoverPos.right,
+              borderRadius: '16px',
+              background: 'hsla(var(--glass-bg))',
+              backdropFilter: 'blur(var(--glass-blur)) saturate(var(--glass-saturation))',
+              WebkitBackdropFilter: 'blur(var(--glass-blur)) saturate(var(--glass-saturation))',
+              boxShadow: isDark
+                ? '0 16px 48px rgba(0,0,0,0.4), 0 4px 12px rgba(0,0,0,0.3)'
+                : '0 16px 48px rgba(0,0,0,0.1), 0 4px 12px rgba(0,0,0,0.06)',
+            }}
+            initial={{ opacity: 0, y: -6, scale: 0.96 }}
+            animate={{ opacity: 1, y: 0, scale: 1 }}
+            exit={{ opacity: 0, y: -6, scale: 0.96 }}
+            transition={{ type: 'spring', stiffness: 500, damping: 32, mass: 0.6 }}
+          >
+            {/* Noise/grain texture */}
+            <div
+              className="absolute inset-0 pointer-events-none opacity-[0.03] rounded-[inherit]"
+              style={{
+                backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")`,
+                backgroundSize: '128px',
+              }}
+            />
+            {/* Top shine */}
+            <div
+              className="absolute inset-x-0 top-0 h-1/2 pointer-events-none rounded-t-[inherit]"
+              style={{ background: `linear-gradient(180deg, ${isDark ? 'hsla(0 0% 100% / 0.12)' : 'hsla(0 0% 100% / 0.6)'} 0%, transparent 100%)` }}
+            />
+            {/* Rim light border — same as navbar */}
+            <div
+              className="absolute inset-0 pointer-events-none rounded-[inherit]"
+              style={{
+                padding: '0.5px',
+                background: `linear-gradient(180deg, ${isDark ? 'hsla(0 0% 100% / 0.25)' : 'hsla(0 0% 100% / 0.7)'} 0%, ${isDark ? 'hsla(0 0% 100% / 0.06)' : 'hsla(0 0% 100% / 0.2)'} 40%, ${isDark ? 'hsla(0 0% 100% / 0.12)' : 'hsla(0 0% 100% / 0.35)'} 100%)`,
+                mask: 'linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0)',
+                maskComposite: 'exclude',
+                WebkitMaskComposite: 'xor' as any,
+              }}
+            />
+
+            <motion.div
+              className="relative z-10 flex flex-col items-center gap-4"
+              initial={{ opacity: 0, y: 6 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.06, duration: 0.25 }}
+            >
+              <Lock size={18} style={{ color: isDark ? 'rgba(255,255,255,0.5)' : 'rgba(0,0,0,0.4)' }} />
+              <h3
+                className="text-sm font-semibold"
+                style={{ fontFamily: "'EKiN Pro Max Diyakritik', sans-serif", color: isDark ? '#fff' : '#000' }}
+              >
+                Erişim Şifresi
+              </h3>
+              <form
+                onSubmit={(e) => {
+                  e.preventDefault();
+                  if (password === '1071') {
+                    setShowPasswordModal(false);
+                    onHitClick?.(pendingRect);
+                  } else {
+                    setPasswordError(true);
+                    setPassword('');
+                  }
+                }}
+                className="w-full flex flex-col gap-2.5"
+              >
+                <Input
+                  type="password"
+                  placeholder="••••"
+                  value={password}
+                  onChange={(e) => { setPassword(e.target.value); setPasswordError(false); }}
+                  autoFocus
+                  className="text-center text-sm placeholder:text-muted-foreground/40"
+                  style={{
+                    background: isDark ? 'rgba(255,255,255,0.06)' : 'rgba(0,0,0,0.04)',
+                    borderColor: passwordError ? 'hsl(0, 84%, 60%)' : isDark ? 'rgba(255,255,255,0.1)' : 'rgba(0,0,0,0.08)',
+                    borderRadius: '12px',
+                    color: isDark ? '#fff' : '#000',
+                  }}
+                />
+                {passwordError && (
+                  <motion.p
+                    className="text-xs text-center text-red-500"
+                    initial={{ opacity: 0, y: -4 }}
+                    animate={{ opacity: 1, y: 0 }}
+                  >
+                    Yanlış şifre
+                  </motion.p>
+                )}
+                <button
+                  type="submit"
+                  className="w-full py-2 rounded-xl text-xs font-semibold transition-all"
+                  style={{
+                    background: isDark ? 'rgba(255,255,255,0.1)' : 'rgba(0,0,0,0.06)',
+                    color: isDark ? 'rgba(255,255,255,0.8)' : 'rgba(0,0,0,0.7)',
+                  }}
+                >
+                  Giriş
+                </button>
+              </form>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
 
     </>);
 
