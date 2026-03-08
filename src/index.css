@@ -284,7 +284,7 @@
     background-clip: text;
     background-size: 400px 100%;
     background-repeat: repeat-x;
-    animation: heading-gradient-rtl 6s linear infinite;
+    animation: heading-gradient-rtl 15s linear infinite;
   }
 
   .gradient-text-cyan {
@@ -294,7 +294,7 @@
     background-clip: text;
     background-size: 400px 100%;
     background-repeat: repeat-x;
-    animation: heading-gradient-rtl 6s linear infinite;
+    animation: heading-gradient-rtl 15s linear infinite;
   }
 
   .gradient-text-red {
@@ -304,7 +304,7 @@
     background-clip: text;
     background-size: 400px 100%;
     background-repeat: repeat-x;
-    animation: heading-gradient-rtl 6s linear infinite;
+    animation: heading-gradient-rtl 15s linear infinite;
   }
 
   .gradient-text-brand {
@@ -314,7 +314,7 @@
     -webkit-text-fill-color: transparent;
     background-clip: text;
     background-repeat: repeat-x;
-    animation: heading-gradient-rtl 6s linear infinite;
+    animation: heading-gradient-rtl 15s linear infinite;
   }
 
   .gradient-text-gold {
@@ -324,7 +324,7 @@
     background-clip: text;
     background-size: 400px 100%;
     background-repeat: repeat-x;
-    animation: heading-gradient-rtl 6s linear infinite;
+    animation: heading-gradient-rtl 15s linear infinite;
   }
 
   .gradient-text-cyan-word,
@@ -335,7 +335,7 @@
     background-clip: text;
     background-size: 400px 100%;
     background-repeat: repeat-x;
-    animation: heading-gradient-rtl 6s linear infinite;
+    animation: heading-gradient-rtl 15s linear infinite;
     display: inline-block;
     padding: 0 0.08em;
     margin: 0 -0.08em;
@@ -413,7 +413,7 @@
   background-clip: text;
   background-size: 400px 100%;
   background-repeat: repeat-x;
-  animation: heading-gradient-rtl 6s linear infinite;
+  animation: heading-gradient-rtl 15s linear infinite;
 }
 
 .heading-gradient-red,
