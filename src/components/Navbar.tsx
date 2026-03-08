@@ -451,7 +451,7 @@ export default function Navbar({ theme, onHitClick, flashcardOpen, onFlashcardCl
             </div>
 
             {/* Separator — desktop only, not in flashcard mode */}
-            {!flashcardOpen && <span className="hidden lg:block w-px h-4 mx-1.5 shrink-0" style={{ background: isDark ? 'rgba(255,255,255,0.12)' : 'rgba(0,0,0,0.1)' }} />}
+            {!flashcardOpen && <span className="block w-px h-4 mx-1.5 shrink-0" style={{ background: isDark ? 'rgba(255,255,255,0.12)' : 'rgba(0,0,0,0.1)' }} />}
 
             {/* HiT button — always visible */}
             <div className="relative shrink-0">
