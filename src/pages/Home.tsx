@@ -188,7 +188,7 @@ export default function Home() {
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
             {(isDark ? trustSignalsDark : trustSignalsLight).map((item, i) =>
             <ScrollReveal key={item.title} delay={i * 0.1}>
-                <ImageCard image={item.image} title={item.title} description={item.desc} className="h-full" />
+                <ImageCard image={item.image} title={item.title} description={item.desc} className="h-full" aspectRatio="1/1" />
               </ScrollReveal>
             )}
           </div>
@@ -209,7 +209,7 @@ export default function Home() {
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
             {featuredAreas.map((area, i) =>
             <ScrollReveal key={area.id} delay={i * 0.08}>
-                <ImageCard image={(isDark ? areaImagesDark : areaImagesLight)[area.id] || ''} title={area.title} description={area.description} className="h-full" />
+                <ImageCard image={(isDark ? areaImagesDark : areaImagesLight)[area.id] || ''} title={area.title} description={area.description} className="h-full" aspectRatio="4/3" />
               </ScrollReveal>
             )}
           </div>

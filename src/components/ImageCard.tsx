@@ -10,9 +10,10 @@ interface ImageCardProps {
   onClick?: () => void;
   children?: React.ReactNode;
   tiltIntensity?: number;
+  aspectRatio?: string;
 }
 
-export default function ImageCard({ image, title, description, className = '', onClick, children, tiltIntensity = 6 }: ImageCardProps) {
+export default function ImageCard({ image, title, description, className = '', onClick, children, tiltIntensity = 6, aspectRatio }: ImageCardProps) {
   const cardRef = useRef<HTMLDivElement>(null);
   const [specularPos, setSpecularPos] = useState({ x: 50, y: 50 });
   const [isHovered, setIsHovered] = useState(false);
@@ -72,7 +73,8 @@ export default function ImageCard({ image, title, description, className = '', o
       <div
         className={`relative group ${className}`}
         style={{
-          minHeight: '240px',
+          aspectRatio: aspectRatio || undefined,
+          minHeight: aspectRatio ? undefined : '240px',
           borderRadius: 20,
           overflow: 'hidden',
           background: 'hsla(var(--glass-bg))',
@@ -169,7 +171,7 @@ export default function ImageCard({ image, title, description, className = '', o
         </div>
 
         {/* Invisible spacer */}
-        <div style={{ minHeight: '240px' }} />
+        {!aspectRatio && <div style={{ minHeight: '240px' }} />}
       </div>
     </motion.div>
   );
