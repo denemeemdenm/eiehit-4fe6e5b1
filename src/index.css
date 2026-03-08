@@ -312,34 +312,30 @@
     background-clip: text;
   }
 
-  .gradient-text-cyan-word {
-    background: linear-gradient(135deg, #64FFFF, #5AE6E6);
+  .gradient-text-cyan-word,
+  .gradient-text-orange-word,
+  .gradient-text-yellow-word {
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
+    background-size: 220% 100%;
+    background-repeat: no-repeat;
+    animation: heading-gradient-flow 6s linear infinite;
     display: inline-block;
     padding: 0 0.08em;
     margin: 0 -0.08em;
+  }
+
+  .gradient-text-cyan-word {
+    background-image: linear-gradient(90deg, hsl(180 100% 70%) 0%, hsl(180 74% 63%) 45%, hsl(180 100% 70%) 100%);
   }
 
   .gradient-text-orange-word {
-    background: linear-gradient(135deg, #FF4B00, #CC3D00);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-    display: inline-block;
-    padding: 0 0.08em;
-    margin: 0 -0.08em;
+    background-image: linear-gradient(90deg, hsl(18 100% 50%) 0%, hsl(17 100% 45%) 45%, hsl(18 100% 50%) 100%);
   }
 
   .gradient-text-yellow-word {
-    background: linear-gradient(135deg, #FFCC00, #e6b800);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-    display: inline-block;
-    padding: 0 0.08em;
-    margin: 0 -0.08em;
+    background-image: linear-gradient(90deg, hsl(48 100% 50%) 0%, hsl(45 85% 45%) 45%, hsl(48 100% 50%) 100%);
   }
 
   /* Cyan gradient for icons — same vivid color in both modes */
@@ -387,125 +383,66 @@
   }
 }
 
-/* Animated heading gradients — smooth right-to-left sweep */
-@keyframes gradient-sweep {
-  0%   { background-position: 100% 50%; }
-  100% { background-position: 0% 50%; }
+/* Animated heading gradients */
+@keyframes heading-gradient-flow {
+  0% { background-position: 0% 50%; }
+  100% { background-position: 200% 50%; }
+}
+
+.heading-gradient-red,
+.heading-gradient-cyan,
+.heading-gradient-silver,
+.heading-gradient-gold {
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  background-size: 220% 100%;
+  background-repeat: no-repeat;
+  animation: heading-gradient-flow 6s linear infinite;
+}
+
+.heading-gradient-red,
+.heading-gradient-cyan {
+  text-transform: none;
+  letter-spacing: 0.06em;
+  font-weight: 400;
+  line-height: 2.1;
+  padding-block: 0.32em;
+  display: block;
+  overflow: visible;
+  font-family: 'HiT Font v2', 'Fraunces', Georgia, serif;
 }
 
 .heading-gradient-red {
-  background: linear-gradient(270deg, #FF4B00, #CC3C00, #FF4B00, #CC3C00, #FF4B00, #CC3C00, #FF4B00);
-  background-size: 300% 100%;
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-  animation: gradient-sweep 5s linear infinite;
-  font-family: 'HiT Font v2', 'Fraunces', Georgia, serif;
-  text-transform: none;
-  letter-spacing: 0.06em;
-  font-weight: 400;
-  line-height: 2.1;
-  padding-block: 0.32em;
-  display: block;
-  overflow: visible;
+  background-image: linear-gradient(90deg, hsl(18 100% 50%) 0%, hsl(17 100% 45%) 45%, hsl(18 100% 50%) 100%);
 }
 
 .heading-gradient-cyan {
-  background: linear-gradient(270deg, #64FFFF, #50CCCC, #64FFFF, #50CCCC, #64FFFF, #50CCCC, #64FFFF);
-  background-size: 300% 100%;
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-  animation: gradient-sweep 5s linear infinite;
-  font-family: 'HiT Font v2', 'Fraunces', Georgia, serif;
-  text-transform: none;
-  letter-spacing: 0.06em;
-  font-weight: 400;
-  line-height: 2.1;
-  padding-block: 0.32em;
-  display: block;
-  overflow: visible;
-}
-
-/* Light mode: bright vivid brand colors */
-:root .heading-gradient-cyan {
-  background: linear-gradient(270deg, #64FFFF, #5AE6E6, #64FFFF, #5AE6E6, #64FFFF, #5AE6E6, #64FFFF);
-  background-size: 300% 100%;
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-  animation: gradient-sweep 5s linear infinite;
-}
-
-:root .heading-gradient-red {
-  background: linear-gradient(270deg, #FF4B00, #E64400, #FF4B00, #E64400, #FF4B00, #E64400, #FF4B00);
-  background-size: 300% 100%;
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-  animation: gradient-sweep 5s linear infinite;
-}
-
-/* Dark mode: 20% darker tones */
-.dark .heading-gradient-cyan {
-  background: linear-gradient(270deg, #50CCCC, #40A3A3, #50CCCC, #40A3A3, #50CCCC, #40A3A3, #50CCCC);
-  background-size: 300% 100%;
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-  animation: gradient-sweep 5s linear infinite;
-}
-
-.dark .heading-gradient-red {
-  background: linear-gradient(270deg, #CC3C00, #B33500, #CC3C00, #B33500, #CC3C00, #B33500, #CC3C00);
-  background-size: 300% 100%;
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-  animation: gradient-sweep 5s linear infinite;
+  background-image: linear-gradient(90deg, hsl(180 100% 70%) 0%, hsl(180 74% 63%) 45%, hsl(180 100% 70%) 100%);
 }
 
 .heading-gradient-silver {
-  background: linear-gradient(90deg, #ffffff 0%, #ffffff 28%, #EBEBEB 52%, #ffffff 76%, #EBEBEB 100%);
-  background-size: 220% 100%;
-  background-repeat: no-repeat;
-  background-position: 0% 50%;
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-  animation: gradient-shift 6s ease-in-out infinite;
+  background-image: linear-gradient(90deg, hsl(0 0% 100%) 0%, hsl(0 0% 92%) 45%, hsl(0 0% 100%) 100%);
 }
 
 .heading-gradient-gold {
-  background: linear-gradient(90deg, #c9a227 0%, #f4d03f 30%, #d4a017 52%, #f4d03f 76%, #c9a227 100%);
-  background-size: 220% 100%;
-  background-repeat: no-repeat;
-  background-position: 0% 50%;
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-  animation: gradient-shift 6s ease-in-out infinite;
+  background-image: linear-gradient(90deg, hsl(45 69% 47%) 0%, hsl(47 89% 60%) 45%, hsl(43 80% 46%) 75%, hsl(45 69% 47%) 100%);
+}
+
+.dark .heading-gradient-red {
+  background-image: linear-gradient(90deg, hsl(18 100% 40%) 0%, hsl(17 100% 35%) 45%, hsl(18 100% 40%) 100%);
+}
+
+.dark .heading-gradient-cyan {
+  background-image: linear-gradient(90deg, hsl(180 54% 56%) 0%, hsl(180 44% 45%) 45%, hsl(180 54% 56%) 100%);
 }
 
 .dark .heading-gradient-silver {
-  background: linear-gradient(90deg, #ffffff 0%, #ffffff 28%, #EBEBEB 52%, #ffffff 76%, #EBEBEB 100%);
-  background-size: 220% 100%;
-  background-repeat: no-repeat;
-  background-position: 0% 50%;
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-  animation: gradient-shift 6s ease-in-out infinite;
+  background-image: linear-gradient(90deg, hsl(0 0% 100%) 0%, hsl(0 0% 92%) 45%, hsl(0 0% 100%) 100%);
 }
 
-@media (prefers-reduced-motion: reduce) {
-  .heading-gradient-red,
-  .heading-gradient-cyan,
-  .heading-gradient-silver,
-  .heading-gradient-gold {
-    animation: none;
-    background-size: 100% 100%;
-  }
+.dark .heading-gradient-gold {
+  background-image: linear-gradient(90deg, hsl(45 62% 40%) 0%, hsl(47 79% 48%) 45%, hsl(43 72% 38%) 75%, hsl(45 62% 40%) 100%);
 }
 
 @keyframes gradient-shift {
