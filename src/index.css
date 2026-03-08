@@ -398,10 +398,10 @@
   }
 }
 
-/* Animated heading gradients - renk soldan sağa kayar */
+/* Animated heading gradients - renk sağdan sola kayar */
 @keyframes heading-gradient-rtl {
-  0% { background-position: -400px 50%; }
-  100% { background-position: 0 50%; }
+  0% { background-position: 0 50%; }
+  100% { background-position: -400px 50%; }
 }
 
 .heading-gradient-red,
