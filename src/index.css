@@ -318,24 +318,24 @@
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
-    background-size: 220% 100%;
-    background-repeat: no-repeat;
-    animation: heading-gradient-flow 6s linear infinite;
+    background-size: 250% 100%;
+    background-repeat: repeat;
+    animation: heading-gradient-rtl 6s linear infinite;
     display: inline-block;
     padding: 0 0.08em;
     margin: 0 -0.08em;
   }
 
   .gradient-text-cyan-word {
-    background-image: linear-gradient(90deg, hsl(180 100% 70%) 0%, hsl(180 74% 63%) 45%, hsl(180 100% 70%) 100%);
+    background-image: linear-gradient(90deg, hsl(180 100% 70%) 0%, hsl(180 100% 60%) 50%, hsl(180 100% 70%) 100%);
   }
 
   .gradient-text-orange-word {
-    background-image: linear-gradient(90deg, hsl(18 100% 50%) 0%, hsl(17 100% 45%) 45%, hsl(18 100% 50%) 100%);
+    background-image: linear-gradient(90deg, hsl(18 100% 50%) 0%, hsl(18 100% 40%) 50%, hsl(18 100% 50%) 100%);
   }
 
   .gradient-text-yellow-word {
-    background-image: linear-gradient(90deg, hsl(48 100% 50%) 0%, hsl(45 85% 45%) 45%, hsl(48 100% 50%) 100%);
+    background-image: linear-gradient(90deg, hsl(48 100% 50%) 0%, hsl(48 100% 40%) 50%, hsl(48 100% 50%) 100%);
   }
 
   /* Cyan gradient for icons — same vivid color in both modes */
@@ -383,10 +383,10 @@
   }
 }
 
-/* Animated heading gradients */
-@keyframes heading-gradient-flow {
-  0% { background-position: 0% 50%; }
-  100% { background-position: 200% 50%; }
+/* Animated heading gradients - text sabit, renk sağdan sola kayar */
+@keyframes heading-gradient-rtl {
+  0% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
 }
 
 .heading-gradient-red,
@@ -396,9 +396,9 @@
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
-  background-size: 220% 100%;
-  background-repeat: no-repeat;
-  animation: heading-gradient-flow 6s linear infinite;
+  background-size: 250% 100%;
+  background-repeat: repeat;
+  animation: heading-gradient-rtl 6s linear infinite;
 }
 
 .heading-gradient-red,
@@ -414,35 +414,35 @@
 }
 
 .heading-gradient-red {
-  background-image: linear-gradient(90deg, hsl(18 100% 50%) 0%, hsl(17 100% 45%) 45%, hsl(18 100% 50%) 100%);
+  background-image: linear-gradient(90deg, hsl(18 100% 50%) 0%, hsl(18 100% 40%) 50%, hsl(18 100% 50%) 100%);
 }
 
 .heading-gradient-cyan {
-  background-image: linear-gradient(90deg, hsl(180 100% 70%) 0%, hsl(180 74% 63%) 45%, hsl(180 100% 70%) 100%);
+  background-image: linear-gradient(90deg, hsl(180 100% 70%) 0%, hsl(180 100% 60%) 50%, hsl(180 100% 70%) 100%);
 }
 
 .heading-gradient-silver {
-  background-image: linear-gradient(90deg, hsl(0 0% 100%) 0%, hsl(0 0% 92%) 45%, hsl(0 0% 100%) 100%);
+  background-image: linear-gradient(90deg, hsl(0 0% 100%) 0%, hsl(0 0% 90%) 50%, hsl(0 0% 100%) 100%);
 }
 
 .heading-gradient-gold {
-  background-image: linear-gradient(90deg, hsl(45 69% 47%) 0%, hsl(47 89% 60%) 45%, hsl(43 80% 46%) 75%, hsl(45 69% 47%) 100%);
+  background-image: linear-gradient(90deg, hsl(47 89% 60%) 0%, hsl(47 89% 50%) 50%, hsl(47 89% 60%) 100%);
 }
 
 .dark .heading-gradient-red {
-  background-image: linear-gradient(90deg, hsl(18 100% 40%) 0%, hsl(17 100% 35%) 45%, hsl(18 100% 40%) 100%);
+  background-image: linear-gradient(90deg, hsl(18 100% 50%) 0%, hsl(18 100% 40%) 50%, hsl(18 100% 50%) 100%);
 }
 
 .dark .heading-gradient-cyan {
-  background-image: linear-gradient(90deg, hsl(180 54% 56%) 0%, hsl(180 44% 45%) 45%, hsl(180 54% 56%) 100%);
+  background-image: linear-gradient(90deg, hsl(180 100% 70%) 0%, hsl(180 100% 60%) 50%, hsl(180 100% 70%) 100%);
 }
 
 .dark .heading-gradient-silver {
-  background-image: linear-gradient(90deg, hsl(0 0% 100%) 0%, hsl(0 0% 92%) 45%, hsl(0 0% 100%) 100%);
+  background-image: linear-gradient(90deg, hsl(0 0% 100%) 0%, hsl(0 0% 90%) 50%, hsl(0 0% 100%) 100%);
 }
 
 .dark .heading-gradient-gold {
-  background-image: linear-gradient(90deg, hsl(45 62% 40%) 0%, hsl(47 79% 48%) 45%, hsl(43 72% 38%) 75%, hsl(45 62% 40%) 100%);
+  background-image: linear-gradient(90deg, hsl(47 89% 60%) 0%, hsl(47 89% 50%) 50%, hsl(47 89% 60%) 100%);
 }
 
 @keyframes gradient-shift {
