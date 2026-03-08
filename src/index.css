@@ -284,7 +284,7 @@
     background-clip: text;
     background-size: 400px 100%;
     background-repeat: repeat-x;
-    animation: heading-gradient-rtl 10s linear infinite;
+    animation: heading-gradient-rtl 5s linear infinite;
   }
 
   .gradient-text-cyan {
@@ -294,7 +294,7 @@
     background-clip: text;
     background-size: 400px 100%;
     background-repeat: repeat-x;
-    animation: heading-gradient-rtl 10s linear infinite;
+    animation: heading-gradient-rtl 5s linear infinite;
   }
 
   .gradient-text-red {
@@ -304,7 +304,7 @@
     background-clip: text;
     background-size: 400px 100%;
     background-repeat: repeat-x;
-    animation: heading-gradient-rtl 10s linear infinite;
+    animation: heading-gradient-rtl 5s linear infinite;
   }
 
   .gradient-text-brand {
@@ -314,7 +314,7 @@
     -webkit-text-fill-color: transparent;
     background-clip: text;
     background-repeat: repeat-x;
-    animation: heading-gradient-rtl 10s linear infinite;
+    animation: heading-gradient-rtl 5s linear infinite;
   }
 
   .gradient-text-gold {
@@ -324,7 +324,7 @@
     background-clip: text;
     background-size: 400px 100%;
     background-repeat: repeat-x;
-    animation: heading-gradient-rtl 10s linear infinite;
+    animation: heading-gradient-rtl 5s linear infinite;
   }
 
   .gradient-text-cyan-word,
@@ -335,7 +335,7 @@
     background-clip: text;
     background-size: 400px 100%;
     background-repeat: repeat-x;
-    animation: heading-gradient-rtl 10s linear infinite;
+    animation: heading-gradient-rtl 5s linear infinite;
     display: inline-block;
     padding: 0 0.08em;
     margin: 0 -0.08em;
@@ -412,7 +412,7 @@
   background-clip: text;
   background-size: 400px 100%;
   background-repeat: repeat-x;
-  animation: heading-gradient-rtl 10s linear infinite;
+  animation: heading-gradient-rtl 5s linear infinite;
 }
 
 .heading-gradient-gold {
@@ -445,14 +445,14 @@
   background-image: repeating-linear-gradient(90deg, #505050 0px, #000000 100px, #707070 200px, #000000 300px, #505050 400px);
   background-size: 400px 100%;
   background-repeat: repeat-x;
-  animation: heading-gradient-rtl 10s linear infinite;
+  animation: heading-gradient-rtl 5s linear infinite;
 }
 
 .heading-gradient-gold {
   background-image: repeating-linear-gradient(90deg, #f6e587 0px, #eccb72 100px, #f6e587 200px, #eccb72 300px, #f6e587 400px);
   background-size: 400px 100%;
   background-repeat: repeat-x;
-  animation: heading-gradient-rtl 10s linear infinite;
+  animation: heading-gradient-rtl 5s linear infinite;
 }
 
 .dark .heading-gradient-red {
@@ -467,14 +467,14 @@
   background-image: repeating-linear-gradient(90deg, hsl(0 0% 100%) 0px, hsl(0 0% 85%) 100px, hsl(0 0% 100%) 200px, hsl(0 0% 85%) 300px, hsl(0 0% 100%) 400px);
   background-size: 400px 100%;
   background-repeat: repeat-x;
-  animation: heading-gradient-rtl 10s linear infinite;
+  animation: heading-gradient-rtl 5s linear infinite;
 }
 
 .dark .heading-gradient-gold {
   background-image: repeating-linear-gradient(90deg, #f6e587 0px, #eccb72 100px, #f6e587 200px, #eccb72 300px, #f6e587 400px);
   background-size: 400px 100%;
   background-repeat: repeat-x;
-  animation: heading-gradient-rtl 10s linear infinite;
+  animation: heading-gradient-rtl 5s linear infinite;
 }
 
 @keyframes gradient-shift {
