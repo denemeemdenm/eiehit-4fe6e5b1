@@ -6,9 +6,10 @@ interface LiquidGlassCardProps {
   children: ReactNode;
   className?: string;
   tiltIntensity?: number;
+  onClick?: () => void;
 }
 
-export default function LiquidGlassCard({ children, className = '', tiltIntensity = 4 }: LiquidGlassCardProps) {
+export default function LiquidGlassCard({ children, className = '', tiltIntensity = 4, onClick }: LiquidGlassCardProps) {
   const cardRef = useRef<HTMLDivElement>(null);
   const rafRef = useRef<number>(0);
   const [specularPos, setSpecularPos] = useState({ x: 50, y: 50 });
@@ -58,10 +59,12 @@ export default function LiquidGlassCard({ children, className = '', tiltIntensit
     /* Outer wrapper handles 3D transform only — no backdrop-filter here */
     <motion.div
       ref={cardRef}
-      style={{ transform, willChange: 'transform' }}
+      style={{ transform, willChange: 'transform', cursor: onClick ? 'pointer' : undefined }}
       onMouseMove={handleMouseMove}
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={handleMouseLeave}
+      onClick={onClick}
+      whileTap={onClick ? { scale: 0.98, transition: { type: 'spring', stiffness: 400, damping: 25 } } : undefined}
     >
       {/* Inner div handles backdrop-filter + glass styling — separated from transform */}
       <div

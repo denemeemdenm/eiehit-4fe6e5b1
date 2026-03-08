@@ -223,59 +223,62 @@ export default function Navbar({ theme, onHitClick, flashcardOpen, onFlashcardCl
                 </motion.button>
               )}
 
-              {!flashcardOpen && <span className="w-px h-4 mx-1.5 shrink-0" style={{ background: isDark ? 'rgba(255,255,255,0.12)' : 'rgba(0,0,0,0.1)' }} />}
+            </div>
 
-              <div className="relative">
-                <motion.button
-                  ref={hitButtonRef}
-                  onClick={() => {
-                    if (showPasswordModal) {
-                      setShowPasswordModal(false);
-                    } else {
-                      const rect = hitButtonRef.current?.getBoundingClientRect();
-                      setPendingRect(rect || undefined);
-                      setPassword('');
-                      setPasswordError(false);
-                      setShowPasswordModal(true);
-                    }
-                  }}
-                  className="relative px-3.5 py-1.5 flex items-center rounded-[14px]"
-                  whileHover={{ scale: 1.05, backgroundColor: isDark ? 'rgba(255,255,255,0.06)' : 'rgba(0,0,0,0.04)' }}
-                  whileTap={{ scale: 0.94 }}
-                  transition={{ type: 'spring', stiffness: 400, damping: 20 }}
-                  aria-label="HiT — Çok Yakında">
+            {/* Separator — desktop only, not in flashcard mode */}
+            {!flashcardOpen && <span className="hidden md:block w-px h-4 mx-1.5 shrink-0" style={{ background: isDark ? 'rgba(255,255,255,0.12)' : 'rgba(0,0,0,0.1)' }} />}
 
-                  {flashcardOpen && (
-                    <motion.div
-                      layoutId="nav-capsule"
-                      className="absolute inset-0 rounded-[14px] overflow-hidden"
-                      style={{
-                        background: isDark ? 'rgba(255,255,255,0.1)' : 'rgba(255,255,255,0.55)',
-                        backdropFilter: 'blur(10px)',
-                        WebkitBackdropFilter: 'blur(10px)',
-                        boxShadow: isDark
-                          ? '0 2px 12px rgba(0,0,0,0.3), inset 0 1px 0 rgba(255,255,255,0.08)'
-                          : '0 2px 12px rgba(0,0,0,0.06), inset 0 1px 0 rgba(255,255,255,0.8)',
-                      }}
-                      transition={{ type: 'spring', stiffness: 350, damping: 30, mass: 0.8 }}
-                    >
-                      <div className="absolute inset-0 rounded-[inherit] pointer-events-none" style={{
-                        padding: '1px',
-                        background: `linear-gradient(135deg, ${isDark ? 'rgba(255,255,255,0.22)' : 'rgba(255,255,255,0.5)'} 0%, ${isDark ? 'rgba(255,255,255,0.06)' : 'rgba(255,255,255,0.15)'} 25%, ${isDark ? 'rgba(255,255,255,0.02)' : 'rgba(255,255,255,0.06)'} 50%, ${isDark ? 'rgba(255,255,255,0.06)' : 'rgba(255,255,255,0.15)'} 75%, ${isDark ? 'rgba(255,255,255,0.22)' : 'rgba(255,255,255,0.5)'} 100%)`,
-                        mask: 'linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0)',
-                        maskComposite: 'exclude',
-                        WebkitMaskComposite: 'xor' as any
-                      }} />
-                    </motion.div>
-                  )}
+            {/* HiT button — always visible */}
+            <div className="relative">
+              <motion.button
+                ref={hitButtonRef}
+                onClick={() => {
+                  if (showPasswordModal) {
+                    setShowPasswordModal(false);
+                  } else {
+                    const rect = hitButtonRef.current?.getBoundingClientRect();
+                    setPendingRect(rect || undefined);
+                    setPassword('');
+                    setPasswordError(false);
+                    setShowPasswordModal(true);
+                  }
+                }}
+                className="relative px-3.5 py-1.5 flex items-center rounded-[14px]"
+                whileHover={{ scale: 1.05, backgroundColor: isDark ? 'rgba(255,255,255,0.06)' : 'rgba(0,0,0,0.04)' }}
+                whileTap={{ scale: 0.94 }}
+                transition={{ type: 'spring', stiffness: 400, damping: 20 }}
+                aria-label="HiT — Çok Yakında">
 
-                  <img
-                    src={isDark ? logoLight : logoDark}
-                    alt="HiTKURT"
-                    className="h-5 w-auto object-contain relative z-10" />
+                {flashcardOpen && (
+                  <motion.div
+                    layoutId="nav-capsule"
+                    className="absolute inset-0 rounded-[14px] overflow-hidden"
+                    style={{
+                      background: isDark ? 'rgba(255,255,255,0.1)' : 'rgba(255,255,255,0.55)',
+                      backdropFilter: 'blur(10px)',
+                      WebkitBackdropFilter: 'blur(10px)',
+                      boxShadow: isDark
+                        ? '0 2px 12px rgba(0,0,0,0.3), inset 0 1px 0 rgba(255,255,255,0.08)'
+                        : '0 2px 12px rgba(0,0,0,0.06), inset 0 1px 0 rgba(255,255,255,0.8)',
+                    }}
+                    transition={{ type: 'spring', stiffness: 350, damping: 30, mass: 0.8 }}
+                  >
+                    <div className="absolute inset-0 rounded-[inherit] pointer-events-none" style={{
+                      padding: '1px',
+                      background: `linear-gradient(135deg, ${isDark ? 'rgba(255,255,255,0.22)' : 'rgba(255,255,255,0.5)'} 0%, ${isDark ? 'rgba(255,255,255,0.06)' : 'rgba(255,255,255,0.15)'} 25%, ${isDark ? 'rgba(255,255,255,0.02)' : 'rgba(255,255,255,0.06)'} 50%, ${isDark ? 'rgba(255,255,255,0.06)' : 'rgba(255,255,255,0.15)'} 75%, ${isDark ? 'rgba(255,255,255,0.22)' : 'rgba(255,255,255,0.5)'} 100%)`,
+                      mask: 'linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0)',
+                      maskComposite: 'exclude',
+                      WebkitMaskComposite: 'xor' as any
+                    }} />
+                  </motion.div>
+                )}
 
-                </motion.button>
-              </div>
+                <img
+                  src={isDark ? logoLight : logoDark}
+                  alt="HiTKURT"
+                  className="h-5 w-auto object-contain relative z-10" />
+
+              </motion.button>
             </div>
 
             {/* Mobile hamburger */}
@@ -335,26 +338,6 @@ export default function Navbar({ theme, onHitClick, flashcardOpen, onFlashcardCl
                   </motion.div>);
 
             })}
-              {/* Mobile HiT button */}
-              <motion.div
-              initial={{ opacity: 0, x: -12 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ delay: navItems.length * 0.04, duration: 0.2 }}>
-
-                <button
-                onClick={() => {
-                  setPendingRect(undefined);
-                  setPassword('');
-                  setPasswordError(false);
-                  setShowPasswordModal(true);
-                  setMobileOpen(false);
-                }}
-                className="block w-full text-left px-4 py-2.5 rounded-xl text-sm font-medium transition-colors duration-200"
-                style={{ color: isDark ? 'rgba(255,255,255,0.5)' : 'rgba(0,0,0,0.45)' }}>
-
-                  HiT
-                </button>
-              </motion.div>
             </motion.div>
           }
         </AnimatePresence>

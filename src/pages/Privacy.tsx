@@ -1,4 +1,4 @@
-import GlassCard from '@/components/GlassCard';
+import LiquidGlassCard from '@/components/LiquidGlassCard';
 import ScrollReveal from '@/components/ScrollReveal';
 
 const sections = [
@@ -40,10 +40,10 @@ export default function Privacy() {
         <div className="space-y-6">
           {sections.map((section, i) => (
             <ScrollReveal key={section.title} delay={i * 0.08}>
-              <GlassCard className="p-8 sm:p-10">
+              <LiquidGlassCard className="p-8 sm:p-10">
                 <h2 className="font-semibold text-lg mb-4">{section.title}</h2>
                 <p className="text-sm text-muted-foreground leading-relaxed">{section.content}</p>
-              </GlassCard>
+              </LiquidGlassCard>
             </ScrollReveal>
           ))}
         </div>
