@@ -355,7 +355,7 @@
 
   /* Cyan gradient for icons — same vivid color in both modes */
   .icon-gradient-cyan {
-    color: #64FFFF;
+    color: hsl(185 90% 45%);
   }
 
   .section-spacing {
