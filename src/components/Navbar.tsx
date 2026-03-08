@@ -476,29 +476,6 @@ export default function Navbar({ theme, onHitClick, flashcardOpen, onFlashcardCl
                 transition={{ type: 'spring', stiffness: 400, damping: 20 }}
                 aria-label="HiT — Çok Yakında">
 
-                {flashcardOpen && (
-                  <motion.div
-                    layoutId="nav-capsule"
-                    className="absolute inset-0 rounded-[14px] overflow-hidden"
-                    style={{
-                      background: isDark ? 'rgba(255,255,255,0.1)' : 'rgba(255,255,255,0.55)',
-                      backdropFilter: 'blur(10px)',
-                      WebkitBackdropFilter: 'blur(10px)',
-                      boxShadow: isDark
-                        ? '0 2px 12px rgba(0,0,0,0.3), inset 0 1px 0 rgba(255,255,255,0.08)'
-                        : '0 2px 12px rgba(0,0,0,0.06), inset 0 1px 0 rgba(255,255,255,0.8)',
-                    }}
-                    transition={{ type: 'spring', stiffness: 350, damping: 30, mass: 0.8 }}
-                  >
-                    <div className="absolute inset-0 rounded-[inherit] pointer-events-none" style={{
-                      padding: '1px',
-                      background: `linear-gradient(135deg, ${isDark ? 'rgba(255,255,255,0.22)' : 'rgba(255,255,255,0.5)'} 0%, ${isDark ? 'rgba(255,255,255,0.06)' : 'rgba(255,255,255,0.15)'} 25%, ${isDark ? 'rgba(255,255,255,0.02)' : 'rgba(255,255,255,0.06)'} 50%, ${isDark ? 'rgba(255,255,255,0.06)' : 'rgba(255,255,255,0.15)'} 75%, ${isDark ? 'rgba(255,255,255,0.22)' : 'rgba(255,255,255,0.5)'} 100%)`,
-                      mask: 'linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0)',
-                      maskComposite: 'exclude',
-                      WebkitMaskComposite: 'xor' as any
-                    }} />
-                  </motion.div>
-                )}
 
                 <img
                   src={isDark ? logoLight : logoDark}
