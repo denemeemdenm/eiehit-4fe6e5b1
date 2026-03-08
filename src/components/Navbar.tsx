@@ -66,6 +66,23 @@ export default function Navbar({ theme, onHitClick, flashcardOpen, onFlashcardCl
     return () => observers.forEach((o) => o.disconnect());
   }, []);
 
+  // Close password popover on click outside
+  useEffect(() => {
+    if (!showPasswordModal) return;
+    const handler = (e: MouseEvent) => {
+      const target = e.target as Node;
+      if (hitButtonRef.current?.contains(target)) return;
+      // Check if click is inside the popover
+      const popover = hitButtonRef.current?.parentElement?.querySelector('[data-password-popover]');
+      if (popover?.contains(target)) return;
+      setShowPasswordModal(false);
+    };
+    const escHandler = (e: KeyboardEvent) => { if (e.key === 'Escape') setShowPasswordModal(false); };
+    document.addEventListener('mousedown', handler);
+    document.addEventListener('keydown', escHandler);
+    return () => { document.removeEventListener('mousedown', handler); document.removeEventListener('keydown', escHandler); };
+  }, [showPasswordModal]);
+
   const scrollTo = useCallback((id: string) => {
     setActiveSection(id);
     setClickedId(id);

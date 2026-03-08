@@ -11,9 +11,9 @@ import nameWhite from '@/assets/name-white.png';
 import nameBlack from '@/assets/name-black.png';
 
 // Trust signal images — dark
-import trustProcess from '@/assets/cards/trust-process-v2.jpg';
-import trustClarity from '@/assets/cards/trust-clarity-v2.png';
-import trustPrivacy from '@/assets/cards/trust-privacy-v2.jpeg';
+import trustProcess from '@/assets/cards/trust-process.jpg';
+import trustClarity from '@/assets/cards/trust-clarity.png';
+import trustPrivacy from '@/assets/cards/trust-privacy.jpeg';
 import trustTech from '@/assets/cards/teknoloji-okuryazarligi.png';
 // Trust signal images — light
 import trustProcessLight from '@/assets/cards/trust-process-light.jpg';
@@ -22,12 +22,12 @@ import trustPrivacyLight from '@/assets/cards/trust-privacy-light.jpg';
 import trustTechLight from '@/assets/cards/teknoloji-okuryazarligi.png';
 
 // Practice area images — uploaded replacements (both themes)
-import aileHukukuImg from '@/assets/cards/aile-hukuku-v2.png';
+import aileHukukuImg from '@/assets/cards/aile-hukuku.png';
 import bilisimHukukuImg from '@/assets/cards/bilisim-hukuku.png';
 import ticaretHukukuImg from '@/assets/cards/ticaret-ve-borclar-hukuku.png';
-import isHukukuImg from '@/assets/cards/is-hukuku-v2.png';
+import isHukukuImg from '@/assets/cards/is-hukuku.png';
 import icraHukukuImg from '@/assets/cards/icra-ve-iflas-hukuku.png';
-import cezaHukukuImg from '@/assets/cards/ceza-hukuku-new.png';
+import cezaHukukuImg from '@/assets/cards/ceza-hukuku.png';
 // Ceza Hukuku fallback visuals
 import areaObligations from '@/assets/cards/area-obligations.jpg';
 import areaObligationsLight from '@/assets/cards/area-obligations-light.jpg';
