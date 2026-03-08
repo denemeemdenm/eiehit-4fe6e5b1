@@ -359,7 +359,7 @@ export default function Navbar({ theme, onHitClick, flashcardOpen, onFlashcardCl
             ref={navRef}
             layout
             transition={{ type: 'spring', stiffness: 300, damping: 30, mass: 0.8 }}
-            className="px-2 flex-row flex items-center justify-start gap-[8px] rounded-[21.6px] py-[8px] relative overflow-visible md:min-w-[540px]"
+            className="px-2 flex-row flex items-center justify-start gap-[8px] rounded-[21.6px] py-[8px] relative overflow-hidden md:min-w-[540px]"
             style={{
               background: 'hsla(var(--glass-bg))',
               backdropFilter: 'blur(var(--glass-blur)) saturate(var(--glass-saturation))',
@@ -373,7 +373,7 @@ export default function Navbar({ theme, onHitClick, flashcardOpen, onFlashcardCl
             onMouseLeave={() => setNavHovered(false)}
           >
             {/* 135° diagonal specular edge highlight — corner-to-corner highlight */}
-            <div className="absolute inset-0 rounded-[inherit] pointer-events-none z-[2] overflow-hidden" style={{
+            <div className="absolute inset-0 rounded-[inherit] pointer-events-none z-[2]" style={{
               padding: '1px',
               background: `${navHovered ? `radial-gradient(80px 30px at ${navSpecular.x}px ${navSpecular.y}px, ${isDark ? 'rgba(255,255,255,0.5)' : 'rgba(255,255,255,0.75)'}, transparent 100%), ` : ''}linear-gradient(135deg, ${isDark ? 'rgba(255,255,255,0.20)' : 'rgba(255,255,255,0.35)'} 0%, ${isDark ? 'rgba(255,255,255,0.08)' : 'rgba(255,255,255,0.14)'} 25%, ${isDark ? 'rgba(255,255,255,0.03)' : 'rgba(255,255,255,0.06)'} 50%, ${isDark ? 'rgba(255,255,255,0.08)' : 'rgba(255,255,255,0.14)'} 75%, ${isDark ? 'rgba(255,255,255,0.20)' : 'rgba(255,255,255,0.35)'} 100%)`,
               mask: 'linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0)',
@@ -485,7 +485,7 @@ export default function Navbar({ theme, onHitClick, flashcardOpen, onFlashcardCl
                     setShowPasswordModal(true);
                   }
                 }}
-                className="relative px-3.5 py-1.5 flex items-center shrink-0 rounded-[14px]"
+                className="relative px-4 py-1.5 flex items-center shrink-0 rounded-[14px]"
                 whileHover={{ scale: 1.05, backgroundColor: isDark ? 'rgba(255,255,255,0.06)' : 'rgba(0,0,0,0.04)' }}
                 whileTap={{ scale: 0.94 }}
                 transition={{ type: 'spring', stiffness: 400, damping: 20 }}
