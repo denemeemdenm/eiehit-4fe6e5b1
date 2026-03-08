@@ -389,20 +389,6 @@
   }
 }
 
-.global-frosted-top {
-  background: hsla(var(--glass-bg));
-  border-bottom: 1px solid hsla(var(--glass-border));
-  -webkit-backdrop-filter: blur(28px) saturate(220%);
-  backdrop-filter: blur(28px) saturate(220%);
-  mask-image: linear-gradient(to bottom, black 0%, black 55%, transparent 100%);
-  -webkit-mask-image: linear-gradient(to bottom, black 0%, black 55%, transparent 100%);
-}
-
-@supports not ((-webkit-backdrop-filter: blur(1px)) or (backdrop-filter: blur(1px))) {
-  .global-frosted-top {
-    background: hsla(var(--background) / 0.86);
-  }
-}
 
 
 @layer utilities {
