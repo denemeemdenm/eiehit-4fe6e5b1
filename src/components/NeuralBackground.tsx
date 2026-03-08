@@ -12,10 +12,8 @@ export default function NeuralBackground() {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const mouseRef = useRef({ x: -1000, y: -1000 });
   const particlesRef = useRef<Particle[]>([]);
-  const trailRef = useRef<GoldTrail[]>([]);
   const animRef = useRef<number>(0);
   const isDarkRef = useRef(false);
-  const prevMouseRef = useRef({ x: -1000, y: -1000 });
   const scrollYRef = useRef(0);
   const coveredYRef = useRef(0); // how far down we've spawned particles
 
