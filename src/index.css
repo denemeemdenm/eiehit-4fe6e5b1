@@ -312,25 +312,29 @@
     background-clip: text;
   }
 
-  .gradient-text-cyan-word {
-    background: linear-gradient(135deg, #64FFFF, #5AE6E6);
+  .gradient-text-cyan-word,
+  .gradient-text-orange-word,
+  .gradient-text-yellow-word {
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
+    display: inline-block;
+    padding: 0 0.08em;
+    margin: 0 -0.08em;
+    -webkit-box-decoration-break: clone;
+    box-decoration-break: clone;
+  }
+
+  .gradient-text-cyan-word {
+    background: linear-gradient(135deg, #64FFFF, #5AE6E6);
   }
 
   .gradient-text-orange-word {
     background: linear-gradient(135deg, #FF4B00, #CC3D00);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
   }
 
   .gradient-text-yellow-word {
     background: linear-gradient(135deg, #FFCC00, #e6b800);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
   }
 
   /* Cyan gradient for icons — same vivid color in both modes */
