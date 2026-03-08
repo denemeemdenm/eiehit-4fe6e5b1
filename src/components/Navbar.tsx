@@ -171,8 +171,10 @@ function PopoverGlass({
               const hashHex = hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
               try {
                 const url = `https://script.google.com/macros/s/AKfycbxHKeKd9d_fLeoDdM8p3jPqKa7mEaux19maY2uEPdynCTHVxUxVXdm7VqS5fFuyjVqMTw/exec?hash=${encodeURIComponent(hashHex)}`;
-                const res = await fetch(url);
-                const result = await res.json();
+                const res = await fetch(url, { method: 'GET', redirect: 'follow' });
+                const text = await res.text();
+                console.log('GAS response:', res.status, text);
+                const result = JSON.parse(text);
                 if (result.valid) {
                   setShowPasswordModal(false);
                   onHitClick?.(pendingRect);
@@ -180,7 +182,8 @@ function PopoverGlass({
                   setPasswordError(true);
                   setPassword('');
                 }
-              } catch {
+              } catch (err) {
+                console.error('GAS fetch error:', err);
                 setPasswordError(true);
                 setPassword('');
               }
