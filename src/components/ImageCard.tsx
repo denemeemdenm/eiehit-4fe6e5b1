@@ -13,7 +13,7 @@ interface ImageCardProps {
   aspectRatio?: string;
 }
 
-export default function ImageCard({ image, title, description, className = '', onClick, children, tiltIntensity = 6 }: ImageCardProps) {
+export default function ImageCard({ image, title, description, className = '', onClick, children, tiltIntensity = 6, aspectRatio }: ImageCardProps) {
   const cardRef = useRef<HTMLDivElement>(null);
   const [specularPos, setSpecularPos] = useState({ x: 50, y: 50 });
   const [isHovered, setIsHovered] = useState(false);
