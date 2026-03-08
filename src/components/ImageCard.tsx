@@ -73,7 +73,8 @@ export default function ImageCard({ image, title, description, className = '', o
       <div
         className={`relative group ${className}`}
         style={{
-          minHeight: '240px',
+          aspectRatio: aspectRatio || undefined,
+          minHeight: aspectRatio ? undefined : '240px',
           borderRadius: 20,
           overflow: 'hidden',
           background: 'hsla(var(--glass-bg))',
