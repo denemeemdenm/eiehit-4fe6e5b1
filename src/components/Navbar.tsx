@@ -555,7 +555,7 @@ export default function Navbar({ theme, onHitClick, flashcardOpen, onFlashcardCl
                 <motion.div initial={{ opacity: 0, x: -12 }} animate={{ opacity: 1, x: 0 }} transition={{ duration: 0.2 }}>
                   <button
                     onClick={() => { onFlashcardClose?.(); setMobileOpen(false); }}
-                    className="relative block w-full text-left px-4 py-2.5 rounded-xl text-sm font-medium"
+                    className="relative block w-full text-left px-4 py-2.5 rounded-xl text-[0.9375rem] font-medium"
                     style={{ color: isDark ? '#fff' : '#000', background: isDark ? 'rgba(255,255,255,0.08)' : 'rgba(255,255,255,0.5)' }}>
                     Ana Sayfa
                   </button>
