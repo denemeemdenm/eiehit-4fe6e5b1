@@ -370,7 +370,7 @@ export default function Navbar({ theme, onHitClick, flashcardOpen, onFlashcardCl
             </button>
 
             {/* Desktop links */}
-            <div className="hidden md:flex items-center relative">
+            <div className="hidden lg:flex items-center relative">
               {!flashcardOpen && navItems.map((item) => {
                 const isActive = activeSection === item.id;
                 const isClicked = clickedId === item.id;
