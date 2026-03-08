@@ -169,10 +169,24 @@ function PopoverGlass({
               const hashBuffer = await crypto.subtle.digest('SHA-256', data);
               const hashArray = Array.from(new Uint8Array(hashBuffer));
               const hashHex = hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
-              if (hashHex === '0adb84aeaa3b76a0e78a3e1b19e00c49427e498e78d498e3a43050c898e9a65c') {
-                setShowPasswordModal(false);
-                onHitClick?.(pendingRect);
-              } else {
+              try {
+                const res = await fetch(
+                  'https://script.google.com/macros/s/AKfycbxNb4CprdR2kJNIHhaPjFCUr5Utz8YpOLyR0zmez2NkilgyXl3wiJb9qidq1BcbJP2_jg/exec',
+                  {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'text/plain' },
+                    body: JSON.stringify({ hash: hashHex }),
+                  }
+                );
+                const result = await res.json();
+                if (result.valid) {
+                  setShowPasswordModal(false);
+                  onHitClick?.(pendingRect);
+                } else {
+                  setPasswordError(true);
+                  setPassword('');
+                }
+              } catch {
                 setPasswordError(true);
                 setPassword('');
               }
