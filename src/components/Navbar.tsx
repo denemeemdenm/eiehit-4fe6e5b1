@@ -458,7 +458,7 @@ export default function Navbar({ theme, onHitClick, flashcardOpen, onFlashcardCl
                 </div>
                 {passwordError && (
                   <motion.p
-                    className="text-xs text-center text-red-500"
+                    className="text-xs text-center text-destructive"
                     initial={{ opacity: 0, y: -4 }}
                     animate={{ opacity: 1, y: 0 }}
                   >
