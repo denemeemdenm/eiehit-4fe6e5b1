@@ -454,7 +454,7 @@ export default function Navbar({ theme, onHitClick, flashcardOpen, onFlashcardCl
             {!flashcardOpen && <span className="hidden lg:block w-px h-4 mx-1.5 shrink-0" style={{ background: isDark ? 'rgba(255,255,255,0.12)' : 'rgba(0,0,0,0.1)' }} />}
 
             {/* HiT button — always visible */}
-            <div className="relative">
+            <div className="relative shrink-0">
               <motion.button
                 ref={hitButtonRef}
                 onClick={() => {
