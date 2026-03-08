@@ -428,35 +428,35 @@
 }
 
 .heading-gradient-red {
-  background-image: repeating-linear-gradient(90deg, hsl(18 100% 50%) 0 52px, hsl(18 100% 40%) 52px 64px, hsl(18 100% 50%) 64px 112px);
+  background-image: repeating-linear-gradient(90deg, hsl(18 100% 50%) 0px, hsl(18 100% 50%) 52px, hsl(18 100% 40%) 52px, hsl(18 100% 40%) 64px, hsl(18 100% 50%) 64px, hsl(18 100% 50%) 112px);
 }
 
 .heading-gradient-cyan {
-  background-image: repeating-linear-gradient(90deg, hsl(180 100% 70%) 0 52px, hsl(180 100% 60%) 52px 64px, hsl(180 100% 70%) 64px 112px);
+  background-image: repeating-linear-gradient(90deg, hsl(180 100% 70%) 0px, hsl(180 100% 70%) 52px, hsl(180 100% 60%) 52px, hsl(180 100% 60%) 64px, hsl(180 100% 70%) 64px, hsl(180 100% 70%) 112px);
 }
 
 .heading-gradient-silver {
-  background-image: repeating-linear-gradient(90deg, #222222 0 52px, #000000 52px 64px, #222222 64px 112px);
+  background-image: repeating-linear-gradient(90deg, #222222 0px, #222222 52px, #000000 52px, #000000 64px, #222222 64px, #222222 112px);
 }
 
 .heading-gradient-gold {
-  background-image: repeating-linear-gradient(90deg, hsl(47 89% 60%) 0 52px, hsl(47 89% 50%) 52px 64px, hsl(47 89% 60%) 64px 112px);
+  background-image: repeating-linear-gradient(90deg, hsl(47 89% 60%) 0px, hsl(47 89% 60%) 52px, hsl(47 89% 50%) 52px, hsl(47 89% 50%) 64px, hsl(47 89% 60%) 64px, hsl(47 89% 60%) 112px);
 }
 
 .dark .heading-gradient-red {
-  background-image: repeating-linear-gradient(90deg, hsl(18 100% 50%) 0 52px, hsl(18 100% 40%) 52px 64px, hsl(18 100% 50%) 64px 112px);
+  background-image: repeating-linear-gradient(90deg, hsl(18 100% 50%) 0px, hsl(18 100% 50%) 52px, hsl(18 100% 40%) 52px, hsl(18 100% 40%) 64px, hsl(18 100% 50%) 64px, hsl(18 100% 50%) 112px);
 }
 
 .dark .heading-gradient-cyan {
-  background-image: repeating-linear-gradient(90deg, hsl(180 100% 70%) 0 52px, hsl(180 100% 60%) 52px 64px, hsl(180 100% 70%) 64px 112px);
+  background-image: repeating-linear-gradient(90deg, hsl(180 100% 70%) 0px, hsl(180 100% 70%) 52px, hsl(180 100% 60%) 52px, hsl(180 100% 60%) 64px, hsl(180 100% 70%) 64px, hsl(180 100% 70%) 112px);
 }
 
 .dark .heading-gradient-silver {
-  background-image: repeating-linear-gradient(90deg, hsl(0 0% 100%) 0 52px, hsl(0 0% 90%) 52px 64px, hsl(0 0% 100%) 64px 112px);
+  background-image: repeating-linear-gradient(90deg, hsl(0 0% 100%) 0px, hsl(0 0% 100%) 52px, hsl(0 0% 90%) 52px, hsl(0 0% 90%) 64px, hsl(0 0% 100%) 64px, hsl(0 0% 100%) 112px);
 }
 
 .dark .heading-gradient-gold {
-  background-image: repeating-linear-gradient(90deg, hsl(47 89% 60%) 0 52px, hsl(47 89% 50%) 52px 64px, hsl(47 89% 60%) 64px 112px);
+  background-image: repeating-linear-gradient(90deg, hsl(47 89% 60%) 0px, hsl(47 89% 60%) 52px, hsl(47 89% 50%) 52px, hsl(47 89% 50%) 64px, hsl(47 89% 60%) 64px, hsl(47 89% 60%) 112px);
 }
 
 @keyframes gradient-shift {
