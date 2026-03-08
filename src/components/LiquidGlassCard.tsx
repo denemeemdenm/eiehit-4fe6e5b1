@@ -6,6 +6,7 @@ interface LiquidGlassCardProps {
   children: ReactNode;
   className?: string;
   tiltIntensity?: number;
+  onClick?: () => void;
 }
 
 export default function LiquidGlassCard({ children, className = '', tiltIntensity = 4 }: LiquidGlassCardProps) {
