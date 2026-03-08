@@ -433,20 +433,29 @@ export default function Navbar({ theme, onHitClick, flashcardOpen, onFlashcardCl
                 }}
                 className="w-full flex flex-col gap-2.5"
               >
-                <Input
-                  type="password"
-                  placeholder="••••"
-                  value={password}
-                  onChange={(e) => { setPassword(e.target.value); setPasswordError(false); }}
-                  autoFocus
-                  className="text-center text-sm placeholder:text-muted-foreground/40"
-                  style={{
-                    background: isDark ? 'rgba(255,255,255,0.06)' : 'rgba(0,0,0,0.04)',
-                    borderColor: passwordError ? 'hsl(0, 84%, 60%)' : isDark ? 'rgba(255,255,255,0.1)' : 'rgba(0,0,0,0.08)',
-                    borderRadius: '12px',
-                    color: isDark ? '#fff' : '#000',
-                  }}
-                />
+                <div className="relative group/input rounded-[12px] overflow-hidden">
+                  <Input
+                    type="password"
+                    placeholder="••••"
+                    value={password}
+                    onChange={(e) => { setPassword(e.target.value); setPasswordError(false); }}
+                    autoFocus
+                    className="text-center text-sm placeholder:text-muted-foreground/40 border-none focus-visible:ring-0 focus-visible:ring-offset-0 relative z-10"
+                    style={{
+                      background: isDark ? 'rgba(255,255,255,0.06)' : 'rgba(0,0,0,0.04)',
+                      borderRadius: '12px',
+                      color: isDark ? '#fff' : '#000',
+                    }}
+                  />
+                  {/* Diagonal specular border */}
+                  <div className="absolute inset-0 rounded-[12px] pointer-events-none transition-opacity duration-300 opacity-60 group-hover/input:opacity-100" style={{
+                    padding: '1px',
+                    background: `linear-gradient(135deg, ${isDark ? 'rgba(255,255,255,0.22)' : 'rgba(255,255,255,0.5)'} 0%, ${isDark ? 'rgba(255,255,255,0.04)' : 'rgba(255,255,255,0.1)'} 25%, ${isDark ? 'rgba(255,255,255,0.02)' : 'rgba(255,255,255,0.05)'} 50%, ${isDark ? 'rgba(255,255,255,0.04)' : 'rgba(255,255,255,0.1)'} 75%, ${isDark ? 'rgba(255,255,255,0.22)' : 'rgba(255,255,255,0.5)'} 100%)`,
+                    mask: 'linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0)',
+                    maskComposite: 'exclude',
+                    WebkitMaskComposite: 'xor' as any,
+                  }} />
+                </div>
                 {passwordError && (
                   <motion.p
                     className="text-xs text-center text-red-500"
@@ -456,16 +465,26 @@ export default function Navbar({ theme, onHitClick, flashcardOpen, onFlashcardCl
                     Yanlış şifre
                   </motion.p>
                 )}
-                <button
-                  type="submit"
-                  className="w-full py-2 rounded-xl text-xs font-semibold transition-all"
-                  style={{
-                    background: isDark ? 'rgba(255,255,255,0.1)' : 'rgba(0,0,0,0.06)',
-                    color: isDark ? 'rgba(255,255,255,0.8)' : 'rgba(0,0,0,0.7)',
-                  }}
-                >
-                  Giriş
-                </button>
+                <div className="relative group/btn rounded-xl overflow-hidden">
+                  <button
+                    type="submit"
+                    className="w-full py-2 rounded-xl text-xs font-semibold transition-all relative z-10"
+                    style={{
+                      background: isDark ? 'rgba(255,255,255,0.1)' : 'rgba(0,0,0,0.06)',
+                      color: isDark ? 'rgba(255,255,255,0.8)' : 'rgba(0,0,0,0.7)',
+                    }}
+                  >
+                    Giriş
+                  </button>
+                  {/* Diagonal specular border */}
+                  <div className="absolute inset-0 rounded-xl pointer-events-none transition-opacity duration-300 opacity-60 group-hover/btn:opacity-100" style={{
+                    padding: '1px',
+                    background: `linear-gradient(135deg, ${isDark ? 'rgba(255,255,255,0.22)' : 'rgba(255,255,255,0.5)'} 0%, ${isDark ? 'rgba(255,255,255,0.04)' : 'rgba(255,255,255,0.1)'} 25%, ${isDark ? 'rgba(255,255,255,0.02)' : 'rgba(255,255,255,0.05)'} 50%, ${isDark ? 'rgba(255,255,255,0.04)' : 'rgba(255,255,255,0.1)'} 75%, ${isDark ? 'rgba(255,255,255,0.22)' : 'rgba(255,255,255,0.5)'} 100%)`,
+                    mask: 'linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0)',
+                    maskComposite: 'exclude',
+                    WebkitMaskComposite: 'xor' as any,
+                  }} />
+                </div>
               </form>
             </motion.div>
           </motion.div>
