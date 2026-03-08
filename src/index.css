@@ -437,7 +437,8 @@
 }
 
 .heading-gradient-silver {
-  background-image: repeating-linear-gradient(90deg, #505050 0px, #000000 50px, #505050 100px, #000000 150px, #505050 200px);
+  background-image: repeating-linear-gradient(90deg, #505050 0px, #1a1a1a 100px, #000000 200px, #1a1a1a 300px, #505050 400px);
+  background-size: 400px 100%;
 }
 
 .heading-gradient-gold {
