@@ -86,7 +86,6 @@ function AnimatedGradientHeading({ children, className, color = 'red', as: Tag =
 
 export default function Home() {
   const [isDark, setIsDark] = useState(document.documentElement.classList.contains('dark'));
-  const [formData, setFormData] = useState({ name: '', email: '', message: '' });
   const heroRef = useRef<HTMLElement>(null);
 
   useEffect(() => {
@@ -100,12 +99,6 @@ export default function Home() {
   const copyToClipboard = (text: string, label: string) => {
     navigator.clipboard.writeText(text);
     toast.success(`${label} kopyalandı`);
-  };
-
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    toast.success('Mesajınız alınmıştır. En kısa sürede dönüş sağlanacaktır.');
-    setFormData({ name: '', email: '', message: '' });
   };
 
   return (
