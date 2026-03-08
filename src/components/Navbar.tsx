@@ -359,7 +359,7 @@ export default function Navbar({ theme, onHitClick, flashcardOpen, onFlashcardCl
             ref={navRef}
             layout
             transition={{ type: 'spring', stiffness: 300, damping: 30, mass: 0.8 }}
-            className="px-2 flex-row flex items-center justify-start gap-[8px] rounded-[21.6px] py-[8px] relative overflow-hidden md:min-w-[540px]"
+            className="px-2 flex-row flex items-center justify-start gap-[8px] rounded-[21.6px] py-[8px] relative overflow-visible md:min-w-[540px]"
             style={{
               background: 'hsla(var(--glass-bg))',
               backdropFilter: 'blur(var(--glass-blur)) saturate(var(--glass-saturation))',
