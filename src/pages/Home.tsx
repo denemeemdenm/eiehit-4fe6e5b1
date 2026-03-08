@@ -43,13 +43,13 @@ const trustSignalsDark = [{
 }];
 
 const trustSignalsLight = [{
-  icon: Shield, title: 'Güvenilir Süreç', desc: 'Her adımda şeffaf ve ölçülebilir hukuki süreç yönetimi.', image: trustProcessLight
+  icon: Shield, title: 'Güvenilir Süreç', desc: 'Her adımda şeffaf ve ölçülebilir hukuki süreç yönetimi.', image: trustProcess
 }, {
-  icon: Eye, title: 'Netlik ve Açıklık', desc: 'Karmaşık hukuki meselelerin sade ve anlaşılır aktarımı.', image: trustClarityLight
+  icon: Eye, title: 'Netlik ve Açıklık', desc: 'Karmaşık hukuki meselelerin sade ve anlaşılır aktarımı.', image: trustClarity
 }, {
-  icon: Lock, title: 'Gizlilik', desc: 'Müvekkil bilgilerinin korunması en temel önceliğimizdir.', image: trustPrivacyLight
+  icon: Lock, title: 'Gizlilik', desc: 'Müvekkil bilgilerinin korunması en temel önceliğimizdir.', image: trustPrivacy
 }, {
-  icon: Cpu, title: 'Teknoloji Okuryazarlığı', desc: 'Dijital çağın hukuki gereksinimlerine hakimiyet.', image: trustTechLight
+  icon: Cpu, title: 'Teknoloji Okuryazarlığı', desc: 'Dijital çağın hukuki gereksinimlerine hakimiyet.', image: trustTech
 }];
 
 const areaImagesDark: Record<string, string> = {
