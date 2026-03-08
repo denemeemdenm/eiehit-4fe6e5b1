@@ -465,9 +465,38 @@
   animation: gradient-sweep 5s linear infinite;
 }
 
+.heading-gradient-silver {
+  background: linear-gradient(270deg, #ffffff, #999999, #e0e0e0, #777777, #ffffff, #999999, #e0e0e0);
+  background-size: 300% 100%;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  animation: gradient-sweep 5s linear infinite;
+}
+
+.heading-gradient-gold {
+  background: linear-gradient(270deg, #c9a227, #f4d03f, #d4a017, #c9a227, #f4d03f, #d4a017, #c9a227);
+  background-size: 300% 100%;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  animation: gradient-sweep 5s linear infinite;
+}
+
+.dark .heading-gradient-silver {
+  background: linear-gradient(270deg, #e0e0e0, #808080, #c0c0c0, #666666, #e0e0e0, #808080, #c0c0c0);
+  background-size: 300% 100%;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  animation: gradient-sweep 5s linear infinite;
+}
+
 @media (prefers-reduced-motion: reduce) {
   .heading-gradient-red,
-  .heading-gradient-cyan {
+  .heading-gradient-cyan,
+  .heading-gradient-silver,
+  .heading-gradient-gold {
     animation: none;
     background-size: 100% 100%;
   }
