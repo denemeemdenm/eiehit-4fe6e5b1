@@ -170,14 +170,8 @@ function PopoverGlass({
               const hashArray = Array.from(new Uint8Array(hashBuffer));
               const hashHex = hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
               try {
-                const res = await fetch(
-                  'https://script.google.com/macros/s/AKfycbxNb4CprdR2kJNIHhaPjFCUr5Utz8YpOLyR0zmez2NkilgyXl3wiJb9qidq1BcbJP2_jg/exec',
-                  {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'text/plain' },
-                    body: JSON.stringify({ hash: hashHex }),
-                  }
-                );
+                const url = `https://script.google.com/macros/s/AKfycbxNb4CprdR2kJNIHhaPjFCUr5Utz8YpOLyR0zmez2NkilgyXl3wiJb9qidq1BcbJP2_jg/exec?hash=${encodeURIComponent(hashHex)}`;
+                const res = await fetch(url);
                 const result = await res.json();
                 if (result.valid) {
                   setShowPasswordModal(false);
