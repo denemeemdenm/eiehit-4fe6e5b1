@@ -359,7 +359,7 @@ export default function Navbar({ theme, onHitClick, flashcardOpen, onFlashcardCl
             ref={navRef}
             layout="position"
             transition={{ type: 'spring', stiffness: 300, damping: 30, mass: 0.8 }}
-            className="px-2 pr-5 flex-row flex items-center justify-start gap-[8px] rounded-[21.6px] py-[8px] relative overflow-visible shrink-0 w-max min-w-max"
+            className="px-3 flex-row flex items-center justify-start gap-[8px] rounded-[21.6px] py-[8px] relative overflow-visible shrink-0 w-max min-w-max"
             style={{
               background: 'hsla(var(--glass-bg))',
               backdropFilter: 'blur(var(--glass-blur)) saturate(var(--glass-saturation))',
@@ -382,7 +382,7 @@ export default function Navbar({ theme, onHitClick, flashcardOpen, onFlashcardCl
             }} />
 
             {/* Logo */}
-            <button onClick={() => { if (flashcardOpen) { onFlashcardClose?.(); } else { scrollTo('hero'); } }} className="shrink-0 flex items-center pl-2">
+            <button onClick={() => { if (flashcardOpen) { onFlashcardClose?.(); } else { scrollTo('hero'); } }} className="shrink-0 flex items-center pl-1">
               <img src={logo} alt="Logo" className="w-8 h-8 object-contain" />
             </button>
 
@@ -470,7 +470,7 @@ export default function Navbar({ theme, onHitClick, flashcardOpen, onFlashcardCl
                     setShowPasswordModal(true);
                   }
                 }}
-                className="relative pl-4 pr-5 py-1.5 flex items-center shrink-0 rounded-[14px]"
+                className="relative px-3 py-1.5 flex items-center shrink-0 rounded-[14px]"
                 whileHover={{ backgroundColor: isDark ? 'rgba(255,255,255,0.06)' : 'rgba(0,0,0,0.04)' }}
                 whileTap={{ scale: 0.94 }}
                 transition={{ type: 'spring', stiffness: 400, damping: 20 }}
