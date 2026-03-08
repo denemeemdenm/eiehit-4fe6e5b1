@@ -10,8 +10,8 @@ interface ScrollRevealProps {
 export default function ScrollReveal({ children, delay = 0, className = '' }: ScrollRevealProps) {
   return (
     <motion.div
-      initial={{ opacity: 0, y: 40, filter: 'blur(6px)' }}
-      whileInView={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
+      initial={{ opacity: 0, y: 40 }}
+      whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: '-60px' }}
       transition={{
         duration: 0.9,
@@ -19,7 +19,7 @@ export default function ScrollReveal({ children, delay = 0, className = '' }: Sc
         ease: [0.25, 0.1, 0.25, 1],
       }}
       className={className}
-      style={{ willChange: 'opacity, transform, filter' }}
+      style={{ willChange: 'opacity, transform' }}
     >
       {children}
     </motion.div>
