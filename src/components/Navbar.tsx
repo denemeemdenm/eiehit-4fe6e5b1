@@ -382,7 +382,7 @@ export default function Navbar({ theme, onHitClick, flashcardOpen, onFlashcardCl
             }} />
 
             {/* Logo */}
-            <button onClick={() => { if (flashcardOpen) { onFlashcardClose?.(); } else { scrollTo('hero'); } }} className="shrink-0 flex items-center pl-2">
+            <button onClick={() => { if (flashcardOpen) { onFlashcardClose?.(); } else { scrollTo('hero'); } }} className="shrink-0 flex items-center px-2">
               <img src={logo} alt="Logo" className="w-8 h-8 object-contain" />
             </button>
 
@@ -470,7 +470,7 @@ export default function Navbar({ theme, onHitClick, flashcardOpen, onFlashcardCl
                     setShowPasswordModal(true);
                   }
                 }}
-                className="relative px-3 py-1.5 flex items-center shrink-0 rounded-[14px]"
+                className="relative px-2 py-1.5 flex items-center shrink-0 rounded-[14px]"
                 whileHover={{ backgroundColor: isDark ? 'rgba(255,255,255,0.06)' : 'rgba(0,0,0,0.04)' }}
                 whileTap={{ scale: 0.94 }}
                 transition={{ type: 'spring', stiffness: 400, damping: 20 }}
