@@ -277,7 +277,7 @@
   }
 
   .gradient-text-gray {
-    background-image: repeating-linear-gradient(90deg, hsl(var(--text-secondary)) 0 52px, hsl(var(--foreground)) 52px 64px, hsl(var(--text-secondary)) 64px 112px);
+    background-image: repeating-linear-gradient(90deg, hsl(var(--text-secondary)) 0px, hsl(var(--text-secondary)) 52px, hsl(var(--foreground)) 52px, hsl(var(--foreground)) 64px, hsl(var(--text-secondary)) 64px, hsl(var(--text-secondary)) 112px);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
@@ -287,7 +287,7 @@
   }
 
   .gradient-text-cyan {
-    background-image: repeating-linear-gradient(90deg, hsl(180 100% 70%) 0 52px, hsl(180 100% 60%) 52px 64px, hsl(180 100% 70%) 64px 112px);
+    background-image: repeating-linear-gradient(90deg, hsl(180 100% 70%) 0px, hsl(180 100% 70%) 52px, hsl(180 100% 60%) 52px, hsl(180 100% 60%) 64px, hsl(180 100% 70%) 64px, hsl(180 100% 70%) 112px);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
@@ -297,7 +297,7 @@
   }
 
   .gradient-text-red {
-    background-image: repeating-linear-gradient(90deg, hsl(18 100% 50%) 0 52px, hsl(18 100% 40%) 52px 64px, hsl(18 100% 50%) 64px 112px);
+    background-image: repeating-linear-gradient(90deg, hsl(18 100% 50%) 0px, hsl(18 100% 50%) 52px, hsl(18 100% 40%) 52px, hsl(18 100% 40%) 64px, hsl(18 100% 50%) 64px, hsl(18 100% 50%) 112px);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
@@ -307,7 +307,7 @@
   }
 
   .gradient-text-brand {
-    background-image: repeating-linear-gradient(90deg, hsl(180 100% 70%) 0 36px, hsl(18 100% 50%) 36px 72px, hsl(48 100% 50%) 72px 108px, hsl(18 100% 40%) 108px 120px, hsl(180 100% 70%) 120px 156px);
+    background-image: repeating-linear-gradient(90deg, hsl(180 100% 70%) 0px, hsl(180 100% 70%) 36px, hsl(18 100% 50%) 36px, hsl(18 100% 50%) 72px, hsl(48 100% 50%) 72px, hsl(48 100% 50%) 108px, hsl(18 100% 40%) 108px, hsl(18 100% 40%) 120px, hsl(180 100% 70%) 120px, hsl(180 100% 70%) 156px);
     background-size: 156px 100%;
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
@@ -317,7 +317,7 @@
   }
 
   .gradient-text-gold {
-    background-image: repeating-linear-gradient(90deg, hsl(47 89% 60%) 0 52px, hsl(47 89% 50%) 52px 64px, hsl(47 89% 60%) 64px 112px);
+    background-image: repeating-linear-gradient(90deg, hsl(47 89% 60%) 0px, hsl(47 89% 60%) 52px, hsl(47 89% 50%) 52px, hsl(47 89% 50%) 64px, hsl(47 89% 60%) 64px, hsl(47 89% 60%) 112px);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
@@ -341,15 +341,15 @@
   }
 
   .gradient-text-cyan-word {
-    background-image: repeating-linear-gradient(90deg, hsl(180 100% 70%) 0 52px, hsl(180 100% 60%) 52px 64px, hsl(180 100% 70%) 64px 112px);
+    background-image: repeating-linear-gradient(90deg, hsl(180 100% 70%) 0px, hsl(180 100% 70%) 52px, hsl(180 100% 60%) 52px, hsl(180 100% 60%) 64px, hsl(180 100% 70%) 64px, hsl(180 100% 70%) 112px);
   }
 
   .gradient-text-orange-word {
-    background-image: repeating-linear-gradient(90deg, hsl(18 100% 50%) 0 52px, hsl(18 100% 40%) 52px 64px, hsl(18 100% 50%) 64px 112px);
+    background-image: repeating-linear-gradient(90deg, hsl(18 100% 50%) 0px, hsl(18 100% 50%) 52px, hsl(18 100% 40%) 52px, hsl(18 100% 40%) 64px, hsl(18 100% 50%) 64px, hsl(18 100% 50%) 112px);
   }
 
   .gradient-text-yellow-word {
-    background-image: repeating-linear-gradient(90deg, hsl(48 100% 50%) 0 52px, hsl(48 100% 40%) 52px 64px, hsl(48 100% 50%) 64px 112px);
+    background-image: repeating-linear-gradient(90deg, hsl(48 100% 50%) 0px, hsl(48 100% 50%) 52px, hsl(48 100% 40%) 52px, hsl(48 100% 40%) 64px, hsl(48 100% 50%) 64px, hsl(48 100% 50%) 112px);
   }
 
   /* Cyan gradient for icons — same vivid color in both modes */
