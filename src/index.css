@@ -458,7 +458,7 @@
 }
 
 .dark .heading-gradient-cyan {
-  background-image: repeating-linear-gradient(90deg, hsl(180 100% 70%) 0px, hsl(180 100% 60%) 100px, hsl(180 100% 70%) 200px, hsl(180 100% 60%) 300px, hsl(180 100% 70%) 400px);
+  background-image: repeating-linear-gradient(90deg, hsl(180 100% 75%) 0px, hsl(185 90% 45%) 100px, hsl(180 100% 75%) 200px, hsl(185 90% 45%) 300px, hsl(180 100% 75%) 400px);
 }
 
 .dark .heading-gradient-silver {
