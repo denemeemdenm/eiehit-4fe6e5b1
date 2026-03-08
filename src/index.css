@@ -2,18 +2,19 @@
 @tailwind components;
 @tailwind utilities;
 
-/* EKiN Pro Max Diyakritik font */
+/* HiT Vision Pro Max font (replaces EKiN Pro Max Diyakritik) */
 @font-face {
-  font-family: 'EKiN Pro Max Diyakritik';
-  src: url('/fonts/EKiN-Pro-Max-Diyakritik.otf') format('opentype');
+  font-family: 'HiT Vision Pro Max';
+  src: url('/fonts/HiT-Vision-Pro-Max.otf') format('opentype');
   font-weight: normal;
   font-style: normal;
   font-display: swap;
 }
 
+/* HiT Font (replaces HiT Font v2) */
 @font-face {
-  font-family: 'HiT Font v2';
-  src: url('/fonts/HiT-Font-v2.otf') format('opentype');
+  font-family: 'HiT Font';
+  src: url('/fonts/HiT-Font.otf') format('opentype');
   font-weight: normal;
   font-style: normal;
   font-display: swap;
