@@ -359,7 +359,7 @@ export default function Navbar({ theme, onHitClick, flashcardOpen, onFlashcardCl
             ref={navRef}
             layout
             transition={{ type: 'spring', stiffness: 300, damping: 30, mass: 0.8 }}
-            className="px-2 flex-row flex items-center justify-start gap-[8px] rounded-[21.6px] py-[8px] relative overflow-hidden lg:min-w-[540px]"
+            className="px-2 flex-row flex items-center justify-start gap-[8px] rounded-[21.6px] py-[8px] relative overflow-hidden md:min-w-[540px]"
             style={{
               background: 'hsla(var(--glass-bg))',
               backdropFilter: 'blur(var(--glass-blur)) saturate(var(--glass-saturation))',
@@ -387,7 +387,7 @@ export default function Navbar({ theme, onHitClick, flashcardOpen, onFlashcardCl
             </button>
 
             {/* Desktop links */}
-            <div className="hidden lg:flex items-center relative">
+            <div className="hidden md:flex items-center relative">
               {!flashcardOpen && navItems.map((item) => {
                 const isActive = activeSection === item.id;
                 const isClicked = clickedId === item.id;
@@ -526,7 +526,7 @@ export default function Navbar({ theme, onHitClick, flashcardOpen, onFlashcardCl
             {/* Mobile hamburger */}
             <button
               onClick={() => setMobileOpen(!mobileOpen)}
-              className="lg:hidden w-8 h-8 rounded-lg flex items-center justify-center transition-colors"
+              className="md:hidden w-8 h-8 rounded-lg flex items-center justify-center transition-colors"
               style={{ color: isDark ? 'rgba(255,255,255,0.6)' : 'rgba(0,0,0,0.5)' }}
               aria-label="Menü">
 
