@@ -121,20 +121,14 @@ export default function Home() {
 
           <motion.div initial={{ opacity: 0, y: 30, filter: 'blur(10px)' }} animate={{ opacity: 1, y: 0, filter: 'blur(0px)' }} transition={{ duration: 1, delay: 0.4, ease: [0.25, 0.46, 0.45, 0.94] }} className="flex justify-center">
             <h1
-              className="text-3xl sm:text-4xl md:text-5xl font-bold tracking-wide"
-              style={{
-                fontFamily: "'EKiN Pro Max Diyakritik', sans-serif",
-                background: 'linear-gradient(90deg, #a8a8a8 0%, #e8e8e8 40%, #ffffff 60%, #c0c0c0 100%)',
-                WebkitBackgroundClip: 'text',
-                WebkitTextFillColor: 'transparent',
-                backgroundClip: 'text',
-              }}
+              className="text-3xl sm:text-4xl md:text-5xl font-bold tracking-wide heading-gradient-silver"
+              style={{ fontFamily: "'EKiN Pro Max Diyakritik', sans-serif" }}
             >
               EKİN İSA EROĞLU
             </h1>
           </motion.div>
 
-          <motion.p className="text-lg sm:text-xl md:text-2xl max-w-2xl mx-auto leading-relaxed gradient-text-gold" initial={{ opacity: 0, y: 30, filter: 'blur(10px)' }} animate={{ opacity: 1, y: 0, filter: 'blur(0px)' }} transition={{ duration: 1, delay: 1.4, ease: [0.25, 0.46, 0.45, 0.94] }}>
+          <motion.p className="text-lg sm:text-xl md:text-2xl max-w-2xl mx-auto leading-relaxed heading-gradient-gold" initial={{ opacity: 0, y: 30, filter: 'blur(10px)' }} animate={{ opacity: 1, y: 0, filter: 'blur(0px)' }} transition={{ duration: 1, delay: 1.4, ease: [0.25, 0.46, 0.45, 0.94] }}>
             "Ay-Yıldız'ın Işığında; Atatürk'ün Yolunda…"
           </motion.p>
 
