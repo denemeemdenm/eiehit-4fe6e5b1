@@ -162,9 +162,14 @@ function PopoverGlass({
             Erişim Şifresi
           </h3>
           <form
-            onSubmit={(e) => {
+            onSubmit={async (e) => {
               e.preventDefault();
-              if (password === '1071') {
+              const encoder = new TextEncoder();
+              const data = encoder.encode(password);
+              const hashBuffer = await crypto.subtle.digest('SHA-256', data);
+              const hashArray = Array.from(new Uint8Array(hashBuffer));
+              const hashHex = hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
+              if (hashHex === '0adb84aeaa3b76a0e78a3e1b19e00c49427e498e78d498e3a43050c898e9a65c') {
                 setShowPasswordModal(false);
                 onHitClick?.(pendingRect);
               } else {
