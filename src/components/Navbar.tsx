@@ -340,10 +340,10 @@ export default function Navbar({ theme, onHitClick, flashcardOpen, onFlashcardCl
             <motion.div
               className="relative z-10 w-[320px] rounded-[24px] p-8 overflow-hidden"
               style={{
-                background: 'hsla(210, 15%, 8%, 0.75)',
+                background: 'hsla(0 0% 20% / 0.35)',
                 backdropFilter: 'blur(40px) saturate(200%)',
                 WebkitBackdropFilter: 'blur(40px) saturate(200%)',
-                boxShadow: '0 24px 64px rgba(0,0,0,0.6), 0 8px 24px rgba(0,0,0,0.4), inset 0 1px 0 rgba(255,255,255,0.08)',
+                boxShadow: '0 16px 48px rgba(0,0,0,0.3), 0 4px 12px rgba(0,0,0,0.2)',
               }}
               initial={{ scale: 0.9, opacity: 0, y: 20 }}
               animate={{ scale: 1, opacity: 1, y: 0 }}
@@ -361,12 +361,12 @@ export default function Navbar({ theme, onHitClick, flashcardOpen, onFlashcardCl
               {/* Top shine */}
               <div
                 className="absolute inset-x-0 top-0 h-1/2 pointer-events-none rounded-t-[inherit]"
-                style={{ background: 'linear-gradient(180deg, hsla(180, 100%, 69%, 0.08) 0%, transparent 100%)' }}
+                style={{ background: 'linear-gradient(180deg, hsla(0 0% 100% / 0.18) 0%, transparent 100%)' }}
               />
-              {/* Glass border with cyan/red accents */}
+              {/* Rim light border */}
               <div className="absolute inset-0 rounded-[inherit] pointer-events-none" style={{
-                padding: '1px',
-                background: 'linear-gradient(135deg, rgba(100,255,255,0.3) 0%, rgba(255,255,255,0.06) 25%, rgba(255,255,255,0.02) 50%, rgba(255,255,255,0.06) 75%, rgba(255,75,0,0.25) 100%)',
+                padding: '0.5px',
+                background: 'linear-gradient(180deg, hsla(0 0% 100% / 0.35) 0%, hsla(0 0% 100% / 0.08) 40%, hsla(0 0% 100% / 0.15) 100%)',
                 mask: 'linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0)',
                 maskComposite: 'exclude',
                 WebkitMaskComposite: 'xor' as any,
@@ -374,10 +374,9 @@ export default function Navbar({ theme, onHitClick, flashcardOpen, onFlashcardCl
 
               <div className="relative z-10 flex flex-col items-center gap-5">
                 <div className="w-12 h-12 rounded-2xl flex items-center justify-center" style={{
-                  background: 'linear-gradient(135deg, hsla(180, 100%, 69%, 0.15), hsla(0, 84%, 60%, 0.15))',
-                  boxShadow: '0 0 24px hsla(180, 100%, 69%, 0.1)',
+                  background: 'hsla(0 0% 100% / 0.1)',
                 }}>
-                  <Lock size={22} style={{ color: 'hsl(180, 100%, 69%)' }} />
+                  <Lock size={22} className="text-white/70" />
                 </div>
                 <h3 className="text-base font-semibold text-white" style={{ fontFamily: "'EKiN Pro Max Diyakritik', sans-serif" }}>
                   Erişim Şifresi
@@ -403,16 +402,15 @@ export default function Navbar({ theme, onHitClick, flashcardOpen, onFlashcardCl
                     autoFocus
                     className="text-center text-white placeholder:text-white/30"
                     style={{
-                      background: 'rgba(255,255,255,0.06)',
-                      borderColor: passwordError ? 'hsl(0, 84%, 60%)' : 'rgba(255,255,255,0.1)',
+                      background: 'hsla(0 0% 100% / 0.06)',
+                      borderColor: passwordError ? 'hsl(0, 84%, 60%)' : 'hsla(0 0% 100% / 0.12)',
                       borderRadius: '14px',
                       backdropFilter: 'blur(10px)',
                     }}
                   />
                   {passwordError && (
                     <motion.p
-                      className="text-xs text-center"
-                      style={{ color: 'hsl(0, 84%, 60%)' }}
+                      className="text-xs text-center text-red-400"
                       initial={{ opacity: 0, y: -4 }}
                       animate={{ opacity: 1, y: 0 }}
                     >
@@ -421,11 +419,10 @@ export default function Navbar({ theme, onHitClick, flashcardOpen, onFlashcardCl
                   )}
                   <button
                     type="submit"
-                    className="w-full py-2.5 rounded-[14px] text-sm font-semibold transition-all"
+                    className="w-full py-2.5 rounded-[14px] text-sm font-semibold text-white/90 transition-all"
                     style={{
-                      background: 'linear-gradient(135deg, hsl(180, 100%, 69%), hsl(180, 80%, 55%))',
-                      color: '#000',
-                      boxShadow: '0 4px 16px hsla(180, 100%, 69%, 0.25)',
+                      background: 'hsla(0 0% 100% / 0.12)',
+                      boxShadow: '0 2px 8px rgba(0,0,0,0.2)',
                     }}
                   >
                     Giriş
