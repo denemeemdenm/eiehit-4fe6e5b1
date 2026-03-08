@@ -153,7 +153,7 @@ export default function Navbar({ theme, onHitClick, flashcardOpen, onFlashcardCl
                   <motion.button
                     key={item.id}
                     onClick={() => scrollTo(item.id)}
-                    className="relative px-3.5 py-1.5 text-[13px] font-medium whitespace-nowrap z-10 rounded-[14px] transition-colors duration-300"
+                    className="relative px-3.5 py-1.5 text-[0.8125rem] font-medium whitespace-nowrap z-10 rounded-[14px] transition-colors duration-300"
                     style={{
                       color: isActive ?
                       isDark ? '#fff' : '#000' :

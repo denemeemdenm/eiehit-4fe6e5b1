@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { Moon, Sun } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 
@@ -9,7 +9,7 @@ interface ThemeToggleProps {
 
 export default function ThemeToggle({ theme, toggleTheme }: ThemeToggleProps) {
   const [visible, setVisible] = useState(true);
-  const [lastScrollY, setLastScrollY] = useState(0);
+  const lastScrollYRef = useRef(0);
 
   useEffect(() => {
     let ticking = false;
@@ -18,24 +18,19 @@ export default function ThemeToggle({ theme, toggleTheme }: ThemeToggleProps) {
       ticking = true;
       requestAnimationFrame(() => {
         const currentY = window.scrollY;
-        const delta = currentY - lastScrollY;
+        const delta = currentY - lastScrollYRef.current;
         if (delta > 10) {
           setVisible(false);
-        } else if (delta < -10) {
+        } else if (delta < -10 || currentY < 50) {
           setVisible(true);
         }
-        setLastScrollY(currentY);
+        lastScrollYRef.current = currentY;
         ticking = false;
       });
     };
 
     window.addEventListener('scroll', onScroll, { passive: true });
     return () => window.removeEventListener('scroll', onScroll);
-  }, [lastScrollY]);
-
-  // Show when at top
-  useEffect(() => {
-    if (window.scrollY < 50) setVisible(true);
   }, []);
 
   return (
@@ -54,7 +49,7 @@ export default function ThemeToggle({ theme, toggleTheme }: ThemeToggleProps) {
     >
       <AnimatePresence mode="wait" initial={false}>
         {theme === 'light' ? (
-          <motion.div
+          <motion.span
             key="moon"
             initial={{ y: -16, opacity: 0, rotate: -90 }}
             animate={{ y: 0, opacity: 1, rotate: 0 }}
@@ -62,9 +57,9 @@ export default function ThemeToggle({ theme, toggleTheme }: ThemeToggleProps) {
             transition={{ duration: 0.25 }}
           >
             <Moon size={16} className="text-muted-foreground" />
-          </motion.div>
+          </motion.span>
         ) : (
-          <motion.div
+          <motion.span
             key="sun"
             initial={{ y: -16, opacity: 0, rotate: -90 }}
             animate={{ y: 0, opacity: 1, rotate: 0 }}
@@ -72,7 +67,7 @@ export default function ThemeToggle({ theme, toggleTheme }: ThemeToggleProps) {
             transition={{ duration: 0.25 }}
           >
             <Sun size={16} className="text-accent" />
-          </motion.div>
+          </motion.span>
         )}
       </AnimatePresence>
     </motion.button>
