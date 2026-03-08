@@ -211,11 +211,12 @@ function PopoverGlass({
             </div>
             {passwordError && (
               <motion.p
-                className="text-xs text-center text-destructive"
+                className="text-xs text-center"
+                style={{ color: '#FF4B00' }}
                 initial={{ opacity: 0, y: -4 }}
                 animate={{ opacity: 1, y: 0 }}
               >
-                Yanlış şifre
+                Yanlış Şifre
               </motion.p>
             )}
             <div className="relative group/btn rounded-xl overflow-hidden">
