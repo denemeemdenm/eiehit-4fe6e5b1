@@ -570,7 +570,7 @@ export default function Navbar({ theme, onHitClick, flashcardOpen, onFlashcardCl
                   transition={{ delay: i * 0.04, duration: 0.2 }}>
                     <button
                     onClick={() => scrollTo(item.id)}
-                    className="relative block w-full text-left px-4 py-2.5 rounded-xl text-sm font-medium transition-colors duration-200"
+                    className="relative block w-full text-left px-4 py-2.5 rounded-xl text-[0.9375rem] font-medium transition-colors duration-200"
                     style={{
                       color: isActive ? isDark ? '#fff' : '#000' : isDark ? 'rgba(255,255,255,0.5)' : 'rgba(0,0,0,0.45)',
                       background: isActive ? isDark ? 'rgba(255,255,255,0.08)' : 'rgba(255,255,255,0.5)' : 'transparent'
