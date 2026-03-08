@@ -71,7 +71,7 @@ export default function LiquidGlassCard({ children, className = '', tiltIntensit
         className={`relative overflow-hidden ${className}`}
         style={{
           borderRadius: 20,
-          isolation: 'isolate',
+          
           background: 'transparent',
           boxShadow: isHovered
             ? isDark
