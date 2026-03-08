@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect, useRef, forwardRef } from 'react';
 import { motion } from 'framer-motion';
 import { Shield, Eye, Lock, Cpu, Phone, Mail, Copy } from 'lucide-react';
 import LiquidGlassCard from '@/components/LiquidGlassCard';
