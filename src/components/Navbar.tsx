@@ -354,12 +354,12 @@ export default function Navbar({ theme, onHitClick, flashcardOpen, onFlashcardCl
   return (
     <>
       <header className="fixed top-4 left-1/2 -translate-x-1/2 z-50">
-        <div className="flex items-center gap-2">
+        <div className="flex items-center gap-2 shrink-0">
           <motion.nav
             ref={navRef}
             layout="position"
             transition={{ type: 'spring', stiffness: 300, damping: 30, mass: 0.8 }}
-            className="px-2 pr-5 flex-row flex items-center justify-start gap-[8px] rounded-[21.6px] py-[8px] relative overflow-visible md:min-w-[540px]"
+            className="px-2 pr-5 flex-row flex items-center justify-start gap-[8px] rounded-[21.6px] py-[8px] relative overflow-visible shrink-0 w-max min-w-max"
             style={{
               background: 'hsla(var(--glass-bg))',
               backdropFilter: 'blur(var(--glass-blur)) saturate(var(--glass-saturation))',
@@ -388,87 +388,72 @@ export default function Navbar({ theme, onHitClick, flashcardOpen, onFlashcardCl
 
             {/* Desktop links */}
             <div className="hidden md:flex items-center relative">
-              {!flashcardOpen && navItems.map((item) => {
+              {navItems.map((item) => {
                 const isActive = activeSection === item.id;
                 const isClicked = clickedId === item.id;
                 return (
                   <motion.button
                     key={item.id}
-                    onClick={() => scrollTo(item.id)}
+                    onClick={() => {
+                      if (flashcardOpen) onFlashcardClose?.();
+                      requestAnimationFrame(() => scrollTo(item.id));
+                    }}
                     className="relative px-3.5 py-1.5 text-[0.875rem] font-medium whitespace-nowrap z-10 rounded-[14px] transition-colors duration-300"
                     style={{
-                      color: isActive ?
-                      isDark ? '#fff' : '#000' :
-                      isDark ? 'rgba(255,255,255,0.5)' : 'rgba(0,0,0,0.45)'
+                      color: isActive
+                        ? isDark ? '#fff' : '#000'
+                        : isDark ? 'rgba(255,255,255,0.5)' : 'rgba(0,0,0,0.45)'
                     }}
                     animate={isClicked ? { scale: [1, 0.96, 1] } : { scale: 1 }}
                     transition={{ type: 'spring', stiffness: 500, damping: 20 }}
                     whileHover={{
                       backgroundColor: isActive ? 'transparent' : isDark ? 'rgba(255,255,255,0.06)' : 'rgba(0,0,0,0.04)'
-                    }}>
-
-                    {isActive &&
-                    <motion.div
-                      layoutId="nav-capsule"
-                      className="absolute inset-0 rounded-[14px] overflow-hidden"
-                      style={{
-                        background: isDark ? 'rgba(255,255,255,0.1)' : 'rgba(255,255,255,0.55)',
-                        backdropFilter: 'blur(10px)',
-                        WebkitBackdropFilter: 'blur(10px)',
-                        boxShadow: isDark ?
-                        '0 2px 12px rgba(0,0,0,0.3), inset 0 1px 0 rgba(255,255,255,0.08)' :
-                        '0 2px 12px rgba(0,0,0,0.06), inset 0 1px 0 rgba(255,255,255,0.8)'
-                      }}
-                      transition={{ type: 'spring', stiffness: 350, damping: 30, mass: 0.8 }}>
-
-                        {/* Hairline glass edge */}
+                    }}
+                  >
+                    {isActive && (
+                      <motion.div
+                        layoutId="nav-capsule"
+                        className="absolute inset-0 rounded-[14px] overflow-hidden"
+                        style={{
+                          background: isDark ? 'rgba(255,255,255,0.1)' : 'rgba(255,255,255,0.55)',
+                          backdropFilter: 'blur(10px)',
+                          WebkitBackdropFilter: 'blur(10px)',
+                          boxShadow: isDark
+                            ? '0 2px 12px rgba(0,0,0,0.3), inset 0 1px 0 rgba(255,255,255,0.08)'
+                            : '0 2px 12px rgba(0,0,0,0.06), inset 0 1px 0 rgba(255,255,255,0.8)'
+                        }}
+                        transition={{ type: 'spring', stiffness: 350, damping: 30, mass: 0.8 }}
+                      >
                         <div className="absolute inset-0 rounded-[inherit] pointer-events-none" style={{
-                        padding: '1px',
-                        background: `linear-gradient(135deg, ${isDark ? 'rgba(255,255,255,0.22)' : 'rgba(255,255,255,0.5)'} 0%, ${isDark ? 'rgba(255,255,255,0.06)' : 'rgba(255,255,255,0.15)'} 25%, ${isDark ? 'rgba(255,255,255,0.02)' : 'rgba(255,255,255,0.06)'} 50%, ${isDark ? 'rgba(255,255,255,0.06)' : 'rgba(255,255,255,0.15)'} 75%, ${isDark ? 'rgba(255,255,255,0.22)' : 'rgba(255,255,255,0.5)'} 100%)`,
-                        mask: 'linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0)',
-                        maskComposite: 'exclude',
-                        WebkitMaskComposite: 'xor' as any
-                      }} />
+                          padding: '1px',
+                          background: `linear-gradient(135deg, ${isDark ? 'rgba(255,255,255,0.22)' : 'rgba(255,255,255,0.5)'} 0%, ${isDark ? 'rgba(255,255,255,0.06)' : 'rgba(255,255,255,0.15)'} 25%, ${isDark ? 'rgba(255,255,255,0.02)' : 'rgba(255,255,255,0.06)'} 50%, ${isDark ? 'rgba(255,255,255,0.06)' : 'rgba(255,255,255,0.15)'} 75%, ${isDark ? 'rgba(255,255,255,0.22)' : 'rgba(255,255,255,0.5)'} 100%)`,
+                          mask: 'linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0)',
+                          maskComposite: 'exclude',
+                          WebkitMaskComposite: 'xor' as any
+                        }} />
 
-                        {/* Click flash highlight */}
                         <AnimatePresence>
-                          {isClicked &&
-                        <motion.div
-                          className="absolute inset-0 rounded-[inherit]"
-                          style={{ background: isDark ? 'rgba(255,255,255,0.15)' : 'rgba(255,255,255,0.6)' }}
-                          initial={{ opacity: 1 }}
-                          animate={{ opacity: 0 }}
-                          exit={{ opacity: 0 }}
-                          transition={{ duration: 0.4 }} />
-
-                        }
+                          {isClicked && (
+                            <motion.div
+                              className="absolute inset-0 rounded-[inherit]"
+                              style={{ background: isDark ? 'rgba(255,255,255,0.15)' : 'rgba(255,255,255,0.6)' }}
+                              initial={{ opacity: 1 }}
+                              animate={{ opacity: 0 }}
+                              exit={{ opacity: 0 }}
+                              transition={{ duration: 0.4 }}
+                            />
+                          )}
                         </AnimatePresence>
                       </motion.div>
-                    }
+                    )}
                     <span className="relative z-10">{item.label}</span>
-                  </motion.button>);
-
+                  </motion.button>
+                );
               })}
-
-              {flashcardOpen && (
-                <motion.button
-                  layout
-                  onClick={() => onFlashcardClose?.()}
-                  className="relative px-3.5 py-1.5 text-[0.875rem] font-medium whitespace-nowrap z-10 rounded-[14px]"
-                  style={{ color: isDark ? 'rgba(255,255,255,0.5)' : 'rgba(0,0,0,0.45)' }}
-                  whileHover={{ backgroundColor: isDark ? 'rgba(255,255,255,0.06)' : 'rgba(0,0,0,0.04)' }}
-                  initial={{ opacity: 0, scale: 0.9 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                  transition={{ type: 'spring', stiffness: 400, damping: 25 }}
-                >
-                  <span className="relative z-10">Ana Sayfa</span>
-                </motion.button>
-              )}
-
             </div>
 
             {/* Separator — desktop only, not in flashcard mode */}
-            {!flashcardOpen && <span className="block w-px h-4 mx-1.5 shrink-0" style={{ background: isDark ? 'rgba(255,255,255,0.12)' : 'rgba(0,0,0,0.1)' }} />}
+            <span className="block w-px h-4 mx-1.5 shrink-0" style={{ background: isDark ? 'rgba(255,255,255,0.12)' : 'rgba(0,0,0,0.1)' }} />
 
             {/* HiT button — always visible */}
             <div className="relative shrink-0">
@@ -491,29 +476,6 @@ export default function Navbar({ theme, onHitClick, flashcardOpen, onFlashcardCl
                 transition={{ type: 'spring', stiffness: 400, damping: 20 }}
                 aria-label="HiT — Çok Yakında">
 
-                {flashcardOpen && (
-                  <motion.div
-                    layoutId="nav-capsule"
-                    className="absolute inset-0 rounded-[14px] overflow-hidden"
-                    style={{
-                      background: isDark ? 'rgba(255,255,255,0.1)' : 'rgba(255,255,255,0.55)',
-                      backdropFilter: 'blur(10px)',
-                      WebkitBackdropFilter: 'blur(10px)',
-                      boxShadow: isDark
-                        ? '0 2px 12px rgba(0,0,0,0.3), inset 0 1px 0 rgba(255,255,255,0.08)'
-                        : '0 2px 12px rgba(0,0,0,0.06), inset 0 1px 0 rgba(255,255,255,0.8)',
-                    }}
-                    transition={{ type: 'spring', stiffness: 350, damping: 30, mass: 0.8 }}
-                  >
-                    <div className="absolute inset-0 rounded-[inherit] pointer-events-none" style={{
-                      padding: '1px',
-                      background: `linear-gradient(135deg, ${isDark ? 'rgba(255,255,255,0.22)' : 'rgba(255,255,255,0.5)'} 0%, ${isDark ? 'rgba(255,255,255,0.06)' : 'rgba(255,255,255,0.15)'} 25%, ${isDark ? 'rgba(255,255,255,0.02)' : 'rgba(255,255,255,0.06)'} 50%, ${isDark ? 'rgba(255,255,255,0.06)' : 'rgba(255,255,255,0.15)'} 75%, ${isDark ? 'rgba(255,255,255,0.22)' : 'rgba(255,255,255,0.5)'} 100%)`,
-                      mask: 'linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0)',
-                      maskComposite: 'exclude',
-                      WebkitMaskComposite: 'xor' as any
-                    }} />
-                  </motion.div>
-                )}
 
                 <img
                   src={isDark ? logoLight : logoDark}
