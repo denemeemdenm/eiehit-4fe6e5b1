@@ -1,6 +1,6 @@
 import { useState, useEffect, useCallback, useRef, useMemo } from 'react';
 import { Menu, X, Lock } from 'lucide-react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion, AnimatePresence, useSpring, useTransform } from 'framer-motion';
 import logo from '@/assets/logo.png';
 import logoDark from '@/assets/logo-dark.png';
 import logoLight from '@/assets/logo-light.png';
