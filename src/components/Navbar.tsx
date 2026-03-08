@@ -395,7 +395,7 @@ export default function Navbar({ theme, onHitClick, flashcardOpen, onFlashcardCl
                   <motion.button
                     key={item.id}
                     onClick={() => scrollTo(item.id)}
-                    className="relative px-3.5 py-1.5 text-[0.8125rem] font-medium whitespace-nowrap z-10 rounded-[14px] transition-colors duration-300"
+                    className="relative px-3.5 py-1.5 text-[0.875rem] font-medium whitespace-nowrap z-10 rounded-[14px] transition-colors duration-300"
                     style={{
                       color: isActive ?
                       isDark ? '#fff' : '#000' :
@@ -454,7 +454,7 @@ export default function Navbar({ theme, onHitClick, flashcardOpen, onFlashcardCl
                 <motion.button
                   layout
                   onClick={() => onFlashcardClose?.()}
-                  className="relative px-3.5 py-1.5 text-[0.8125rem] font-medium whitespace-nowrap z-10 rounded-[14px]"
+                  className="relative px-3.5 py-1.5 text-[0.875rem] font-medium whitespace-nowrap z-10 rounded-[14px]"
                   style={{ color: isDark ? 'rgba(255,255,255,0.5)' : 'rgba(0,0,0,0.45)' }}
                   whileHover={{ backgroundColor: isDark ? 'rgba(255,255,255,0.06)' : 'rgba(0,0,0,0.04)' }}
                   initial={{ opacity: 0, scale: 0.9 }}
@@ -555,7 +555,7 @@ export default function Navbar({ theme, onHitClick, flashcardOpen, onFlashcardCl
                 <motion.div initial={{ opacity: 0, x: -12 }} animate={{ opacity: 1, x: 0 }} transition={{ duration: 0.2 }}>
                   <button
                     onClick={() => { onFlashcardClose?.(); setMobileOpen(false); }}
-                    className="relative block w-full text-left px-4 py-2.5 rounded-xl text-sm font-medium"
+                    className="relative block w-full text-left px-4 py-2.5 rounded-xl text-[0.9375rem] font-medium"
                     style={{ color: isDark ? '#fff' : '#000', background: isDark ? 'rgba(255,255,255,0.08)' : 'rgba(255,255,255,0.5)' }}>
                     Ana Sayfa
                   </button>
@@ -570,7 +570,7 @@ export default function Navbar({ theme, onHitClick, flashcardOpen, onFlashcardCl
                   transition={{ delay: i * 0.04, duration: 0.2 }}>
                     <button
                     onClick={() => scrollTo(item.id)}
-                    className="relative block w-full text-left px-4 py-2.5 rounded-xl text-sm font-medium transition-colors duration-200"
+                    className="relative block w-full text-left px-4 py-2.5 rounded-xl text-[0.9375rem] font-medium transition-colors duration-200"
                     style={{
                       color: isActive ? isDark ? '#fff' : '#000' : isDark ? 'rgba(255,255,255,0.5)' : 'rgba(0,0,0,0.45)',
                       background: isActive ? isDark ? 'rgba(255,255,255,0.08)' : 'rgba(255,255,255,0.5)' : 'transparent'
