@@ -31,10 +31,6 @@ const AppContent = () => {
   return (
     <div className="min-h-screen flex flex-col relative">
       <NeuralBackground />
-      <div
-        aria-hidden
-        className="global-frosted-top fixed top-0 left-0 right-0 z-[9998] pointer-events-none h-36"
-      />
       <CursorTrail />
       <Navbar theme={theme} onHitClick={handleHitClick} flashcardOpen={flashcardOpen} onFlashcardClose={() => setFlashcardOpen(false)} />
       <div
