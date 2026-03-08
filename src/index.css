@@ -466,30 +466,36 @@
 }
 
 .heading-gradient-silver {
-  background: linear-gradient(270deg, #ffffff, #EBEBEB, #ffffff, #EBEBEB, #ffffff, #EBEBEB, #ffffff);
-  background-size: 300% 100%;
+  background: linear-gradient(90deg, #ffffff 0%, #ffffff 28%, #EBEBEB 52%, #ffffff 76%, #EBEBEB 100%);
+  background-size: 220% 100%;
+  background-repeat: no-repeat;
+  background-position: 0% 50%;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
-  animation: gradient-sweep 5s linear infinite;
+  animation: gradient-shift 6s ease-in-out infinite;
 }
 
 .heading-gradient-gold {
-  background: linear-gradient(270deg, #c9a227, #f4d03f, #d4a017, #c9a227, #f4d03f, #d4a017, #c9a227);
-  background-size: 300% 100%;
+  background: linear-gradient(90deg, #c9a227 0%, #f4d03f 30%, #d4a017 52%, #f4d03f 76%, #c9a227 100%);
+  background-size: 220% 100%;
+  background-repeat: no-repeat;
+  background-position: 0% 50%;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
-  animation: gradient-sweep 5s linear infinite;
+  animation: gradient-shift 6s ease-in-out infinite;
 }
 
 .dark .heading-gradient-silver {
-  background: linear-gradient(270deg, #ffffff, #EBEBEB, #ffffff, #EBEBEB, #ffffff, #EBEBEB, #ffffff);
-  background-size: 300% 100%;
+  background: linear-gradient(90deg, #ffffff 0%, #ffffff 28%, #EBEBEB 52%, #ffffff 76%, #EBEBEB 100%);
+  background-size: 220% 100%;
+  background-repeat: no-repeat;
+  background-position: 0% 50%;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
-  animation: gradient-sweep 5s linear infinite;
+  animation: gradient-shift 6s ease-in-out infinite;
 }
 
 @media (prefers-reduced-motion: reduce) {
