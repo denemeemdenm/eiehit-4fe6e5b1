@@ -398,10 +398,10 @@
   }
 }
 
-/* Animated heading gradients - text sabit, renk soldan sağa kayar */
+/* Animated heading gradients - text sabit, renk sağdan sola kayar */
 @keyframes heading-gradient-rtl {
   0% { background-position: 0 50%; }
-  100% { background-position: 200px 50%; }
+  100% { background-position: -200px 50%; }
 }
 
 .heading-gradient-red,
@@ -437,7 +437,8 @@
 }
 
 .heading-gradient-silver {
-  background-image: repeating-linear-gradient(90deg, #505050 0px, #000000 50px, #505050 100px, #000000 150px, #505050 200px);
+  background-image: repeating-linear-gradient(90deg, #505050 0px, #1a1a1a 100px, #000000 200px, #1a1a1a 300px, #505050 400px);
+  background-size: 400px 100%;
 }
 
 .heading-gradient-gold {
@@ -453,7 +454,8 @@
 }
 
 .dark .heading-gradient-silver {
-  background-image: repeating-linear-gradient(90deg, hsl(0 0% 100%) 0px, hsl(0 0% 90%) 50px, hsl(0 0% 100%) 100px, hsl(0 0% 90%) 150px, hsl(0 0% 100%) 200px);
+  background-image: repeating-linear-gradient(90deg, hsl(0 0% 100%) 0px, hsl(0 0% 95%) 100px, hsl(0 0% 88%) 200px, hsl(0 0% 95%) 300px, hsl(0 0% 100%) 400px);
+  background-size: 400px 100%;
 }
 
 .dark .heading-gradient-gold {
