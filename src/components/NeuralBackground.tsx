@@ -311,15 +311,11 @@ export default function NeuralBackground() {
 
     const handleResize = () => {
       resizeCanvas();
-      // Rescale particle positions to new canvas dimensions & reset coverage
-      const oldWidth = particlesRef.current.length > 0 ? Math.max(...particlesRef.current.map(p => p.homeX), canvas.width) : canvas.width;
-      const scaleX = canvas.width / (oldWidth || canvas.width);
-      particlesRef.current.forEach(p => {
-        p.x *= scaleX;
-        p.homeX *= scaleX;
-      });
-      // Re-create particles from scratch to avoid stale layout
-      createParticles();
+      if (resizeTimer) clearTimeout(resizeTimer);
+      resizeTimer = setTimeout(() => {
+        particleCount = getParticleCount();
+        createParticles();
+      }, 200);
     };
     const handleMouse = (e: MouseEvent) => { mouseRef.current = { x: e.clientX, y: e.clientY }; };
     const handleTouch = (e: TouchEvent) => { mouseRef.current = { x: e.touches[0].clientX, y: e.touches[0].clientY }; };
