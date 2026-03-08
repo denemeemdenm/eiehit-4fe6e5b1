@@ -67,20 +67,35 @@ export default function Navbar({ theme, onHitClick, flashcardOpen, onFlashcardCl
   }, []);
 
   // Close password popover on click outside
+  const popoverRef = useRef<HTMLDivElement>(null);
   useEffect(() => {
     if (!showPasswordModal) return;
     const handler = (e: MouseEvent) => {
       const target = e.target as Node;
       if (hitButtonRef.current?.contains(target)) return;
-      // Check if click is inside the popover
-      const popover = hitButtonRef.current?.parentElement?.querySelector('[data-password-popover]');
-      if (popover?.contains(target)) return;
+      if (popoverRef.current?.contains(target)) return;
       setShowPasswordModal(false);
     };
     const escHandler = (e: KeyboardEvent) => { if (e.key === 'Escape') setShowPasswordModal(false); };
     document.addEventListener('mousedown', handler);
     document.addEventListener('keydown', escHandler);
     return () => { document.removeEventListener('mousedown', handler); document.removeEventListener('keydown', escHandler); };
+  }, [showPasswordModal]);
+
+  // Calculate popover position from HiT button
+  const [popoverPos, setPopoverPos] = useState({ top: 0, right: 0 });
+  useEffect(() => {
+    if (!showPasswordModal || !hitButtonRef.current) return;
+    const updatePos = () => {
+      const rect = hitButtonRef.current!.getBoundingClientRect();
+      setPopoverPos({
+        top: rect.bottom + 10,
+        right: window.innerWidth - rect.right,
+      });
+    };
+    updatePos();
+    window.addEventListener('resize', updatePos);
+    return () => window.removeEventListener('resize', updatePos);
   }, [showPasswordModal]);
 
   const scrollTo = useCallback((id: string) => {
