@@ -366,7 +366,7 @@ export default function Navbar({ theme, onHitClick, flashcardOpen, onFlashcardCl
 
             {/* Logo */}
             <button onClick={() => { if (flashcardOpen) { onFlashcardClose?.(); } else { scrollTo('hero'); } }} className="shrink-0 flex items-center pl-2">
-              <img src={logo} alt="Logo" className="w-9 h-9 object-contain" />
+              <img src={logo} alt="Logo" className="w-8 h-8 object-contain" />
             </button>
 
             {/* Desktop links */}
