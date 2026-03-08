@@ -452,7 +452,7 @@
   background-image: repeating-linear-gradient(90deg, #f6e587 0px, #eccb72 100px, #f6e587 200px, #eccb72 300px, #f6e587 400px);
   background-size: 400px 100%;
   background-repeat: repeat-x;
-  animation: heading-gradient-rtl 10s linear infinite;
+  animation: heading-gradient-rtl 5s linear infinite;
 }
 
 .dark .heading-gradient-red {
