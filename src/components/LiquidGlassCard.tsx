@@ -9,7 +9,7 @@ interface LiquidGlassCardProps {
   onClick?: () => void;
 }
 
-export default function LiquidGlassCard({ children, className = '', tiltIntensity = 4 }: LiquidGlassCardProps) {
+export default function LiquidGlassCard({ children, className = '', tiltIntensity = 4, onClick }: LiquidGlassCardProps) {
   const cardRef = useRef<HTMLDivElement>(null);
   const rafRef = useRef<number>(0);
   const [specularPos, setSpecularPos] = useState({ x: 50, y: 50 });
