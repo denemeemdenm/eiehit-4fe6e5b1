@@ -312,34 +312,30 @@
     background-clip: text;
   }
 
-  .gradient-text-cyan-word {
-    background: linear-gradient(135deg, #64FFFF, #5AE6E6);
+  .gradient-text-cyan-word,
+  .gradient-text-orange-word,
+  .gradient-text-yellow-word {
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
+    background-size: 220% 100%;
+    background-repeat: no-repeat;
+    animation: heading-gradient-flow 6s linear infinite;
     display: inline-block;
     padding: 0 0.08em;
     margin: 0 -0.08em;
+  }
+
+  .gradient-text-cyan-word {
+    background-image: linear-gradient(90deg, hsl(180 100% 70%) 0%, hsl(180 74% 63%) 45%, hsl(180 100% 70%) 100%);
   }
 
   .gradient-text-orange-word {
-    background: linear-gradient(135deg, #FF4B00, #CC3D00);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-    display: inline-block;
-    padding: 0 0.08em;
-    margin: 0 -0.08em;
+    background-image: linear-gradient(90deg, hsl(18 100% 50%) 0%, hsl(17 100% 45%) 45%, hsl(18 100% 50%) 100%);
   }
 
   .gradient-text-yellow-word {
-    background: linear-gradient(135deg, #FFCC00, #e6b800);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-    display: inline-block;
-    padding: 0 0.08em;
-    margin: 0 -0.08em;
+    background-image: linear-gradient(90deg, hsl(48 100% 50%) 0%, hsl(45 85% 45%) 45%, hsl(48 100% 50%) 100%);
   }
 
   /* Cyan gradient for icons — same vivid color in both modes */
