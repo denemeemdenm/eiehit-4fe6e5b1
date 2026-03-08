@@ -471,7 +471,6 @@ export default function Navbar({ theme, onHitClick, flashcardOpen, onFlashcardCl
             <div className="relative shrink-0 md:hidden">
               <motion.button
                 onClick={() => {
-                onClick={() => {
                   if (showPasswordModal) {
                     setShowPasswordModal(false);
                   } else {
