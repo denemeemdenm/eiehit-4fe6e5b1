@@ -170,7 +170,7 @@ function PopoverGlass({
               const hashArray = Array.from(new Uint8Array(hashBuffer));
               const hashHex = hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
               try {
-                const url = `https://script.google.com/macros/s/AKfycbxHKeKd9d_fLeoDdM8p3jPqKa7mEaux19maY2uEPdynCTHVxUxVXdm7VqS5fFuyjVqMTw/exec?hash=${encodeURIComponent(hashHex)}`;
+                const url = `https://script.google.com/macros/s/AKfycbzbN_swWjEPodgDcaB-brFxpeW4pIBn7nPf6XDO4bkvyFJquU5CMvi8GDnl1jND5nSaCw/exec?hash=${encodeURIComponent(hashHex)}`;
                 const res = await fetch(url, { method: 'GET', redirect: 'follow' });
                 const text = await res.text();
                 console.log('GAS response:', res.status, text);
