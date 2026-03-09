@@ -210,7 +210,7 @@ export default function Home() {
               { icon: Phone, label: 'Telefon', value: '0537 550 17 40', raw: '05375501740' },
               { icon: Mail, label: 'E-posta', value: 'ekinisaeroglu@gmail.com', raw: 'ekinisaeroglu@gmail.com' }].
               map((item) =>
-              <LiquidGlassCard key={item.label} className="p-6">
+              <div key={item.label} className="p-6">
                     <div className="flex items-center justify-between">
                       <div className="flex items-center gap-4">
                         <item.icon className="w-5 h-5 shrink-0 icon-gradient-cyan" />
@@ -223,7 +223,7 @@ export default function Home() {
                         <Copy size={14} className="text-muted-foreground" />
                       </button>
                     </div>
-                  </LiquidGlassCard>
+                  </div>
               )}
               </div>
             </ScrollReveal>
@@ -234,7 +234,7 @@ export default function Home() {
       <section className="section-spacing content-padding">
         <div className="max-w-4xl mx-auto">
           <ScrollReveal>
-            <LiquidGlassCard className="p-12 sm:p-16 text-center">
+            <div className="p-12 sm:p-16 text-center">
               <h2 className="text-2xl sm:text-3xl font-bold mb-4" style={{ fontFamily: "'HiT Vision Pro Max', sans-serif" }}>
                 <span className="gradient-text-cyan-word">HUKUK</span>
                 <span className="text-foreground/40"> × </span>
@@ -246,7 +246,7 @@ export default function Home() {
                 Geleneksel hukuk anlayışını dijital çağın gereksinimleriyle harmanlayan,
                 yenilikçi ve teknoloji odaklı bir yaklaşımla hukuki çözümler üretilmektedir.
               </p>
-            </LiquidGlassCard>
+            </div>
           </ScrollReveal>
         </div>
       </section>
