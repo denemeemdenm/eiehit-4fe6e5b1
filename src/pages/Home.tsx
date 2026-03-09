@@ -210,7 +210,7 @@ export default function Home() {
               { icon: Phone, label: 'Telefon', value: '0537 550 17 40', raw: '05375501740' },
               { icon: Mail, label: 'E-posta', value: 'ekinisaeroglu@gmail.com', raw: 'ekinisaeroglu@gmail.com' }].
               map((item) =>
-              <div key={item.label} className="p-6">
+              <LiquidGlassCard key={item.label} className="p-6">
                     <div className="flex items-center justify-between">
                       <div className="flex items-center gap-4">
                         <item.icon className="w-5 h-5 shrink-0 icon-gradient-cyan" />
@@ -223,7 +223,7 @@ export default function Home() {
                         <Copy size={14} className="text-muted-foreground" />
                       </button>
                     </div>
-                  </div>
+                  </LiquidGlassCard>
               )}
               </div>
             </ScrollReveal>
