@@ -211,7 +211,13 @@ export default function Home() {
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
             {featuredAreas.map((area, i) =>
             <ScrollReveal key={area.id} delay={i * 0.08}>
-                <ImageCard image={(isDark ? areaImagesDark : areaImagesLight)[area.id] || ''} title={area.title} description={area.description} className="h-full" aspectRatio="4/3" />
+                <div className="h-full">
+                  <div className="flex items-center justify-center h-64 mb-4">
+                    <img src={(isDark ? areaImagesDark : areaImagesLight)[area.id] || ''} alt={area.title} className="w-full h-full object-cover rounded-lg" />
+                  </div>
+                  <h3 className="text-lg font-semibold mb-2">{area.title}</h3>
+                  <p className="text-sm text-muted-foreground">{area.description}</p>
+                </div>
               </ScrollReveal>
             )}
           </div>
