@@ -234,7 +234,7 @@ export default function Home() {
       <section className="section-spacing content-padding">
         <div className="max-w-4xl mx-auto">
           <ScrollReveal>
-            <div className="p-12 sm:p-16 text-center">
+            <LiquidGlassCard className="p-12 sm:p-16 text-center">
               <h2 className="text-2xl sm:text-3xl font-bold mb-4" style={{ fontFamily: "'HiT Vision Pro Max', sans-serif" }}>
                 <span className="gradient-text-cyan-word">HUKUK</span>
                 <span className="text-foreground/40"> × </span>
@@ -246,7 +246,7 @@ export default function Home() {
                 Geleneksel hukuk anlayışını dijital çağın gereksinimleriyle harmanlayan,
                 yenilikçi ve teknoloji odaklı bir yaklaşımla hukuki çözümler üretilmektedir.
               </p>
-            </div>
+            </LiquidGlassCard>
           </ScrollReveal>
         </div>
       </section>
