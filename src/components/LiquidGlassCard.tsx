@@ -71,7 +71,7 @@ export default function LiquidGlassCard({ children, className = '', tiltIntensit
         className={`relative overflow-hidden ${className}`}
         style={{
           borderRadius: 20,
-          background: 'hsl(var(--glass-bg))',
+          background: 'hsla(var(--glass-bg))',
           backdropFilter: 'blur(var(--glass-blur)) saturate(var(--glass-saturation))',
           WebkitBackdropFilter: 'blur(var(--glass-blur)) saturate(var(--glass-saturation))',
           boxShadow: isHovered
