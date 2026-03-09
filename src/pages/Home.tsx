@@ -138,7 +138,7 @@ export default function Home() {
           </ScrollReveal>
 
           <ScrollReveal delay={0.1}>
-            <div className="p-10 sm:p-14 mb-8">
+            <LiquidGlassCard className="p-10 sm:p-14 mb-8">
               <div className="flex items-start gap-6 mb-8">
                 <img src={logo} alt="Logo" className="w-16 h-auto shrink-0 object-contain" />
                 <div>
@@ -149,7 +149,7 @@ export default function Home() {
                 <p>Hukuki süreçlerin değişen dinamiklerini yakından takip eden, teknolojiyi hukuk pratiğinin ayrılmaz bir parçası olarak benimseyen bir yaklaşımla çalışmaktadır.</p>
                 <p>Müvekkillerin ihtiyaçlarını net biçimde anlayarak, karmaşık hukuki meseleleri anlaşılır ve uygulanabilir çözümlere dönüştürmek temel ilkesidir.</p>
               </div>
-            </div>
+            </LiquidGlassCard>
           </ScrollReveal>
 
           <ScrollReveal delay={0.2}>
