@@ -68,9 +68,9 @@
     --radius: 16px;
 
     /* Glass tokens */
-    --glass-bg: 0 0% 96% / 0.12;
+    --glass-bg: 0 0% 100% / 0.18;
     --glass-border: 0 0% 100% / 0.22;
-    --glass-blur: 10px;
+    --glass-blur: 12px;
     --glass-saturation: 200%;
     --surface: 0 0% 100% / 0.72;
 
@@ -126,9 +126,9 @@
     --input: 240 4% 16%;
     --ring: 180 100% 69%;
 
-    --glass-bg: 0 0% 8% / 0.12;
+    --glass-bg: 0 0% 8% / 0.16;
     --glass-border: 0 0% 100% / 0.14;
-    --glass-blur: 10px;
+    --glass-blur: 12px;
     --glass-saturation: 200%;
     --surface: 240 4% 18% / 0.82;
 

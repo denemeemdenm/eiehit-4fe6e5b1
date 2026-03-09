@@ -66,13 +66,14 @@ export default function LiquidGlassCard({ children, className = '', tiltIntensit
       onClick={onClick}
       whileTap={onClick ? { scale: 0.98, transition: { type: 'spring', stiffness: 400, damping: 25 } } : undefined}
     >
-      {/* Inner div handles backdrop-filter + glass styling — separated from transform */}
+      {/* Inner div handles glass styling */}
       <div
         className={`relative overflow-hidden ${className}`}
         style={{
           borderRadius: 20,
-          
-          background: 'transparent',
+          background: 'hsl(var(--glass-bg))',
+          backdropFilter: 'blur(var(--glass-blur)) saturate(var(--glass-saturation))',
+          WebkitBackdropFilter: 'blur(var(--glass-blur)) saturate(var(--glass-saturation))',
           boxShadow: isHovered
             ? isDark
               ? '0 16px 40px rgba(0,0,0,0.4), inset 0 1px 0 rgba(255,255,255,0.06)'
@@ -82,14 +83,14 @@ export default function LiquidGlassCard({ children, className = '', tiltIntensit
               : '0 4px 16px rgba(0,0,0,0.04), inset 0 1px 0 rgba(255,255,255,0.35)',
         }}
       >
-        {/* Base frosted layer */}
+        {/* Subtle inner sheen (no filter) */}
         <div
           className="absolute inset-0 pointer-events-none z-0"
           style={{
             borderRadius: 'inherit',
-            background: 'hsla(var(--glass-bg))',
-            backdropFilter: 'blur(calc(var(--glass-blur) + 8px)) saturate(var(--glass-saturation))',
-            WebkitBackdropFilter: 'blur(calc(var(--glass-blur) + 8px)) saturate(var(--glass-saturation))',
+            background:
+              'linear-gradient(180deg, hsl(var(--foreground) / 0.06), transparent 42%)',
+            opacity: isDark ? 0.55 : 0.35,
           }}
         />
 
