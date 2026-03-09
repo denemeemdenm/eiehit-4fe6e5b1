@@ -153,7 +153,7 @@ export default function Home() {
           </ScrollReveal>
 
           <ScrollReveal delay={0.2}>
-            <LiquidGlassCard className="p-10 sm:p-14">
+            <div className="p-10 sm:p-14">
               <AnimatedGradientHeading as="h3" color="cyan" className="text-xl font-bold mb-6">Yaklaşım ve Değerler</AnimatedGradientHeading>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
                 {[
@@ -168,7 +168,7 @@ export default function Home() {
                   </div>
                 )}
               </div>
-            </LiquidGlassCard>
+            </div>
           </ScrollReveal>
         </div>
       </section>
