@@ -184,7 +184,13 @@ export default function Home() {
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
             {(isDark ? trustSignalsDark : trustSignalsLight).map((item, i) =>
             <ScrollReveal key={item.title} delay={i * 0.1}>
-                <ImageCard image={item.image} title={item.title} description={item.desc} className="h-full" aspectRatio="1/1" />
+                <div className="h-full">
+                  <div className="flex items-center justify-center h-48 mb-4">
+                    <img src={item.image} alt={item.title} className="w-full h-full object-cover rounded-lg" />
+                  </div>
+                  <h3 className="text-lg font-semibold mb-2">{item.title}</h3>
+                  <p className="text-sm text-muted-foreground">{item.desc}</p>
+                </div>
               </ScrollReveal>
             )}
           </div>
