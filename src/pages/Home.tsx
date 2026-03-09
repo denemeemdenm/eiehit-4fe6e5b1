@@ -138,7 +138,7 @@ export default function Home() {
           </ScrollReveal>
 
           <ScrollReveal delay={0.1}>
-            <LiquidGlassCard className="p-10 sm:p-14 mb-8">
+            <div className="p-10 sm:p-14 mb-8">
               <div className="flex items-start gap-6 mb-8">
                 <img src={logo} alt="Logo" className="w-16 h-auto shrink-0 object-contain" />
                 <div>
@@ -149,11 +149,11 @@ export default function Home() {
                 <p>Hukuki süreçlerin değişen dinamiklerini yakından takip eden, teknolojiyi hukuk pratiğinin ayrılmaz bir parçası olarak benimseyen bir yaklaşımla çalışmaktadır.</p>
                 <p>Müvekkillerin ihtiyaçlarını net biçimde anlayarak, karmaşık hukuki meseleleri anlaşılır ve uygulanabilir çözümlere dönüştürmek temel ilkesidir.</p>
               </div>
-            </LiquidGlassCard>
+            </div>
           </ScrollReveal>
 
           <ScrollReveal delay={0.2}>
-            <LiquidGlassCard className="p-10 sm:p-14">
+            <div className="p-10 sm:p-14">
               <AnimatedGradientHeading as="h3" color="cyan" className="text-xl font-bold mb-6">Yaklaşım ve Değerler</AnimatedGradientHeading>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
                 {[
@@ -168,26 +168,8 @@ export default function Home() {
                   </div>
                 )}
               </div>
-            </LiquidGlassCard>
+            </div>
           </ScrollReveal>
-        </div>
-      </section>
-
-      {/* ═══ TRUST SIGNALS ═══ */}
-      <section className="section-spacing content-padding">
-        <div className="max-w-6xl mx-auto">
-          <ScrollReveal>
-            <AnimatedGradientHeading color="cyan" className="text-2xl sm:text-[30px] font-bold text-center mb-16">
-              Profesyonel Yaklaşım
-            </AnimatedGradientHeading>
-          </ScrollReveal>
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-            {(isDark ? trustSignalsDark : trustSignalsLight).map((item, i) =>
-            <ScrollReveal key={item.title} delay={i * 0.1}>
-                <ImageCard image={item.image} title={item.title} description={item.desc} className="h-full" aspectRatio="1/1" />
-              </ScrollReveal>
-            )}
-          </div>
         </div>
       </section>
 
